@@ -1,3 +1,3 @@
 displayName = 颂歌
 author = 幽银&永耀&Wan
-version = 0.1
+version = 0.0.0.4
