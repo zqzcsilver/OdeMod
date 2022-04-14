@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 namespace OdeMod.Items.Series
 {
     /// <summary>
-    /// 表示形成一个系列的接口，系列物品的接口请继承此接口
+    /// 表示形成一个系列的接口，系列物品的接口请继承此接口。属于<see cref="OdeItemInterface"/>
     /// </summary>
-    internal interface SeriesItemInterface
+    internal interface SeriesItemInterface : OdeItemInterface
     {
     }
 }

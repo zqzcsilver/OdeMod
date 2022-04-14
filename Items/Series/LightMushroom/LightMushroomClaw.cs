@@ -15,6 +15,9 @@ using Terraria.ModLoader;
 
 namespace OdeMod.Items.Series.LightMushroom
 {
+    /// <summary>
+    /// 明菇爪套，属于<see cref="LightMushroomInterface"/>
+    /// </summary>
     internal class LightMushroomClaw : ModItem, LightMushroomInterface
     {
         public override void SetStaticDefaults()
