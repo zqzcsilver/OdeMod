@@ -15,9 +15,9 @@ using Terraria.ModLoader;
 namespace OdeMod.Items.Series.LightMushroom
 {
     /// <summary>
-    /// 明菇狂热者，属于<see cref="LightMushroomInterface"/>
+    /// 明菇狂热者，属于<see cref="LightMushroomItemInterface"/>
     /// </summary>
-    internal class LightMushroomHolyknife : ModItem, LightMushroomInterface
+    internal class LightMushroomHolyknife : ModItem, LightMushroomItemInterface
     {
         public override void SetStaticDefaults()
         {

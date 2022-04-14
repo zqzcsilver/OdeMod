@@ -19,9 +19,9 @@ using Terraria.ModLoader;
 namespace OdeMod.Items.Series.LightMushroom
 {
     /// <summary>
-    /// 光明蘑菇,属于<see cref="LightMushroomInterface"/>
+    /// 光明蘑菇,属于<see cref="LightMushroomItemInterface"/>
     /// </summary>
-    internal class LightMushroom : ModItem, LightMushroomInterface
+    internal class LightMushroom : ModItem, LightMushroomItemInterface
     {
         public override void SetStaticDefaults()
         {
