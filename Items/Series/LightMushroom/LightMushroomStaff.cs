@@ -22,9 +22,9 @@ namespace OdeMod.Items.Series.LightMushroom
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Light Mushroom Staff");
+            DisplayName.SetDefault("Sunshine Mushroom Staff");
             DisplayName.AddTranslation(LanguageType.Chinese, "明菇魔杖");
-            Tooltip.SetDefault("The magic stimulates the mushroom, and the mushroom releases the sunlight it stores");
+            Tooltip.SetDefault("Magic stimulates the mushroom, then the mushroom releases sunlight it stores");
             Tooltip.AddTranslation(LanguageType.Chinese, "魔力刺激明菇，明菇放出它储存的阳光");
         }
         public override void SetDefaults()

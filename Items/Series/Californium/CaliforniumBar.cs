@@ -12,7 +12,7 @@ namespace OdeMod.Items.Series.Californium
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("CaliforniumBar");
+            DisplayName.SetDefault("Californium Bar");
             DisplayName.AddTranslation(LanguageType.Chinese, "锎锭");
             Tooltip.SetDefault("Post-Moon Lord, Pirate Event");
             Tooltip.AddTranslation(LanguageType.Chinese, "月总后海盗事件");

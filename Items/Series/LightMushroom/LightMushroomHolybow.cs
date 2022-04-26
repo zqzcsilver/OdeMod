@@ -23,9 +23,9 @@ namespace OdeMod.Items.Series.LightMushroom
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Light Mushroom Holybow");
+            DisplayName.SetDefault("Sunshine Mushroom Bow");
             DisplayName.AddTranslation(LanguageType.Chinese, "明菇弓矢");
-            Tooltip.SetDefault("Hit the enemy with a bright strike!");
+            Tooltip.SetDefault("Hit enemies with a bright strike!");
             Tooltip.AddTranslation(LanguageType.Chinese, "朝着敌人发出光明的一击！");
         }
         public override void SetDefaults()

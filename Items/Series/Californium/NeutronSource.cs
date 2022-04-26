@@ -14,8 +14,8 @@ namespace OdeMod.Items.Series.Californium
             base.SetStaticDefaults();
             DisplayName.SetDefault("Neutron Source");
             DisplayName.AddTranslation(LanguageType.Chinese, "中子源");
-            Tooltip.SetDefault("You can watch the location of treasure and ore\n" +
-                "Your defense increase 10%");
+            Tooltip.SetDefault("You can see locations of treasures and ores\n" +
+                "10% increased defense");
             Tooltip.AddTranslation(LanguageType.Chinese, "你可以看到宝藏和矿石的位置\n" +
                 "你的防御增加10%");
         }

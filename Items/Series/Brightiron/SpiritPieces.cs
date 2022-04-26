@@ -12,7 +12,7 @@ namespace OdeMod.Items.Series.Brightiron
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Spirit Pieces");
+            DisplayName.SetDefault("Supernatural Pieces");
             DisplayName.AddTranslation(LanguageType.Chinese, "异灵体");
             Tooltip.SetDefault("Post-Eye of Cthulhu, Crimson / Corrupt Biome");
             Tooltip.AddTranslation(LanguageType.Chinese, "克鲁苏之眼后，猩红地/腐地");

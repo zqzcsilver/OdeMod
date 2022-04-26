@@ -26,9 +26,9 @@ namespace OdeMod.Items.Series.LightMushroom
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Light Mushroom");
+            DisplayName.SetDefault("Sunshine Mushroom");
             DisplayName.AddTranslation(LanguageType.Chinese, "光明蘑菇");
-            Tooltip.SetDefault("Absorbs sunlight during the day and emits sunlight at night...");
+            Tooltip.SetDefault("Absorbs sunlight during daytime and emits sunlight at night...");
             Tooltip.AddTranslation(LanguageType.Chinese, "在白天吸收阳光，在夜晚放出阳光...");
         }
         public override void SetDefaults()

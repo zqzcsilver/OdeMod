@@ -14,7 +14,7 @@ namespace OdeMod.Items.Series.Californium
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Gamma Disembower");
+            DisplayName.SetDefault("Gamma Ripper");
             DisplayName.AddTranslation(LanguageType.Chinese, "伽马开膛者");
             Tooltip.SetDefault("");
             Tooltip.AddTranslation(LanguageType.Chinese, "");
