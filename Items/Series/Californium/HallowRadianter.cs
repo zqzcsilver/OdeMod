@@ -14,7 +14,7 @@ namespace OdeMod.Items.Series.Californium
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Hallow Radianter");
+            DisplayName.SetDefault("Hallow Radiator");
             DisplayName.AddTranslation(LanguageType.Chinese, "神圣放射者");
             Tooltip.SetDefault("");
             Tooltip.AddTranslation(LanguageType.Chinese, "");
