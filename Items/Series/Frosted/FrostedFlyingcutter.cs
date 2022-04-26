@@ -14,7 +14,7 @@ namespace OdeMod.Items.Series.Frosted
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Frosted Flyingcutter");
+            DisplayName.SetDefault("Frosted Flying Knife");
             DisplayName.AddTranslation(LanguageType.Chinese, "凝霜飞刀");
             Tooltip.SetDefault("");
             Tooltip.AddTranslation(LanguageType.Chinese, "");
