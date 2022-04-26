@@ -14,7 +14,7 @@ namespace OdeMod.Items.Series.Californium
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Plaguebatter");
+            DisplayName.SetDefault("Plague Smiter");
             DisplayName.AddTranslation(LanguageType.Chinese, "瘟疫打击者");
             Tooltip.SetDefault("");
             Tooltip.AddTranslation(LanguageType.Chinese, "三连散射\n十一转化");

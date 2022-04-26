@@ -23,9 +23,9 @@ namespace OdeMod.Items.Series.LightMushroom
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Light Mushroom Hammeraxe");
+            DisplayName.SetDefault("Sunshine Mushroom Hammeraxe");
             DisplayName.AddTranslation(LanguageType.Chinese, "明菇斧锤");
-            Tooltip.SetDefault("Soft to the touch, but shiny");
+            Tooltip.SetDefault("Soft touch, but luminous");
             Tooltip.AddTranslation(LanguageType.Chinese, "软绵绵的手感，但是会发亮");
         }
         public override void SetDefaults()
