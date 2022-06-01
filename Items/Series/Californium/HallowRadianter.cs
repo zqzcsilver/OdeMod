@@ -9,7 +9,7 @@ using Terraria.ModLoader;
 
 namespace OdeMod.Items.Series.Californium
 {
-    internal class HallowRadianter : ModItem, CaliforniumInterface
+    internal class HallowRadianter : ModItem, ICalifornium
     {
         public override void SetStaticDefaults()
         {

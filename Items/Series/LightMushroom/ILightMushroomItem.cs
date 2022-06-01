@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 using Terraria;
 
-namespace OdeMod.Items.Series.Sharpsand
+namespace OdeMod.Items.Series.LightMushroom
 {
     /// <summary>
-    /// 纯砂系列物品请继承此接口
+    /// 光蘑菇系列物品请继承此接口，属于<see cref="ISeriesItem"/>
     /// </summary>
-    internal interface SharpsandInterface
+    internal interface ILightMushroomItem : ISeriesItem
     {
     }
 }

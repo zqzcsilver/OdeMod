@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace OdeMod.Items.Series.Californium
 {
-    internal class NeutronSource : ModItem, CaliforniumInterface
+    internal class NeutronSource : ModItem, ICalifornium
     {
         public override void SetStaticDefaults()
         {

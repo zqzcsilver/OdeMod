@@ -9,7 +9,7 @@ using Terraria.ID;
 using OdeMod.Utils;
 namespace OdeMod.Items.Series.Frosted
 {
-    internal class FrostedSickle : ModItem, FrostedInterface
+    internal class FrostedSickle : ModItem, IFrosted
     {
         public override void SetStaticDefaults()
         {

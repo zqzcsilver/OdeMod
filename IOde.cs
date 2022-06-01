@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OdeMod.Items
+namespace OdeMod
 {
     /// <summary>
-    /// Ode模组内承认的物品标识，各系列接口请继承此接口
+    /// 颂歌基础接口，请所有希望被识别为颂歌的类直接或间接继承此接口
     /// </summary>
-    internal interface OdeItemInterface
+    internal interface IOde
     {
     }
 }

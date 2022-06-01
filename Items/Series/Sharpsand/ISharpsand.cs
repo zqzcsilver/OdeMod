@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 using Terraria;
 
-namespace OdeMod.Items.Series.Brightiron
+namespace OdeMod.Items.Series.Sharpsand
 {
     /// <summary>
-    /// 熙铁系列物品请继承此接口
+    /// 纯砂系列物品请继承此接口。属于<see cref="ISeriesItem"/>
     /// </summary>
-    internal interface BrightironInterface
+    internal interface ISharpsand : ISeriesItem
     {
     }
 }

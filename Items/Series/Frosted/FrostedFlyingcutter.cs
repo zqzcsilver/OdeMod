@@ -9,7 +9,7 @@ using Terraria.ModLoader;
 
 namespace OdeMod.Items.Series.Frosted
 {
-    internal class FrostedFlyingcutter : ModItem, FrostedInterface
+    internal class FrostedFlyingcutter : ModItem, IFrosted
     {
         public override void SetStaticDefaults()
         {

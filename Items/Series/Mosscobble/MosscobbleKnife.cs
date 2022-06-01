@@ -9,7 +9,7 @@ using Terraria.ModLoader;
 
 namespace OdeMod.Items.Series.Mosscobble
 {
-    internal class MosscobbleKnife : ModItem, MosscobbleInterface
+    internal class MosscobbleKnife : ModItem, IMosscobble
     {
         public override void SetStaticDefaults()
         {

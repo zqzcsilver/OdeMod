@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace OdeMod.Items.Series.Frosted
 {
-    internal class FrostedThorn :ModItem,FrostedInterface
+    internal class FrostedThorn :ModItem,IFrosted
     {
         public override void SetStaticDefaults()
         {

@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace OdeMod.Items.Series.Mosscobble
 {
-    internal class Mosscobble: ModItem,MosscobbleInterface
+    internal class Mosscobble: ModItem,IMosscobble
     {
         public override void SetStaticDefaults()
         {

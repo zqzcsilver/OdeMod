@@ -9,7 +9,7 @@ using Terraria.ModLoader;
 
 namespace OdeMod.Items.Series.Californium
 {
-    internal class GammaDisembower : ModItem, CaliforniumInterface
+    internal class GammaDisembower : ModItem, ICalifornium
     {
         public override void SetStaticDefaults()
         {

@@ -9,7 +9,7 @@ using Terraria.ModLoader;
 
 namespace OdeMod.Items.Series.Californium
 {
-    internal class Plaguebatter : ModItem, CaliforniumInterface
+    internal class Plaguebatter : ModItem, ICalifornium
     {
         public override void SetStaticDefaults()
         {

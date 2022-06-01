@@ -1,0 +1,15 @@
+﻿Mods:
+{
+	OdeMod:
+	{
+		#
+		ItemName:
+		{
+			LightMushroom : 光明蘑菇
+		}
+		ItemTooltip:
+		{
+			LightMushroom : 在白天吸收阳光，在夜晚放出阳光...
+		}
+	}
+}

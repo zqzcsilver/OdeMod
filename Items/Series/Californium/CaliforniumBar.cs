@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace OdeMod.Items.Series.Californium
 {
-    internal class CaliforniumBar : ModItem, CaliforniumInterface
+    internal class CaliforniumBar : ModItem, ICalifornium
     {
         public override void SetStaticDefaults()
         {

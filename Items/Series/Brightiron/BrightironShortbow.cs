@@ -8,7 +8,7 @@ using Terraria.ModLoader;
 
 namespace OdeMod.Items.Series.Brightiron
 {
-    internal class BrightironShortbow : ModItem, BrightironInterface
+    internal class BrightironShortbow : ModItem, IBrightiron
     {
         public override void SetStaticDefaults()
         {

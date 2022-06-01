@@ -19,18 +19,18 @@ using Terraria.ModLoader;
 namespace OdeMod.Items.Series.LightMushroom
 {
     /// <summary>
-    /// 光明蘑菇,属于<see cref="LightMushroomItemInterface"/>
+    /// 光明蘑菇,属于<see cref="ILightMushroomItem"/>
     /// </summary>
-    internal class LightMushroom : ModItem, LightMushroomItemInterface
+    internal class LightMushroom : ModItem, ILightMushroomItem
     {
-        public override void SetStaticDefaults()
-        {
-            base.SetStaticDefaults();
-            DisplayName.SetDefault("Light Mushroom");
-            DisplayName.AddTranslation(LanguageType.Chinese, "光明蘑菇");
-            Tooltip.SetDefault("Absorbs sunlight during the day and emits sunlight at night...");
-            Tooltip.AddTranslation(LanguageType.Chinese, "在白天吸收阳光，在夜晚放出阳光...");
-        }
+        //public override void SetStaticDefaults()
+        //{
+        //    base.SetStaticDefaults();
+        //    DisplayName.SetDefault("Light Mushroom");
+        //    DisplayName.AddTranslation(LanguageType.Chinese, "光明蘑菇");
+        //    Tooltip.SetDefault("Absorbs sunlight during the day and emits sunlight at night...");
+        //    Tooltip.AddTranslation(LanguageType.Chinese, "在白天吸收阳光，在夜晚放出阳光...");
+        //}
         public override void SetDefaults()
         {
             base.SetDefaults();

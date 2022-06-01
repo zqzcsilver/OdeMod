@@ -9,7 +9,7 @@ using Terraria.ModLoader;
 
 namespace OdeMod.Items.Series.Sharpsand
 {
-    internal class SharpsandStaff : ModItem,SharpsandInterface
+    internal class SharpsandStaff : ModItem,ISharpsand
     {
         public override void SetStaticDefaults()
         {

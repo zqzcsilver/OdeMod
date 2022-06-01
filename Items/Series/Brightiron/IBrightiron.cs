@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 using Terraria;
 
-namespace OdeMod.Items.Series.LightMushroom
+namespace OdeMod.Items.Series.Brightiron
 {
     /// <summary>
-    /// 光蘑菇系列物品请继承此接口，属于<see cref="SeriesItemInterface"/>
+    /// 熙铁系列物品请继承此接口。属于<see cref="ISeriesItem"/>
     /// </summary>
-    internal interface LightMushroomItemInterface : SeriesItemInterface
+    internal interface IBrightiron : ISeriesItem
     {
     }
 }

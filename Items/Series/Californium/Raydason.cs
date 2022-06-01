@@ -9,7 +9,7 @@ using Terraria.ModLoader;
 
 namespace OdeMod.Items.Series.Californium
 {
-    internal class Raydason : ModItem, CaliforniumInterface
+    internal class Raydason : ModItem, ICalifornium
     {
         public override void SetStaticDefaults()
         {

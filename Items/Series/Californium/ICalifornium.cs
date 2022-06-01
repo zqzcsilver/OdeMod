@@ -11,9 +11,9 @@ using Terraria;
 namespace OdeMod.Items.Series.Californium
 {
     /// <summary>
-    /// 锎系列物品请继承此接口
+    /// 锎系列物品请继承此接口。属于<see cref="ISeriesItem"/>
     /// </summary>
-    internal interface CaliforniumInterface
+    internal interface ICalifornium : ISeriesItem
     {
     }
 }

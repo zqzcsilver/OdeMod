@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace OdeMod.Items.Series.Brightiron
 {
-    internal class SpiritPieces : ModItem, BrightironInterface
+    internal class SpiritPieces : ModItem, IBrightiron
     {
         public override void SetStaticDefaults()
         {
