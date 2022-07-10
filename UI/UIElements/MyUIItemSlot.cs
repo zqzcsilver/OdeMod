@@ -1,20 +1,12 @@
-﻿using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Terraria.GameContent.UI.Elements;
-using Terraria.UI;
-using Terraria;
-using Terraria.ModLoader;
-using Terraria.GameContent;
 using ReLogic.Graphics;
-using System.Media;
+
+using Terraria;
 using Terraria.Audio;
+using Terraria.GameContent;
+using Terraria.UI;
 
 namespace OdeMod.UI.UIElements
 {
@@ -30,7 +22,7 @@ namespace OdeMod.UI.UIElements
     /// <param name="target">物品框</param>
     public delegate void ExchangeItemHandler(UIElement target);
 
-    public class MyUIItemSlot : UIElement
+    public class MyUIItemSlot : UIElement, IOdeUIElement
     {
         /// <summary>
         /// 框贴图
@@ -90,7 +82,7 @@ namespace OdeMod.UI.UIElements
             CornerSize = new Vector2(10, 10);
             Tooltip = "";
             Width.Set(50, 0);
-            Height.Set(50, 0); 
+            Height.Set(50, 0);
         }
         public override void Update(GameTime gameTime)
         {
@@ -118,7 +110,7 @@ namespace OdeMod.UI.UIElements
                     OnPickItem?.Invoke(this);
 
                     //触发放物品声音
-                    SoundEngine.PlaySound(7, -1, -1, 1, 1f, 0.0f);
+                    //SoundEngine.PlaySound(7, -1, -1, 1, 1f, 0.0f);
                 }
             }
             //当鼠标有物品，框里没物品的时候
@@ -136,7 +128,7 @@ namespace OdeMod.UI.UIElements
                     OnPutItem?.Invoke(this);
 
                     //触发放物品声音
-                    SoundEngine.PlaySound(7, -1, -1, 1, 1f, 0.0f);
+                    //SoundEngine.PlaySound(7, -1, -1, 1, 1f, 0.0f);
                 }
             }
             //当鼠标和框都有物品时
@@ -180,7 +172,7 @@ namespace OdeMod.UI.UIElements
                 }
 
                 //触发放物品声音
-                SoundEngine.PlaySound(7, -1, -1, 1, 1f, 0.0f);
+                //SoundEngine.PlaySound(7, -1, -1, 1, 1f, 0.0f);
             }
             //反之
             else
@@ -224,7 +216,7 @@ namespace OdeMod.UI.UIElements
                 sb.Draw(TextureAssets.Item[ContainedItem.type].Value, new Vector2(DrawRectangle.X + DrawRectangle.Width / 2,
                     DrawRectangle.Y + DrawRectangle.Height / 2) - (/*TextureAssets.Item[ContainedItem.type].Value.Size() / 2f * scale */ new Vector2(frame.Width, frame.Height) / 2f * scale),
                     new Rectangle?(frame), Color.White * Opacity, 0f, Vector2.Zero, scale, 0, 0);
-                
+
                 //绘制物品左下角那个代表数量的数字
                 if (ContainedItem.stack > 1)
                 {

@@ -56,6 +56,7 @@ namespace OdeMod.Items.Series.LightMushroom
         }
         public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
         {
+            Dust.NewDust(Item.position, Item.width, Item.height, ModContent.DustType<Dusts.TestDust>());
             Lighting.AddLight(Item.Center, new Vector3(234, 217, 124) / 255f * 0.6f);
             base.PostDrawInWorld(spriteBatch, lightColor, alphaColor, rotation, scale, whoAmI);
         }

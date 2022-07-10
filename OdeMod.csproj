@@ -18,6 +18,7 @@
     <Folder Include="Items\Misc\Accessories\" />
     <Folder Include="Items\Misc\Materials\" />
     <Folder Include="NPCs\" />
+    <Folder Include="Prefixs\" />
     <Folder Include="Systems\" />
     <Folder Include="Tiles\" />
     <Folder Include="UI\Recharge\Images\" />

@@ -11,7 +11,7 @@ using Terraria.UI;
 
 namespace OdeMod.UI.UIElements
 {
-    internal class MyUIImage:UIElement
+    internal class MyUIImage : UIElement, IOdeUIElement
     {
         private Texture2D _texture;
         /// <summary>
@@ -41,13 +41,13 @@ namespace OdeMod.UI.UIElements
             Height.Set(_texture.Height, 0f);
             textureHeight = _texture.Height;
         }
-        public MyUIImage(Texture2D texture,int maxFrame)
+        public MyUIImage(Texture2D texture, int maxFrame)
         {
             _texture = texture;
             MaxFrame = maxFrame;
             Frame = 0;
             Width.Set(_texture.Width, 0f);
-            Height.Set(_texture.Height/maxFrame, 0f);
+            Height.Set(_texture.Height / maxFrame, 0f);
             textureHeight = _texture.Height / maxFrame;
         }
         public void SetImage(Texture2D texture) => _texture = texture;

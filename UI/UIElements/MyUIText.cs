@@ -14,7 +14,7 @@ using Terraria.UI.Chat;
 
 namespace OdeMod.UI.UIElements
 {
-    public class MyUIText : UIElement
+    public class MyUIText : UIElement, IOdeUIElement
     {
         public string Text;
         public float Scale;
@@ -32,7 +32,7 @@ namespace OdeMod.UI.UIElements
             Height.Pixels = Font.MeasureString(Text).Y;
             drawMode = 0;
         }
-        public MyUIText(string text, DynamicSpriteFont font, Color color,Color borderColor, float scale = 1f)
+        public MyUIText(string text, DynamicSpriteFont font, Color color, Color borderColor, float scale = 1f)
         {
             Text = text;
             Scale = scale;

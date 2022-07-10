@@ -44,6 +44,11 @@ namespace OdeMod.Items.Series.LightMushroom
             Item.knockBack = 3.7f;
             Item.useAnimation = 18;
         }
+
+        public override Vector2? HoldoutOffset()
+        {
+            return new Vector2(10, 10);
+        }
         public override void MeleeEffects(Player player, Rectangle hitbox)
         {
             base.MeleeEffects(player, hitbox);
