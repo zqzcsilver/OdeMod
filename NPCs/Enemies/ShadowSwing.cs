@@ -1,16 +1,16 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace OdeMod.NPCs
+using System;
+
+using Terraria;
+using Terraria.GameContent;
+using Terraria.ID;
+using Terraria.ModLoader;
+
+namespace OdeMod.NPCs.Enemies
 {
-    public class ShadowSwing : ModNPC
+    public class ShadowSwing : ModNPC, IEnemy
     {
         public override void SetStaticDefaults()
         {
@@ -49,7 +49,7 @@ namespace OdeMod.NPCs
         int framecontrol2 = 0;
         public override void OnKill()
         {
-            for(int i=0;i<40;i++)
+            for (int i = 0; i < 40; i++)
             {
                 int num = Dust.NewDust(NPC.Center - new Vector2(16f, 16f), 32, 32, DustID.Smoke, 0f, 0f, 0, new Color(39, 39, 100), 3f);
                 Main.dust[num].noGravity = true;
@@ -70,11 +70,11 @@ namespace OdeMod.NPCs
                         NPC.frame.Y = 0;
                 }
             }
-            if(control == 1)
+            if (control == 1)
             {
                 framecontrol2++;
-                if(framecontrol2 <5)
-                NPC.frame.Y = frameHeight * 10;
+                if (framecontrol2 < 5)
+                    NPC.frame.Y = frameHeight * 10;
                 else NPC.frame.Y = frameHeight * 11;
             }
         }
@@ -89,7 +89,7 @@ namespace OdeMod.NPCs
                 int num = Dust.NewDust(NPC.Center - new Vector2(16f, 16f), 32, 32, DustID.Water_Corruption, 0f, 0f, 0, default, 1.5f);
                 Main.dust[num].noGravity = true;
             }
-            if(control==1)
+            if (control == 1)
             {
                 NPC.knockBackResist = 0;
                 int num = Dust.NewDust(NPC.Center - new Vector2(16f, 16f), 32, 32, DustID.Water_Corruption, 0f, 0f, 0, default, 2f);
@@ -98,8 +98,8 @@ namespace OdeMod.NPCs
                 int num2 = Dust.NewDust(NPC.Center - new Vector2(16f, 16f), 32, 32, DustID.Shadowflame, 0f, 0f, 0, default, 1.5f);
                 Main.dust[num2].noGravity = true;
             }
-            
-            Player player = Main.player[base.NPC.target];
+
+            Player player = Main.player[NPC.target];
             NPC.TargetClosest(true);
             if (player.position.X > NPC.position.X)
             {
@@ -113,7 +113,7 @@ namespace OdeMod.NPCs
             //
             if (control == 0)
             {
-                if(ok== 0)
+                if (ok == 0)
                 {
                     NPC.aiStyle = 14;
                     NPC.velocity *= 2f;
@@ -129,30 +129,30 @@ namespace OdeMod.NPCs
                 }
             }
             //
-            
-            if(timer>240&&timer<260)
+
+            if (timer > 240 && timer < 260)
             {
                 NPC.velocity *= 0.93f;
             }
-            if(timer>=260)
+            if (timer >= 260)
             {
                 //Main.NewText(rush);
                 rush++;
-                if(rush<20)
+                if (rush < 20)
                 {
                     NPC.velocity *= 0.92f;
                 }
                 else
                 {
-                    
-                    if (rush==20)
+
+                    if (rush == 20)
                     {
                         NPC.aiStyle = -1;
                         control = 1;
                         NPC.rotation = new Vector2(player.Center.X - NPC.Center.X, player.Center.Y - NPC.Center.Y).ToRotation() - 1.571f;
                         NPC.velocity = new Vector2(player.Center.X - NPC.Center.X, player.Center.Y - NPC.Center.Y) / Vector2.Distance(player.Center, NPC.Center) * 15f;
-                    }                    
-                    if (rush<=50)
+                    }
+                    if (rush <= 50)
                     {
                         control = 1;
                         if (NPC.collideX || NPC.collideY)
@@ -160,40 +160,38 @@ namespace OdeMod.NPCs
                             rush = 51;
                         }
                     }
-                    if(rush>50)
+                    if (rush > 50)
                     {
                         NPC.velocity *= 0.8f;
-                        if (rush==51)
-                        ok = 0;
+                        if (rush == 51)
+                            ok = 0;
 
                         control = 0;
-                        
+
                     }
-                    if(rush>60)
-                    {  
-                        
+                    if (rush > 60)
+                    {
+
                         timer = 0;
                         rush = 0;
                     }
                 }
             }
         }
-        Texture2D texture;
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
-
             if (control == 1)
             {
                 Vector2 drawOrigin = new Vector2(NPC.width * 0.5f, NPC.height * 0.5f);
                 for (int i = 0; i < 6; i++)
                 {
                     Vector2 drawPos = NPC.oldPos[i] - Main.screenPosition + drawOrigin + new Vector2(0f, NPC.gfxOffY);
-                    texture = ModContent.Request<Texture2D>("OdeMod/NPCs/ShadowSwing").Value;
-                    Color color = new Color(39, 39, 100) * ((float)(NPC.oldPos.Length - i - 1) / (float)NPC.oldPos.Length);
-                    if(NPC.spriteDirection == -1)
-                    Main.spriteBatch.Draw(texture, drawPos, new Rectangle(0, 86 * 11, 102, 86), color, NPC.rotation, drawOrigin, NPC.scale, SpriteEffects.None, 0f);
+                    Texture2D texture = TextureAssets.Npc[NPC.type].Value;
+                    Color color = new Color(39, 39, 100) * ((NPC.oldPos.Length - i - 1) / (float)NPC.oldPos.Length);
+                    if (NPC.spriteDirection == -1)
+                        Main.spriteBatch.Draw(texture, drawPos, new Rectangle(0, 86 * 11, 102, 86), color, NPC.rotation, drawOrigin, NPC.scale, SpriteEffects.None, 0f);
                     else
-                    Main.spriteBatch.Draw(texture, drawPos, new Rectangle(0, 86 * 11, 102, 86), color, NPC.rotation, drawOrigin, NPC.scale, SpriteEffects.FlipHorizontally, 0f);
+                        Main.spriteBatch.Draw(texture, drawPos, new Rectangle(0, 86 * 11, 102, 86), color, NPC.rotation, drawOrigin, NPC.scale, SpriteEffects.FlipHorizontally, 0f);
                 }
             }
             return true;
