@@ -17,7 +17,6 @@
     <Folder Include="Items\Misc\Placeable\" />
     <Folder Include="Items\Misc\Accessories\" />
     <Folder Include="Items\Misc\Materials\" />
-    <Folder Include="NPCs\" />
     <Folder Include="Prefixs\" />
     <Folder Include="Systems\" />
     <Folder Include="Tiles\" />
