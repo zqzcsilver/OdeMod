@@ -6,11 +6,96 @@
 		ItemName:
 		{
 			LightMushroom : 光明蘑菇
+			LightMushroomClaw : 明菇爪套
+			LightMushroomHammeraxe : 明菇斧锤
+			LightMushroomHolybow : 明菇弓矢
+			LightMushroomHolyknife : 明菇狂热者
+			LightMushroomStaff : 明菇魔杖
+			FrostedFlyingcutter : 凝霜飞刀
+			FrostedSickle : 凝霜镰刀
+			FrostedThorn : 凝霜荆棘
+			BrightironBar : 熙铁锭
+			BrightironBroadsword : 熙铁阔剑
+			BrightironHeavyaxe : 熙铁重斧
+			BrightironOre : 熙铁矿
+			BrightironPickaxe : 熙铁镐
+			BrightironShortbow : 熙铁短弓
+			BrightironStaff : 熙铁法杖
+			SpiritPieces : 异灵体
+			CaliforniumBar : 锎锭
+			GammaDisembower : 伽马开膛者
+			HallowRadianter : 神圣放射者
+			NeutronSource : 中子源
+			Plaguebatter : 瘟疫打击者
+			Raydason : 瑞达森
+			Mosscobble : 苔石
+			MosscobbleAxe : 苔石斧
+			MosscobbleKnife : 苔石刀
+			MosscobblePickaxe : 苔石稿
+			SharpsandBow : 纯砂弓
+			SharpsandGiantblade : 纯砂巨剑
+			SharpsandStaff : 纯砂法杖
 		}
 		#物品介绍
 		ItemTooltip:
 		{
 			LightMushroom : 在白天吸收阳光，在夜晚放出阳光...
+			LightMushroomClaw : 发出令人安心的太阳光芒
+			LightMushroomHammeraxe :  软绵绵的手感，但是会发亮
+			LightMushroomHolybow : 朝着敌人发出光明的一击
+			LightMushroomHolyknife : 真是搞不懂为什么会有人用蘑菇作为剑的材料
+			LightMushroomStaff : 魔力刺激明菇，明菇放出它储存的阳光
+			FrostedFlyingcutter : 暂无
+			FrostedSickle : 暂无
+			FrostedThorn : 暂无
+			BrightironBar : 
+			BrightironBroadsword : 
+			BrightironHeavyaxe : 
+			BrightironOre : 
+			BrightironPickaxe : 
+			BrightironShortbow : 
+			BrightironStaff : 
+			SpiritPieces : 克鲁苏之眼后，猩红地/腐地
+			CaliforniumBar : 月总后海盗事件
+			GammaDisembower : 
+			HallowRadianter : 
+			NeutronSource : 你可以看到宝藏和矿石的位置\n你的防御增加10%
+			Plaguebatter : 三连散射\n十一转化
+			Raydason : 
+			Mosscobble : 
+			MosscobbleAxe : 
+			MosscobbleKnife : 
+			MosscobblePickaxe : 
+			SharpsandBow : 
+			SharpsandGiantblade : 
+			SharpsandStaff : 
+		}
+		#弹幕名字
+		ProjectileName:
+		{
+		    flycutter1 : 凝霜飞刀
+			flycutter2 : 凝霜飞刀
+		}
+		#生物名字
+		NPCName:
+		{
+		    ShadowSwing : 暗翼
+		}
+		#状态名字
+		BuffName:
+		{
+		}
+		#状态介绍
+		BuffDescription:
+		{
+		}
+		#附魔
+		Prefix:
+		{
+		}
+		#物块在地图上的名字
+		MapObject:
+		{
 		}
 		#弹幕名字
 		ProjectileName:

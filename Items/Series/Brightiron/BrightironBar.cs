@@ -11,11 +11,13 @@ namespace OdeMod.Items.Series.Brightiron
     {
         public override void SetStaticDefaults()
         {
+            /*
             base.SetStaticDefaults();
             DisplayName.SetDefault("Brightiron Bar");
             DisplayName.AddTranslation(LanguageType.Chinese, "熙铁锭");
             Tooltip.SetDefault("");
             Tooltip.AddTranslation(LanguageType.Chinese, "");
+            */
         }
         public override void SetDefaults()
         {

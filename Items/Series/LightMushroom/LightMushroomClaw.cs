@@ -22,11 +22,13 @@ namespace OdeMod.Items.Series.LightMushroom
     {
         public override void SetStaticDefaults()
         {
+            /*
             base.SetStaticDefaults();
             DisplayName.SetDefault("Light Mushroom Claw");
             DisplayName.AddTranslation(LanguageType.Chinese, "明菇爪套");
             Tooltip.SetDefault("Emit reassuring sun rays");
             Tooltip.AddTranslation(LanguageType.Chinese, "发出令人安心的太阳光芒");
+            */
         }
         public override void SetDefaults()
         {

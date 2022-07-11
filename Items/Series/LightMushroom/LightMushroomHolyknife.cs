@@ -21,11 +21,13 @@ namespace OdeMod.Items.Series.LightMushroom
     {
         public override void SetStaticDefaults()
         {
+            /*
             base.SetStaticDefaults();
             DisplayName.SetDefault("Light Mushroom Holyknife");
             DisplayName.AddTranslation(LanguageType.Chinese, "明菇狂热者");
             Tooltip.SetDefault("I really don't understand why anyone would use mushrooms as a material for sword");
             Tooltip.AddTranslation(LanguageType.Chinese, "真是搞不懂为什么会有人用蘑菇作为剑的材料");
+            */
         }
         public override void SetDefaults()
         {

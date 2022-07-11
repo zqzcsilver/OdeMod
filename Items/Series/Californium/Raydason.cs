@@ -13,11 +13,13 @@ namespace OdeMod.Items.Series.Californium
     {
         public override void SetStaticDefaults()
         {
+            /*
             base.SetStaticDefaults();
             DisplayName.SetDefault("Raydason");
             DisplayName.AddTranslation(LanguageType.Chinese, "瑞达森");
             Tooltip.SetDefault("");
             Tooltip.AddTranslation(LanguageType.Chinese, "");
+            */
         }
         public override void SetDefaults()
         {

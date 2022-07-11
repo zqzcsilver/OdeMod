@@ -13,11 +13,13 @@ namespace OdeMod.Items.Series.Sharpsand
     {
         public override void SetStaticDefaults()
         {
+            /*
             base.SetStaticDefaults();
             DisplayName.SetDefault("Sharpsand Bow");
             DisplayName.AddTranslation(LanguageType.Chinese, "纯砂弓");
             Tooltip.SetDefault("");
             Tooltip.AddTranslation(LanguageType.Chinese, "");
+            */
         }
         public override void SetDefaults()
         {
