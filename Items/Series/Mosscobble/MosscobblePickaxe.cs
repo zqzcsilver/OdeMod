@@ -13,11 +13,13 @@ namespace OdeMod.Items.Series.Mosscobble
     {
         public override void SetStaticDefaults()
         {
+            /*
             base.SetStaticDefaults();
             DisplayName.SetDefault("Mosscobble Pickaxe");
             DisplayName.AddTranslation(LanguageType.Chinese, "苔石稿");
             Tooltip.SetDefault("");
             Tooltip.AddTranslation(LanguageType.Chinese, "");
+            */
         }
         public override void SetDefaults()
         {

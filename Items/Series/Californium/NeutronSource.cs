@@ -11,6 +11,7 @@ namespace OdeMod.Items.Series.Californium
     {
         public override void SetStaticDefaults()
         {
+            /*
             base.SetStaticDefaults();
             DisplayName.SetDefault("Neutron Source");
             DisplayName.AddTranslation(LanguageType.Chinese, "中子源");
@@ -18,6 +19,7 @@ namespace OdeMod.Items.Series.Californium
                 "Your defense increase 10%");
             Tooltip.AddTranslation(LanguageType.Chinese, "你可以看到宝藏和矿石的位置\n" +
                 "你的防御增加10%");
+            */
         }
         public override void SetDefaults()
         {

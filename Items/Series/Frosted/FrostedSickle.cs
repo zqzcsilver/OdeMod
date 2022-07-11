@@ -13,11 +13,13 @@ namespace OdeMod.Items.Series.Frosted
     {
         public override void SetStaticDefaults()
         {
+            /*
             base.SetStaticDefaults();
             DisplayName.SetDefault("Forsted Sickle");
             DisplayName.AddTranslation(LanguageType.Chinese, "凝霜镰刀");
             Tooltip.SetDefault("");
             Tooltip.AddTranslation(LanguageType.Chinese, "");
+            */
         }
         public override void SetDefaults()
         {

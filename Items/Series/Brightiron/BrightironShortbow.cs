@@ -12,11 +12,13 @@ namespace OdeMod.Items.Series.Brightiron
     {
         public override void SetStaticDefaults()
         {
+            /*
             base.SetStaticDefaults();
             DisplayName.SetDefault("BrightironShortbow");
             DisplayName.AddTranslation(LanguageType.Chinese, "熙铁短弓");
             Tooltip.SetDefault("");
             Tooltip.AddTranslation(LanguageType.Chinese, "");
+            */
         }
         public override void SetDefaults()
         {

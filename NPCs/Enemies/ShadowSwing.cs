@@ -14,7 +14,7 @@ namespace OdeMod.NPCs.Enemies
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("暗翼");
+            //DisplayName.SetDefault("暗翼");
             Main.npcFrameCount[NPC.type] = 15;
         }
         public override void SetDefaults()
