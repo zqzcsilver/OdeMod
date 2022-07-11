@@ -97,5 +97,30 @@
 		MapObject:
 		{
 		}
+		#弹幕名字
+		ProjectileName:
+		{
+		
+		}
+		#生物名字
+		NPCName:
+		{
+		}
+		#状态名字
+		BuffName:
+		{
+		}
+		#状态介绍
+		BuffDescription:
+		{
+		}
+		#附魔
+		Prefix:
+		{
+		}
+		#物块在地图上的名字
+		MapObject:
+		{
+		}
 	}
 }
