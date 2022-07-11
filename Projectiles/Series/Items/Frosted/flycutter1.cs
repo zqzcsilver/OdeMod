@@ -15,7 +15,7 @@ namespace OdeMod.Projectiles.Series.Items.Frosted
             Projectile.height = 16;
             Projectile.aiStyle = -1;
             Projectile.friendly = true;
-            Projectile.DamageType = DamageClass.Magic;
+            Projectile.DamageType = DamageClass.Ranged;
             Projectile.ignoreWater = true;
             Projectile.tileCollide = true;
             Projectile.timeLeft = 70;

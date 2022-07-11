@@ -23,12 +23,13 @@ namespace OdeMod.Items.Series.Frosted
             base.SetDefaults();
             Item.width = 32;
             Item.height = 32;
-            Item.DamageType = DamageClass.Magic;
+            Item.DamageType = DamageClass.Ranged;
             Item.knockBack = 4.5f;
-            Item.damage = 52;
+            Item.damage = 39;
             Item.crit = 6;
             Item.useTime = 25;
             Item.useAnimation = 25;
+            //Item.UseSound=SoundID.item 幽银帮我加个音效
             Item.useTurn = false;
             Item.useStyle = ItemUseStyleID.Swing;
             Item.noUseGraphic = true;
@@ -47,7 +48,7 @@ namespace OdeMod.Items.Series.Frosted
                 Item.shootSpeed = 11;
                 for (int i = -2; i <= 2; i++)
                 {
-                    Vector2 tVecl = tVec + new Vector2(-tVec.Y * 0.2f, tVec.X * 0.2f) * i;
+                    Vector2 tVecl = tVec + new Vector2(-tVec.Y * 0.12f, tVec.X * 0.12f) * i;
                     tVecl.RotatedBy(i * 0.03);
                     Projectile.NewProjectile(source, player.Center, tVecl, ModContent.ProjectileType<Projectiles.Series.Items.Frosted.flycutter1>(), damage, knockback, player.whoAmI);
                 }
@@ -57,7 +58,7 @@ namespace OdeMod.Items.Series.Frosted
             { 
                 for (int i = -1; i <= 1; i++)
                 {
-                    Vector2 tVecl = tVec + new Vector2(-tVec.Y * 0.15f, tVec.X * 0.15f) * i;
+                    Vector2 tVecl = tVec + new Vector2(-tVec.Y * 0.1f, tVec.X * 0.1f) * i;
                     tVecl.RotatedBy(i * 0.01);
                     Projectile.NewProjectile(source, player.Center, tVecl, ModContent.ProjectileType<Projectiles.Series.Items.Frosted.flycutter2>(), damage * 2, knockback, player.whoAmI);
                 }
