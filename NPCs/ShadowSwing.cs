@@ -188,7 +188,7 @@ namespace OdeMod.NPCs
                 for (int i = 0; i < 6; i++)
                 {
                     Vector2 drawPos = NPC.oldPos[i] - Main.screenPosition + drawOrigin + new Vector2(0f, NPC.gfxOffY);
-                    texture = ModContent.Request<Texture2D>("OdeMod/NPCs/暗翼").Value;
+                    texture = ModContent.Request<Texture2D>("OdeMod/NPCs/ShadowSwing").Value;
                     Color color = new Color(39, 39, 100) * ((float)(NPC.oldPos.Length - i - 1) / (float)NPC.oldPos.Length);
                     if(NPC.spriteDirection == -1)
                     Main.spriteBatch.Draw(texture, drawPos, new Rectangle(0, 86 * 11, 102, 86), color, NPC.rotation, drawOrigin, NPC.scale, SpriteEffects.None, 0f);

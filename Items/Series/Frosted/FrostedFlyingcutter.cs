@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using OdeMod.Utils;
-
+using System;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -31,12 +30,13 @@ namespace OdeMod.Items.Series.Frosted
             Item.useTime = 25;
             Item.useAnimation = 25;
             Item.useTurn = false;
-            Item.useStyle = ItemUseStyleID.Shoot;
+            Item.useStyle = ItemUseStyleID.Swing;
+            Item.noUseGraphic = true;
             Item.rare = ItemRarityID.LightRed;
             Item.value = Item.sellPrice(0, 6, 50, 0);
             Item.autoReuse = true;
-            Item.shoot = ProjectileID.WoodenArrowFriendly;//ModContent.ProjectileType<ProFrostedShortcutter>();
-            Item.shootSpeed = 20;
+            Item.shoot = ModContent.ProjectileType<Projectiles.Series.Items.Frosted.flycutter1>();
+            Item.shootSpeed = 11;
         }
         private int ThrownTime;
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
@@ -44,22 +44,38 @@ namespace OdeMod.Items.Series.Frosted
             Vector2 tVec = Vector2.Normalize(Main.MouseWorld - player.Center) * Item.shootSpeed;
             if (ThrownTime < 3)
             {
+                Item.shootSpeed = 11;
                 for (int i = -2; i <= 2; i++)
                 {
                     Vector2 tVecl = tVec + new Vector2(-tVec.Y * 0.2f, tVec.X * 0.2f) * i;
-                    tVecl.RotatedBy(i * 0.05);
-                    Projectile.NewProjectile(source, player.Center, tVecl, ProjectileID.WoodenArrowFriendly, damage, knockback, player.whoAmI);
+                    tVecl.RotatedBy(i * 0.03);
+                    Projectile.NewProjectile(source, player.Center, tVecl, ModContent.ProjectileType<Projectiles.Series.Items.Frosted.flycutter1>(), damage, knockback, player.whoAmI);
                 }
-                ThrownTime += 1;
+                ThrownTime ++;
             }
             else if (ThrownTime >= 3)
-            {
+            { 
                 for (int i = -1; i <= 1; i++)
                 {
                     Vector2 tVecl = tVec + new Vector2(-tVec.Y * 0.15f, tVec.X * 0.15f) * i;
-                    tVecl.RotatedBy(i * 0.05);
-                    Projectile.NewProjectile(source, player.Center, tVecl, ProjectileID.WoodenArrowFriendly, damage * 2, knockback, player.whoAmI);
+                    tVecl.RotatedBy(i * 0.01);
+                    Projectile.NewProjectile(source, player.Center, tVecl, ModContent.ProjectileType<Projectiles.Series.Items.Frosted.flycutter2>(), damage * 2, knockback, player.whoAmI);
                 }
+                Vector2 plrToMouse = Main.MouseWorld - player.Center;
+                // 计算玩家到鼠标的向量弧度
+                float r = (float)Math.Atan2(plrToMouse.Y, plrToMouse.X);
+                for (int i = 1; i <= 60; i++)
+                {
+                    float r2 = r + (Main.rand.Next(-10, 11) * 0.08f) ;
+                    Vector2 shootVel = r2.ToRotationVector2() * Main.rand.Next(40, 200) * 0.1f ;
+                    int num = Dust.NewDust(player.position, player.width, player.height, DustID.IceTorch, 0, 0, 100, default, 1.5f);
+
+                    Main.dust[num].velocity = shootVel;
+                    
+                    Main.dust[num].noGravity = true;
+                    Main.dust[num].scale *= 1.02f;
+                }
+               
                 ThrownTime = 0;
             }
 
