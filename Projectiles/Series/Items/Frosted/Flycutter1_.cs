@@ -6,7 +6,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 namespace OdeMod.Projectiles.Series.Items.Frosted
 {
-    internal class flycutter1 : ModProjectile, IFrostedProjectile
+    internal class Flycutter1_ : ModProjectile, IFrostedProjectile
     {
         public override void SetDefaults()
         {

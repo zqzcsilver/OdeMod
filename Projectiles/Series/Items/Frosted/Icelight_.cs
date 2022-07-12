@@ -6,7 +6,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 namespace OdeMod.Projectiles.Series.Items.Frosted
 {
-    internal class Icelight : ModProjectile, IFrostedProjectile
+    internal class Icelight_ : ModProjectile, IFrostedProjectile
     {
         public override void SetDefaults()
         {
