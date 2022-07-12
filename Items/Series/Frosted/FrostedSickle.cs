@@ -38,7 +38,7 @@ namespace OdeMod.Items.Series.Frosted
             Item.scale = 1.2f;
             Item.value = Item.sellPrice(0, 8, 0, 0);
             Item.autoReuse = true;
-            Item.shoot = ModContent.ProjectileType<Projectiles.Series.Items.Frosted.icelight>();
+            Item.shoot = ModContent.ProjectileType<Projectiles.Series.Items.Frosted.Icelight>();
             Item.shootSpeed = 12;
         }
         int times = -2;
@@ -55,7 +55,7 @@ namespace OdeMod.Items.Series.Frosted
                 }
                 float r2 = r + times * MathHelper.Pi / 6f;
                 Vector2 shootVel = r2.ToRotationVector2() * 10;
-                Projectile.NewProjectile(source, player.Center, shootVel, ModContent.ProjectileType<Projectiles.Series.Items.Frosted.icelight>(), (int)(damage * 0.5f), knockback, player.whoAmI);
+                Projectile.NewProjectile(source, player.Center, shootVel, ModContent.ProjectileType<Projectiles.Series.Items.Frosted.Icelight>(), (int)(damage * 0.5f), knockback, player.whoAmI);
                 times++;
                 if (times == 1)
                 {
@@ -71,7 +71,7 @@ namespace OdeMod.Items.Series.Frosted
                 }
                 float r2 = r - times * MathHelper.Pi / 5f;
                 Vector2 shootVel = r2.ToRotationVector2() * 10;
-                Projectile.NewProjectile(source, player.Center, shootVel, ModContent.ProjectileType<Projectiles.Series.Items.Frosted.icelight>(), (int)(damage * 0.5f), knockback, player.whoAmI);
+                Projectile.NewProjectile(source, player.Center, shootVel, ModContent.ProjectileType<Projectiles.Series.Items.Frosted.Icelight>(), (int)(damage * 0.5f), knockback, player.whoAmI);
                 times++;
                 if (times == 1)
                 {
