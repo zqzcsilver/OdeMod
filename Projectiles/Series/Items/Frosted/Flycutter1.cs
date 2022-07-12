@@ -6,32 +6,28 @@ using Terraria.ID;
 using Terraria.ModLoader;
 namespace OdeMod.Projectiles.Series.Items.Frosted
 {
-    internal class Flycutter2_ : ModProjectile, IFrostedProjectile
+    internal class Flycutter1 : ModProjectile, IFrostedProjectile
     {
         public override void SetDefaults()
         {
             Projectile.width = 10;
-            Projectile.height = 20;
+            Projectile.height = 16;
             Projectile.aiStyle = -1;
             Projectile.friendly = true;
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.ignoreWater = true;
             Projectile.tileCollide = true;
-            Projectile.timeLeft = 300;
+            Projectile.timeLeft = 70;
             Projectile.alpha = 0;
-            Projectile.penetrate = -1;
+            Projectile.penetrate = 1;
             Projectile.scale = 1f;
-            ProjectileID.Sets.TrailCacheLength[base.Projectile.type] = 8;
-            ProjectileID.Sets.TrailingMode[base.Projectile.type] = 0;
-            Projectile.extraUpdates = 2;
-        }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
-        {
-            target.AddBuff(44, damage);
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 4;
+            ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
+            Projectile.extraUpdates = 1;
         }
         public override void AI()
         {
-            int num = Dust.NewDust(Projectile.Center - new Vector2(1f, 1f), 2, 2, DustID.IceTorch, 0f, 0f, 0, Color.White, 1.2f);
+            int num = Dust.NewDust(Projectile.Center - new Vector2(1f, 1f), 2, 2, DustID.IceTorch, 0f, 0f, 0, Color.White, 0.6f);
             Main.dust[num].velocity *= 0.1f;
             Main.dust[num].noGravity = true;
             if (Projectile.timeLeft > 30)
@@ -47,16 +43,17 @@ namespace OdeMod.Projectiles.Series.Items.Frosted
             }
 
         }
+        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        {
+            target.AddBuff(44, damage);
+        }
         public override void Kill(int timeLeft)
         {
-            for (int i = 0; i < 30; i++)
+            for (int i = 0; i < 40; i++)
             {
-                int num = Dust.NewDust(Projectile.Center - new Vector2(3f, 3f), 6, 6, DustID.IceTorch, 0f, 0f, 0, Color.White, 1.2f);
-                int num2 = Dust.NewDust(Projectile.Center - new Vector2(3f, 3f), 6, 6, DustID.IceTorch, 0f, 0f, 0, Color.White, 1.2f);
-                Main.dust[num].velocity = Projectile.velocity * 0.4f;
+                int num = Dust.NewDust(Projectile.Center - new Vector2(3f, 3f), 6, 6, DustID.IceTorch, 0f, 0f, 0, Color.White, 1f);
+                Main.dust[num].velocity = Projectile.velocity * 0.25f;
                 Main.dust[num].noGravity = true;
-                Main.dust[num2].velocity = Projectile.velocity * -0.4f;
-                Main.dust[num2].noGravity = true;
             }
         }
         Texture2D texture, texture2;

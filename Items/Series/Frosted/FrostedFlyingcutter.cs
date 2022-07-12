@@ -39,7 +39,7 @@ namespace OdeMod.Items.Series.Frosted
             Item.rare = ItemRarityID.LightRed;
             Item.value = Item.sellPrice(0, 6, 50, 0);
             Item.autoReuse = true;
-            Item.shoot = ModContent.ProjectileType<Projectiles.Series.Items.Frosted.Flycutter1_>();
+            Item.shoot = ModContent.ProjectileType<Projectiles.Series.Items.Frosted.Flycutter1>();
             Item.shootSpeed = 11;
         }
         private int ThrownTime;
@@ -53,7 +53,7 @@ namespace OdeMod.Items.Series.Frosted
                 {
                     Vector2 tVecl = tVec + new Vector2(-tVec.Y * 0.12f, tVec.X * 0.12f) * i;
                     tVecl.RotatedBy(i * 0.03);
-                    Projectile.NewProjectile(source, player.Center, tVecl, ModContent.ProjectileType<Projectiles.Series.Items.Frosted.Flycutter1_>(), damage, knockback, player.whoAmI);
+                    Projectile.NewProjectile(source, player.Center, tVecl, ModContent.ProjectileType<Projectiles.Series.Items.Frosted.Flycutter1>(), damage, knockback, player.whoAmI);
                 }
                 ThrownTime++;
             }
@@ -63,7 +63,7 @@ namespace OdeMod.Items.Series.Frosted
                 {
                     Vector2 tVecl = tVec + new Vector2(-tVec.Y * 0.1f, tVec.X * 0.1f) * i;
                     tVecl.RotatedBy(i * 0.01);
-                    Projectile.NewProjectile(source, player.Center, tVecl, ModContent.ProjectileType<Projectiles.Series.Items.Frosted.Flycutter2_>(), damage * 2, knockback, player.whoAmI);
+                    Projectile.NewProjectile(source, player.Center, tVecl, ModContent.ProjectileType<Projectiles.Series.Items.Frosted.Flycutter2>(), damage * 2, knockback, player.whoAmI);
                 }
                 Vector2 plrToMouse = Main.MouseWorld - player.Center;
                 // 计算玩家到鼠标的向量弧度
