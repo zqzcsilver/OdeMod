@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
-using OdeMod.Utils;
+
 using System;
+
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -54,10 +55,10 @@ namespace OdeMod.Items.Series.Frosted
                     tVecl.RotatedBy(i * 0.03);
                     Projectile.NewProjectile(source, player.Center, tVecl, ModContent.ProjectileType<Projectiles.Series.Items.Frosted.flycutter1>(), damage, knockback, player.whoAmI);
                 }
-                ThrownTime ++;
+                ThrownTime++;
             }
             else if (ThrownTime >= 3)
-            { 
+            {
                 for (int i = -1; i <= 1; i++)
                 {
                     Vector2 tVecl = tVec + new Vector2(-tVec.Y * 0.1f, tVec.X * 0.1f) * i;
@@ -69,16 +70,16 @@ namespace OdeMod.Items.Series.Frosted
                 float r = (float)Math.Atan2(plrToMouse.Y, plrToMouse.X);
                 for (int i = 1; i <= 60; i++)
                 {
-                    float r2 = r + (Main.rand.Next(-10, 11) * 0.08f) ;
-                    Vector2 shootVel = r2.ToRotationVector2() * Main.rand.Next(40, 200) * 0.1f ;
+                    float r2 = r + (Main.rand.Next(-10, 11) * 0.08f);
+                    Vector2 shootVel = r2.ToRotationVector2() * Main.rand.Next(40, 200) * 0.1f;
                     int num = Dust.NewDust(player.position, player.width, player.height, DustID.IceTorch, 0, 0, 100, default, 1.5f);
 
                     Main.dust[num].velocity = shootVel;
-                    
+
                     Main.dust[num].noGravity = true;
                     Main.dust[num].scale *= 1.02f;
                 }
-               
+
                 ThrownTime = 0;
             }
 

@@ -1,13 +1,10 @@
-﻿using OdeMod.Utils;
-
-using Terraria;
-using Terraria.DataStructures;
+﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace OdeMod.Items.Series.Brightiron
 {
-    internal class BrightironBar : ModItem,IBrightiron
+    internal class BrightironBar : ModItem, IBrightiron
     {
         public override void SetStaticDefaults()
         {
@@ -40,7 +37,7 @@ namespace OdeMod.Items.Series.Brightiron
                 AddIngredient(ModContent.ItemType<BrightironOre>(), 3).
                 AddTile(TileID.Furnaces).
                 Register();
-                
+
 
         }
     }

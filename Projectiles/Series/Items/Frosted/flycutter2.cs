@@ -1,8 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using OdeMod.Utils;
+
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 namespace OdeMod.Projectiles.Series.Items.Frosted
@@ -32,10 +31,10 @@ namespace OdeMod.Projectiles.Series.Items.Frosted
         }
         public override void AI()
         {
-            int num = Dust.NewDust(Projectile.Center-new Vector2(1f,1f), 2, 2, DustID.IceTorch, 0f, 0f, 0, Color.White, 1.2f);
+            int num = Dust.NewDust(Projectile.Center - new Vector2(1f, 1f), 2, 2, DustID.IceTorch, 0f, 0f, 0, Color.White, 1.2f);
             Main.dust[num].velocity *= 0.1f;
             Main.dust[num].noGravity = true;
-            if (Projectile.timeLeft>30)
+            if (Projectile.timeLeft > 30)
             {
                 Projectile.rotation = (float)
                    System.Math.Atan2((double)Projectile.velocity.Y,
@@ -46,11 +45,11 @@ namespace OdeMod.Projectiles.Series.Items.Frosted
                 Projectile.alpha += 9;
                 Projectile.rotation += 0.4f;
             }
-            
+
         }
         public override void Kill(int timeLeft)
         {
-            for(int i = 0; i < 30; i++)
+            for (int i = 0; i < 30; i++)
             {
                 int num = Dust.NewDust(Projectile.Center - new Vector2(3f, 3f), 6, 6, DustID.IceTorch, 0f, 0f, 0, Color.White, 1.2f);
                 int num2 = Dust.NewDust(Projectile.Center - new Vector2(3f, 3f), 6, 6, DustID.IceTorch, 0f, 0f, 0, Color.White, 1.2f);
@@ -60,10 +59,10 @@ namespace OdeMod.Projectiles.Series.Items.Frosted
                 Main.dust[num2].noGravity = true;
             }
         }
-        Texture2D texture,texture2;
+        Texture2D texture, texture2;
         public override bool PreDraw(ref Color lightColor)
         {
-            texture = ModContent.Request<Texture2D>("OdeMod/Projectiles/Series/Items/Frosted/flycutter3").Value;
+            texture = ModContent.Request<Texture2D>("OdeMod/Projectiles/Series/Items/Frosted/Flycutter3").Value;
             Vector2 drawOrigin = new Vector2(Projectile.width * 0.5f, Projectile.height * 0.5f);
             for (int k = 0; k < Projectile.oldPos.Length; k++)
             {

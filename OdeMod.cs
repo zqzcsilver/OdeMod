@@ -1,15 +1,12 @@
-using Terraria;
+using Microsoft.Xna.Framework;
 
 using OdeMod.Utils;
 
-using Terraria.ModLoader;
 using System;
-using System.Resources;
-using Terraria.Localization;
 using System.Reflection;
-using System.Collections.Generic;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework;
+
+using Terraria;
+using Terraria.ModLoader;
 
 namespace OdeMod
 {

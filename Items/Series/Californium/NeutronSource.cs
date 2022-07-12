@@ -1,7 +1,4 @@
-﻿using OdeMod.Utils;
-
-using Terraria;
-using Terraria.DataStructures;
+﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 

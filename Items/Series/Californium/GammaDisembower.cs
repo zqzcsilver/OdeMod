@@ -1,6 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using OdeMod.Utils;
 
 using Terraria;
 using Terraria.DataStructures;
@@ -44,7 +42,7 @@ namespace OdeMod.Items.Series.Californium
         public override Vector2? HoldoutOffset() => new Vector2(-10, -10);
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            Projectile.NewProjectile(source,player.Center, velocity, ProjectileID.BulletHighVelocity, damage, knockback, player.whoAmI);
+            Projectile.NewProjectile(source, player.Center, velocity, ProjectileID.BulletHighVelocity, damage, knockback, player.whoAmI);
             return false;
         }
         public override void AddRecipes()

@@ -1,6 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using OdeMod.Utils;
 
 using Terraria;
 using Terraria.DataStructures;
@@ -9,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace OdeMod.Items.Series.Sharpsand
 {
-    internal class SharpsandStaff : ModItem,ISharpsand
+    internal class SharpsandStaff : ModItem, ISharpsand
     {
         public override void SetStaticDefaults()
         {
@@ -51,7 +49,7 @@ namespace OdeMod.Items.Series.Sharpsand
                     new Vector2(Main.rand.Next(-60, 60), Main.rand.Next(-60, 60));
                 Vector2 tVEC = Vector2.Normalize(new Vector2(Main.MouseWorld.X + Main.rand.Next(-40, 40), Main.MouseWorld.Y +
                     Main.rand.NextFloat(-80f, -50f)) - pVEC) * Item.shootSpeed;
-                Projectile.NewProjectile(source,pVEC, tVEC, 424, damage, knockback, player.whoAmI);
+                Projectile.NewProjectile(source, pVEC, tVEC, 424, damage, knockback, player.whoAmI);
             }
             return false;
         }

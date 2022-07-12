@@ -1,6 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using OdeMod.Utils;
 
 using Terraria;
 using Terraria.DataStructures;
@@ -42,7 +40,7 @@ namespace OdeMod.Items.Series.Sharpsand
             Item.shoot = ProjectileID.WoodenArrowFriendly;
             Item.shootSpeed = 20;
         }
-        public override Vector2? HoldoutOffset() => new Vector2(-6,0);
+        public override Vector2? HoldoutOffset() => new Vector2(-6, 0);
         private int num;
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {

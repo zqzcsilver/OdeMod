@@ -1,7 +1,4 @@
-﻿using OdeMod.Utils;
-
-using Terraria;
-using Terraria.DataStructures;
+﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -46,7 +43,7 @@ namespace OdeMod.Items.Series.Brightiron
             base.AddRecipes();
             CreateRecipe().
                 AddIngredient(ModContent.ItemType<BrightironBar>(), 7).
-                AddIngredient(ModContent.ItemType<SpiritPieces>(),10).
+                AddIngredient(ModContent.ItemType<SpiritPieces>(), 10).
                 AddTile(TileID.Anvils).
                 Register();
         }

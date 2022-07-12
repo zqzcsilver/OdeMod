@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace OdeMod.Items
+﻿namespace OdeMod.Items
 {
     /// <summary>
     /// Ode模组内承认的物品标识，各系列接口请继承此接口

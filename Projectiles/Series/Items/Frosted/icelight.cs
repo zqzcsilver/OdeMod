@@ -1,13 +1,12 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using OdeMod.Utils;
+
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 namespace OdeMod.Projectiles.Series.Items.Frosted
 {
-    internal class icelight : ModProjectile, IFrostedProjectile
+    internal class Icelight : ModProjectile, IFrostedProjectile
     {
         public override void SetDefaults()
         {
@@ -31,9 +30,9 @@ namespace OdeMod.Projectiles.Series.Items.Frosted
             int num = Dust.NewDust(Projectile.position, 26, 26, DustID.IceTorch, 0f, 0f, 0, Color.White, 1f);
             Main.dust[num].velocity *= 0.1f;
             Main.dust[num].noGravity = true;
-                Projectile.rotation += 0.2f;
+            Projectile.rotation += 0.2f;
 
-            if(Projectile.timeLeft>=290)
+            if (Projectile.timeLeft >= 290)
             {
                 Projectile.alpha -= 26;
             }
@@ -82,9 +81,9 @@ namespace OdeMod.Projectiles.Series.Items.Frosted
         }
         public override void Kill(int timeLeft)
         {
-            for(int i = 0; i < 40; i++)
+            for (int i = 0; i < 40; i++)
             {
-                int num = Dust.NewDust(Projectile.position , 26, 26, DustID.IceTorch, 0f, 0f, 0, Color.White, 1.5f);
+                int num = Dust.NewDust(Projectile.position, 26, 26, DustID.IceTorch, 0f, 0f, 0, Color.White, 1.5f);
                 Main.dust[num].velocity = Projectile.velocity * 0.6f;
                 Main.dust[num].noGravity = true;
             }
@@ -92,7 +91,7 @@ namespace OdeMod.Projectiles.Series.Items.Frosted
         Texture2D texture;
         public override bool PreDraw(ref Color lightColor)
         {
-            texture = ModContent.Request<Texture2D>("OdeMod/Projectiles/Series/Items/Frosted/icelight").Value;
+            texture = ModContent.Request<Texture2D>(Texture).Value;
             Vector2 drawOrigin = new Vector2(Projectile.width * 0.5f, Projectile.height * 0.5f);
             for (int k = 0; k < Projectile.oldPos.Length; k++)
             {

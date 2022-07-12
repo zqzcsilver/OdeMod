@@ -1,13 +1,11 @@
-﻿using OdeMod.Utils;
-using Terraria;
-using Terraria.DataStructures;
+﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 
 namespace OdeMod.Items.Series.Frosted
 {
-    internal class FrostedThorn :ModItem,IFrosted
+    internal class FrostedThorn : ModItem, IFrosted
     {
         public override void SetStaticDefaults()
         {

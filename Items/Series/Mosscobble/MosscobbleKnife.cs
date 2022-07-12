@@ -1,6 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using OdeMod.Utils;
 
 using Terraria;
 using Terraria.DataStructures;
@@ -40,7 +38,7 @@ namespace OdeMod.Items.Series.Mosscobble
         public override bool AltFunctionUse(Player player) => true;
         public override bool CanUseItem(Player player)
         {
-            if(player.altFunctionUse == 2)
+            if (player.altFunctionUse == 2)
             {
                 Item.shoot = ProjectileID.Arkhalis;//ModContent.ProjectileType<ProMosscobbleBeam>();
                 Item.useTime = 300;

@@ -1,15 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using OdeMod.Utils;
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -18,7 +10,7 @@ namespace OdeMod.Items.Series.LightMushroom
     /// <summary>
     /// 明菇弓矢，属于<see cref="ILightMushroomItem"/>
     /// </summary>
-    internal class LightMushroomHolybow: ModItem, ILightMushroomItem
+    internal class LightMushroomHolybow : ModItem, ILightMushroomItem
     {
         public override void SetStaticDefaults()
         {

@@ -4,7 +4,6 @@ using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Graphics;
 
 using Terraria;
-using Terraria.Audio;
 using Terraria.GameContent;
 using Terraria.UI;
 
