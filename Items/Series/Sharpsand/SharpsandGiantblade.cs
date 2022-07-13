@@ -30,10 +30,10 @@ namespace OdeMod.Items.Series.Sharpsand
             Item.useTurn = false;
             Item.useStyle = ItemUseStyleID.Swing;
             Item.rare = ItemRarityID.Pink;
+            Item.shoot = ModContent.ProjectileType<Projectiles.Series.Items.Sharpsand.SharpsandSwordgas>();
             Item.value = Item.sellPrice(0, 7, 50, 0);
             Item.autoReuse = true;
-            Item.shoot = 451;//
-            Item.shootSpeed = 30;
+            Item.shootSpeed = 5;
         }
         public override void AddRecipes()
         {
