@@ -39,18 +39,19 @@ namespace OdeMod.Items.Series.Sharpsand
             Item.useAmmo = AmmoID.Arrow;
             Item.shoot = ProjectileID.WoodenArrowFriendly;
             Item.shootSpeed = 20;
+       
         }
         public override Vector2? HoldoutOffset() => new Vector2(-6, 0);
-        private int num;
+        private int num = 0;
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            if (num > 1)
+            if (num > 2)
             {
-                Projectile.NewProjectile(source, player.Center, velocity, ProjectileID.IceBoomerang, damage, knockback);
+                Projectile.NewProjectile(source, player.Center, velocity, ModContent.ProjectileType<Projectiles.Series.Items.Sharpsand.Bomb>(), damage, knockback);
                 num = 0;
             }
             num++;
-            return false;
+            return true;
         }
         public override void AddRecipes()
         {

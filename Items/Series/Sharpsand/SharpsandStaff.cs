@@ -30,16 +30,16 @@ namespace OdeMod.Items.Series.Sharpsand
             Item.knockBack = 2f;
             Item.damage = 86;
             Item.crit = 9;
-            Item.useTime = 32;
-            Item.useAnimation = 32;
+            Item.useTime = 45;
+            Item.useAnimation = 45;
             Item.useTurn = false;
             Item.noMelee = true;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.rare = ItemRarityID.Pink;
             Item.value = Item.sellPrice(0, 6, 50, 0);
             Item.autoReuse = true;
-            Item.shoot = 424;//ModContent.ProjectileType<ProSharpsandFire>()
-            Item.shootSpeed = 42;
+            Item.shoot = ModContent.ProjectileType<Projectiles.Series.Items.Sharpsand.SharpsandFire>();//ModContent.ProjectileType<ProSharpsandFire>()
+            Item.shootSpeed = 5.5f;
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
@@ -49,7 +49,7 @@ namespace OdeMod.Items.Series.Sharpsand
                     new Vector2(Main.rand.Next(-60, 60), Main.rand.Next(-60, 60));
                 Vector2 tVEC = Vector2.Normalize(new Vector2(Main.MouseWorld.X + Main.rand.Next(-40, 40), Main.MouseWorld.Y +
                     Main.rand.NextFloat(-80f, -50f)) - pVEC) * Item.shootSpeed;
-                Projectile.NewProjectile(source, pVEC, tVEC, 424, damage, knockback, player.whoAmI);
+                Projectile.NewProjectile(source, pVEC, tVEC, ModContent.ProjectileType<Projectiles.Series.Items.Sharpsand.SharpsandFire>(), damage, knockback, player.whoAmI);
             }
             return false;
         }

@@ -37,15 +37,6 @@ namespace OdeMod.Projectiles.Series.Items.Sharpsand
                     Main.dust[num].noGravity = true;
                 }
             }
-            if (Projectile.timeLeft == 6)
-            {
-                for (int i = 0; i <= 30; i++)
-                {
-                    int num = Dust.NewDust(Projectile.Center-new Vector2(20f,20f), 40, 40, DustID.Smoke, 0f, 0f, 0, Color.White, 1f);
-                    Main.dust[num].velocity.Y-= 2f;
-                    Main.dust[num].noGravity = true;
-                }
-            }
             if (Projectile.timeLeft % 3 == 0)
                 Projectile.frame++;
         }
