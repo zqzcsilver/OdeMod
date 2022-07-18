@@ -1,4 +1,9 @@
-﻿using Terraria;
+﻿using Microsoft.Xna.Framework;
+
+using OdeMod.Projectiles.Series.Items.Frosted;
+
+using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -36,8 +41,16 @@ namespace OdeMod.Items.Series.Frosted
             Item.scale = 1.2f;
             Item.value = Item.sellPrice(0, 8, 0, 0);
             Item.autoReuse = true;
-            Item.shoot = 493;//ModContent.ProjectileType<ProFrostedThorn>();
+            Item.shoot = ModContent.ProjectileType<ProFrostedThorn>();
             Item.shootSpeed = 32;
+        }
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        {
+            var proj = (ProFrostedThorn)Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback).ModProjectile;
+            proj.startCenter = proj.Projectile.Center;
+            proj.Longer = 1000;
+            proj.PutNextPro();
+            return false;
         }
         public override void AddRecipes()
         {

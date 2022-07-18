@@ -56,10 +56,9 @@ namespace OdeMod.Projectiles.Series.Items.Frosted
                 Main.dust[num].noGravity = true;
             }
         }
-        Texture2D texture, texture2;
         public override bool PreDraw(ref Color lightColor)
         {
-            texture = ModContent.Request<Texture2D>("OdeMod/Projectiles/Series/Items/Frosted/Flycutter3").Value;
+            Texture2D texture = ModContent.Request<Texture2D>("OdeMod/Projectiles/Series/Items/Frosted/Flycutter3").Value;
             Vector2 drawOrigin = new Vector2(Projectile.width * 0.5f, Projectile.height * 0.5f);
             for (int k = 0; k < Projectile.oldPos.Length; k++)
             {
