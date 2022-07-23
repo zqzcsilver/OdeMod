@@ -35,6 +35,7 @@
 			SharpsandBow : 纯砂弓
 			SharpsandGiantblade : 纯砂巨剑
 			SharpsandStaff : 纯砂法杖
+			Redmoon : 赤红幼月
 		}
 		#物品介绍
 		ItemTooltip:
@@ -69,6 +70,7 @@
 			SharpsandBow : 
 			SharpsandGiantblade : 
 			SharpsandStaff : 
+			Redmoon : 这次一定能中...
 		}
 		#弹幕名字
 		ProjectileName:
