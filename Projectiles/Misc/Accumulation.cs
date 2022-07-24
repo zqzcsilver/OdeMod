@@ -102,9 +102,24 @@ namespace OdeMod.Projectiles.Misc
                     {
 
                     }
+
+                    for (int i = 1; i <= 40; i++)
+                    {
+                        Vector2 plrToMouse = Main.MouseWorld - player.Center;
+                        float r = (float)Math.Atan2(plrToMouse.Y, plrToMouse.X);
+                        float r2 = r + (Main.rand.Next(-10, 11) * 0.03f);
+                        Vector2 shootVel = r2.ToRotationVector2() * Main.rand.Next(40, 200) * 0.15f;
+                        int num = Dust.NewDust(player.position, player.width, player.height, 235, 0, 0, 235, default, 2f);
+
+                        Main.dust[num].velocity = shootVel;
+
+                        Main.dust[num].noGravity = true;
+                        Main.dust[num].scale *= 1.02f;
+                    }
+                    
                     Vector2 speed = Main.MouseWorld - player.Center;
                     speed.Normalize();
-                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, 12*speed, ModContent.ProjectileType<Projectiles.Misc.Redarrow>(), Projectile.damage, 0, player.whoAmI);
+                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, 12*speed, ModContent.ProjectileType<Projectiles.Misc.Redarrow>(), Projectile.damage, Projectile.knockBack, player.whoAmI);
                 }
                 return;
             }

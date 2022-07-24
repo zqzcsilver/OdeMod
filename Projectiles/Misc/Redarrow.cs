@@ -27,13 +27,14 @@ namespace OdeMod.Projectiles.Misc
         }
         public override void AI()
         {
+            Projectile.rotation = (float)
+                  System.Math.Atan2((double)Projectile.velocity.Y,
+                  (double)Projectile.velocity.X) + 1.57f;
             int num = Dust.NewDust(Projectile.Center - new Vector2(1f, 1f), 2, 2, 235, 0f, 0f, 0, Color.White, 2f);
             Main.dust[num].velocity *= 0.1f;
             Main.dust[num].noGravity = true;
 
-                Projectile.rotation = (float)
-                   System.Math.Atan2((double)Projectile.velocity.Y,
-                   (double)Projectile.velocity.X) + 1.57f;
+               
 
         }
         Texture2D texture, texture2;
