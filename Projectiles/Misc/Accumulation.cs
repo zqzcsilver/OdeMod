@@ -102,7 +102,9 @@ namespace OdeMod.Projectiles.Misc
                     {
 
                     }
-
+                    Vector2 speed = Main.MouseWorld - player.Center;
+                    speed.Normalize();
+                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, 12 * speed, ModContent.ProjectileType<Projectiles.Misc.Redarrow>(), Projectile.damage, Projectile.knockBack, player.whoAmI);
                     for (int i = 1; i <= 40; i++)
                     {
                         Vector2 plrToMouse = Main.MouseWorld - player.Center;
@@ -117,9 +119,7 @@ namespace OdeMod.Projectiles.Misc
                         Main.dust[num].scale *= 1.02f;
                     }
                     
-                    Vector2 speed = Main.MouseWorld - player.Center;
-                    speed.Normalize();
-                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, 12*speed, ModContent.ProjectileType<Projectiles.Misc.Redarrow>(), Projectile.damage, Projectile.knockBack, player.whoAmI);
+                   
                 }
                 return;
             }

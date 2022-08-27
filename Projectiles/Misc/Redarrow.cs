@@ -18,7 +18,7 @@ namespace OdeMod.Projectiles.Misc
             Projectile.ignoreWater = true;
             Projectile.tileCollide = false;
             Projectile.timeLeft = 300;
-            Projectile.alpha = 0;
+            Projectile.alpha = 255;
             Projectile.penetrate = -1;
             Projectile.scale = 1f;
             ProjectileID.Sets.TrailCacheLength[base.Projectile.type] = 8;
@@ -27,6 +27,10 @@ namespace OdeMod.Projectiles.Misc
         }
         public override void AI()
         {
+            if(Projectile.timeLeft<=297)
+            {
+                Projectile.alpha = 0;
+            }
             Projectile.rotation = (float)
                   System.Math.Atan2((double)Projectile.velocity.Y,
                   (double)Projectile.velocity.X) + 1.57f;
