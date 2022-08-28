@@ -41,7 +41,7 @@ namespace OdeMod.Projectiles.Misc
                
 
         }
-        Texture2D texture, texture2;
+        Texture2D texture;
         public override bool PreDraw(ref Color lightColor)
         {
             texture = ModContent.Request<Texture2D>("OdeMod/Projectiles/Misc/Redarrow").Value;

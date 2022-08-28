@@ -127,7 +127,6 @@ namespace OdeMod.Projectiles.Misc
         }
 
         Texture2D texture;
-        float sizex = 1.5f;
         int c = 60;
         int c2 = 60;
         float timer = 0;

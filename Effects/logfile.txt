@@ -1,0 +1,141 @@
+Error at 2021/2/6 20:31:45: Error loading pipeline assembly "C:\Users\DXT\Documents\My Games\Terraria\ModLoader\Mod Sources\Classifier\Effects\Microsoft.Xna.Framework.dll".
+Error at 2021/2/6 20:32:02: Error loading pipeline assembly "C:\Users\DXT\Documents\My Games\Terraria\ModLoader\Mod Sources\Classifier\Effects\Microsoft.Xna.Framework.Content.Pipeline.AudioImporters.dll".
+Error at 2021/2/6 20:32:20: Error loading pipeline assembly "C:\Users\DXT\Documents\My Games\Terraria\ModLoader\Mod Sources\Classifier\Effects\Microsoft.Xna.Framework.Content.Pipeline.FBXImporter.dll".
+Message at 2021/2/6 20:32:35: Importing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2021/2/6 20:32:35: Processing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2021/2/6 20:32:35: Compiling Content\Trail.xnb
+Message at 2021/2/6 20:34:19: Importing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2021/2/6 20:34:19: Processing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2021/2/6 20:34:19: Compiling Content\Trail.xnb
+Message at 2021/2/6 20:35:09: Importing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2021/2/6 20:35:09: Processing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2021/2/6 20:35:09: Compiling Content\Trail.xnb
+Message at 2021/2/6 20:36:32: Importing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2021/2/6 20:36:32: Processing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2021/2/6 20:36:32: Compiling Content\Trail.xnb
+Message at 2021/2/6 20:37:31: Importing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2021/2/6 20:37:31: Processing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2021/2/6 20:37:31: Compiling Content\Trail.xnb
+Message at 2021/2/6 20:40:19: Importing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2021/2/6 20:40:19: Processing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2021/2/6 20:40:19: Compiling Content\Trail.xnb
+Message at 2021/2/6 20:41:06: Importing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2021/2/6 20:41:06: Processing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2021/2/6 20:41:06: Compiling Content\Trail.xnb
+Message at 2021/2/6 20:42:15: Importing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2021/2/6 20:42:15: Processing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2021/2/6 20:42:15: Compiling Content\Trail.xnb
+Message at 2021/2/6 20:46:01: Importing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2021/2/6 20:46:01: Processing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2021/2/6 20:46:01: Compiling Content\Trail.xnb
+Message at 2021/2/6 20:54:29: Importing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2021/2/6 20:54:29: Processing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2021/2/6 20:54:29: Compiling Content\Trail.xnb
+Message at 2021/2/6 20:58:17: Importing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2021/2/6 20:58:17: Processing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2021/2/6 20:58:17: Compiling Content\Trail.xnb
+Message at 2021/2/6 20:59:25: Importing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2021/2/6 20:59:25: Processing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2021/2/6 20:59:25: Compiling Content\Trail.xnb
+Message at 2021/2/6 21:00:08: Importing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2021/2/6 21:00:08: Processing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2021/2/6 21:00:08: Compiling Content\Trail.xnb
+Message at 2021/2/7 9:25:48: Importing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2021/2/7 9:25:48: Processing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2021/2/7 9:25:48: Compiling Content\Trail.xnb
+Message at 2021/2/7 9:28:46: Importing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2021/2/7 9:28:46: Processing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2021/2/7 9:28:46: Compiling Content\Trail.xnb
+Message at 2021/2/7 9:31:27: Importing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2021/2/7 9:31:27: Processing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2021/2/7 9:31:27: Compiling Content\Trail.xnb
+Message at 2021/2/7 9:32:23: Importing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2021/2/7 9:32:24: Processing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2021/2/7 9:32:24: Compiling Content\Trail.xnb
+Message at 2021/2/7 9:33:58: Importing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2021/2/7 9:33:58: Processing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2021/2/7 9:33:58: Compiling Content\Trail.xnb
+Message at 2021/2/7 9:35:27: Importing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2021/2/7 9:35:27: Processing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2021/2/7 9:35:27: Compiling Content\Trail.xnb
+Message at 2021/2/7 9:36:23: Importing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2021/2/7 9:36:23: Processing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2021/2/7 9:36:23: Compiling Content\Trail.xnb
+Message at 2021/2/7 9:37:32: Importing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2021/2/7 9:37:32: Processing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2021/2/7 9:37:32: Compiling Content\Trail.xnb
+Message at 2021/2/7 9:37:34: Importing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2021/2/7 9:37:34: Processing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2021/2/7 9:37:34: Compiling Content\Trail.xnb
+Message at 2021/2/7 9:39:22: Importing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2021/2/7 9:39:22: Processing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2021/2/7 9:39:22: Compiling Content\Trail.xnb
+Message at 2021/2/7 10:46:14: Importing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2021/2/7 10:46:14: Processing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2021/2/7 10:46:14: Compiling Content\Trail.xnb
+Message at 2022/8/8 9:52:36: Importing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/8/8 9:52:36: Processing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/8/8 9:52:36: Compiling Content\Trail.xnb
+Message at 2022/8/8 9:52:50: Importing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/8/8 9:52:50: Processing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/8/8 9:52:50: Compiling Content\Trail.xnb
+Message at 2022/8/10 10:30:39: Importing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/8/10 10:30:39: Processing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/8/10 10:30:39: Compiling Content\Trail.xnb
+Message at 2022/8/10 19:28:07: Importing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/8/10 19:28:07: Processing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/8/10 19:28:07: Compiling Content\Trail.xnb
+Message at 2022/8/10 20:27:16: Importing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/8/10 20:27:16: Processing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/8/10 20:27:16: Compiling Content\Trail.xnb
+Message at 2022/8/10 20:31:20: Importing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/8/10 20:31:20: Processing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/8/10 20:31:20: Compiling Content\Trail.xnb
+Message at 2022/8/10 20:31:24: Importing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/8/10 20:31:24: Processing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/8/10 20:31:24: Compiling Content\Trail.xnb
+Message at 2022/8/12 15:43:57: Importing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/8/12 15:43:57: Processing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/8/12 15:43:57: Compiling Content\Trail.xnb
+Message at 2022/8/12 15:51:58: Importing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/8/12 15:51:58: Processing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/8/12 15:51:58: Compiling Content\Trail.xnb
+Message at 2022/8/12 16:03:01: Importing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/8/12 16:03:01: Processing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/8/12 16:03:01: Compiling Content\Trail.xnb
+Message at 2022/8/12 19:48:04: Importing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/8/12 19:48:04: Processing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/8/12 19:48:04: Compiling Content\Trail.xnb
+Message at 2022/8/12 20:16:46: Importing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/8/12 20:16:46: Processing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/8/12 20:16:46: Compiling Content\Trail.xnb
+Message at 2022/8/12 20:37:13: Importing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/8/12 20:37:13: Processing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/8/12 20:37:13: Compiling Content\Trail.xnb
+Message at 2022/8/13 21:59:29: Importing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/8/13 21:59:29: Processing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/8/13 21:59:29: Compiling Content\Trail.xnb
+Message at 2022/8/14 10:04:25: Importing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/8/14 10:04:25: Processing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/8/14 10:04:25: Compiling Content\Trail.xnb
+Message at 2022/8/14 10:06:18: Importing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/8/14 10:06:18: Processing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/8/14 10:06:18: Compiling Content\Trail.xnb
+Message at 2022/8/14 10:09:52: Importing ContentPipeline.xml with Microsoft.Xna.Framework.Content.Pipeline.XmlImporter
+Message at 2022/8/14 10:09:52: Processing ContentPipeline.xml with Microsoft.Xna.Framework.Content.Pipeline.Processors.PassThroughProcessor
+Message at 2022/8/14 10:09:52: Compiling Content\ContentPipeline.xnb
+Message at 2022/8/14 10:09:52: Importing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/8/14 10:09:52: Processing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/8/14 10:09:52: Compiling Content\Trail.xnb
+Message at 2022/8/27 15:26:37: Importing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/8/27 15:26:37: Processing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/8/27 15:26:37: Compiling Content\Trail.xnb
+Message at 2022/8/27 15:40:45: Importing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/8/27 15:40:45: Processing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/8/27 15:40:45: Compiling Content\Trail.xnb
+Message at 2022/8/27 19:07:29: Importing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/8/27 19:07:29: Processing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/8/27 19:07:29: Compiling Content\Trail.xnb
+Message at 2022/8/27 19:10:05: Importing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/8/27 19:10:05: Processing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/8/27 19:10:05: Compiling Content\Trail.xnb

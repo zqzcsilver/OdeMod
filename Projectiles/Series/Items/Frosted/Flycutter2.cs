@@ -59,7 +59,7 @@ namespace OdeMod.Projectiles.Series.Items.Frosted
                 Main.dust[num2].noGravity = true;
             }
         }
-        Texture2D texture, texture2;
+        Texture2D texture;
         public override bool PreDraw(ref Color lightColor)
         {
             texture = ModContent.Request<Texture2D>("OdeMod/Projectiles/Series/Items/Frosted/Flycutter3").Value;

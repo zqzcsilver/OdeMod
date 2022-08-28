@@ -98,9 +98,9 @@ namespace OdeMod.NPCs.Enemies
                 int num2 = Dust.NewDust(NPC.Center - new Vector2(16f, 16f), 32, 32, DustID.Shadowflame, 0f, 0f, 0, default, 1.5f);
                 Main.dust[num2].noGravity = true;
             }
-
-            Player player = Main.player[NPC.target];
             NPC.TargetClosest(true);
+            Player player = Main.player[NPC.target];
+            
             if (player.position.X > NPC.position.X)
             {
                 NPC.spriteDirection = 1;
