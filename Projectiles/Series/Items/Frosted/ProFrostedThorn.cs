@@ -1,23 +1,8 @@
-﻿using log4net.Repository.Hierarchy;
-
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using Mono.Cecil;
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using Terraria;
-using Terraria.Enums;
-using Terraria.GameContent;
-using Terraria.ID;
 using Terraria.ModLoader;
-
-using static Terraria.ModLoader.PlayerDrawLayer;
 
 namespace OdeMod.Projectiles.Series.Items.Frosted
 {

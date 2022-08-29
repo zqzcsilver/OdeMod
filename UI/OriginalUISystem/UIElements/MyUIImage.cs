@@ -3,9 +3,9 @@ using Microsoft.Xna.Framework.Graphics;
 
 using Terraria.UI;
 
-namespace OdeMod.UI.UIElements
+namespace OdeMod.UI.OriginalUISystem.UIElements
 {
-    internal class MyUIImage : UIElement, IOdeUIElement
+    internal class MyUIImage : UIElement, IOriginalUIElement
     {
         private Texture2D _texture;
         /// <summary>

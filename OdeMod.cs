@@ -6,6 +6,7 @@ using System;
 using System.Reflection;
 
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace OdeMod
@@ -15,26 +16,27 @@ namespace OdeMod
         public override void Load()
         {
             base.Load();
+            if (Main.netMode == NetmodeID.SinglePlayer)
+            {
+                //加载LanguageType内的语言种类实例
+                LanguageType.LoadCulture();
 
-            //加载LanguageType内的语言种类实例
-            LanguageType.LoadCulture();
-
-            //添加Hook
-            MonoModHooks.RequestNativeAccess();
-            MonoMod.RuntimeDetour.IDetour detour = new MonoMod.RuntimeDetour.Hook(
-                typeof(ModDust).GetMethod("Draw", BindingFlags.Instance | BindingFlags.NonPublic),
-               new Action<Action<ModDust, Dust, Color, float>, ModDust, Dust, Color, float>(
-                   (orig, self, dust, alpha, scale) =>
-               {
-                   if (self is Dusts.IOdeDusts && ((Dusts.IOdeDusts)self).UseMyDraw)
+                //添加Hook
+                MonoModHooks.RequestNativeAccess();
+                MonoMod.RuntimeDetour.IDetour detour = new MonoMod.RuntimeDetour.Hook(
+                    typeof(ModDust).GetMethod("Draw", BindingFlags.Instance | BindingFlags.NonPublic),
+                   new Action<Action<ModDust, Dust, Color, float>, ModDust, Dust, Color, float>(
+                       (orig, self, dust, alpha, scale) =>
                    {
-                       ((Dusts.IOdeDusts)self).Draw(self, dust, alpha, scale, Main.spriteBatch);
-                   }
-                   else
-                       orig(self, dust, alpha, scale);
-               }));
-            detour.Apply();
-
+                       if (self is Dusts.IOdeDusts && ((Dusts.IOdeDusts)self).UseMyDraw)
+                       {
+                           ((Dusts.IOdeDusts)self).Draw(self, dust, alpha, scale, Main.spriteBatch);
+                       }
+                       else
+                           orig(self, dust, alpha, scale);
+                   }));
+                detour.Apply();
+            }
         }
     }
 }

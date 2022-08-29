@@ -7,7 +7,7 @@ using Terraria;
 using Terraria.GameContent;
 using Terraria.UI;
 
-namespace OdeMod.UI.UIElements
+namespace OdeMod.UI.OriginalUISystem.UIElements
 {
     /// <summary>
     /// 拿取或放置物品的委托类别
@@ -21,7 +21,7 @@ namespace OdeMod.UI.UIElements
     /// <param name="target">物品框</param>
     public delegate void ExchangeItemHandler(UIElement target);
 
-    public class MyUIItemSlot : UIElement, IOdeUIElement
+    public class MyUIItemSlot : UIElement, IOriginalUIElement
     {
         /// <summary>
         /// 框贴图

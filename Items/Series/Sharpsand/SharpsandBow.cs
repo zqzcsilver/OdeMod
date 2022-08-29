@@ -39,7 +39,7 @@ namespace OdeMod.Items.Series.Sharpsand
             Item.useAmmo = AmmoID.Arrow;
             Item.shoot = ProjectileID.WoodenArrowFriendly;
             Item.shootSpeed = 20;
-       
+
         }
         public override Vector2? HoldoutOffset() => new Vector2(-6, 0);
         private int num = 0;

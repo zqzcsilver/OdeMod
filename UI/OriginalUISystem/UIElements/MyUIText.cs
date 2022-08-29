@@ -6,9 +6,9 @@ using ReLogic.Graphics;
 using Terraria.UI;
 using Terraria.UI.Chat;
 
-namespace OdeMod.UI.UIElements
+namespace OdeMod.UI.OriginalUISystem.UIElements
 {
-    public class MyUIText : UIElement, IOdeUIElement
+    public class MyUIText : UIElement, IOriginalUIElement
     {
         public string Text;
         public float Scale;
