@@ -1,9 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
+using Microsoft.Xna.Framework.Graphics;
+
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework.Graphics;
 namespace OdeMod.Projectiles.Series.Items.HollowKnight
 {
     internal class VengefulSpirit : ModProjectile, IHollowKnightProjectile
@@ -70,7 +70,7 @@ namespace OdeMod.Projectiles.Series.Items.HollowKnight
                 {
                     float demo = 1 + Vector2.DistanceSquared(Main.player[Main.myPlayer].Center, Projectile.Center) / 500000;
                     //Cantiane.shakeInt = Math.Max(Cantiane.shakeInt, (int)(8 / demo));
-                    
+
                 }
                 catch
                 {

@@ -1,11 +1,8 @@
 ﻿
-using Terraria.GameContent;
-
 using OdeMod.UI.OdeUISystem.UIElements;
 using OdeMod.UI.OriginalUISystem;
 
-using Terraria.UI;
-using Microsoft.Xna.Framework.Graphics;
+using Terraria.GameContent;
 
 namespace OdeMod.UI.OdeUISystem.Containers.Recharge
 {
@@ -15,8 +12,8 @@ namespace OdeMod.UI.OdeUISystem.Containers.Recharge
         {
             base.OnInitialization();
             UIText text = new UIText("我日", FontAssets.MouseText.Value);
-            text.Info.Left.Percent = 0.5f;
-            text.Info.Top.Percent = 0.5f;
+            text.CenterX = new PositionStyle(0f, 0.5f);
+            text.CenterY = new PositionStyle(0f, 0.5f);
             Register(text);
         }
     }

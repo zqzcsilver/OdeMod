@@ -3,9 +3,6 @@ using Microsoft.Xna.Framework.Graphics;
 
 using ReLogic.Graphics;
 
-using Terraria;
-using Terraria.GameContent;
-
 namespace OdeMod.UI.OdeUISystem.UIElements
 {
     internal class UIText : BaseElement
@@ -27,6 +24,8 @@ namespace OdeMod.UI.OdeUISystem.UIElements
         /// </summary>
         public float Scale;
         public bool CalculateSize = true;
+        public PositionStyle? CenterX;
+        public PositionStyle? CenterY;
         public UIText(string t, DynamicSpriteFont spriteFont, float scale = 1f)
         {
             text = t;
@@ -41,63 +40,32 @@ namespace OdeMod.UI.OdeUISystem.UIElements
             Scale = scale;
             Color = textColor;
         }
-        public override void LoadEvents()
-        {
-            base.LoadEvents();
-            Events.OnLeftClick += element =>
-            {
-                Main.NewText("你抬起了鼠标左键！");
-            };
-            Events.OnLeftDown += element =>
-            {
-                Main.NewText("你按下了鼠标左键！");
-            };
-            Events.OnLeftDoubleClick += element =>
-            {
-                Main.NewText("你双击了鼠标左键！");
-            };
-
-            Events.OnRightClick += element =>
-            {
-                Main.NewText("你抬起了鼠标右键！");
-            };
-            Events.OnRightDown += element =>
-            {
-                Main.NewText("你按下了鼠标右键！");
-            };
-            Events.OnRightDoubleClick += element =>
-            {
-                Main.NewText("你双击了鼠标右键！");
-            };
-
-            Events.OnMouseOver += element =>
-            {
-                Main.NewText("鼠标进入了UI！");
-            };
-            Events.OnMouseOut += element =>
-            {
-                Main.NewText("鼠标离开了UI！");
-            };
-        }
         public override void Calculation()
         {
             if (CalculateSize)
             {
-                Vector2 size = font.MeasureString(text) * Scale;
+                Vector2 size = OdeMod.DynamicSpriteFontInfoManager.GetStringSize(font, text) * Scale;
                 Info.Width.Pixel = size.X;
                 Info.Height.Pixel = size.Y;
-                Info.Left.Pixel -= size.X / 2;
-                Info.Top.Pixel -= size.Y / 2;
+                Info.Width.Percent = 0f;
+                Info.Height.Percent = 0f;
+
+                if (CenterX != null && CenterY != null)
+                {
+                    var x = CenterX.Value;
+                    var y = CenterY.Value;
+                    Info.Left.Percent = x.Percent;
+                    Info.Top.Percent = y.Percent;
+                    Info.Left.Pixel = x.Pixel - Info.Width.Pixel / 2f;
+                    Info.Top.Pixel = y.Pixel - Info.Height.Pixel / 2f;
+                }
             }
             base.Calculation();
         }
         protected override void DrawSelf(SpriteBatch sb)
         {
             base.DrawSelf(sb);
-            Vector2 center = Info.Location;
-            sb.DrawString(font, text, center, Color, 0f, Vector2.Zero, Scale, SpriteEffects.None, 0f);
-
-            sb.Draw(TextureAssets.MagicPixel.Value, Info.TotalHitBox, Color.Red);
+            sb.DrawString(font, text, Info.Location, Color, 0f, Vector2.Zero, Scale, SpriteEffects.None, 0f);
         }
     }
 }

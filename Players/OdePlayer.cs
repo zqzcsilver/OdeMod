@@ -1,12 +1,7 @@
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
-using System;
-using System.Collections.Generic;
-using Terraria.DataStructures;
 namespace OdeMod.Players
 {
     internal class OdePlayer : ModPlayer, IOdePlayer

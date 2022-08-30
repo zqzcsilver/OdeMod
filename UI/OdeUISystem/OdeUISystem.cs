@@ -56,6 +56,9 @@ namespace OdeMod.UI.OdeUISystem
                 return Main.mouseRight;
             });
         }
+        /// <summary>
+        /// 反射加载所有ContainerElement
+        /// </summary>
         public void Load()
         {
             var containers = from c in GetType().Assembly.GetTypes()
@@ -84,7 +87,7 @@ namespace OdeMod.UI.OdeUISystem
                 if (child != null && child.IsVisible) child.Update(gt);
             }
 
-            var interact = Elements[CallOrder[0]].GetElementsContainsPoint(Main.MouseScreen.ToPoint());
+            var interact = Elements[CallOrder[FindTopContainer()]].GetElementsContainsPoint(Main.MouseScreen.ToPoint());
             foreach (var ce in interact)
                 if (!interactContainerElementsBuffer.Contains(ce))
                     ce.Events.MouseOver(ce);
@@ -95,21 +98,20 @@ namespace OdeMod.UI.OdeUISystem
 
             if (mouseLeftDown != Main.mouseLeft)
             {
-                var i = Elements[CallOrder[0]].GetElementsContainsPoint(Main.MouseScreen.ToPoint());
                 if (Main.mouseLeft)
                 {
-                    i.ForEach(x => x.Events.LeftDown(x));
+                    interact.ForEach(x => x.Events.LeftDown(x));
                 }
                 else
                 {
                     if (mouseLeftCooldown.IsCoolDown())
                     {
-                        i.ForEach(x => x.Events.LeftClick(x));
+                        interact.ForEach(x => x.Events.LeftClick(x));
                         mouseLeftCooldown.ResetCoolDown();
                     }
                     else
                     {
-                        i.ForEach(x => x.Events.LeftDoubleClick(x));
+                        interact.ForEach(x => x.Events.LeftDoubleClick(x));
                         mouseLeftCooldown.CoolDown();
                     }
                 }
@@ -119,21 +121,20 @@ namespace OdeMod.UI.OdeUISystem
 
             if (mouseRightDown != Main.mouseRight)
             {
-                var i = Elements[CallOrder[0]].GetElementsContainsPoint(Main.MouseScreen.ToPoint());
                 if (Main.mouseRight)
                 {
-                    i.ForEach(x => x.Events.RightDown(x));
+                    interact.ForEach(x => x.Events.RightDown(x));
                 }
                 else
                 {
                     if (mouseRightCooldown.IsCoolDown())
                     {
-                        i.ForEach(x => x.Events.RightClick(x));
+                        interact.ForEach(x => x.Events.RightClick(x));
                         mouseRightCooldown.ResetCoolDown();
                     }
                     else
                     {
-                        i.ForEach(x => x.Events.RightDoubleClick(x));
+                        interact.ForEach(x => x.Events.RightDoubleClick(x));
                         mouseRightCooldown.CoolDown();
                     }
                 }
@@ -165,17 +166,12 @@ namespace OdeMod.UI.OdeUISystem
         /// <returns>成功时返回true，否则返回false</returns>
         public bool Register(ContainerElement element)
         {
-            if (element == null || Elements.ContainsKey(element.Name) || CallOrder.Contains(element.Name)) return false;
-            Elements.Add(element.Name, element);
-            CallOrder.Add(element.Name);
-            element.OnInitialization();
-            element.Calculation();
-            return true;
+            return Register(element.Name, element);
         }
         /// <summary>
         /// 添加子元素
         /// </summary>
-        /// <param name="name">需要添加的子元素的Key</param>
+        /// <param name="name">需要添加的子元素的Name</param>
         /// <param name="element">需要添加的子元素</param>
         /// <returns>成功时返回true，否则返回false</returns>
         public bool Register(string name, ContainerElement element)
@@ -208,6 +204,48 @@ namespace OdeMod.UI.OdeUISystem
             foreach (var child in Elements.Values)
                 if (child != null)
                     child.Calculation();
+        }
+        /// <summary>
+        /// 将容器置顶
+        /// </summary>
+        /// <param name="name">需要置顶的容器Name</param>
+        /// <returns>成功返回true，否则返回false</returns>
+        public bool SetContainerTop(string name)
+        {
+            if (CallOrder.Count == 0 || Elements.Count == 0 || !(Elements.ContainsKey(name) || CallOrder.Contains(name)))
+                return false;
+            if (CallOrder[0] == name)
+                return true;
+            CallOrder.Remove(name);
+            CallOrder.Insert(0, name);
+            return true;
+        }
+        /// <summary>
+        /// 交换两个容器的顺序
+        /// </summary>
+        /// <param name="name1">容器1的Name</param>
+        /// <param name="name2">容器2的Name</param>
+        /// <returns>是否交换成功。成功则返回true，否则返回false</returns>
+        public bool ExchangeContainer(string name1, string name2)
+        {
+            if (CallOrder.Count == 0 || Elements.Count == 0 || !(Elements.ContainsKey(name1) || CallOrder.Contains(name1)) ||
+                !(Elements.ContainsKey(name2) || CallOrder.Contains(name2)))
+                return false;
+            int index1 = CallOrder.FindIndex(x => x == name1);
+            int index2 = CallOrder.FindIndex(x => x == name2);
+            CallOrder.Remove(name1);
+            CallOrder.Remove(name2);
+            CallOrder.Insert(index1, name2);
+            CallOrder.Insert(index2, name1);
+            return true;
+        }
+        /// <summary>
+        /// 寻找开启的顶部容器索引
+        /// </summary>
+        /// <returns>开启的顶部容器索引</returns>
+        public int FindTopContainer()
+        {
+            return CallOrder.FindIndex(x => Elements[x].IsVisible);
         }
     }
 }

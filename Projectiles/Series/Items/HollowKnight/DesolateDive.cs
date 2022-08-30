@@ -1,13 +1,15 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+
 using System;
+
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace OdeMod.Projectiles.Series.Items.HollowKnight
 {
-    internal class DesolateDive : ModProjectile,IHollowKnightProjectile
+    internal class DesolateDive : ModProjectile, IHollowKnightProjectile
     {
         public void CreateDust(Texture2D t, Vector2 center, float size)
         {

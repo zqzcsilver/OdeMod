@@ -1,13 +1,15 @@
 ﻿using Microsoft.Xna.Framework;
-using Terraria.DataStructures;
+
 using OdeMod.Utils;
+
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace OdeMod.Items.Series.HollowKnight
 {
-    internal class DesolateDive : ModItem,IHollowKnight
+    internal class DesolateDive : ModItem, IHollowKnight
     {
         public override void SetStaticDefaults()
         {

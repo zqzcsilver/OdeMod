@@ -100,7 +100,7 @@ namespace OdeMod.NPCs.Enemies
             }
             NPC.TargetClosest(true);
             Player player = Main.player[NPC.target];
-            
+
             if (player.position.X > NPC.position.X)
             {
                 NPC.spriteDirection = 1;

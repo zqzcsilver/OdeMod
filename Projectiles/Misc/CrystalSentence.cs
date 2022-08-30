@@ -1,9 +1,10 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+
 using System;
 using System.Collections.Generic;
+
 using Terraria;
-using Terraria.Graphics.Renderers;
 using Terraria.ID;
 using Terraria.ModLoader;
 namespace OdeMod.Projectiles.Misc
@@ -26,21 +27,20 @@ namespace OdeMod.Projectiles.Misc
             ProjectileID.Sets.TrailCacheLength[base.Projectile.type] = 15;
             ProjectileID.Sets.TrailingMode[base.Projectile.type] = 0;
         }
-        int reduceVel = 0;
-        int rotate = 0;
-        int ok = 0;
-        int ok2 = 0;
-        float norm = 0;
-        float lerpRad = 0;
-        Vector2 plr2Proj = Vector2.Zero;
-        Vector2 plrOrig = Vector2.Zero;
-        Vector2 plrOrig2 = Vector2.Zero;
-        float vel = 0;
-        float vel2 = 5;
-        bool directionIsLeft = false;
+        private int reduceVel = 0;
+        private int rotate = 0;
+        private int ok = 0;
+        private int ok2 = 0;
+        private float norm = 0;
+        private float lerpRad = 0;
+        private float vel = 0;
+        private float vel2 = 5;
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];
+            Vector2 plr2Proj = Vector2.Zero;
+            Vector2 plrOrig = Vector2.Zero;
+            Vector2 plrOrig2 = Vector2.Zero;
             if (reduceVel < 40)
             {
                 if (Projectile.timeLeft <= 297 && Projectile.alpha > 0)
@@ -52,14 +52,6 @@ namespace OdeMod.Projectiles.Misc
                 if (ok2 == 0)
                 {
                     ok2 = 1;
-                    if (player.direction == 1)
-                    {
-                        directionIsLeft = false;
-                    }
-                    else
-                    {
-                        directionIsLeft = true;
-                    }
                     plrOrig = player.Center;
                     plr2Proj = Main.MouseWorld - plrOrig;
 
@@ -83,7 +75,7 @@ namespace OdeMod.Projectiles.Misc
                 vel2 *= 0.92f;
                 rotate++;
                 Projectile.rotation = norm + 1.57f;
-                if (directionIsLeft)
+                if (player.direction != 1)
                 {
                     norm -= lerpRad;
                 }
@@ -112,9 +104,6 @@ namespace OdeMod.Projectiles.Misc
                 if (Projectile.alpha > 255)
                     Projectile.active = false;
             }
-
-
-
         }
         public override bool PreDraw(ref Color lightColor)
         {
@@ -219,12 +208,12 @@ namespace OdeMod.Projectiles.Misc
 
                 //启用即时加载加载Shader
                 var shader = ModContent.Request<Effect>("OdeMod/Effects/Content/Trail", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
-                var MainColor = ModContent.Request<Texture2D>("OdeMod/Images/heatmap", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
-                var MaskColor = ModContent.Request<Texture2D>("OdeMod/Images/Extra_190", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
-                var MainShape = ModContent.Request<Texture2D>("OdeMod/Images/Extra_197", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
-                var MaskColor2 = ModContent.Request<Texture2D>("OdeMod/Images/Extra_189", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
-                var MainShape2 = ModContent.Request<Texture2D>("OdeMod/Images/Extra_198", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
-                var MainColor2 = ModContent.Request<Texture2D>("OdeMod/Images/heatmap2", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+                var MainColor = ModContent.Request<Texture2D>("OdeMod/Images/Effects/heatmap", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+                var MaskColor = ModContent.Request<Texture2D>("OdeMod/Images/Effects/Extra_190", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+                var MainShape = ModContent.Request<Texture2D>("OdeMod/Images/Effects/Extra_197", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+                var MaskColor2 = ModContent.Request<Texture2D>("OdeMod/Images/Effects/Extra_189", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+                var MainShape2 = ModContent.Request<Texture2D>("OdeMod/Images/Effects/Extra_198", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+                var MainColor2 = ModContent.Request<Texture2D>("OdeMod/Images/Effects/heatmap2", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                 // 把变换和所需信息丢给shader
                 shader.Parameters["uTransform"].SetValue(model * projection);//坐标变换，详见小裙子视频
                 shader.Parameters["uTime"].SetValue(-(float)Main.time * 0.05f);//使纹理随时间变化

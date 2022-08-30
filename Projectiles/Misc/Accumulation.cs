@@ -1,18 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Terraria;
-using Terraria.ModLoader;
-using Terraria.ID;
-using System.Linq;
-using static Terraria.Utils;
+
 using OdeMod.Players;
-using Terraria.GameContent;
+
+using System;
+
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
+
+using static Terraria.Utils;
 
 namespace OdeMod.Projectiles.Misc
 {
-    public class Accumulation : ModProjectile,IMiscProjectile
+    public class Accumulation : ModProjectile, IMiscProjectile
     {
         public override void SetDefaults()
         {
@@ -47,19 +48,19 @@ namespace OdeMod.Projectiles.Misc
             if (Projectile.ai[0] == 180 && ok == false)
             {
                 ok = true;
-                for (int i = 0; i < 60; i++) 
+                for (int i = 0; i < 60; i++)
                 {
                     var dust2 = Dust.NewDustDirect(player.Center + new Vector2(-3, 0), 1, 1, 235, 0, 0, 0, Color.White, 2f);
-                    dust2.velocity = 6*Main.rand.NextVector2Unit();
+                    dust2.velocity = 6 * Main.rand.NextVector2Unit();
                     dust2.noGravity = true;
-                    
+
                 }
             }
             if (Main.player[Projectile.owner].channel)
             {
-                
-                
-                
+
+
+
                 unit = Vector2.Normalize(Main.MouseWorld - player.Center);
                 float rotaion = unit.ToRotation();
                 player.direction = Main.MouseWorld.X < player.Center.X ? -1 : 1;
@@ -73,25 +74,25 @@ namespace OdeMod.Projectiles.Misc
                 Projectile.Center = player.Center + unit * 32f;
 
 
-                 if (Projectile.timeLeft % 2 == 0)
-                 {
-                     float rad = Main.rand.Next(0, 629) * 0.01f;
+                if (Projectile.timeLeft % 2 == 0)
+                {
+                    float rad = Main.rand.Next(0, 629) * 0.01f;
 
-                     var dust = Dust.NewDustDirect(player.Center + unit2 * Main.rand.Next(200, 400) * 0.2f + new Vector2(-4, -4) + Main.rand.Next(1, 20) * new Vector2((float)Math.Cos(rad) - 0.05f, (float)Math.Sin(rad)), 1, 1, DustID.RedTorch, 0, 0, 0, Color.White, 2.5f);
-                     dust.velocity = Vector2.Normalize(player.Center + unit2 * Main.rand.Next(200, 400) + new Vector2(-3, 0) - dust.position) * -5f;
-                     dust.noGravity = true;
-                 }
+                    var dust = Dust.NewDustDirect(player.Center + unit2 * Main.rand.Next(200, 400) * 0.2f + new Vector2(-4, -4) + Main.rand.Next(1, 20) * new Vector2((float)Math.Cos(rad) - 0.05f, (float)Math.Sin(rad)), 1, 1, DustID.RedTorch, 0, 0, 0, Color.White, 2.5f);
+                    dust.velocity = Vector2.Normalize(player.Center + unit2 * Main.rand.Next(200, 400) + new Vector2(-3, 0) - dust.position) * -5f;
+                    dust.noGravity = true;
+                }
                 for (int i = 0; i < 5; i++)
                 {
-                    var dust2 = Dust.NewDustDirect(player.Center + unit2 * Main.rand.Next(200, 700) * 0.1f + new Vector2(-4, -4), 1, 1, 235, 0, 0, 0, Color.White, Projectile.ai[0]*0.006f);
+                    var dust2 = Dust.NewDustDirect(player.Center + unit2 * Main.rand.Next(200, 700) * 0.1f + new Vector2(-4, -4), 1, 1, 235, 0, 0, 0, Color.White, Projectile.ai[0] * 0.006f);
                     dust2.velocity *= 0f;
                     dust2.noGravity = true;
                 }
-               
+
             }
             else
             {
-                if (Projectile.ai[0]>=180)
+                if (Projectile.ai[0] >= 180)
                 {
                     try
                     {
@@ -118,8 +119,8 @@ namespace OdeMod.Projectiles.Misc
                         Main.dust[num].noGravity = true;
                         Main.dust[num].scale *= 1.02f;
                     }
-                    
-                   
+
+
                 }
                 return;
             }
@@ -139,7 +140,7 @@ namespace OdeMod.Projectiles.Misc
 
             Color color1 = new Color(255, 0, 0);
             Color color2 = new Color(255, 255, 255);
-            Color color3 = Color.Lerp(color1, color2, Projectile.ai[0]/ 180f);
+            Color color3 = Color.Lerp(color1, color2, Projectile.ai[0] / 180f);
             Color color4 = Color.Lerp(color2, color1, (float)Math.Sin(c * 0.08f) * 0.4f + 0.4f);
             Color color5 = Color.Lerp(color2, color1, (float)Math.Sin(c2 * 0.08f) * 0.2f + 0.2f);
             Player player = Main.player[Projectile.owner];
@@ -162,9 +163,9 @@ namespace OdeMod.Projectiles.Misc
             {
                 Vector2 drawPos = player.Center - Main.screenPosition + 11.5f * new Vector2(-(float)Math.Sin(unit.ToRotation()), (float)Math.Cos(unit.ToRotation()));
                 Color color6 = color5 * (Projectile.ai[0] / 180);
-                Main.spriteBatch.Draw(texture, drawPos, null,color6 , Projectile.rotation, drawOrigin, 1f, SpriteEffects.None, 0f);
-                float sizex = (45 - timer) / 135 + 1.3f ;
-                Vector2 drawPos2 = player.Center -unit*40- Main.screenPosition + 11.5f* sizex* new Vector2(-(float)Math.Sin(unit.ToRotation()), (float)Math.Cos(unit.ToRotation()));
+                Main.spriteBatch.Draw(texture, drawPos, null, color6, Projectile.rotation, drawOrigin, 1f, SpriteEffects.None, 0f);
+                float sizex = (45 - timer) / 135 + 1.3f;
+                Vector2 drawPos2 = player.Center - unit * 40 - Main.screenPosition + 11.5f * sizex * new Vector2(-(float)Math.Sin(unit.ToRotation()), (float)Math.Cos(unit.ToRotation()));
                 Main.spriteBatch.Draw(texture, drawPos2, null, color6 * (0.75f - 0.017f * timer), Projectile.rotation, drawOrigin, sizex, SpriteEffects.None, 0f);
             }
 
@@ -176,7 +177,7 @@ namespace OdeMod.Projectiles.Misc
                 DrawLine(Main.spriteBatch, player.Center, r1.ToRotationVector2() * 1200 + player.Center, color3, color3, 1.5f);
                 DrawLine(Main.spriteBatch, player.Center, r2.ToRotationVector2() * 1200 + player.Center, color3, color3, 1.5f);
             }
-            else if(Projectile.ai[0] > 180)
+            else if (Projectile.ai[0] > 180)
             {
                 c++;
                 r1 = r;
@@ -185,7 +186,7 @@ namespace OdeMod.Projectiles.Misc
                 DrawLine(Main.spriteBatch, player.Center, r2.ToRotationVector2() * 1200 + player.Center, color4, color4, 1.5f);
             }
 
-            
+
             return true;
         }
     }

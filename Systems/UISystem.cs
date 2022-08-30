@@ -1,14 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 
-using OdeMod.UI.OdeUISystem;
-
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using Terraria;
+using Terraria.GameContent;
 using Terraria.ModLoader;
 using Terraria.UI;
 
@@ -16,25 +11,25 @@ namespace OdeMod.Systems
 {
     internal class UISystem : ModSystem, IOdeSystem
     {
-        public OdeUISystem OdeUISystem { get; private set; }
-        public UISystem()
-        {
-            OdeUISystem = new OdeUISystem();
-            Main.OnResolutionChanged += size =>
-            {
-                OdeUISystem.Calculation();
-            };
-        }
+        private Point ScreenSize;
         public override void Load()
         {
             base.Load();
-            OdeUISystem.Load();
+            OdeMod.OdeUISystem.Load();
+
+            Utils.FontInfos.DynamicSpriteFontInfoManager infoManager = new Utils.FontInfos.DynamicSpriteFontInfoManager();
+            infoManager.LoadDynamicSpriteFontInfo(FontAssets.MouseText.Value);
         }
         public override void UpdateUI(GameTime gameTime)
         {
             base.UpdateUI(gameTime);
-            OdeUISystem.Elements["OdeMod.UI.OdeUISystem.Containers.Recharge.RechargeContainer"].Info.IsVisible = true;
-            OdeUISystem.Update(gameTime);
+            if (ScreenSize != Main.ScreenSize)
+            {
+                ScreenSize = Main.ScreenSize;
+                OdeMod.OdeUISystem.Calculation();
+            }
+            OdeMod.OdeUISystem.Elements["OdeMod.UI.OdeUISystem.Containers.Recharge.RechargeContainer"].Info.IsVisible = true;
+            OdeMod.OdeUISystem.Update(gameTime);
         }
         public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
         {
@@ -46,7 +41,7 @@ namespace OdeMod.Systems
                     "OdeMod: Ode UI System",
                     delegate
                     {
-                        OdeUISystem.Draw(Main.spriteBatch);
+                        OdeMod.OdeUISystem.Draw(Main.spriteBatch);
                         return true;
                     },
                     InterfaceScaleType.UI)

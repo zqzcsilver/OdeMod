@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+
+using OdeMod.UI.OdeUISystem;
 using OdeMod.Utils;
 
 using System;
@@ -13,6 +14,36 @@ namespace OdeMod
 {
     public class OdeMod : Mod, IOde
     {
+        /// <summary>
+        /// OdeMod的实例
+        /// </summary>
+        internal static OdeMod Instance { get => ModContent.GetInstance<OdeMod>(); }
+        /// <summary>
+        /// Ode的UI管理系统实例
+        /// </summary>
+        internal static OdeUISystem OdeUISystem
+        {
+            get
+            {
+                if (Instance.uiSystem == null)
+                    Instance.uiSystem = new OdeUISystem();
+                return Instance.uiSystem;
+            }
+        }
+        private OdeUISystem uiSystem;
+        /// <summary>
+        /// 字体信息管理系统的实例
+        /// </summary>
+        internal static Utils.FontInfos.DynamicSpriteFontInfoManager DynamicSpriteFontInfoManager
+        {
+            get
+            {
+                if (Instance.infoManager == null)
+                    Instance.infoManager = new Utils.FontInfos.DynamicSpriteFontInfoManager();
+                return Instance.infoManager;
+            }
+        }
+        private Utils.FontInfos.DynamicSpriteFontInfoManager infoManager;
         public override void Load()
         {
             base.Load();
@@ -28,9 +59,9 @@ namespace OdeMod
                    new Action<Action<ModDust, Dust, Color, float>, ModDust, Dust, Color, float>(
                        (orig, self, dust, alpha, scale) =>
                    {
-                       if (self is Dusts.IOdeDusts && ((Dusts.IOdeDusts)self).UseMyDraw)
+                       if (self is Dusts.IOdeDusts dusts && dusts.UseMyDraw)
                        {
-                           ((Dusts.IOdeDusts)self).Draw(self, dust, alpha, scale, Main.spriteBatch);
+                           dusts.Draw(self, dust, alpha, scale, Main.spriteBatch);
                        }
                        else
                            orig(self, dust, alpha, scale);

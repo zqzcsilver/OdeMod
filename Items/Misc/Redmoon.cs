@@ -1,14 +1,10 @@
-using Microsoft.Xna.Framework;
-using OdeMod.Players;
-using System;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace OdeMod.Items.Misc
 {
-    internal class Redmoon : ModItem,IMiscItem
+    internal class Redmoon : ModItem, IMiscItem
     {
         public override void SetDefaults()
         {

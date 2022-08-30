@@ -134,6 +134,17 @@ namespace OdeMod.UI.OdeUISystem.UIElements
             public ElementInfo()
             {
             }
+            /// <summary>
+            /// 设置内边距
+            /// </summary>
+            /// <param name="pixel">以像素为单位的内边距</param>
+            public void SetMargin(float pixel)
+            {
+                LeftMargin.Pixel = pixel;
+                RightMargin.Pixel = pixel;
+                TopMargin.Pixel = pixel;
+                ButtomMargin.Pixel = pixel;
+            }
         }
         /// <summary>
         /// 储存事件
@@ -213,6 +224,7 @@ namespace OdeMod.UI.OdeUISystem.UIElements
         /// 事件管理器
         /// </summary>
         public virtual ElementEvents Events { get => events; }
+        public virtual Rectangle HitBox { get => Info.TotalHitBox; }
         public BaseElement()
         {
             events = new ElementEvents();
@@ -374,13 +386,14 @@ namespace OdeMod.UI.OdeUISystem.UIElements
         /// </summary>
         /// <param name="point">输入的点</param>
         /// <returns>如果包含返回true，否则返回false</returns>
-        public virtual bool ContainsPoint(Point point) => Info.TotalHitBox.Contains(point);
+        public virtual bool ContainsPoint(Point point) =>
+            (GetParentElementIsHiddenOverflow() ? GetCanHitBox() : Info.TotalHitBox).Contains(point);
         /// <summary>
         /// 此UI部件是否包含点
         /// </summary>
         /// <param name="point">输入的点</param>
         /// <returns>如果包含返回true，否则返回false</returns>
-        public virtual bool ContainsPoint(Vector2 point) => Info.TotalHitBox.Contains(point.ToPoint());
+        public virtual bool ContainsPoint(Vector2 point) => ContainsPoint(point.ToPoint());
         /// <summary>
         /// 获取在点上的UI部件及上级敏感部件
         /// </summary>
@@ -407,6 +420,29 @@ namespace OdeMod.UI.OdeUISystem.UIElements
         {
             action(this);
             ChildrenElements.ForEach(child => action(child));
+        }
+        /// <summary>
+        /// 获取被父部件裁切过的碰撞箱
+        /// </summary>
+        /// <returns>被父部件裁切过的碰撞箱</returns>
+        public virtual Rectangle GetCanHitBox()
+        {
+            if (ParentElement == null)
+                return Rectangle.Intersect(new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), HitBox);
+            var rec = Rectangle.Intersect(HitBox, ParentElement.HiddenOverflowRectangle);
+            return Rectangle.Intersect(rec, ParentElement.GetCanHitBox());
+        }
+        /// <summary>
+        /// 获取此元素与父元素是否开启溢出隐藏
+        /// </summary>
+        /// <returns>如果有则返回true，否则返回false</returns>
+        public bool GetParentElementIsHiddenOverflow()
+        {
+            if (Info.HiddenOverflow)
+                return true;
+            if (ParentElement == null)
+                return false;
+            return GetParentElementIsHiddenOverflow();
         }
     }
 }
