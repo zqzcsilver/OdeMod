@@ -27,6 +27,14 @@ namespace OdeMod.UI.OdeUISystem
         /// </summary>
         private List<BaseElement> interactContainerElementsBuffer;
         /// <summary>
+        /// 记录需要触发MouseLeftUp事件的部件
+        /// </summary>
+        private List<BaseElement> needCallMouseLeftUpElements;
+        /// <summary>
+        /// 记录需要触发MouseRightUp事件的部件
+        /// </summary>
+        private List<BaseElement> needCallMouseRightUpElements;
+        /// <summary>
         /// 缓存鼠标左键状态
         /// </summary>
         private bool mouseLeftDown = false;
@@ -47,6 +55,8 @@ namespace OdeMod.UI.OdeUISystem
             Elements = new Dictionary<string, ContainerElement>();
             CallOrder = new List<string>();
             interactContainerElementsBuffer = new List<BaseElement>();
+            needCallMouseLeftUpElements = new List<BaseElement>();
+            needCallMouseRightUpElements = new List<BaseElement>();
             mouseLeftCooldown = new KeyCooldown(() =>
             {
                 return Main.mouseLeft;
@@ -87,7 +97,17 @@ namespace OdeMod.UI.OdeUISystem
                 if (child != null && child.IsVisible) child.Update(gt);
             }
 
-            var interact = Elements[CallOrder[FindTopContainer()]].GetElementsContainsPoint(Main.MouseScreen.ToPoint());
+            int index = FindTopContainer();
+            if (index == -1)
+                return;
+
+            var interact = Elements[CallOrder[index]].GetElementsContainsPoint(Main.MouseScreen.ToPoint());
+
+            //if (interact.Count == 0)
+            //    return;
+
+            Main.LocalPlayer.mouseInterface = true;
+
             foreach (var ce in interact)
                 if (!interactContainerElementsBuffer.Contains(ce))
                     ce.Events.MouseOver(ce);
@@ -101,6 +121,7 @@ namespace OdeMod.UI.OdeUISystem
                 if (Main.mouseLeft)
                 {
                     interact.ForEach(x => x.Events.LeftDown(x));
+                    needCallMouseLeftUpElements.AddRange(interact);
                 }
                 else
                 {
@@ -114,6 +135,8 @@ namespace OdeMod.UI.OdeUISystem
                         interact.ForEach(x => x.Events.LeftDoubleClick(x));
                         mouseLeftCooldown.CoolDown();
                     }
+                    needCallMouseLeftUpElements.ForEach(x => x.Events.LeftUp(x));
+                    needCallMouseLeftUpElements.Clear();
                 }
 
                 mouseLeftDown = Main.mouseLeft;
@@ -137,6 +160,8 @@ namespace OdeMod.UI.OdeUISystem
                         interact.ForEach(x => x.Events.RightDoubleClick(x));
                         mouseRightCooldown.CoolDown();
                     }
+                    needCallMouseRightUpElements.ForEach(x => x.Events.RightUp(x));
+                    needCallMouseRightUpElements.Clear();
                 }
                 mouseRightDown = Main.mouseRight;
             }
@@ -202,8 +227,7 @@ namespace OdeMod.UI.OdeUISystem
         public void Calculation()
         {
             foreach (var child in Elements.Values)
-                if (child != null)
-                    child.Calculation();
+                child?.Calculation();
         }
         /// <summary>
         /// 将容器置顶

@@ -104,6 +104,10 @@ namespace OdeMod.UI.OdeUISystem.UIElements
             /// </summary>
             public bool IsSensitive = false;
             /// <summary>
+            /// 是否可以被交互
+            /// </summary>
+            public bool CanBeInteract = true;
+            /// <summary>
             /// 指示实际坐标与实际大小是否已经经过计算
             /// </summary>
             public bool InitDone { get; set; }
@@ -176,9 +180,17 @@ namespace OdeMod.UI.OdeUISystem.UIElements
             /// </summary>
             public event UIMouseEvent OnLeftDown;
             /// <summary>
+            /// 鼠标左键抬起的事件
+            /// </summary>
+            public event UIMouseEvent OnLeftUp;
+            /// <summary>
             /// 鼠标右键按下的事件
             /// </summary>
             public event UIMouseEvent OnRightDown;
+            /// <summary>
+            /// 鼠标右键抬起的事件
+            /// </summary>
+            public event UIMouseEvent OnRightUp;
             /// <summary>
             /// 鼠标进入UI时的事件
             /// </summary>
@@ -192,7 +204,9 @@ namespace OdeMod.UI.OdeUISystem.UIElements
             public void LeftDoubleClick(BaseElement element) => OnLeftDoubleClick?.Invoke(element);
             public void RightDoubleClick(BaseElement element) => OnRightDoubleClick?.Invoke(element);
             public void LeftDown(BaseElement element) => OnLeftDown?.Invoke(element);
+            public void LeftUp(BaseElement element) => OnLeftUp?.Invoke(element);
             public void RightDown(BaseElement element) => OnRightDown?.Invoke(element);
+            public void RightUp(BaseElement element) => OnRightUp?.Invoke(element);
             public void MouseOver(BaseElement element) => OnMouseOver?.Invoke(element);
             public void MouseOut(BaseElement element) => OnMouseOut?.Invoke(element);
         }
@@ -244,7 +258,7 @@ namespace OdeMod.UI.OdeUISystem.UIElements
         /// </summary>
         public virtual void OnInitialization()
         {
-            ChildrenElements.ForEach(child => child.OnInitialization());
+            //ChildrenElements.ForEach(child => child.OnInitialization());
         }
         /// <summary>
         /// 用于执行逻辑的更新方法
@@ -260,6 +274,13 @@ namespace OdeMod.UI.OdeUISystem.UIElements
         /// <param name="sb">画笔</param>
         public virtual void Draw(SpriteBatch sb)
         {
+
+            //声明光栅化状态，剔除状态为不剔除，开启剪切测试
+            var overflowHiddenRasterizerState = new RasterizerState
+            {
+                CullMode = CullMode.None,
+                ScissorTestEnable = true
+            };
             //如果不隐藏UI部件
             if (!Info.IsHidden && IsVisible)
             {
@@ -267,12 +288,10 @@ namespace OdeMod.UI.OdeUISystem.UIElements
                 sb.End();
                 //启用画笔，传参：延迟绘制（纹理合批优化），alpha颜色混合模式，各向异性采样，不启用深度模式，UI大小矩阵
                 sb.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.AnisotropicClamp,
-                    DepthStencilState.None, null, null, Terraria.Main.UIScaleMatrix);
+                    DepthStencilState.None, overflowHiddenRasterizerState, null, Terraria.Main.UIScaleMatrix);
                 //绘制自己
                 DrawSelf(sb);
             }
-            //关闭画笔以便修改绘制参数
-            sb.End();
             //设定gd是画笔绑定的图像设备
             var gd = sb.GraphicsDevice;
             //储存绘制原剪切矩形
@@ -280,30 +299,31 @@ namespace OdeMod.UI.OdeUISystem.UIElements
             //如果启用溢出隐藏
             if (Info.HiddenOverflow)
             {
-                //修改光栅化状态，剔除状态为不剔除，开启剪切测试
-                //sb.GraphicsDevice.RasterizerState = new RasterizerState
-                //{
-                //    CullMode = CullMode.None,
-                //    ScissorTestEnable = true
-                //};
+
+                //关闭画笔以便修改绘制参数
+                sb.End();
+                //修改光栅化状态
+                sb.GraphicsDevice.RasterizerState = overflowHiddenRasterizerState;
                 //修改GD剪切矩形为原剪切矩形与现剪切矩形的交集
-                gd.ScissorRectangle = Rectangle.Intersect(scissorRectangle, HiddenOverflowRectangle);
+                gd.ScissorRectangle = Rectangle.Intersect(gd.ScissorRectangle, HiddenOverflowRectangle);
+                //启用画笔，传参：延迟绘制（纹理合批优化），alpha颜色混合模式，各向异性采样，不启用深度模式，UI大小矩阵
+                sb.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.AnisotropicClamp,
+                    DepthStencilState.None, overflowHiddenRasterizerState, null, Main.UIScaleMatrix);
             }
-            //启用画笔，传参：延迟绘制（纹理合批优化），alpha颜色混合模式，各向异性采样，默认深度模板模式，UI大小矩阵
-            sb.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.AnisotropicClamp,
-                DepthStencilState.Default, null, null, Terraria.Main.UIScaleMatrix);
             //绘制子元素
             DrawChildren(sb);
-            //关闭画笔
-            sb.End();
             //如果启用溢出隐藏
             if (Info.HiddenOverflow)
             {
+                //关闭画笔
+                sb.End();
+                //修改光栅化状态
+                gd.RasterizerState = overflowHiddenRasterizerState;
                 //将剪切矩形换回原剪切矩形
                 gd.ScissorRectangle = scissorRectangle;
+                //启用画笔
+                sb.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, DepthStencilState.None, overflowHiddenRasterizerState, null, Main.UIScaleMatrix);
             }
-            //启用画笔
-            sb.Begin();
         }
         /// <summary>
         /// 绘制自己
@@ -347,10 +367,19 @@ namespace OdeMod.UI.OdeUISystem.UIElements
             return true;
         }
         /// <summary>
+        /// 移除所有子元素
+        /// </summary>
+        public void RemoveAll()
+        {
+            ChildrenElements.ForEach(child => child.ParentElement = null);
+            ChildrenElements.Clear();
+        }
+        /// <summary>
         /// 将相对坐标计算为具体坐标
         /// </summary>
         public virtual void Calculation()
         {
+            float left, top;
             if (ParentElement == null)
             {
                 Info.TotalLocation.X = Info.Left.GetPixelBaseParent(Main.screenWidth);
@@ -358,22 +387,26 @@ namespace OdeMod.UI.OdeUISystem.UIElements
                 Info.TotalSize.X = Info.Width.GetPixelBaseParent(Main.screenWidth);
                 Info.TotalSize.Y = Info.Height.GetPixelBaseParent(Main.screenHeight);
 
-                Info.Location.X = Info.TotalLocation.X + Info.LeftMargin.GetPixelBaseParent(Main.screenWidth);
-                Info.Location.Y = Info.TotalLocation.Y + Info.TopMargin.GetPixelBaseParent(Main.screenHeight);
-                Info.Size.X = Info.TotalSize.X - Info.RightMargin.GetPixelBaseParent(Main.screenWidth);
-                Info.Size.Y = Info.TotalSize.Y - Info.ButtomMargin.GetPixelBaseParent(Main.screenHeight);
+                left = Info.LeftMargin.GetPixelBaseParent(Main.screenWidth);
+                top = Info.TopMargin.GetPixelBaseParent(Main.screenHeight);
+                Info.Location.X = Info.TotalLocation.X + left;
+                Info.Location.Y = Info.TotalLocation.Y + top;
+                Info.Size.X = Info.TotalSize.X - Info.RightMargin.GetPixelBaseParent(Main.screenWidth) - left;
+                Info.Size.Y = Info.TotalSize.Y - Info.ButtomMargin.GetPixelBaseParent(Main.screenHeight) - top;
             }
             else
             {
-                Info.TotalLocation.X = Info.Left.GetPixelBaseParent(ParentElement.Info.Size.X);
-                Info.TotalLocation.Y = Info.Top.GetPixelBaseParent(ParentElement.Info.Size.Y);
+                Info.TotalLocation.X = ParentElement.Info.Location.X + Info.Left.GetPixelBaseParent(ParentElement.Info.Size.X);
+                Info.TotalLocation.Y = ParentElement.Info.Location.Y + Info.Top.GetPixelBaseParent(ParentElement.Info.Size.Y);
                 Info.TotalSize.X = Info.Width.GetPixelBaseParent(ParentElement.Info.Size.X);
                 Info.TotalSize.Y = Info.Height.GetPixelBaseParent(ParentElement.Info.Size.Y);
 
-                Info.Location.X = Info.TotalLocation.X + Info.LeftMargin.GetPixelBaseParent(ParentElement.Info.Size.X);
-                Info.Location.Y = Info.TotalLocation.Y + Info.TopMargin.GetPixelBaseParent(ParentElement.Info.Size.Y);
-                Info.Size.X = Info.TotalSize.X - Info.RightMargin.GetPixelBaseParent(ParentElement.Info.Size.X);
-                Info.Size.Y = Info.TotalSize.Y - Info.ButtomMargin.GetPixelBaseParent(ParentElement.Info.Size.Y);
+                left = Info.LeftMargin.GetPixelBaseParent(ParentElement.Info.Size.X);
+                top = Info.TopMargin.GetPixelBaseParent(ParentElement.Info.Size.Y);
+                Info.Location.X = Info.TotalLocation.X + left;
+                Info.Location.Y = Info.TotalLocation.Y + top;
+                Info.Size.X = Info.TotalSize.X - Info.RightMargin.GetPixelBaseParent(ParentElement.Info.Size.X) - left;
+                Info.Size.Y = Info.TotalSize.Y - Info.ButtomMargin.GetPixelBaseParent(ParentElement.Info.Size.Y) - top;
             }
             Info.HitBox = new Rectangle((int)Info.Location.X, (int)Info.Location.Y, (int)Info.Size.X, (int)Info.Size.Y);
             Info.TotalHitBox = new Rectangle((int)Info.TotalLocation.X, (int)Info.TotalLocation.Y, (int)Info.TotalSize.X, (int)Info.TotalSize.Y);
@@ -402,14 +435,21 @@ namespace OdeMod.UI.OdeUISystem.UIElements
         public List<BaseElement> GetElementsContainsPoint(Point point)
         {
             List<BaseElement> elements = new List<BaseElement>();
-            if (ContainsPoint(point) && (Info.IsSensitive || ChildrenElements.Count == 0))
-                elements.Add(this);
-
-            ChildrenElements.ForEach(child =>
+            bool contains = ContainsPoint(point);
+            if (contains && Info.IsSensitive && Info.CanBeInteract)
             {
-                if (child != null && child.IsVisible)
-                    elements.AddRange(child.GetElementsContainsPoint(point));
-            });
+                elements.Add(this);
+            }
+
+            if (ChildrenElements.Count > 0)
+                ChildrenElements.ForEach(child =>
+                {
+                    if (child != null && child.IsVisible)
+                        elements.AddRange(child.GetElementsContainsPoint(point));
+                });
+
+            if (elements.Count == 0 && contains && Info.CanBeInteract && !elements.Contains(this))
+                elements.Add(this);
             return elements;
         }
         /// <summary>
@@ -429,8 +469,7 @@ namespace OdeMod.UI.OdeUISystem.UIElements
         {
             if (ParentElement == null)
                 return Rectangle.Intersect(new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), HitBox);
-            var rec = Rectangle.Intersect(HitBox, ParentElement.HiddenOverflowRectangle);
-            return Rectangle.Intersect(rec, ParentElement.GetCanHitBox());
+            return Rectangle.Intersect(Rectangle.Intersect(HitBox, ParentElement.HiddenOverflowRectangle), ParentElement.GetCanHitBox());
         }
         /// <summary>
         /// 获取此元素与父元素是否开启溢出隐藏
@@ -442,7 +481,7 @@ namespace OdeMod.UI.OdeUISystem.UIElements
                 return true;
             if (ParentElement == null)
                 return false;
-            return GetParentElementIsHiddenOverflow();
+            return ParentElement.GetParentElementIsHiddenOverflow();
         }
     }
 }

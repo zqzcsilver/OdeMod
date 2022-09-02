@@ -13,6 +13,7 @@
             base.OnInitialization();
             Info.Width = new PositionStyle(0f, 1f);
             Info.Height = new PositionStyle(0f, 1f);
+            Info.CanBeInteract = false;
         }
     }
 }
