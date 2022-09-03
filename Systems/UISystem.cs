@@ -28,7 +28,6 @@ namespace OdeMod.Systems
                 ScreenSize = Main.ScreenSize;
                 OdeMod.OdeUISystem.Calculation();
             }
-            OdeMod.OdeUISystem.Elements["OdeMod.UI.OdeUISystem.Containers.Recharge.RechargeContainer"].Info.IsVisible = true;
             OdeMod.OdeUISystem.Update(gameTime);
         }
         public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)

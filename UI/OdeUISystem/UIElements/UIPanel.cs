@@ -10,7 +10,7 @@ namespace OdeMod.UI.OdeUISystem.UIElements
 {
     internal class UIPanel : BaseElement
     {
-        public Color PanelColor = new Color(89, 240, 230);
+        public Color PanelColor = new Color(255, 255, 246);
         public bool CanDrag = true;
         private bool dragging = false;
         private Vector2 startPoint = Vector2.Zero;

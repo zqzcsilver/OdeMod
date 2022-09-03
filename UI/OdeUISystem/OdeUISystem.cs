@@ -90,18 +90,25 @@ namespace OdeMod.UI.OdeUISystem
         {
             if (CallOrder.Count == 0 || Elements.Count == 0)
                 return;
+
+            List<BaseElement> interact = new List<BaseElement>();
             ContainerElement child;
+            Point mousePos = Main.MouseScreen.ToPoint();
             foreach (var key in CallOrder)
             {
                 child = Elements[key];
-                if (child != null && child.IsVisible) child.Update(gt);
+                child?.PreUpdate(gt);
+                if (child != null && child.IsVisible)
+                {
+                    child.Update(gt);
+                    interact = child.GetElementsContainsPoint(mousePos);
+                    if (interact.Count > 0)
+                        break;
+                }
             }
 
-            int index = FindTopContainer();
-            if (index == -1)
+            if (interact.Count == 0)
                 return;
-
-            var interact = Elements[CallOrder[index]].GetElementsContainsPoint(Main.MouseScreen.ToPoint());
 
             //if (interact.Count == 0)
             //    return;

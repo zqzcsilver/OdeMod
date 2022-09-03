@@ -45,6 +45,39 @@ namespace OdeMod.UI.OdeUISystem.UIElements
             {
                 return Percent * pixel + Pixel;
             }
+            public void SetValue(float pixel,float percent)
+            {
+                Pixel = pixel;
+                Percent = percent;
+            }
+            public static PositionStyle operator +(PositionStyle ps1, PositionStyle ps2)
+            {
+                var output = ps1;
+                output.Pixel += ps2.Pixel;
+                output.Percent += ps2.Percent;
+                return output;
+            }
+            public static PositionStyle operator -(PositionStyle ps1, PositionStyle ps2)
+            {
+                var output = ps1;
+                output.Pixel -= ps2.Pixel;
+                output.Percent -= ps2.Percent;
+                return output;
+            }
+            public static PositionStyle operator *(PositionStyle ps1, float ps2)
+            {
+                var output = ps1;
+                output.Pixel *= ps2;
+                output.Percent *= ps2;
+                return output;
+            }
+            public static PositionStyle operator /(PositionStyle ps1, float ps2)
+            {
+                var output = ps1;
+                output.Pixel /= ps2;
+                output.Percent /= ps2;
+                return output;
+            }
             public override string ToString()
             {
                 return $"Pixel:{Pixel} Percent:{Percent}";
@@ -244,7 +277,6 @@ namespace OdeMod.UI.OdeUISystem.UIElements
             events = new ElementEvents();
             Info = new ElementInfo();
             ChildrenElements = new List<BaseElement>();
-            LoadEvents();
         }
         /// <summary>
         /// 加载事件
@@ -259,9 +291,18 @@ namespace OdeMod.UI.OdeUISystem.UIElements
         public virtual void OnInitialization()
         {
             //ChildrenElements.ForEach(child => child.OnInitialization());
+            LoadEvents();
         }
         /// <summary>
-        /// 用于执行逻辑的更新方法
+        /// 用于执行逻辑的更新方法（不受IsVisible限制）
+        /// </summary>
+        /// <param name="gt"></param>
+        public virtual void PreUpdate(GameTime gt)
+        {
+            ChildrenElements.ForEach(child => { child?.PreUpdate(gt); });
+        }
+        /// <summary>
+        /// 用于执行逻辑的更新方法（受IsVisible限制）
         /// </summary>
         /// <param name="gt"></param>
         public virtual void Update(GameTime gt)
