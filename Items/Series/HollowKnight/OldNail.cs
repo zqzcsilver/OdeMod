@@ -13,9 +13,9 @@ namespace OdeMod.Items.Series.HollowKnight
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("OldNail");
-            DisplayName.AddTranslation(LanguageType.Chinese, "旧骨钉");
-            Tooltip.SetDefault("圣巢的传统武器。它的刀刃因老化和磨损变钝了。");
+            //DisplayName.SetDefault("OldNail");
+            //DisplayName.AddTranslation(LanguageType.Chinese, "旧骨钉");
+            //Tooltip.SetDefault("圣巢的传统武器。它的刀刃因老化和磨损变钝了。");
         }
         public override void SetDefaults()
         {
@@ -29,7 +29,7 @@ namespace OdeMod.Items.Series.HollowKnight
             Item.knockBack = 4;
             Item.mana = 25;
             Item.rare = ItemRarityID.Blue;
-            //Item.shoot = ModContent.ProjectileType<Projectiles.Series.Items.HollowKnight.KnifeLight> ();
+            Item.shoot = ModContent.ProjectileType<Projectiles.Series.Items.HollowKnight.KnifeLight> ();
             Item.shootSpeed = 5.5f;
             Item.UseSound = SoundID.Item1;
             Item.useStyle = ItemUseStyleID.Swing;
@@ -45,11 +45,11 @@ namespace OdeMod.Items.Series.HollowKnight
 
             if (m % 2 == 0)
             {
-                //type = ModContent.ProjectileType<Projectiles.Series.Items.HollowKnight.KnifeLight>();
+                type = ModContent.ProjectileType<Projectiles.Series.Items.HollowKnight.KnifeLight>();
             }
             else
             {
-                //type = ModContent.ProjectileType<Projectiles.刀光2>();
+                type = ModContent.ProjectileType<Projectiles.Series.Items.HollowKnight.KnifeLight2>();
             }
             m++;
             Projectile.NewProjectile(source, position, velocity, type, damage, knockback, Main.myPlayer, 0f, 0f);

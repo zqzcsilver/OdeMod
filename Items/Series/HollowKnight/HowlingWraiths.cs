@@ -13,9 +13,9 @@ namespace OdeMod.Items.Series.HollowKnight
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("HowlingWraiths");
-            DisplayName.AddTranslation(LanguageType.Chinese, "嚎叫幽灵");
-            Tooltip.SetDefault("用嚎叫的灵魂轰击敌人。");
+            //DisplayName.SetDefault("HowlingWraiths");
+            //DisplayName.AddTranslation(LanguageType.Chinese, "嚎叫幽灵");
+            //Tooltip.SetDefault("用嚎叫的灵魂轰击敌人。");
         }
         public override void SetDefaults()
         {

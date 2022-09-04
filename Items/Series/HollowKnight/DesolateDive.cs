@@ -13,9 +13,9 @@ namespace OdeMod.Items.Series.HollowKnight
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("DesolateDive");
-            DisplayName.AddTranslation(LanguageType.Chinese, "荒芜俯冲");
-            Tooltip.SetDefault("集中灵魂力量打击地面。");
+            //DisplayName.SetDefault("DesolateDive");
+            //DisplayName.AddTranslation(LanguageType.Chinese, "荒芜俯冲");
+            //Tooltip.SetDefault("集中灵魂力量打击地面。");
         }
         public override void SetDefaults()
         {

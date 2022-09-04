@@ -12,9 +12,9 @@ namespace OdeMod.Items.Series.HollowKnight
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("MothwingCloak");
-            DisplayName.AddTranslation(LanguageType.Chinese, "蛾翼披风");
-            Tooltip.SetDefault("蛾翅线编制的披风。让穿着者可在地面或空中向前冲刺。");
+            //DisplayName.SetDefault("MothwingCloak");
+            //DisplayName.AddTranslation(LanguageType.Chinese, "蛾翼披风");
+            //Tooltip.SetDefault("蛾翅线编制的披风。让穿着者可在地面或空中向前冲刺。");
         }
         public override void SetDefaults()
         {

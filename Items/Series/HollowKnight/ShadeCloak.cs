@@ -15,9 +15,9 @@ namespace OdeMod.Items.Series.HollowKnight
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("ShadeCloak");
-            DisplayName.AddTranslation(LanguageType.Chinese, "暗影披风");
-            Tooltip.SetDefault("由深渊的物质形成的披风。允许穿戴者冲刺时穿过敌人和他们的攻击而不受到伤害。");
+            //DisplayName.SetDefault("ShadeCloak");
+            //DisplayName.AddTranslation(LanguageType.Chinese, "暗影披风");
+            //Tooltip.SetDefault("由深渊的物质形成的披风。允许穿戴者冲刺时穿过敌人和他们的攻击而不受到伤害。");
         }
         public override void SetDefaults()
         {

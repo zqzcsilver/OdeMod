@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-
+using OdeMod.Players;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -52,7 +53,7 @@ namespace OdeMod.Projectiles.Series.Items.HollowKnight
                 try
                 {
                     float demo = 1 + Vector2.DistanceSquared(Main.player[Main.myPlayer].Center, Projectile.Center) / 500000;
-                    //Candlight.shakeInt2 = Math.Max(Candlight.shakeInt, (int)(30 / demo));
+                    OdePlayer.shakeInt = Math.Max(OdePlayer.shakeInt, (int)(30 / demo));
                 }
                 catch
                 {
