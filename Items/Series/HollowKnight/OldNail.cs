@@ -1,7 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
-using Terraria.DataStructures;
+
 using OdeMod.Utils;
+
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -50,7 +52,7 @@ namespace OdeMod.Items.Series.HollowKnight
                 //type = ModContent.ProjectileType<Projectiles.刀光2>();
             }
             m++;
-            Projectile.NewProjectile(source,position, velocity, type, damage, knockback, Main.myPlayer, 0f, 0f);
+            Projectile.NewProjectile(source, position, velocity, type, damage, knockback, Main.myPlayer, 0f, 0f);
             return false;
         }
     }

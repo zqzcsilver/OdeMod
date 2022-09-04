@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+
 using OdeMod.Utils;
-using System;
+
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -28,7 +28,7 @@ namespace OdeMod.Items.Series.HollowKnight
             Item.crit = -4;
             Item.knockBack = 9;
             Item.mana = 25;
-            Item.rare = ItemRarityID.Blue;       
+            Item.rare = ItemRarityID.Blue;
             Item.shoot = ModContent.ProjectileType<Projectiles.Series.Items.HollowKnight.ShadeSoul>();
             Item.shootSpeed = 5.5f;
             Item.UseSound = SoundID.Item1;

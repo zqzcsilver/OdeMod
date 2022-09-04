@@ -1,6 +1,5 @@
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System;
+
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -28,9 +27,9 @@ namespace OdeMod.Projectiles.Series.Items.Sharpsand
 
         public override void AI()
         {
-            if(Projectile.timeLeft==16)
+            if (Projectile.timeLeft == 16)
             {
-                for(int i=0;i<=30;i++)
+                for (int i = 0; i <= 30; i++)
                 {
                     int num = Dust.NewDust(Projectile.Center - new Vector2(20f, 20f), 40, 40, DustID.Torch, 0f, 0f, 0, Color.White, 1.2f);
                     Main.dust[num].velocity *= 4f;

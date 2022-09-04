@@ -1,13 +1,15 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+
 using System;
+
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace OdeMod.Projectiles.Series.Items.HollowKnight
 {
-    internal class DescendingDark : ModProjectile,IHollowKnightProjectile
+    internal class DescendingDark : ModProjectile, IHollowKnightProjectile
     {
         public void CreateDust(Texture2D t, Vector2 center, float size)
         {
@@ -177,7 +179,7 @@ namespace OdeMod.Projectiles.Series.Items.HollowKnight
             }
             if (Projectile.timeLeft == 10)
             {
-                Projectile.NewProjectile(Projectile.GetSource_FromAI(),player.Center.X, player.Center.Y - 55f, 0, 0, ModContent.ProjectileType<Projectiles.Series.Items.HollowKnight.DescendingDark_Two>(), 80, 4, player.whoAmI, 1f);
+                Projectile.NewProjectile(Projectile.GetSource_FromAI(), player.Center.X, player.Center.Y - 55f, 0, 0, ModContent.ProjectileType<Projectiles.Series.Items.HollowKnight.DescendingDark_Two>(), 80, 4, player.whoAmI, 1f);
             }
         }
         int ok = 0;

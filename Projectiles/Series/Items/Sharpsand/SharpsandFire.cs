@@ -1,6 +1,8 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+
 using System;
+
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -8,6 +10,7 @@ namespace OdeMod.Projectiles.Series.Items.Sharpsand
 {
     internal class SharpsandFire : ModProjectile, ISharpsandProjectile
     {
+        private float m;
         public override void SetDefaults()
         {
             Projectile.width = 14;
@@ -26,11 +29,10 @@ namespace OdeMod.Projectiles.Series.Items.Sharpsand
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 8;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
         }
-        float m;
         public override void AI()
         {
             m += 0.1f;
-            int num = Dust.NewDust(Projectile.Center+new Vector2(-3,-1) + 13 * (float)Math.Cos(m) * new Vector2(-(float)Math.Sin(Projectile.velocity.ToRotation()), (float)Math.Cos(Projectile.velocity.ToRotation())), 1, 1, DustID.FlameBurst, 0f, 0f, 0, Color.White, 1.2f);
+            int num = Dust.NewDust(Projectile.Center + new Vector2(-3, -1) + 13 * (float)Math.Cos(m) * new Vector2(-(float)Math.Sin(Projectile.velocity.ToRotation()), (float)Math.Cos(Projectile.velocity.ToRotation())), 1, 1, DustID.FlameBurst, 0f, 0f, 0, Color.White, 1.2f);
             Main.dust[num].noGravity = true;
             Main.dust[num].velocity *= 0.1f;
 
@@ -43,7 +45,7 @@ namespace OdeMod.Projectiles.Series.Items.Sharpsand
                    (double)Projectile.velocity.X) - 1.57f;
             if (Projectile.timeLeft % 4 == 0)
             {
-                if (Projectile.frame == 0 || Projectile.frame == 1) 
+                if (Projectile.frame == 0 || Projectile.frame == 1)
                     Projectile.frame++;
                 else Projectile.frame = 0;
 
@@ -57,7 +59,7 @@ namespace OdeMod.Projectiles.Series.Items.Sharpsand
         {
             Player player = Main.player[Projectile.owner];
 
-            Projectile.NewProjectile(Projectile.GetSource_FromAI(),Projectile.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.Series.Items.Sharpsand.SharpsandBOOM>(), Projectile.damage, 0, player.whoAmI);
+            Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.Series.Items.Sharpsand.SharpsandBOOM>(), Projectile.damage, 0, player.whoAmI);
             for (int i = 0; i < 40; i++)
             {
                 int num = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.GoldFlame, 0f, 0f, 0, Color.White, 1.5f);
@@ -65,17 +67,15 @@ namespace OdeMod.Projectiles.Series.Items.Sharpsand
                 Main.dust[num].noGravity = true;
             }
         }
-        Texture2D texture, texture2;
-        float sizex = 1.5f;
         public override Color? GetAlpha(Color lightColor)
         {
             return new Color(255 - Projectile.alpha, 255 - Projectile.alpha, 255 - Projectile.alpha, 255 - Projectile.alpha);
         }
-        
+
         public override bool PreDraw(ref Color lightColor)
         {
             float size1 = 2f;
-            texture = ModContent.Request<Texture2D>("OdeMod/Projectiles/Series/Items/Sharpsand/SharpsandFire").Value;
+            Texture2D texture = ModContent.Request<Texture2D>("OdeMod/Projectiles/Series/Items/Sharpsand/SharpsandFire").Value;
             Vector2 drawOrigin = new Vector2(Projectile.width * 0.5f, Projectile.height * 0.5f);
             for (int k = 0; k < Projectile.oldPos.Length; k++)
             {

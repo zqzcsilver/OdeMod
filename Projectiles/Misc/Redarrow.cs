@@ -27,7 +27,7 @@ namespace OdeMod.Projectiles.Misc
         }
         public override void AI()
         {
-            if(Projectile.timeLeft<=297)
+            if (Projectile.timeLeft <= 297)
             {
                 Projectile.alpha = 0;
             }
@@ -38,7 +38,7 @@ namespace OdeMod.Projectiles.Misc
             Main.dust[num].velocity *= 0.1f;
             Main.dust[num].noGravity = true;
 
-               
+
 
         }
         Texture2D texture;

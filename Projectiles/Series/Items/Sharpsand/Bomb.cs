@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+
 using System;
+
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -34,14 +35,14 @@ namespace OdeMod.Projectiles.Series.Items.Sharpsand
             Main.dust[num2].noGravity = true;
             Main.dust[num2].velocity.Y -= 3f;
             Projectile.velocity.Y += 0.3f;
-            if(Projectile.timeLeft%10==0)
+            if (Projectile.timeLeft % 10 == 0)
             {
                 if (Projectile.frame == 0)
                     Projectile.frame++;
                 else Projectile.frame = 0;
 
             }
-            
+
             Projectile.rotation += 0.14f;
         }
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
@@ -51,7 +52,7 @@ namespace OdeMod.Projectiles.Series.Items.Sharpsand
         public override void Kill(int timeLeft)
         {
             Player player = Main.player[Projectile.owner];
-            Projectile.NewProjectile(Projectile.GetSource_FromAI(),Projectile.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.Series.Items.Sharpsand.SharpsandBOOM>(), Projectile.damage, 0, player.whoAmI);
+            Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.Series.Items.Sharpsand.SharpsandBOOM>(), Projectile.damage, 0, player.whoAmI);
             for (int i = 0; i < 40; i++)
             {
                 int num = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.GoldFlame, 0f, 0f, 0, Color.White, 1.5f);
@@ -59,7 +60,6 @@ namespace OdeMod.Projectiles.Series.Items.Sharpsand
                 Main.dust[num].noGravity = true;
             }
         }
-
         public override Color? GetAlpha(Color lightColor)
         {
             return new Color(255 - Projectile.alpha, 255 - Projectile.alpha, 255 - Projectile.alpha, 255 - Projectile.alpha);
