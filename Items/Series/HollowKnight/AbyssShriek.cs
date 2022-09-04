@@ -13,9 +13,9 @@ namespace OdeMod.Items.Series.HollowKnight
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("AbyssShriek");
-            DisplayName.AddTranslation(LanguageType.Chinese, "深渊尖啸");
-            Tooltip.SetDefault("用嚎叫的灵魂和暗影轰击敌人。");
+            //DisplayName.SetDefault("AbyssShriek");
+            //DisplayName.AddTranslation(LanguageType.Chinese, "深渊尖啸");
+            //Tooltip.SetDefault("用嚎叫的灵魂和暗影轰击敌人。");
         }
         public override void SetDefaults()
         {

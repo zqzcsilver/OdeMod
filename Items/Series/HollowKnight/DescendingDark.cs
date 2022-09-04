@@ -13,9 +13,9 @@ namespace OdeMod.Items.Series.HollowKnight
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("DescendingDark");
-            DisplayName.AddTranslation(LanguageType.Chinese, "黑暗降临");
-            Tooltip.SetDefault("集中灵魂和暗影的力量打击地面。");
+            //DisplayName.SetDefault("DescendingDark");
+            //DisplayName.AddTranslation(LanguageType.Chinese, "黑暗降临");
+            //Tooltip.SetDefault("集中灵魂和暗影的力量打击地面。");
         }
         public override void SetDefaults()
         {

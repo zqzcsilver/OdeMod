@@ -13,9 +13,9 @@ namespace OdeMod.Items.Series.HollowKnight
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("ShadeSoul");
-            DisplayName.AddTranslation(LanguageType.Chinese, "暗影之魂");
-            Tooltip.SetDefault("召唤一个向前飞行的阴影，燃烧路径上的敌人。");
+            //DisplayName.SetDefault("ShadeSoul");
+            //DisplayName.AddTranslation(LanguageType.Chinese, "暗影之魂");
+            //Tooltip.SetDefault("召唤一个向前飞行的阴影，燃烧路径上的敌人。");
         }
         public override void SetDefaults()
         {

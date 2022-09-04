@@ -13,9 +13,9 @@ namespace OdeMod.Items.Series.HollowKnight
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("VengefulSpirit");
-            DisplayName.AddTranslation(LanguageType.Chinese, "复仇之魂");
-            Tooltip.SetDefault("召唤一个向前飞行的灵魂，燃烧路径上的敌人。");
+            //DisplayName.SetDefault("VengefulSpirit");
+            //DisplayName.AddTranslation(LanguageType.Chinese, "复仇之魂");
+            //Tooltip.SetDefault("召唤一个向前飞行的灵魂，燃烧路径上的敌人。");
         }
         public override void SetDefaults()
         {
