@@ -20,6 +20,7 @@ namespace OdeMod.Items.Misc
             Item.knockBack = 4f;
             Item.damage = 98;
             Item.crit = 16;
+            Item.mana = 6;
             Item.useTime = 18;
             Item.useAnimation = 18;
             Item.useTurn = false;
