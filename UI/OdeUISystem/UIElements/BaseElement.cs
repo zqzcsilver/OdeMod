@@ -143,7 +143,7 @@ namespace OdeMod.UI.OdeUISystem.UIElements
             /// <summary>
             /// 指示实际坐标与实际大小是否已经经过计算
             /// </summary>
-            public bool InitDone { get; set; }
+            public bool InitDone = false;
             /// <summary>
             /// 实际坐标（被内边距裁切过）
             /// </summary>
