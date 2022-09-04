@@ -5,13 +5,9 @@ using System;
 using System.Collections.Generic;
 
 using Terraria;
-using Terraria.Graphics.Renderers;
+using Terraria.GameContent.Drawing;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static Humanizer.In;
-
-using static System.Formats.Asn1.AsnWriter;
-using static Terraria.ModLoader.PlayerDrawLayer;
 
 namespace OdeMod.Projectiles.Misc
 {
@@ -38,12 +34,13 @@ namespace OdeMod.Projectiles.Misc
         int ok = 0;
         int ok2 = 0;
         float norm = 0;
-        float lerpRad = 0;
-        Vector2 plr2Proj = Vector2.Zero;
+        float lerpRad = 0.01f;
         Vector2 plrOrig = Vector2.Zero;
         Vector2 plrOrig2 = Vector2.Zero;
         float vel = 0;
+        float direct = 0;
         float vel2 = 5;
+        int ok3 = 0;
         bool directionIsLeft = false;
         public override void AI()
         {
@@ -59,9 +56,8 @@ namespace OdeMod.Projectiles.Misc
                 {
                     ok2 = 1;
                     plrOrig = player.Center;
-                    plr2Proj = Main.MouseWorld - plrOrig;
-
                     norm = Projectile.velocity.ToRotation();
+                    direct = player.direction;
                 }
                 Projectile.rotation = (float)
                   System.Math.Atan2((double)Projectile.velocity.Y,
@@ -71,6 +67,19 @@ namespace OdeMod.Projectiles.Misc
             }
             else if (rotate <= 20)
             {
+
+                ParticleOrchestraSettings settings;
+
+                Vector2 value = Vector2.UnitX.RotatedBy(Main.rand.NextFloat() * ((float)Math.PI * 2f) + (float)Math.PI / 2f) * 13;
+                Vector2 posin = Projectile.Center + value;
+                settings = new ParticleOrchestraSettings
+                {
+                    PositionInWorld = posin,//位置
+                    MovementVector = Projectile.velocity//速度
+
+                };
+                ParticleOrchestrator.RequestParticleSpawn(clientOnly: true, ParticleOrchestraType.PrincessWeapon, settings, 255);
+
                 if (ok == 0)
                 {
                     ok = 1;
@@ -81,7 +90,7 @@ namespace OdeMod.Projectiles.Misc
                 vel2 *= 0.92f;
                 rotate++;
                 Projectile.rotation = norm + 1.57f;
-                if (player.direction != 1)
+                if (direct != 1)
                 {
                     norm -= lerpRad;
                 }
@@ -91,7 +100,7 @@ namespace OdeMod.Projectiles.Misc
                 }
                 if (rotate < 12)
                 {
-                    lerpRad *= 1.28f;
+                    lerpRad *= 1.27f;
                 }
                 else
                 {
@@ -104,12 +113,23 @@ namespace OdeMod.Projectiles.Misc
                         lerpRad *= 0.85f;
                     }
                 }
-                if (rotate > 8)
+                if (rotate > 14)
                 {
-                    Projectile.alpha += 20;
+                    Projectile.alpha += 10;
                 }
             }
-
+            else
+            {
+                if (ok3 == 0)
+                {
+                    ok3 = 1;
+                    Projectile.alpha = 255;
+                    Projectile.velocity *= 0;
+                    Projectile.damage = 0;
+                    Projectile.timeLeft = 15;
+                }
+                Projectile.alpha += 10;
+            }
 
 
         }
@@ -120,7 +140,7 @@ namespace OdeMod.Projectiles.Misc
             Vector2 drawOrigin = new Vector2(Projectile.width * 0.5f, Projectile.height * 0.5f);
             if (rotate > 0)
             {
-                if (player.direction == 1)
+                if (direct == 1)
                 {
                     for (int k = 0; k < Projectile.oldPos.Length - 7; k++)
                     {
@@ -171,7 +191,7 @@ namespace OdeMod.Projectiles.Misc
             for (int i = 1; i < Projectile.oldPos.Length; ++i)
             {
                 if (rotate > 0)
-                    width -= 2;
+                    width -= 3;
 
                 if (Projectile.oldPos[i] == Vector2.Zero) break;//貌似删掉影响不大，弹幕的位置在（0，0）是一种几乎不可能遇到的情况
                 /*Main.spriteBatch.Draw(TextureAssets.MagicPixel.Value, Projectile.oldPos[i] - Main.screenPosition,
