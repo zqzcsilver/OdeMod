@@ -5,5 +5,9 @@
     /// </summary>
     internal interface IMosscobble : ISeriesItem
     {
+        public new string SeriesName()
+        {
+            return "Mosscobble";
+        }
     }
 }

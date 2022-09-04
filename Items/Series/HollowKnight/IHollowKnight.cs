@@ -5,5 +5,9 @@ namespace OdeMod.Items.Series.HollowKnight
     /// </summary>
     internal interface IHollowKnight : ISeriesItem
     {
+        public new string SeriesName()
+        {
+            return "HollowKnight";
+        }
     }
 }

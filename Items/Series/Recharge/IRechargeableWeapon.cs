@@ -85,5 +85,9 @@ namespace OdeMod.Items.Series.Recharge
                     RechargeAccessories[c] = (IRechargeAccessory)ItemIO.Load(tag.Get<TagCompound>($"rechargeAccessories{c}")).ModItem;
             }
         }
+        public new string SeriesName()
+        {
+            return "RechargeableWeapon";
+        }
     }
 }
