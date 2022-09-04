@@ -18,11 +18,11 @@ namespace OdeMod.Items.Misc
             Item.height = 54;
             Item.DamageType = DamageClass.Magic;
             Item.knockBack = 4f;
-            Item.damage = 98;
+            Item.damage = 78;
             Item.crit = 16;
-            Item.mana = 6;
-            Item.useTime = 18;
-            Item.useAnimation = 18;
+            Item.mana = 8;
+            Item.useTime = 20;
+            Item.useAnimation = 20;
             Item.useTurn = false;
             Item.noMelee = true;
             Item.noUseGraphic = true;
@@ -55,7 +55,7 @@ namespace OdeMod.Items.Misc
             CreateRecipe()
                .AddIngredient(ItemID.HallowedBar, 8)
                .AddIngredient(ItemID.SoulofLight, 8)
-               .AddIngredient(ItemID.CrystalShard, 3)
+               .AddIngredient(ItemID.CrystalShard, 20)
                .AddTile(TileID.MythrilAnvil)
                .Register();
         }
