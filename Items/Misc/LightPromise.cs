@@ -16,7 +16,7 @@ namespace OdeMod.Items.Misc
             Item.height = 54;
             Item.DamageType = DamageClass.Magic;
             Item.knockBack = 4f;
-            Item.damage = 100;
+            Item.damage = 98;
             Item.crit = 16;
             Item.useTime = 18;
             Item.useAnimation = 18;
@@ -24,8 +24,8 @@ namespace OdeMod.Items.Misc
             Item.noMelee = true;
             Item.noUseGraphic = true;
             Item.useStyle = ItemUseStyleID.Shoot;
-            Item.rare = ItemRarityID.Red;
-            Item.value = Item.sellPrice(0, 25, 0, 0);
+            Item.rare = ItemRarityID.Pink;
+            Item.value = Item.sellPrice(0, 10, 0, 0);
             Item.autoReuse = true;
             Item.shoot = ModContent.ProjectileType<Projectiles.Misc.Accumulation>();
             Item.shootSpeed = 0;
@@ -42,9 +42,19 @@ namespace OdeMod.Items.Misc
                     des = new Vector2((float)Math.Cos(des.ToRotation() - 0.6f), (float)Math.Sin(des.ToRotation() - 0.6f));
                 else
                     des = new Vector2((float)Math.Cos(des.ToRotation() + 0.6f), (float)Math.Sin(des.ToRotation() + 0.6f));
-                Projectile.NewProjectile(source, player.Center, des * 20, ModContent.ProjectileType<Projectiles.Misc.CrystalSentence>(), damage, knockback, player.whoAmI);
+                Projectile.NewProjectile(source, player.Center, des * 22, ModContent.ProjectileType<Projectiles.Misc.CrystalSentence>(), damage, knockback, player.whoAmI);
             }
             return false;
+        }
+        public override void AddRecipes()
+        {
+            base.AddRecipes();
+            CreateRecipe()
+               .AddIngredient(ItemID.HallowedBar, 8)
+               .AddIngredient(ItemID.SoulofLight, 8)
+               .AddIngredient(ItemID.CrystalShard, 3)
+               .AddTile(TileID.MythrilAnvil)
+               .Register();
         }
     }
 }

@@ -3,17 +3,22 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using Terraria;
-using Terraria.Graphics.Renderers;
+using Terraria.GameContent.Drawing;
 using Terraria.ID;
 using Terraria.ModLoader;
+using static Humanizer.In;
+
+using static System.Formats.Asn1.AsnWriter;
+using static Terraria.ModLoader.PlayerDrawLayer;
+
 namespace OdeMod.Projectiles.Misc
 {
     internal class CrystalSentence : ModProjectile, IMiscProjectile
     {
         public override void SetDefaults()
         {
-            Projectile.width = 18;
-            Projectile.height = 40;
+            Projectile.width = 26;
+            Projectile.height = 56;
             Projectile.aiStyle = -1;
             Projectile.friendly = true;
             Projectile.DamageType = DamageClass.Ranged;
@@ -31,7 +36,7 @@ namespace OdeMod.Projectiles.Misc
         int ok = 0;
         int ok2 = 0;
         float norm = 0;
-        float lerpRad = 0;
+        float lerpRad = 0.01f;
         Vector2 plr2Proj = Vector2.Zero;
         Vector2 plrOrig = Vector2.Zero;
         Vector2 plrOrig2 = Vector2.Zero;
@@ -41,12 +46,38 @@ namespace OdeMod.Projectiles.Misc
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];
-            if (reduceVel < 40)
+
+            if (Projectile.timeLeft==299)
+            {
+                ParticleOrchestraSettings settings;
+                for (float i = 0f; i < 2f; i += 1f)
+                {
+                    if (Main.rand.Next(2) == 0)
+                    {
+                        Vector2 value5 = Vector2.UnitX.RotatedBy(Main.rand.NextFloat() * ((float)Math.PI * 2f) + (float)Math.PI / 2f) * 13;
+                        Vector2 positionInWorld = Projectile.Center + value5;
+                        settings = new ParticleOrchestraSettings
+                        {
+                            PositionInWorld = positionInWorld,
+                            MovementVector = Projectile.velocity
+                        };
+
+                        ParticleOrchestrator.RequestParticleSpawn(clientOnly: true, ParticleOrchestraType.PrincessWeapon, settings, 255);
+                    }
+                }
+            }
+            
+
+
+
+
+
+            
+            if (reduceVel < 30)
             {
                 if (Projectile.timeLeft <= 297 && Projectile.alpha > 0)
                 {
                     Projectile.alpha -= 15;
-
                 }
 
                 if (ok2 == 0)
@@ -68,10 +99,10 @@ namespace OdeMod.Projectiles.Misc
                 Projectile.rotation = (float)
                   System.Math.Atan2((double)Projectile.velocity.Y,
                   (double)Projectile.velocity.X) + 1.57f;
-                Projectile.velocity *= 0.92f;
+                Projectile.velocity *= 0.94f;
                 reduceVel++;
             }
-            else if (rotate <= 30)
+            else if (rotate <= 20)
             {
                 if (ok == 0)
                 {
@@ -91,42 +122,73 @@ namespace OdeMod.Projectiles.Misc
                 {
                     norm += lerpRad;
                 }
-                if (rotate < 15)
+                if (rotate < 12)
                 {
-                    lerpRad += 0.0075f;
+                    lerpRad *= 1.28f;
                 }
                 else
                 {
-                    lerpRad *= 0.9f;
+                    if (rotate > 16)
+                    {
+                        lerpRad *= 0.5f;
+                    }
+                    else
+                    {
+                        lerpRad *= 0.85f;
+                    }
                 }
-
-                if (rotate > 20)
+                if (rotate > 8)
                 {
-                    Projectile.alpha += 5;
+                    Projectile.alpha += 20;
                 }
             }
 
-            if (rotate > 30)
+            if (rotate == 20)
             {
-                Projectile.alpha += 20;
-                if (Projectile.alpha > 255)
-                    Projectile.active = false;
+                Projectile.alpha = 255;
+                Projectile.timeLeft = 15;
+                Projectile.velocity *= 0f;
+                Projectile.damage = 0;
+
+
             }
-
-
-
+            if (Projectile.timeLeft < 10)
+            {
+                for(int i=1;i<=3;i++)
+                {
+                    var dust1 = Dust.NewDustDirect(Projectile.Center-new Vector2(2,2), 4, 4, 254, 0, 0, 0, Color.White, 1f);
+                    Vector2 vec = plrOrig - Projectile.Center;
+                    vec.Normalize();
+                    dust1.velocity = vec * 30f;
+                    dust1.noGravity = true;
+                }
+               
+            }
         }
         public override bool PreDraw(ref Color lightColor)
         {
+            Player player = Main.player[Projectile.owner];
             var texture = ModContent.Request<Texture2D>(Texture).Value;
             Vector2 drawOrigin = new Vector2(Projectile.width * 0.5f, Projectile.height * 0.5f);
             if (rotate > 0)
             {
-                for (int k = 0; k < Projectile.oldPos.Length - 9; k++)
+                if (player.direction == 1)
                 {
-                    Vector2 drawPos = Projectile.oldPos[k] - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
-                    Color color = Projectile.GetAlpha(lightColor) * ((float)(Projectile.oldPos.Length - 9 - k) / (float)Projectile.oldPos.Length);
-                    Main.spriteBatch.Draw(texture, drawPos, null, color, Projectile.rotation - (k * 0.2f), drawOrigin, Projectile.scale, SpriteEffects.None, 0f);
+                    for (int k = 0; k < Projectile.oldPos.Length - 7; k++)
+                    {
+                        Vector2 drawPos = Projectile.oldPos[k] - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
+                        Color color = Projectile.GetAlpha(lightColor) * ((float)(Projectile.oldPos.Length - 9 - k) / (float)Projectile.oldPos.Length);
+                        Main.spriteBatch.Draw(texture, drawPos, null, color, Projectile.rotation - (k * 0.15f), drawOrigin, Projectile.scale, SpriteEffects.None, 0f);
+                    }
+                }
+                else
+                {
+                    for (int k = 0; k < Projectile.oldPos.Length - 7; k++)
+                    {
+                        Vector2 drawPos = Projectile.oldPos[k] - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
+                        Color color = Projectile.GetAlpha(lightColor) * ((float)(Projectile.oldPos.Length - 9 - k) / (float)Projectile.oldPos.Length);
+                        Main.spriteBatch.Draw(texture, drawPos, null, color, Projectile.rotation + (k * 0.15f), drawOrigin, Projectile.scale, SpriteEffects.None, 0f);
+                    }
                 }
             }
             else
@@ -142,7 +204,7 @@ namespace OdeMod.Projectiles.Misc
         }
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-
+            Projectile.NewProjectileDirect(Projectile.GetSource_FromAI(), target.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.Misc.Light>(), Projectile.damage, 0);
         }
         public override Color? GetAlpha(Color lightColor)
         {
