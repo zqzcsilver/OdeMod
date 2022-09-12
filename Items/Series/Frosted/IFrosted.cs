@@ -5,5 +5,9 @@
     /// </summary>
     internal interface IFrosted : ISeriesItem
     {
+        public new string SeriesName()
+        {
+            return "Frosted";
+        }
     }
 }

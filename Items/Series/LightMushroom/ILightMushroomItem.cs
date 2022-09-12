@@ -5,5 +5,9 @@
     /// </summary>
     internal interface ILightMushroomItem : ISeriesItem
     {
+        public new string SeriesName()
+        {
+            return "LightMushroom";
+        }
     }
 }

@@ -5,5 +5,9 @@
     /// </summary>
     internal interface ICalifornium : ISeriesItem
     {
+        public new string SeriesName()
+        {
+            return "Californium";
+        }
     }
 }

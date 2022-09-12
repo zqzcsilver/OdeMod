@@ -19,5 +19,9 @@ namespace OdeMod.Items.Series.Recharge
         /// 充能速度
         /// </summary>
         public float RechargeSpeedAdd { get; }
+        public new string SeriesName()
+        {
+            return "RechargeableWeapon";
+        }
     }
 }

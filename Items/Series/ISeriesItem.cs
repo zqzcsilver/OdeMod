@@ -5,5 +5,9 @@
     /// </summary>
     internal interface ISeriesItem : IOdeItem
     {
+        public string SeriesName()
+        {
+            return "NoneSeries";
+        }
     }
 }

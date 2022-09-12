@@ -5,5 +5,9 @@
     /// </summary>
     internal interface IBrightiron : ISeriesItem
     {
+        public new string SeriesName()
+        {
+            return "Brightiron";
+        }
     }
 }

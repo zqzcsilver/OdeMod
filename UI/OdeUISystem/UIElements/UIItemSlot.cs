@@ -66,7 +66,7 @@ namespace OdeMod.UI.OdeUISystem.UIElements
             ContainedItem = new Item();
             CanPutInSlot = null;
             SlotBackTexture = texture == default(Texture2D) ? TextureAssets.InventoryBack.Value : texture;
-            DrawColor = new Color(0x3f, 0x41, 0x97) * 0.75f;
+            DrawColor = Color.White;
             CornerSize = new Vector2(10, 10);
             Tooltip = "";
             Info.Width.SetValue(50f, 0f);

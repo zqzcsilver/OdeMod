@@ -5,5 +5,9 @@
     /// </summary>
     internal interface ISharpsand : ISeriesItem
     {
+        public new string SeriesName()
+        {
+            return "Sharpsand";
+        }
     }
 }

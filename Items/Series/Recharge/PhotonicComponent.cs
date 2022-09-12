@@ -8,15 +8,15 @@ using Terraria.ID;
 
 namespace OdeMod.Items.Series.Recharge
 {
-    internal class LuminousReactor : ModItem, IRechargeAccessory
+    internal class PhotonicComponent : ModItem
     {
-        public float RechargeSpeedMult => 1.25f;
-        public float RechargeSpeedAdd => 0f;
         public override void SetDefaults()
         {
             base.SetDefaults();
-            Item.CloneDefaults(ItemID.PixieDust);
-            Item.maxStack = 1;
+            Item.width = 26;
+            Item.height = 20;
+            Item.rare = ItemRarityID.Pink;
+            Item.maxStack = 99;
         }
     }
 }

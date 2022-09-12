@@ -48,6 +48,17 @@
 			ShadeCloak : 暗影披风
 			ShadeSoul : 暗影之魂
 			VengefulSpirit : 复仇之魂
+			ElectrifiedBlasterCannon : 带电爆破炮
+			StarAngel : 星辰天使
+			Zapinator : 真红冲击波
+			Thomas_Zero : 托马斯·零式
+			PrismRevolver : 光棱左轮
+			LaserGun : 激光枪
+			TwilightGatling : 暮光加特林
+			PhotonicComponent : 光子组件
+			MarsBattery : 火星电池
+			LuminousReactor : 夜光加速炉
+			HeavenFragment : 天堂配件
 		}
 		#物品介绍
 		ItemTooltip:
@@ -94,6 +105,17 @@
 			ShadeCloak : 由深渊的物质形成的披风。允许穿戴者冲刺时穿过敌人和他们的攻击而不受到伤害。
 			ShadeSoul : 召唤一个向前飞行的阴影，燃烧路径上的敌人。
 			VengefulSpirit : 召唤一个向前飞行的灵魂，燃烧路径上的敌人。
+			ElectrifiedBlasterCannon : 过载！
+			StarAngel : 它的任务仅仅是带你去见天使
+			Zapinator : 尘封许久的武器
+			Thomas_Zero : WARNING \n 由果冻设计绘制
+			PrismRevolver : 光棱武器 
+			LaserGun : 熟悉的触感
+			TwilightGatling : 见证群星
+			PhotonicComponent : 光子
+			MarsBattery : 来自荧惑
+			LuminousReactor : 
+			HeavenFragment :
 		}
 		#弹幕名字
 		ProjectileName:
@@ -160,6 +182,18 @@
 		#物块在地图上的名字
 		MapObject:
 		{
+		}
+		SeriesName:
+		{
+			NoneSeries:无系列
+			Brightiron:熙铁系列
+			Californium:锎系列
+			Frosted:寒霜系列
+			HollowKnight:空洞系列
+			LightMushroom:光蘑菇系列
+			Mosscobble:苔石系列
+			RechargeableWeapon:充能系列
+			Sharpsand:纯砂系列
 		}
 	}
 }
