@@ -8,6 +8,16 @@ namespace OdeMod.Players
     {
         public static int shakeInt = 0;
         private static int shaketick = 0;
+        public int wan = 0;
+        public bool wanman = false;
+        public override void PostUpdate()
+        {
+            if(wan >= 10)
+            {
+                wanman = true;
+            }
+            base.PostUpdate();
+        }
         public override void ModifyScreenPosition()
         {
             if (!Main.gameMenu)
