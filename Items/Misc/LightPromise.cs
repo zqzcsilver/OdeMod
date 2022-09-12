@@ -53,9 +53,9 @@ namespace OdeMod.Items.Misc
         {
             base.AddRecipes();
             CreateRecipe()
-               .AddIngredient(ItemID.HallowedBar, 8)
-               .AddIngredient(ItemID.SoulofLight, 8)
-               .AddIngredient(ItemID.CrystalShard, 20)
+               .AddIngredient(ItemID.HallowedBar, 12)
+               .AddIngredient(ItemID.SoulofLight, 12)
+               .AddIngredient(ItemID.CrystalShard, 30)
                .AddTile(TileID.MythrilAnvil)
                .Register();
         }
