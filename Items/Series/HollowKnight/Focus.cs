@@ -1,4 +1,5 @@
-﻿using OdeMod.Utils;
+﻿using OdeMod.Players;
+using OdeMod.Utils;
 
 using Terraria;
 using Terraria.ID;
@@ -40,7 +41,7 @@ namespace OdeMod.Items.Series.HollowKnight
         public override bool CanUseItem(Player player)
         {
             if (player.statMana >= 50)
-                return true;
+                return !player.GetModPlayer<OdePlayer>().OnHollowKnightItemUsing;
             else
                 return false;
         }

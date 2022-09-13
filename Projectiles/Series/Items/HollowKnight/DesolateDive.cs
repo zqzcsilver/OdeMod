@@ -56,6 +56,17 @@ namespace OdeMod.Projectiles.Series.Items.HollowKnight
             Player player = Main.player[Projectile.owner];
             Projectile.velocity *= 0f;
 
+            if(Projectile.timeLeft>5)
+            {
+                player.GetModPlayer<OdePlayer>().OnHollowKnightItemUsing = true;
+            }
+            else
+            {
+                player.GetModPlayer<OdePlayer>().OnHollowKnightItemUsing = false;
+            }
+
+
+
             if (Projectile.timeLeft > 20)
                 Projectile.position = player.Center + new Vector2(0f, 15f);
 

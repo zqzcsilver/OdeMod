@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-
+using OdeMod.Players;
 using OdeMod.Utils;
 
 using System;
@@ -96,7 +96,7 @@ namespace OdeMod.Items.Series.HollowKnight
                         Main.dust[num].velocity = new Vector2(cent1.X - player.Center.X, cent1.Y - player.Center.Y) / -8f;
                     }
                 }
-                if (player.controlRight && player.releaseRight && timeall == 0)
+                if (player.controlRight && player.releaseRight && timeall == 0 && player.GetModPlayer<OdePlayer>().OnHollowKnightItemUsing == false)
                 {
                     if (lacktime != 0)
                     {
@@ -130,7 +130,7 @@ namespace OdeMod.Items.Series.HollowKnight
                         lacktime = 120;
                     }
                 }
-                else if (player.controlLeft && player.releaseLeft && timeall == 0)
+                else if (player.controlLeft && player.releaseLeft && timeall == 0 && player.GetModPlayer<OdePlayer>().OnHollowKnightItemUsing == false)
                 {
                     if (lacktime != 0)
                     {

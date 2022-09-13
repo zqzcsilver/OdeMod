@@ -35,6 +35,17 @@ namespace OdeMod.Projectiles.Series.Items.HollowKnight
             Projectile.velocity = new Vector2(0, 0);
             Player player = Main.player[Projectile.owner];
             Projectile.direction = player.direction;
+
+            if (Projectile.timeLeft > 315)
+            {
+                player.GetModPlayer<OdePlayer>().OnHollowKnightItemUsing = true;
+            }
+            else
+            {
+                player.GetModPlayer<OdePlayer>().OnHollowKnightItemUsing = false;
+            }
+
+
             if (Projectile.timeLeft == 372)
             {
                 Projectile.width = 1;

@@ -1,8 +1,5 @@
-﻿using Microsoft.Win32;
-using Microsoft.Xna.Framework;
-
-using OdeMod.Utils;
-
+﻿using Microsoft.Xna.Framework;
+using OdeMod.Players;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -41,7 +38,7 @@ namespace OdeMod.Items.Series.HollowKnight
             }
             if (Item.favorited)
             {
-                if (player.controlRight && player.releaseRight && timeall == 0)
+                if (player.controlRight && player.releaseRight && timeall == 0 && player.GetModPlayer<OdePlayer>().OnHollowKnightItemUsing == false)
                 {
                     if (timer > 0)
                     {
@@ -56,7 +53,7 @@ namespace OdeMod.Items.Series.HollowKnight
                     }
                     timeall = 30;
                 }
-                else if (player.controlLeft && player.releaseLeft && timeall == 0)
+                else if (player.controlLeft && player.releaseLeft && timeall == 0 && player.GetModPlayer<OdePlayer>().OnHollowKnightItemUsing == false)
                 {
                     if (timer > 0)
                     {
@@ -81,7 +78,7 @@ namespace OdeMod.Items.Series.HollowKnight
                         Main.dust[num].velocity.X -= 5f + Main.rand.Next(10, 30) * 0.5f;
                         Main.dust[num].velocity.Y *= 0.5f;
                         Main.dust[num].noGravity = true;
-                        
+
                     }
                 player.velocity *= 0;
                 dash1--;
@@ -111,7 +108,7 @@ namespace OdeMod.Items.Series.HollowKnight
                 if (dash2 == 18)
                     for (int i = 1; i <= 40; i++)
                     {
-                        
+
                         int num = Dust.NewDust(player.Center + new Vector2(-10f, -60f), 60, 120, DustID.GemDiamond, 0f, 0f, 0, Color.White, 1.8f);
                         Main.dust[num].velocity.X += 5f + Main.rand.Next(10, 30) * 0.5f;
                         Main.dust[num].velocity.Y *= 0.5f;

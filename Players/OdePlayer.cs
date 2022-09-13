@@ -9,6 +9,7 @@ namespace OdeMod.Players
         public static int shakeInt = 0;
         private static int shaketick = 0;
         public int fall = 0;
+        public bool OnHollowKnightItemUsing = false;
         protected int fallTimer = 0;
         public override void ModifyScreenPosition()
         {

@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-
+using OdeMod.Players;
 using OdeMod.Utils;
 
 using Terraria;
@@ -43,6 +43,11 @@ namespace OdeMod.Items.Series.HollowKnight
         {
             Projectile.NewProjectile(source, position, velocity, ModContent.ProjectileType<Projectiles.Series.Items.HollowKnight.DesolateDive>(), damage, knockback, player.whoAmI, 1f);
             return false;
+        }
+
+        public override bool CanUseItem(Player player)
+        {
+            return !player.GetModPlayer<OdePlayer>().OnHollowKnightItemUsing;
         }
     }
 }

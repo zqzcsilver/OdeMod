@@ -31,8 +31,16 @@ namespace OdeMod.Projectiles.Series.Items.HollowKnight
         Vector2 vec1 = new Vector2(0, 0);
         public override void AI()
         {
-
             Player player = Main.player[Projectile.owner];
+            if (Projectile.timeLeft>300)
+            {
+                player.GetModPlayer<OdePlayer>().OnHollowKnightItemUsing = true;
+            }
+            else
+            {
+                player.GetModPlayer<OdePlayer>().OnHollowKnightItemUsing = false;
+            }
+            
             Projectile.direction = player.direction;
             if (Projectile.timeLeft == 360)
             {
