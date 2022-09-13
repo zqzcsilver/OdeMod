@@ -63,11 +63,6 @@ namespace OdeMod.Players
 
         }
 
-        public override void PostUpdate()
-        {
-            base.PostUpdate();
-        }
-
         public override void ResetEffects()
         {
             if(fall==1)
