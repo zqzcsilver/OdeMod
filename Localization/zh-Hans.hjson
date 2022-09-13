@@ -72,8 +72,16 @@
 			CaliforniumBar : 月总后海盗事件
 			GammaDisembower : 
 			HallowRadianter : 
-			NeutronSource : 你可以看到宝藏和矿石的位置\n你的防御增加10%
-			Plaguebatter : 三连散射\n十一转化
+			NeutronSource : 
+			'''
+			你可以看到宝藏和矿石的位置
+			你的防御增加10%
+			'''
+			Plaguebatter : 
+			'''
+			三连散射
+			十一转化
+			'''
 			Raydason : 
 			Mosscobble : 
 			MosscobbleAxe : 
@@ -83,7 +91,20 @@
 			SharpsandGiantblade : 
 			SharpsandStaff : 
 			Redmoon : 这次一定能中...
-			HallownestSeal : 长按左键开启圣巢模式\n你的角色魔力值与生命值将不再自动恢复\n玩家免疫所有伤害性负面buff\n玩家的速度和跳跃高度略微提升\n玩家受伤固定受到25伤害\n玩家受伤后拥有更长时间的无敌帧\n  \n高等生灵啊，这些话只说给你听。\n走过这里你就会进入国王和造物主的领土。\n跨过这道门槛，遵从我们的法律。\n见证这最后和唯一的文明，永恒的国度。\n圣巢
+			HallownestSeal : 
+			'''
+			长按左键开启圣巢模式
+			你的角色魔力值与生命值将不再自动恢复
+			玩家免疫所有伤害性负面buff
+			玩家的速度和跳跃高度略微提升
+			玩家受伤固定受到25伤害
+			玩家受伤后拥有更长时间的无敌帧
+			    高等生灵啊，这些话只说给你听。
+			走过这里你就会进入国王和造物主的领土。
+			    跨过这道门槛，遵从我们的法律。
+			 见证这最后和唯一的文明，永恒的国度。
+			                    圣巢
+			'''
 			AbyssShriek : 用嚎叫的灵魂和暗影轰击敌人。
 			DescendingDark : 集中灵魂和暗影的力量打击地面。
 			DesolateDive : 集中灵魂力量打击地面。
@@ -161,6 +182,7 @@
 		MapObject:
 		{
 		}
+		#系列名字
 		SeriesName:
 		{
 			NoneSeries:无系列

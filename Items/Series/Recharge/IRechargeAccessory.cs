@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using Terraria.ModLoader;
+
 namespace OdeMod.Items.Series.Recharge
 {
     /// <summary>
@@ -19,7 +21,8 @@ namespace OdeMod.Items.Series.Recharge
         /// 充能速度
         /// </summary>
         public float RechargeSpeedAdd { get; }
-        public new string SeriesName()
+        [NoJIT]
+        string ISeriesItem.SeriesName()
         {
             return "RechargeableWeapon";
         }

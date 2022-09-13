@@ -107,13 +107,8 @@ namespace OdeMod.UI.OdeUISystem
                 }
             }
 
-            if (interact.Count == 0)
-                return;
-
-            //if (interact.Count == 0)
-            //    return;
-
-            Main.LocalPlayer.mouseInterface = true;
+            if (interact.Count > 0)
+                Main.LocalPlayer.mouseInterface = true;
 
             foreach (var ce in interact)
                 if (!interactContainerElementsBuffer.Contains(ce))

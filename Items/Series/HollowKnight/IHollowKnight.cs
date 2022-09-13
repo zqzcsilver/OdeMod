@@ -1,3 +1,5 @@
+using Terraria.ModLoader;
+
 namespace OdeMod.Items.Series.HollowKnight
 {
     /// <summary>
@@ -5,7 +7,8 @@ namespace OdeMod.Items.Series.HollowKnight
     /// </summary>
     internal interface IHollowKnight : ISeriesItem
     {
-        public new string SeriesName()
+        [NoJIT]
+        string ISeriesItem.SeriesName()
         {
             return "HollowKnight";
         }

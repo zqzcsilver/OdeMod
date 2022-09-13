@@ -266,7 +266,21 @@ namespace OdeMod.UI.OdeUISystem.UIElements
         /// <summary>
         /// 溢出隐藏的裁切矩形
         /// </summary>
-        public virtual Rectangle HiddenOverflowRectangle { get => Info.HitBox; }
+        public virtual Rectangle HiddenOverflowRectangle
+        {
+            get
+            {
+                Vector2 location = Vector2.Transform(Info.Location, Main.UIScaleMatrix),
+                    bottomRight = Vector2.Transform(Info.Location + Info.Size, Main.UIScaleMatrix);
+
+                Rectangle rectangle = new Rectangle();
+                rectangle.X = (int)location.X;
+                rectangle.Y = (int)location.Y;
+                rectangle.Width = (int)Math.Max(bottomRight.X - location.X, 0);
+                rectangle.Height = (int)Math.Max(bottomRight.Y - location.Y, 0);
+                return rectangle;
+            }
+        }
         /// <summary>
         /// 事件管理器
         /// </summary>

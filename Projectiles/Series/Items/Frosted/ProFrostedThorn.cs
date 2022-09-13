@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using OdeMod.Players;
+
 using Terraria;
 using Terraria.ModLoader;
 

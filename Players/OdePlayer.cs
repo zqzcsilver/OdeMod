@@ -1,5 +1,10 @@
 using Microsoft.Xna.Framework;
 
+using OdeMod.Projectiles.Series.Items.Frosted;
+
+using System;
+using System.Collections.Generic;
+
 using Terraria;
 using Terraria.ModLoader;
 namespace OdeMod.Players
@@ -32,19 +37,22 @@ namespace OdeMod.Players
                 shaketick = 0;
             }
 
-            /* ÕðÆÁÓÃ·¨
-             
-             try
-            {
-                float demo = 1 + Vector2.DistanceSquared(Main.player[Main.myPlayer].Center, player.Center) / 500000;
-                OdePlayer.shakeInt = Math.Max(OdePlayer.shakeInt, (int)(15 / demo));
-            }
-            catch
-            {
+            ////ÕðÆÁ
+            //try
+            //{
+            //    float demo = 1 + Vector2.DistanceSquared(Main.player[Main.myPlayer].Center, player.Center) / 500000;
+            //    OdePlayer.shakeInt = Math.Max(OdePlayer.shakeInt, (int)(15 / demo));
+            //}
+            //catch
+            //{
 
-            }
-             
-             */
+            //}
+
+        }
+
+        public override void PostUpdate()
+        {
+            base.PostUpdate();
         }
     }
 }
