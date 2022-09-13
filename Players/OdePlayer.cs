@@ -11,8 +11,8 @@ namespace OdeMod.Players
 {
     internal class OdePlayer : ModPlayer, IOdePlayer
     {
-        public static int shakeInt = 0;
-        private static int shaketick = 0;
+        public int shakeInt = 0;
+        private int shaketick = 0;
         public int fall = 0;
         public bool OnHollowKnightItemUsing = false;
         protected int fallTimer = 0;
@@ -33,8 +33,8 @@ namespace OdeMod.Players
                 shaketick++;
                 if (shakeInt >= 0 && shaketick >= 60)
                     shakeInt--;
-                if (shakeInt > 30)
-                    shakeInt = 30;
+                if (shakeInt > 50)
+                    shakeInt = 50;
                 if (shakeInt < 0)
                     shakeInt = 0;
                 if (!Main.gamePaused && Main.hasFocus)
@@ -71,7 +71,7 @@ namespace OdeMod.Players
                 Player.maxFallSpeed = 25f;
                 Player.velocity.Y += 25f;
                 Player.immune = true;
-                Player.immuneTime = 50;
+                Player.immuneTime = 90;
             }
             if(fall==0)
             {

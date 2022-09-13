@@ -50,6 +50,7 @@ namespace OdeMod.Projectiles.Series.Items.HollowKnight
         }
         Vector2 pos1 = new Vector2(0, 0);
         Vector2 pos2 = new Vector2(0, 0);
+        Vector2 pos3 = new Vector2(0, 0);
         int guang = 0;
         public override void AI()
         {
@@ -136,6 +137,9 @@ namespace OdeMod.Projectiles.Series.Items.HollowKnight
                 player.position.X = pos1.X;
                 player.velocity.X *= 0f;
             }
+
+            
+
             if (Projectile.timeLeft <= 570 && Projectile.timeLeft > 25)
             {
                 player.GetModPlayer<OdePlayer>().fall = 1;
@@ -149,10 +153,16 @@ namespace OdeMod.Projectiles.Series.Items.HollowKnight
                          Main.tileSolid[Main.tile[(int)playerw.X + i, (int)playerw.Y + 3].TileType])
                     {
 
+                        pos3 = player.position;
                         player.GetModPlayer<OdePlayer>().fall = 0;
                         Projectile.timeLeft = 25;
                         player.immune = true;
-                        player.immuneTime = 45;
+                        player.immuneTime = 80;
+                        player.AddImmuneTime(Terraria.ID.ImmunityCooldownID.General, 60);
+                        player.AddImmuneTime(Terraria.ID.ImmunityCooldownID.Lava, 60);
+                        player.AddImmuneTime(Terraria.ID.ImmunityCooldownID.Bosses, 60);
+                        player.AddImmuneTime(Terraria.ID.ImmunityCooldownID.WrongBugNet, 60);
+
                         Texture2D t2 = ModContent.Request<Texture2D>("OdeMod/Projectiles/Series/Items/HollowKnight/DesolateDive_F1", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                         CreateDust(t2, player.Center + new Vector2(-10f, -20f), 1f);
                         guang = 25;
@@ -175,11 +185,16 @@ namespace OdeMod.Projectiles.Series.Items.HollowKnight
                             d.velocity.X *= 7f;
                         }
 
-                        float demo = 1 + Vector2.DistanceSquared(Main.player[Main.myPlayer].Center, Projectile.Center) / 400000;
-                        OdePlayer.shakeInt = Math.Max(OdePlayer.shakeInt, (int)(40 / demo));
+                        float demo = 1 + Vector2.DistanceSquared(Main.player[Main.myPlayer].Center, Projectile.Center) / 420000;
+                        player.GetModPlayer<OdePlayer>().shakeInt = Math.Max(player.GetModPlayer<OdePlayer>().shakeInt, (int)(45 / demo));
 
                     }
                 }
+            }
+            if (Projectile.timeLeft < 25)
+            {
+                player.velocity *= 0f;
+                player.position = pos3;
             }
         }
         int ok = 0;

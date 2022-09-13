@@ -96,8 +96,8 @@ namespace OdeMod.Projectiles.Misc
                 {
                     try
                     {
-                        float demo = 1 + Vector2.DistanceSquared(Main.player[Main.myPlayer].Center, player.Center) / 300000;
-                        OdePlayer.shakeInt = Math.Max(OdePlayer.shakeInt, (int)(40 / demo));
+                        float demo = 1 + Vector2.DistanceSquared(Main.player[Main.myPlayer].Center, player.Center) / 450000;
+                        player.GetModPlayer<OdePlayer>().shakeInt = Math.Max(player.GetModPlayer<OdePlayer>().shakeInt, (int)(30 / demo));
                     }
                     catch
                     {

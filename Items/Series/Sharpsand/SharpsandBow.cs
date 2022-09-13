@@ -49,16 +49,6 @@ namespace OdeMod.Items.Series.Sharpsand
         private int num = 0;
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            try
-            {
-                float demo = 1 + Vector2.DistanceSquared(Main.player[Main.myPlayer].Center, player.Center) / 500000;
-                OdePlayer.shakeInt = Math.Max(OdePlayer.shakeInt, (int)(15 / demo));
-            }
-            catch
-            {
-
-            }
-
 
             if (num > 2)
             {

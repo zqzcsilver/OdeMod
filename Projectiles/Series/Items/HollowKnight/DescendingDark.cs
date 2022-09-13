@@ -49,6 +49,7 @@ namespace OdeMod.Projectiles.Series.Items.HollowKnight
 
         Vector2 pos1 = new Vector2(0, 0);
         Vector2 pos2 = new Vector2(0, 0);
+        Vector2 pos3 = new Vector2(0, 0);
         int guang = 0;
         public override void AI()
         {
@@ -150,10 +151,11 @@ namespace OdeMod.Projectiles.Series.Items.HollowKnight
                         Main.tile[(int)playerw.X + i, (int)playerw.Y + 3].TileType != 0 &&
                         Main.tileSolid[Main.tile[(int)playerw.X + i, (int)playerw.Y + 3].TileType])
                     {
+                        pos3 = player.position;
                         player.GetModPlayer<OdePlayer>().fall = 0;
                         Projectile.timeLeft = 25;
                         player.immune = true;
-                        player.immuneTime = 60;
+                        player.immuneTime = 80;
                         Texture2D t2 = ModContent.Request<Texture2D>("OdeMod/Projectiles/Series/Items/HollowKnight/DescendingDark_F2", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                         CreateDust(t2, player.Center + new Vector2(0f, -20f), 0.5f);
 
@@ -180,8 +182,8 @@ namespace OdeMod.Projectiles.Series.Items.HollowKnight
 
                         try
                         {
-                            float demo = 1 + Vector2.DistanceSquared(Main.player[Main.myPlayer].Center, Projectile.Center) / 400000;
-                            OdePlayer.shakeInt = Math.Max(OdePlayer.shakeInt, (int)(40 / demo));
+                            float demo = 1 + Vector2.DistanceSquared(Main.player[Main.myPlayer].Center, Projectile.Center) / 420000;
+                            player.GetModPlayer<OdePlayer>().shakeInt = Math.Max(player.GetModPlayer<OdePlayer>().shakeInt, (int)(45 / demo));
                         }
                         catch
                         {
@@ -191,6 +193,11 @@ namespace OdeMod.Projectiles.Series.Items.HollowKnight
 
                     }
                 }
+            }
+            if(Projectile.timeLeft<25)
+            {
+                player.velocity *= 0f;
+                player.position = pos3;
             }
             if (Projectile.timeLeft == 10)
             {

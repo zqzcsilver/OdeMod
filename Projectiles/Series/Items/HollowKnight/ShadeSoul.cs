@@ -68,7 +68,7 @@ namespace OdeMod.Projectiles.Series.Items.HollowKnight
                 try
                 {
                     float demo = 1 + Vector2.DistanceSquared(Main.player[Main.myPlayer].Center, Projectile.Center) / 500000;
-                    OdePlayer.shakeInt = Math.Max(OdePlayer.shakeInt, (int)(8 / demo));
+                    player.GetModPlayer<OdePlayer>().shakeInt = Math.Max(player.GetModPlayer<OdePlayer>().shakeInt, (int)(10 / demo));
                 }
                 catch
                 {

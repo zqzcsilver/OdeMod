@@ -35,10 +35,12 @@ namespace OdeMod.Projectiles.Series.Items.HollowKnight
             if (Projectile.timeLeft>300)
             {
                 player.GetModPlayer<OdePlayer>().OnHollowKnightItemUsing = true;
+                Projectile.tileCollide = false;
             }
             else
             {
                 player.GetModPlayer<OdePlayer>().OnHollowKnightItemUsing = false;
+                Projectile.tileCollide = true;
             }
             
             Projectile.direction = player.direction;
@@ -63,7 +65,7 @@ namespace OdeMod.Projectiles.Series.Items.HollowKnight
             {
                 vec1 = player.position;
             }
-            if (Projectile.timeLeft == 350)
+            if (Projectile.timeLeft == 300)
             {
                 Projectile.tileCollide = true;
             }
@@ -78,7 +80,7 @@ namespace OdeMod.Projectiles.Series.Items.HollowKnight
                 try
                 {
                     float demo = 1 + Vector2.DistanceSquared(Main.player[Main.myPlayer].Center, Projectile.Center) / 500000;
-                    OdePlayer.shakeInt = Math.Max(OdePlayer.shakeInt, (int)(8 / demo));
+                    player.GetModPlayer<OdePlayer>().shakeInt = Math.Max(player.GetModPlayer<OdePlayer>().shakeInt, (int)(10 / demo));
                 }
                 catch
                 {

@@ -27,7 +27,6 @@ namespace OdeMod.Items.Series.HollowKnight
             Item.damage = 25;
             Item.crit = -4;
             Item.knockBack = 4;
-            Item.mana = 25;
             Item.rare = ItemRarityID.Blue;
             Item.shoot = ModContent.ProjectileType<Projectiles.Series.Items.HollowKnight.KnifeLight> ();
             Item.shootSpeed = 5.5f;
