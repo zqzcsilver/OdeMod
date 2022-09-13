@@ -1,7 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-
-using OdeMod.Utils;
-
+using OdeMod.Players;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -27,15 +25,20 @@ namespace OdeMod.Items.Series.HollowKnight
         int dash1 = 0;
         int dash2 = 0;
         float yy = 0;
+        int timeall = 30;
         public override void UpdateInventory(Player player)
         {
             if (timer > 0)
             {
                 timer--;
             }
+            if (timeall > 0)
+            {
+                timeall--;
+            }
             if (Item.favorited)
             {
-                if (player.controlRight && player.releaseRight)
+                if (player.controlRight && player.releaseRight && timeall == 0 && player.GetModPlayer<OdePlayer>().OnHollowKnightItemUsing == false)
                 {
                     if (timer > 0)
                     {
@@ -48,8 +51,9 @@ namespace OdeMod.Items.Series.HollowKnight
                         timer = 15;
                         return;
                     }
+                    timeall = 30;
                 }
-                else if (player.controlLeft && player.releaseLeft)
+                else if (player.controlLeft && player.releaseLeft && timeall == 0 && player.GetModPlayer<OdePlayer>().OnHollowKnightItemUsing == false)
                 {
                     if (timer > 0)
                     {
@@ -62,6 +66,7 @@ namespace OdeMod.Items.Series.HollowKnight
                         timer = 15;
                         return;
                     }
+                    timeall = 30;
                 }
             }
             if (dash1 > 0)
@@ -73,13 +78,16 @@ namespace OdeMod.Items.Series.HollowKnight
                         Main.dust[num].velocity.X -= 5f + Main.rand.Next(10, 30) * 0.5f;
                         Main.dust[num].velocity.Y *= 0.5f;
                         Main.dust[num].noGravity = true;
+
                     }
+                player.velocity *= 0;
                 dash1--;
                 if (dash1 > 3)
                 {
                     player.velocity.X = 12f;
-                    player.position.Y = yy;
-                    player.velocity.Y *= 0;
+                    /*player.position.Y = yy;
+                    player.velocity.Y *= 0;*/
+                    player.gravity = 0.001f;
                     for (int i = 1; i <= 3; i++)
                     {
                         int num = Dust.NewDust(player.position + new Vector2(14f, 5f), player.width, 30, DustID.GemDiamond, 0f, 0f, 0, Color.White, 1.5f);
@@ -90,7 +98,9 @@ namespace OdeMod.Items.Series.HollowKnight
                 }
                 if (dash1 <= 3)
                 {
-                    player.velocity *= 0.6f;
+                    player.velocity.X = 3f;
+                    player.gravity = 0.001f;
+                    //player.velocity.X *= 0.9f;
                 }
             }
             if (dash2 > 0)
@@ -98,17 +108,20 @@ namespace OdeMod.Items.Series.HollowKnight
                 if (dash2 == 18)
                     for (int i = 1; i <= 40; i++)
                     {
+
                         int num = Dust.NewDust(player.Center + new Vector2(-10f, -60f), 60, 120, DustID.GemDiamond, 0f, 0f, 0, Color.White, 1.8f);
                         Main.dust[num].velocity.X += 5f + Main.rand.Next(10, 30) * 0.5f;
                         Main.dust[num].velocity.Y *= 0.5f;
                         Main.dust[num].noGravity = true;
                     }
+                player.velocity *= 0;
                 dash2--;
                 if (dash2 > 3)
                 {
+                    player.gravity = 0.001f;
                     player.velocity.X = -12f;
-                    player.position.Y = yy;
-                    player.velocity.Y = 0;
+                    /*player.position.Y = yy;
+                    player.velocity.Y = 0;*/
                     for (int i = 1; i <= 3; i++)
                     {
                         int num = Dust.NewDust(player.position + new Vector2(-14f, 5f), player.width, 30, DustID.GemDiamond, 0f, 0f, 0, Color.White, 1.5f);
@@ -119,7 +132,9 @@ namespace OdeMod.Items.Series.HollowKnight
                 }
                 if (dash2 <= 3)
                 {
-                    player.velocity *= 0.6f;
+                    player.velocity.X = -3f;
+                    player.gravity = 0.001f;
+                    //player.velocity.X *= 0.9f;
                 }
             }
         }

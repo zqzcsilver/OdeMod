@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-
+using OdeMod.Players;
 using OdeMod.Utils;
 
 using System;
@@ -36,13 +36,13 @@ namespace OdeMod.Items.Series.HollowKnight
             Vector2 position = new Vector2(center.X - t.Width / 2f * size, center.Y - t.Height / 2f * size);
             t.GetData(c);
             Color color;
-            for (int i = 0; i < c.Length; i += 2)
+            for (int i = 0; i < c.Length; i += 1)
             {
                 color = c[i];
                 if (color != new Color(0, 0, 0, 0))
                 {
                     Player player = Main.player[Item.whoAmI];
-                    Dust d = Dust.NewDustDirect(new Vector2(position.X + (i % t.Width + 1) * size, position.Y + (i / t.Width + 1) * size), 0, 0, DustID.FireflyHit, 0, 0, 0, Color.Black, 1.5f);
+                    Dust d = Dust.NewDustDirect(new Vector2(position.X + (i % t.Width + 1) * size + Main.rand.Next(-100, 100) * 0.01f, position.Y + (i / t.Width + 1) * size + Main.rand.Next(-100, 100) * 0.01f), 0, 0, DustID.FireflyHit, 0, 0, 0, Color.Black, 1.2f);
                     d.noGravity = true;
                     if (player.direction == -1)
                     {
@@ -96,7 +96,7 @@ namespace OdeMod.Items.Series.HollowKnight
                         Main.dust[num].velocity = new Vector2(cent1.X - player.Center.X, cent1.Y - player.Center.Y) / -8f;
                     }
                 }
-                if (player.controlRight && player.releaseRight && timeall == 0)
+                if (player.controlRight && player.releaseRight && timeall == 0 && player.GetModPlayer<OdePlayer>().OnHollowKnightItemUsing == false)
                 {
                     if (lacktime != 0)
                     {
@@ -130,7 +130,7 @@ namespace OdeMod.Items.Series.HollowKnight
                         lacktime = 120;
                     }
                 }
-                else if (player.controlLeft && player.releaseLeft && timeall == 0)
+                else if (player.controlLeft && player.releaseLeft && timeall == 0 && player.GetModPlayer<OdePlayer>().OnHollowKnightItemUsing == false)
                 {
                     if (lacktime != 0)
                     {
@@ -178,13 +178,14 @@ namespace OdeMod.Items.Series.HollowKnight
                     }
 
                 }
-
+                player.velocity *= 0;
                 dash1--;
                 if (dash1 > 3)
                 {
                     player.velocity.X = 12f;
-                    player.position.Y = yy;
-                    player.velocity.Y = 0;
+                   
+                    player.gravity = 0.001f;
+
                     for (int i = 1; i <= 3; i++)
                     {
                         int num = Dust.NewDust(player.position + new Vector2(14f, 5f), player.width, 30, DustID.GemDiamond, 0f, 0f, 0, Color.White, 1.5f);
@@ -196,6 +197,7 @@ namespace OdeMod.Items.Series.HollowKnight
                 }
                 if (dash1 <= 3)
                 {
+                    player.velocity.X = 3f;
                     player.velocity *= 0.6f;
                 }
             }
@@ -209,12 +211,12 @@ namespace OdeMod.Items.Series.HollowKnight
                         Main.dust[num].velocity.Y *= 0.5f;
                         Main.dust[num].noGravity = true;
                     }
+                player.velocity *= 0;
                 dash2--;
                 if (dash2 > 3)
                 {
                     player.velocity.X = -12f;
-                    player.position.Y = yy;
-                    player.velocity.Y = 0;
+                    player.gravity = 0.001f;
                     for (int i = 1; i <= 3; i++)
                     {
                         int num = Dust.NewDust(player.position + new Vector2(-14f, 5f), player.width, 30, DustID.GemDiamond, 0f, 0f, 0, Color.White, 1.3f);
@@ -225,6 +227,7 @@ namespace OdeMod.Items.Series.HollowKnight
                 }
                 if (dash2 <= 3)
                 {
+                    player.velocity.X = -3f;
                     player.velocity *= 0.6f;
                 }
             }
@@ -246,16 +249,14 @@ namespace OdeMod.Items.Series.HollowKnight
                         Main.dust[num].noGravity = true;
                         Main.dust[num].velocity = new Vector2(cent1.X - player.Center.X, cent1.Y - player.Center.Y) / -8f;
                     }
-                    Texture2D t2 = ModContent.Request<Texture2D>("OdeMod/Items/Series/HollowKnight/JetTrace").Value;
+                    Texture2D t2 = ModContent.Request<Texture2D>("OdeMod/Items/Series/HollowKnight/JetTrace", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                     CreateDust(t2, player.Center + new Vector2(0f, -5f), 1f);
                 }
-
+                player.velocity.Y *= 0f;
                 dash3--;
                 if (dash3 > 3)
                 {
                     player.velocity.X = 12f;
-                    player.position.Y = yy;
-                    player.velocity.Y = 0;
 
                     for (int i = 1; i <= 3; i++)
                     {
@@ -264,10 +265,11 @@ namespace OdeMod.Items.Series.HollowKnight
                         Main.dust[num].velocity.Y *= 0.5f;
                         Main.dust[num].velocity.X -= 4f;
                     }
-
+                    player.gravity = 0.001f;
                 }
                 if (dash3 <= 3)
                 {
+                    player.velocity.X = 3f;
                     player.velocity *= 0.6f;
                 }
             }
@@ -292,12 +294,12 @@ namespace OdeMod.Items.Series.HollowKnight
                         Main.dust[num].velocity = new Vector2(cent1.X - player.Center.X, cent1.Y - player.Center.Y) / -8f;
                     }
                 }
+                player.velocity.Y *= 0f;
                 dash4--;
                 if (dash4 > 3)
                 {
                     player.velocity.X = -12f;
-                    player.position.Y = yy;
-                    player.velocity.Y = 0;
+                    player.gravity = 0.001f;
                     for (int i = 1; i <= 3; i++)
                     {
                         int num = Dust.NewDust(player.position + new Vector2(14f, 5f), player.width, 30, DustID.BatScepter, 0f, 0f, 0, Color.Black, 2f);
@@ -308,6 +310,7 @@ namespace OdeMod.Items.Series.HollowKnight
                 }
                 if (dash4 <= 3)
                 {
+                    player.velocity.X = -3f;
                     player.velocity *= 0.6f;
                 }
             }

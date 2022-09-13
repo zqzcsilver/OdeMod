@@ -13,6 +13,19 @@ namespace OdeMod.Players
     {
         public static int shakeInt = 0;
         private static int shaketick = 0;
+        public int fall = 0;
+        public bool OnHollowKnightItemUsing = false;
+        protected int fallTimer = 0;
+        public int wan = 0;
+        public bool wanman = false;
+        public override void PostUpdate()
+        {
+            if(wan >= 10)
+            {
+                wanman = true;
+            }
+            base.PostUpdate();
+        }
         public override void ModifyScreenPosition()
         {
             if (!Main.gameMenu)
@@ -53,6 +66,30 @@ namespace OdeMod.Players
         public override void PostUpdate()
         {
             base.PostUpdate();
+        }
+
+        public override void ResetEffects()
+        {
+            if(fall==1)
+            {
+                fallTimer = 3;
+                Player.maxFallSpeed = 25f;
+                Player.velocity.Y += 25f;
+                Player.immune = true;
+                Player.immuneTime = 50;
+            }
+            if(fall==0)
+            {
+                if(fallTimer>0)
+                {
+
+                    Player.maxFallSpeed = 10.01f;
+                    Player.velocity.Y *= 0.01f;
+                    Player.immune = false;
+                    Player.immuneTime = 0;
+                    fallTimer--;
+                }
+            }
         }
     }
 }

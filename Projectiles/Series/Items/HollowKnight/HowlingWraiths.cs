@@ -32,9 +32,22 @@ namespace OdeMod.Projectiles.Series.Items.HollowKnight
         Vector2 vec1 = new Vector2(0, 0);
         public override void AI()
         {
+
+
+
             Projectile.velocity = new Vector2(0, 0);
             Player player = Main.player[Projectile.owner];
             Projectile.direction = player.direction;
+
+            if (Projectile.timeLeft > 315)
+            {
+                player.GetModPlayer<OdePlayer>().OnHollowKnightItemUsing = true;
+            }
+            else
+            {
+                player.GetModPlayer<OdePlayer>().OnHollowKnightItemUsing = false;
+            }
+
             if (Projectile.timeLeft == 372)
             {
                 Projectile.width = 1;
@@ -48,7 +61,7 @@ namespace OdeMod.Projectiles.Series.Items.HollowKnight
             {
                 Projectile.width = 380;
                 Projectile.height = 380;
-                Projectile.alpha = 0;
+                Projectile.alpha = 100;
 
                 try
                 {

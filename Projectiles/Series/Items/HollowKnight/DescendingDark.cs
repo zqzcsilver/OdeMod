@@ -23,7 +23,7 @@ namespace OdeMod.Projectiles.Series.Items.HollowKnight
                 if (color != new Color(0, 0, 0, 0))
                 {
                     Player player = Main.player[Projectile.owner];
-                    Dust d = Dust.NewDustDirect(new Vector2(position.X + (i % t.Width + 1) * size, position.Y + (i / t.Width + 1) * size), 0, 0, DustID.FireflyHit, 0, 0, 0, Color.Black, 1.2f);
+                    Dust d = Dust.NewDustDirect(new Vector2(position.X + (i % t.Width + 1) * size, position.Y + (i / t.Width + 1) * size), 0, 0, DustID.FireflyHit, 0, 0, 0, Color.Black, 1.5f);
                     d.noGravity = true;
                     d.velocity = new Vector2(0.05f, (d.position.Y - (player.Center.Y + 30f)) * 0.4f);
                 }
@@ -54,6 +54,19 @@ namespace OdeMod.Projectiles.Series.Items.HollowKnight
         {
             Player player = Main.player[Projectile.owner];
             Projectile.velocity *= 0f;
+
+            if (Projectile.timeLeft > 15)
+            {
+                player.GetModPlayer<OdePlayer>().OnHollowKnightItemUsing = true;
+            }
+            else
+            {
+                player.GetModPlayer<OdePlayer>().OnHollowKnightItemUsing = false;
+            }
+
+
+
+
 
             if (Projectile.timeLeft > 20)
                 Projectile.position = player.Center + new Vector2(0f, 15f);
@@ -110,12 +123,12 @@ namespace OdeMod.Projectiles.Series.Items.HollowKnight
             {
                 //Static.za = 1;
 
-                int num = Dust.NewDust(player.Center, 1, 1, DustID.FireflyHit, 0, 0, 0, Color.Black, 1.5f);
-                int num2 = Dust.NewDust(player.Center, 1, 1, DustID.FireflyHit, 0, 0, 0, Color.Black, 1.5f);
-                int num3 = Dust.NewDust(player.Center, 1, 1, DustID.FireflyHit, 0, 0, 0, Color.Black, 1.5f);
-                Main.dust[num].velocity.X *= 0.1f;
-                Main.dust[num2].velocity.X = Main.rand.Next(15, 40) * 0.1f;
-                Main.dust[num3].velocity.X = Main.rand.Next(15, 40) * -0.1f;
+                int num = Dust.NewDust(player.Center, 1, 1, DustID.FireflyHit, 0, 0, 0, Color.Black, 1.8f);
+                int num2 = Dust.NewDust(player.Center, 1, 1, DustID.FireflyHit, 0, 0, 0, Color.Black, 1.8f);
+                int num3 = Dust.NewDust(player.Center, 1, 1, DustID.FireflyHit, 0, 0, 0, Color.Black, 1.8f);
+                Main.dust[num].velocity.X *= 0.12f;
+                Main.dust[num2].velocity.X = Main.rand.Next(15, 40) * 0.12f;
+                Main.dust[num3].velocity.X = Main.rand.Next(15, 40) * -0.12f;
                 Main.dust[num].noGravity = true;
                 Main.dust[num2].noGravity = true;
                 Main.dust[num3].noGravity = true;
@@ -127,6 +140,7 @@ namespace OdeMod.Projectiles.Series.Items.HollowKnight
             }
             if (Projectile.timeLeft <= 570 && Projectile.timeLeft > 25)
             {
+                player.GetModPlayer<OdePlayer>().fall = 1;
                 Vector2 playerw = player.position / 16;
                 for (int i = 0; i < (player.position.X % 16 == 0 ? 2 : 3); i++)
                 {
@@ -134,12 +148,13 @@ namespace OdeMod.Projectiles.Series.Items.HollowKnight
 
                     if (Main.tile[(int)playerw.X + i, (int)playerw.Y + 3] != null &&
                         Main.tile[(int)playerw.X + i, (int)playerw.Y + 3].TileType != 0 &&
-                        Main.tile[(int)playerw.X + i, (int)playerw.Y + 3].TileType != TileID.TargetDummy)
+                        Main.tileSolid[Main.tile[(int)playerw.X + i, (int)playerw.Y + 3].TileType])
                     {
+                        player.GetModPlayer<OdePlayer>().fall = 0;
                         Projectile.timeLeft = 25;
                         player.immune = true;
                         player.immuneTime = 60;
-                        Texture2D t2 = ModContent.Request<Texture2D>("OdeMod/Projectiles/Series/Items/HollowKnight/DescendingDark_F2").Value;
+                        Texture2D t2 = ModContent.Request<Texture2D>("OdeMod/Projectiles/Series/Items/HollowKnight/DescendingDark_F2", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                         CreateDust(t2, player.Center + new Vector2(0f, -20f), 0.5f);
 
                         //Static.za = 0;
@@ -194,9 +209,9 @@ namespace OdeMod.Projectiles.Series.Items.HollowKnight
                 Projectile.position = player.Center + new Vector2(-64f, 0f);
                 guang--;
                 double range = Projectile.scale * 1;
-                double range2 = Projectile.scale * 1;
-                Texture2D texture = ModContent.Request<Texture2D>("OdeMod/Projectiles/Series/Items/HollowKnight/DesolateDive_Light").Value;
-                Texture2D texture2 = ModContent.Request<Texture2D>("OdeMod/Projectiles/Series/Items/HollowKnight/DesolateDive_F2").Value;
+                double range2 = Projectile.scale * 1.25f;
+                Texture2D texture = ModContent.Request<Texture2D>("OdeMod/Projectiles/Series/Items/HollowKnight/DesolateDive_Light",ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+                Texture2D texture2 = ModContent.Request<Texture2D>("OdeMod/Projectiles/Series/Items/HollowKnight/DesolateDive_F3", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                 Vector2 drawOrigin = new Vector2(texture.Width * 0.5f, Projectile.height * 0.5f);
                 Vector2 drawOrigin2 = new Vector2(texture2.Width * 0.5f, Projectile.height * 0.5f);
                 if (ok <= 10)
@@ -210,7 +225,7 @@ namespace OdeMod.Projectiles.Series.Items.HollowKnight
                 for (int k = 0; k < Projectile.oldPos.Length; k++)
                 {
                     range *= 1.07;
-                    range2 *= 1.01;
+                    range2 *= 1.02;
                     Vector2 drawPos = Projectile.position - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
                     Color color = Projectile.GetAlpha(lightColor) * ((float)(Projectile.oldPos.Length - k * 1.5) / Projectile.oldPos.Length);
                     Main.spriteBatch.Draw(texture, drawPos + new Vector2(0, -6f), null, color, Projectile.rotation, drawOrigin, (float)range, SpriteEffects.None, 0f);

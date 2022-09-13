@@ -13,19 +13,21 @@ namespace OdeMod.Projectiles.Series.Items.HollowKnight
     {
         public void CreateDust(Texture2D t, Vector2 center, float size)
         {
+
             Color[] c = new Color[t.Width * t.Height];
             Vector2 position = new Vector2(center.X - t.Width / 2f * size, center.Y - t.Height / 2f * size);
             t.GetData(c);
             Color color;
-            for (int i = 0; i < c.Length; i++)
+            for (int i = 0; i < c.Length; i += 2)
             {
                 color = c[i];
                 if (color != new Color(0, 0, 0, 0))
                 {
                     Player player = Main.player[Projectile.owner];
-                    Dust d = Dust.NewDustDirect(new Vector2(position.X + (i % t.Width + 1) * size, position.Y + (i / t.Width + 1) * size), 0, 0, DustID.GemDiamond, 0, 0, 0, Color.Black, 1.2f);
+                    Dust d = Dust.NewDustDirect(new Vector2(position.X + (i % t.Width + 1) * size + Main.rand.Next(-100, 100) * 0.02f, position.Y + (i / t.Width + 1) * size + Main.rand.Next(-100, 100) * 0.02f), 0, 0, DustID.GemDiamond, 0, 0, 120, Color.White, 1.2f);
                     d.noGravity = true;
-                    d.velocity = new Vector2(0.05f, (d.position.Y - (player.Center.Y + 30f)) * 0.4f);
+
+                    d.velocity = new Vector2(0.05f, (d.position.Y - (player.Center.Y + 30f)) * 0.2f);
                 }
             }
         }
@@ -53,6 +55,17 @@ namespace OdeMod.Projectiles.Series.Items.HollowKnight
         {
             Player player = Main.player[Projectile.owner];
             Projectile.velocity *= 0f;
+
+            if(Projectile.timeLeft>5)
+            {
+                player.GetModPlayer<OdePlayer>().OnHollowKnightItemUsing = true;
+            }
+            else
+            {
+                player.GetModPlayer<OdePlayer>().OnHollowKnightItemUsing = false;
+            }
+
+
 
             if (Projectile.timeLeft > 20)
                 Projectile.position = player.Center + new Vector2(0f, 15f);
@@ -107,7 +120,6 @@ namespace OdeMod.Projectiles.Series.Items.HollowKnight
             }
             if (Projectile.timeLeft <= 564 && Projectile.timeLeft > 25)
             {
-                //Static.za = 1;
 
                 int num = Dust.NewDust(player.Center, 1, 1, DustID.GemDiamond, 0, 0, 120, Color.White, 1.2f);
                 int num2 = Dust.NewDust(player.Center, 1, 1, DustID.GemDiamond, 0, 0, 120, Color.White, 1.2f);
@@ -126,6 +138,7 @@ namespace OdeMod.Projectiles.Series.Items.HollowKnight
             }
             if (Projectile.timeLeft <= 570 && Projectile.timeLeft > 25)
             {
+                player.GetModPlayer<OdePlayer>().fall = 1;
                 Vector2 playerw = player.position / 16;
                 for (int i = 0; i < (player.position.X % 16 == 0 ? 2 : 3); i++)
                 {
@@ -133,14 +146,15 @@ namespace OdeMod.Projectiles.Series.Items.HollowKnight
 
                     if (Main.tile[(int)playerw.X + i, (int)playerw.Y + 3] != null &&
                         Main.tile[(int)playerw.X + i, (int)playerw.Y + 3].TileType != 0 &&
-                        Main.tile[(int)playerw.X + i, (int)playerw.Y + 3].TileType != TileID.TargetDummy)
+                         Main.tileSolid[Main.tile[(int)playerw.X + i, (int)playerw.Y + 3].TileType])
                     {
+
+                        player.GetModPlayer<OdePlayer>().fall = 0;
                         Projectile.timeLeft = 25;
                         player.immune = true;
                         player.immuneTime = 45;
-                        Texture2D t2 = ModContent.Request<Texture2D>("OdeMod/Projectiles/Series/Items/HollowKnight/DesolateDive_F1").Value;
+                        Texture2D t2 = ModContent.Request<Texture2D>("OdeMod/Projectiles/Series/Items/HollowKnight/DesolateDive_F1", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                         CreateDust(t2, player.Center + new Vector2(-10f, -20f), 1f);
-                        //Static.za = 0;
                         guang = 25;
                         Projectile.NewProjectileDirect(Projectile.GetSource_FromAI(), player.Center + new Vector2(0f, 10f), new Vector2(0f, 0f), ModContent.ProjectileType<Projectiles.Series.Items.HollowKnight.SmashRange>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                         for (int j = 1; j <= 60; j++)
@@ -161,16 +175,8 @@ namespace OdeMod.Projectiles.Series.Items.HollowKnight
                             d.velocity.X *= 7f;
                         }
 
-                        try
-                        {
-                            float demo = 1 + Vector2.DistanceSquared(Main.player[Main.myPlayer].Center, Projectile.Center) / 400000;
-                            OdePlayer.shakeInt = Math.Max(OdePlayer.shakeInt, (int)(40 / demo));
-                        }
-                        catch
-                        {
-
-                        }
-                        //break;
+                        float demo = 1 + Vector2.DistanceSquared(Main.player[Main.myPlayer].Center, Projectile.Center) / 400000;
+                        OdePlayer.shakeInt = Math.Max(OdePlayer.shakeInt, (int)(40 / demo));
 
                     }
                 }

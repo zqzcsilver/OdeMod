@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-
+using OdeMod.Players;
 using OdeMod.Utils;
 
 using Terraria;
@@ -57,6 +57,9 @@ namespace OdeMod.Items.Series.HollowKnight
              }*/
             return true;
         }
-
+        public override bool CanUseItem(Player player)
+        {
+            return !player.GetModPlayer<OdePlayer>().OnHollowKnightItemUsing;
+        }
     }
 }
