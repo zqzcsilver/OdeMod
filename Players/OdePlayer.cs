@@ -71,7 +71,7 @@ namespace OdeMod.Players
                 Player.maxFallSpeed = 25f;
                 Player.velocity.Y += 25f;
                 Player.immune = true;
-                Player.immuneTime = 90;
+                Player.immuneTime = 10;
             }
             if(fall==0)
             {
@@ -80,8 +80,6 @@ namespace OdeMod.Players
 
                     Player.maxFallSpeed = 10.01f;
                     Player.velocity.Y *= 0.01f;
-                    Player.immune = false;
-                    Player.immuneTime = 0;
                     fallTimer--;
                 }
             }

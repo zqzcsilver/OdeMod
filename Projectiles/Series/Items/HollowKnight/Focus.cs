@@ -28,6 +28,7 @@ namespace OdeMod.Projectiles.Series.Items.HollowKnight
         Vector2 vec1;
         float si = 0;
         bool bujump = false;
+        //要求：聚集时玩家无法移动，只有在玩家不在空中时才能进行聚集
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];

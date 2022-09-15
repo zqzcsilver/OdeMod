@@ -33,8 +33,8 @@ namespace OdeMod.Items.Series.HollowKnight
             Item.shootSpeed = 5.5f;
             Item.UseSound = SoundID.Item1;
             Item.useStyle = ItemUseStyleID.Shoot;
-            Item.useAnimation = 60;
-            Item.useTime = 60;
+            Item.useAnimation = 50;
+            Item.useTime = 50;
             Item.noMelee = true;
             Item.noUseGraphic = true;
             Item.autoReuse = false;

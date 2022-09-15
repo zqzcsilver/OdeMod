@@ -157,11 +157,11 @@ namespace OdeMod.Projectiles.Series.Items.HollowKnight
                         player.GetModPlayer<OdePlayer>().fall = 0;
                         Projectile.timeLeft = 25;
                         player.immune = true;
-                        player.immuneTime = 80;
-                        player.AddImmuneTime(Terraria.ID.ImmunityCooldownID.General, 60);
-                        player.AddImmuneTime(Terraria.ID.ImmunityCooldownID.Lava, 60);
-                        player.AddImmuneTime(Terraria.ID.ImmunityCooldownID.Bosses, 60);
-                        player.AddImmuneTime(Terraria.ID.ImmunityCooldownID.WrongBugNet, 60);
+                        player.immuneTime = 30;
+                        player.AddImmuneTime(Terraria.ID.ImmunityCooldownID.General, 30);
+                        player.AddImmuneTime(Terraria.ID.ImmunityCooldownID.Lava, 30);
+                        player.AddImmuneTime(Terraria.ID.ImmunityCooldownID.Bosses, 30);
+                        player.AddImmuneTime(Terraria.ID.ImmunityCooldownID.WrongBugNet, 30);
 
                         Texture2D t2 = ModContent.Request<Texture2D>("OdeMod/Projectiles/Series/Items/HollowKnight/DesolateDive_F1", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                         CreateDust(t2, player.Center + new Vector2(-10f, -20f), 1f);
