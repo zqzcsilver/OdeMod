@@ -9,6 +9,12 @@ using Terraria.ModLoader;
 
 namespace OdeMod.Projectiles.Series.Items.HollowKnight
 {
+    /*if ((Main.tile[(int)playerLeftInWorld.X, (int)playerLeftInWorld.Y] != null ||
+                    Main.tile[(int)playerRightInWorld.X, (int)playerRightInWorld.Y] != null) &&
+                    (Main.tile[(int)playerLeftInWorld.X, (int)playerLeftInWorld.Y].TileType != 0 ||
+                    Main.tile[(int)playerRightInWorld.X, (int)playerRightInWorld.Y].TileType != 0) &&
+                    (Main.tileSolid[Main.tile[(int)playerLeftInWorld.X, (int)playerLeftInWorld.Y].TileType] ||
+                    Main.tileSolid[Main.tile[(int)playerRightInWorld.X, (int)playerRightInWorld.Y].TileType]))*/
     internal class DescendingDark : ModProjectile, IHollowKnightProjectile
     {
         public void CreateDust(Texture2D t, Vector2 center, float size)
@@ -142,63 +148,59 @@ namespace OdeMod.Projectiles.Series.Items.HollowKnight
             if (Projectile.timeLeft <= 570 && Projectile.timeLeft > 25)
             {
                 player.GetModPlayer<OdePlayer>().fall = 1;
-                Vector2 playerw = player.position / 16;
-                for (int i = 0; i < (player.position.X % 16 == 0 ? 2 : 3); i++)
+                //Vector2 playerLeftInWorld = (player.position + new Vector2(1, player.height)) / 16;
+                //Vector2 playerRightInWorld = (player.position + new Vector2(player.width - 1, player.height)) / 16;
+
+                if (Collision.SolidCollision(player.position, player.width, player.height+1))
                 {
 
+                    pos3 = player.position;
+                    player.GetModPlayer<OdePlayer>().fall = 0;
+                    Projectile.timeLeft = 25;
+                    player.immune = true;
+                    player.immuneTime = 35;
+                    player.AddImmuneTime(Terraria.ID.ImmunityCooldownID.General, 35);
+                    player.AddImmuneTime(Terraria.ID.ImmunityCooldownID.Lava, 35);
+                    player.AddImmuneTime(Terraria.ID.ImmunityCooldownID.Bosses, 35);
+                    player.AddImmuneTime(Terraria.ID.ImmunityCooldownID.WrongBugNet, 35);
+                    Texture2D t2 = ModContent.Request<Texture2D>("OdeMod/Projectiles/Series/Items/HollowKnight/DescendingDark_F2", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+                    CreateDust(t2, player.Center + new Vector2(0f, -20f), 0.5f);
 
-                    if (Main.tile[(int)playerw.X + i, (int)playerw.Y + 3] != null &&
-                        Main.tile[(int)playerw.X + i, (int)playerw.Y + 3].TileType != 0 &&
-                        Main.tileSolid[Main.tile[(int)playerw.X + i, (int)playerw.Y + 3].TileType])
+                    //Static.za = 0;
+                    guang = 25;
+                    Projectile.NewProjectileDirect(Projectile.GetSource_FromAI(), player.Center + new Vector2(0f, 10f), new Vector2(0f, 0f), ModContent.ProjectileType<Projectiles.Series.Items.HollowKnight.SmashRange>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                    for (int j = 1; j <= 60; j++)
                     {
-                        pos3 = player.position;
-                        player.GetModPlayer<OdePlayer>().fall = 0;
-                        Projectile.timeLeft = 25;
-                        player.immune = true;
-                        player.immuneTime = 80;
-                        player.AddImmuneTime(Terraria.ID.ImmunityCooldownID.General, 30);
-                        player.AddImmuneTime(Terraria.ID.ImmunityCooldownID.Lava, 30);
-                        player.AddImmuneTime(Terraria.ID.ImmunityCooldownID.Bosses, 30);
-                        player.AddImmuneTime(Terraria.ID.ImmunityCooldownID.WrongBugNet, 30);
-                        Texture2D t2 = ModContent.Request<Texture2D>("OdeMod/Projectiles/Series/Items/HollowKnight/DescendingDark_F2", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
-                        CreateDust(t2, player.Center + new Vector2(0f, -20f), 0.5f);
+                        Dust d = Dust.NewDustDirect(player.position + new Vector2(0f, 40f), player.width, 3, DustID.FireflyHit, 0, 0, 0, Color.Black, 2.5f);
+                        d.noGravity = true;
+                        if (d.velocity.Y >= 0) d.velocity.Y *= Main.rand.Next(5, 40) * 0.1f;
+                        d.velocity.Y -= 1f + Main.rand.Next(10, 80) * 0.1f;
+                        if (Math.Abs(d.velocity.X) <= 1f) d.velocity.X *= 2f;
+                        else
+                            d.velocity.X *= 4f;
+                    }
+                    for (int j = 1; j <= 40; j++)
+                    {
+                        Dust d = Dust.NewDustDirect(player.position + new Vector2(0f, 40f), player.width, 3, DustID.FireflyHit, 0, 0, 0, Color.Black, 2.8f);
+                        d.noGravity = true;
+                        d.velocity.Y *= 0.1f;
+                        d.velocity.X *= 7f;
+                    }
 
-                        //Static.za = 0;
-                        guang = 25;
-                        Projectile.NewProjectileDirect(Projectile.GetSource_FromAI(), player.Center + new Vector2(0f, 10f), new Vector2(0f, 0f), ModContent.ProjectileType<Projectiles.Series.Items.HollowKnight.SmashRange>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
-                        for (int j = 1; j <= 60; j++)
-                        {
-                            Dust d = Dust.NewDustDirect(player.position + new Vector2(0f, 40f), player.width, 3, DustID.FireflyHit, 0, 0, 0, Color.Black, 2.5f);
-                            d.noGravity = true;
-                            if (d.velocity.Y >= 0) d.velocity.Y *= Main.rand.Next(5, 40) * 0.1f;
-                            d.velocity.Y -= 1f + Main.rand.Next(10, 80) * 0.1f;
-                            if (Math.Abs(d.velocity.X) <= 1f) d.velocity.X *= 2f;
-                            else
-                                d.velocity.X *= 4f;
-                        }
-                        for (int j = 1; j <= 40; j++)
-                        {
-                            Dust d = Dust.NewDustDirect(player.position + new Vector2(0f, 40f), player.width, 3, DustID.FireflyHit, 0, 0, 0, Color.Black, 2.8f);
-                            d.noGravity = true;
-                            d.velocity.Y *= 0.1f;
-                            d.velocity.X *= 7f;
-                        }
-
-                        try
-                        {
-                            float demo = 1 + Vector2.DistanceSquared(Main.player[Main.myPlayer].Center, Projectile.Center) / 420000;
-                            player.GetModPlayer<OdePlayer>().shakeInt = Math.Max(player.GetModPlayer<OdePlayer>().shakeInt, (int)(45 / demo));
-                        }
-                        catch
-                        {
-
-                        }
-                        //break;
+                    try
+                    {
+                        float demo = 1 + Vector2.DistanceSquared(Main.player[Main.myPlayer].Center, Projectile.Center) / 420000;
+                        player.GetModPlayer<OdePlayer>().shakeInt = Math.Max(player.GetModPlayer<OdePlayer>().shakeInt, (int)(45 / demo));
+                    }
+                    catch
+                    {
 
                     }
+
+
                 }
             }
-            if(Projectile.timeLeft<25)
+            if (Projectile.timeLeft < 25)
             {
                 player.velocity *= 0f;
                 player.position = pos3;
@@ -221,7 +223,7 @@ namespace OdeMod.Projectiles.Series.Items.HollowKnight
                 guang--;
                 double range = Projectile.scale * 1;
                 double range2 = Projectile.scale * 1.25f;
-                Texture2D texture = ModContent.Request<Texture2D>("OdeMod/Projectiles/Series/Items/HollowKnight/DesolateDive_Light",ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+                Texture2D texture = ModContent.Request<Texture2D>("OdeMod/Projectiles/Series/Items/HollowKnight/DesolateDive_Light", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                 Texture2D texture2 = ModContent.Request<Texture2D>("OdeMod/Projectiles/Series/Items/HollowKnight/DesolateDive_F3", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                 Vector2 drawOrigin = new Vector2(texture.Width * 0.5f, Projectile.height * 0.5f);
                 Vector2 drawOrigin2 = new Vector2(texture2.Width * 0.5f, Projectile.height * 0.5f);

@@ -83,7 +83,7 @@ namespace OdeMod.Items.Series.HollowKnight
 
                 if (lacktime == 3)
                 {
-                    for (float i = 1; i <= 10; i++)
+                    for (float i = 1; i <= 40; i++)
                     {
                         float rad2 = Main.rand.Next(0, 360) * 0.01f;
                         double radX1 = Math.Cos(i * (Math.PI / rad2));
@@ -198,7 +198,7 @@ namespace OdeMod.Items.Series.HollowKnight
                 if (dash1 <= 3)
                 {
                     player.velocity.X = 3f;
-                    player.velocity *= 0.6f;
+                    player.gravity = 0.001f;
                 }
             }
             if (dash2 > 0)
@@ -227,8 +227,8 @@ namespace OdeMod.Items.Series.HollowKnight
                 }
                 if (dash2 <= 3)
                 {
-                    player.velocity.X = -3f;
-                    player.velocity *= 0.6f;
+                    player.velocity.X = -player.maxRunSpeed;
+                    player.gravity = 0.001f;
                 }
             }
             if (dash3 > 0)
@@ -269,15 +269,15 @@ namespace OdeMod.Items.Series.HollowKnight
                 }
                 if (dash3 <= 3)
                 {
-                    player.velocity.X = 3f;
-                    player.velocity *= 0.6f;
+                    player.velocity.X = player.maxRunSpeed;
+                    player.gravity = 0.001f;
                 }
             }
             if (dash4 > 0)
             {
                 if (dash4 == 18)
                 {
-                    Texture2D t2 = ModContent.Request<Texture2D>("OdeMod/Items/Series/HollowKnight/JetTrace").Value;
+                    Texture2D t2 = ModContent.Request<Texture2D>("OdeMod/Items/Series/HollowKnight/JetTrace",ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                     CreateDust(t2, player.Center + new Vector2(0f, -5f), 1f);
                     for (float i = 1; i <= 90; i++)
                     {
@@ -311,7 +311,7 @@ namespace OdeMod.Items.Series.HollowKnight
                 if (dash4 <= 3)
                 {
                     player.velocity.X = -3f;
-                    player.velocity *= 0.6f;
+                    player.gravity = 0.001f;
                 }
             }
         }

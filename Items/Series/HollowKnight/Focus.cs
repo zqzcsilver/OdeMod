@@ -35,14 +35,12 @@ namespace OdeMod.Items.Series.HollowKnight
             Item.useAnimation = 40;
             Item.noUseGraphic = true;
             Item.autoReuse = true;
+            Item.noMelee = true;
             Item.channel = true;
         }
         public override bool CanUseItem(Player player)
         {
-            if (player.statMana >= 50)
-                return !player.GetModPlayer<OdePlayer>().OnHollowKnightItemUsing;
-            else
-                return false;
+             return !player.GetModPlayer<OdePlayer>().OnHollowKnightItemUsing;
         }
     }
 }

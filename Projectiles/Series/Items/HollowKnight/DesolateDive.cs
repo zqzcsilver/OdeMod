@@ -57,7 +57,7 @@ namespace OdeMod.Projectiles.Series.Items.HollowKnight
             Player player = Main.player[Projectile.owner];
             Projectile.velocity *= 0f;
 
-            if(Projectile.timeLeft>5)
+            if (Projectile.timeLeft > 5)
             {
                 player.GetModPlayer<OdePlayer>().OnHollowKnightItemUsing = true;
             }
@@ -138,58 +138,55 @@ namespace OdeMod.Projectiles.Series.Items.HollowKnight
                 player.velocity.X *= 0f;
             }
 
-            
+
 
             if (Projectile.timeLeft <= 570 && Projectile.timeLeft > 25)
             {
                 player.GetModPlayer<OdePlayer>().fall = 1;
-                Vector2 playerw = player.position / 16;
-                for (int i = 0; i < (player.position.X % 16 == 0 ? 2 : 3); i++)
+
+
+                if (Collision.SolidCollision(player.position, player.width, player.height + 1))
                 {
 
 
-                    if (Main.tile[(int)playerw.X + i, (int)playerw.Y + 3] != null &&
-                        Main.tile[(int)playerw.X + i, (int)playerw.Y + 3].TileType != 0 &&
-                         Main.tileSolid[Main.tile[(int)playerw.X + i, (int)playerw.Y + 3].TileType])
+
+                    pos3 = player.position;
+                    player.GetModPlayer<OdePlayer>().fall = 0;
+                    Projectile.timeLeft = 25;
+                    player.immune = true;
+                    player.immuneTime = 35;
+                    player.AddImmuneTime(Terraria.ID.ImmunityCooldownID.General, 35);
+                    player.AddImmuneTime(Terraria.ID.ImmunityCooldownID.Lava, 35);
+                    player.AddImmuneTime(Terraria.ID.ImmunityCooldownID.Bosses, 35);
+                    player.AddImmuneTime(Terraria.ID.ImmunityCooldownID.WrongBugNet, 35);
+
+                    Texture2D t2 = ModContent.Request<Texture2D>("OdeMod/Projectiles/Series/Items/HollowKnight/DesolateDive_F1", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+                    CreateDust(t2, player.Center + new Vector2(-10f, -20f), 1f);
+                    guang = 25;
+                    Projectile.NewProjectileDirect(Projectile.GetSource_FromAI(), player.Center + new Vector2(0f, 10f), new Vector2(0f, 0f), ModContent.ProjectileType<Projectiles.Series.Items.HollowKnight.SmashRange>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                    for (int j = 1; j <= 60; j++)
                     {
-
-                        pos3 = player.position;
-                        player.GetModPlayer<OdePlayer>().fall = 0;
-                        Projectile.timeLeft = 25;
-                        player.immune = true;
-                        player.immuneTime = 30;
-                        player.AddImmuneTime(Terraria.ID.ImmunityCooldownID.General, 30);
-                        player.AddImmuneTime(Terraria.ID.ImmunityCooldownID.Lava, 30);
-                        player.AddImmuneTime(Terraria.ID.ImmunityCooldownID.Bosses, 30);
-                        player.AddImmuneTime(Terraria.ID.ImmunityCooldownID.WrongBugNet, 30);
-
-                        Texture2D t2 = ModContent.Request<Texture2D>("OdeMod/Projectiles/Series/Items/HollowKnight/DesolateDive_F1", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
-                        CreateDust(t2, player.Center + new Vector2(-10f, -20f), 1f);
-                        guang = 25;
-                        Projectile.NewProjectileDirect(Projectile.GetSource_FromAI(), player.Center + new Vector2(0f, 10f), new Vector2(0f, 0f), ModContent.ProjectileType<Projectiles.Series.Items.HollowKnight.SmashRange>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
-                        for (int j = 1; j <= 60; j++)
-                        {
-                            Dust d = Dust.NewDustDirect(player.position + new Vector2(0f, 40f), player.width, 3, DustID.GemDiamond, 0f, 0f, 255, Color.White, 2f);
-                            d.noGravity = true;
-                            if (d.velocity.Y >= 0) d.velocity.Y *= Main.rand.Next(5, 40) * 0.1f;
-                            d.velocity.Y -= 1f + Main.rand.Next(10, 80) * 0.1f;
-                            if (Math.Abs(d.velocity.X) <= 1f) d.velocity.X *= 2f;
-                            else
-                                d.velocity.X *= 4f;
-                        }
-                        for (int j = 1; j <= 40; j++)
-                        {
-                            Dust d = Dust.NewDustDirect(player.position + new Vector2(0f, 40f), player.width, 3, DustID.GemDiamond, 0f, 0f, 255, Color.White, 2.2f);
-                            d.noGravity = true;
-                            d.velocity.Y *= 0.1f;
-                            d.velocity.X *= 7f;
-                        }
-
-                        float demo = 1 + Vector2.DistanceSquared(Main.player[Main.myPlayer].Center, Projectile.Center) / 420000;
-                        player.GetModPlayer<OdePlayer>().shakeInt = Math.Max(player.GetModPlayer<OdePlayer>().shakeInt, (int)(45 / demo));
-
+                        Dust d = Dust.NewDustDirect(player.position + new Vector2(0f, 40f), player.width, 3, DustID.GemDiamond, 0f, 0f, 255, Color.White, 2f);
+                        d.noGravity = true;
+                        if (d.velocity.Y >= 0) d.velocity.Y *= Main.rand.Next(5, 40) * 0.1f;
+                        d.velocity.Y -= 1f + Main.rand.Next(10, 80) * 0.1f;
+                        if (Math.Abs(d.velocity.X) <= 1f) d.velocity.X *= 2f;
+                        else
+                            d.velocity.X *= 4f;
                     }
+                    for (int j = 1; j <= 40; j++)
+                    {
+                        Dust d = Dust.NewDustDirect(player.position + new Vector2(0f, 40f), player.width, 3, DustID.GemDiamond, 0f, 0f, 255, Color.White, 2.2f);
+                        d.noGravity = true;
+                        d.velocity.Y *= 0.1f;
+                        d.velocity.X *= 7f;
+                    }
+
+                    float demo = 1 + Vector2.DistanceSquared(Main.player[Main.myPlayer].Center, Projectile.Center) / 420000;
+                    player.GetModPlayer<OdePlayer>().shakeInt = Math.Max(player.GetModPlayer<OdePlayer>().shakeInt, (int)(45 / demo));
+
                 }
+
             }
             if (Projectile.timeLeft < 25)
             {

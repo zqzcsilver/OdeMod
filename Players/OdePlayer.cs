@@ -7,17 +7,35 @@ using System.Collections.Generic;
 
 using Terraria;
 using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
+
 namespace OdeMod.Players
 {
     internal class OdePlayer : ModPlayer, IOdePlayer
     {
+        public bool HallowMode = false;
         public int shakeInt = 0;
         private int shaketick = 0;
         public int fall = 0;
         public bool OnHollowKnightItemUsing = false;
         protected int fallTimer = 0;
+        public bool HollowKnightMovement = false;
+        public int hallow = 0;
         public int wan = 0;
         public bool wanman = false;
+        public override void SaveData(TagCompound tag)
+        {
+            tag.Add("HallowMode", HallowMode);
+        }
+        public override void LoadData(TagCompound tag)
+        {
+            HallowMode = tag.Get<bool>("HallowMode");
+        }
+        public override void PreUpdateMovement()
+        {
+            if(HollowKnightMovement)
+            Player.velocity *= 0f;
+        }
         public override void PostUpdate()
         {
             if(wan >= 10)
