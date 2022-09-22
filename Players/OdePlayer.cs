@@ -16,14 +16,8 @@ namespace OdeMod.Players
         public int fall = 0;
         public bool OnHollowKnightItemUsing = false;
         protected int fallTimer = 0;
-        public int wan = 0;
-        public bool wanman = false;
         public override void PostUpdate()
         {
-            if(wan >= 10)
-            {
-                wanman = true;
-            }
             base.PostUpdate();
         }
         public override void ModifyScreenPosition()

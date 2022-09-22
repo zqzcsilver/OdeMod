@@ -11,6 +11,7 @@ namespace OdeMod.Items.Misc
 {
     internal class Wan : ModItem, IMiscItem
     {
+        //BUG居多 在修
         public override void SetDefaults()
         {
             base.SetDefaults();
@@ -18,7 +19,7 @@ namespace OdeMod.Items.Misc
             Item.height = 38;
             Item.DamageType = DamageClass.Ranged;
             Item.useStyle = ItemUseStyleID.Shoot;
-            Item.damage = 1;
+            Item.damage = 10;
             Item.crit = 1;
             Item.shoot = ModContent.ProjectileType<Projectiles.Misc.Wan>();
             Item.shootSpeed = 10f;
@@ -32,9 +33,9 @@ namespace OdeMod.Items.Misc
             
             Item.damage = Main.rand.Next(1, 100);
             Item.crit = Main.rand.Next(1, 50);
-            var pls = player.GetModPlayer<OdePlayer>();
-            pls.wan++;
-            if (pls.wanman)
+            var pls = player.GetModPlayer<EggPlayer>();
+            pls.Wan++;
+            if (pls.WanAngery)
             {
                 Item.damage = 1;
             }

@@ -29,8 +29,9 @@ namespace OdeMod.Projectiles.Misc
             base.AI();
             if (hit)
             {
-                Projectile.rotation += 10f;
-                Projectile.velocity.Y -= 10f;
+                Projectile.tileCollide = false;
+                Projectile.rotation += 0.1f;
+                Projectile.velocity.Y = -10f;
                 Projectile.velocity.X = 0f;
             }
         }
@@ -42,7 +43,7 @@ namespace OdeMod.Projectiles.Misc
             {
                 Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.GreenTorch, 0f, 0f, 100, default(Color), 2f);
                 dust.noGravity = true;
-                dust.velocity *= 1.5f;
+                dust.velocity *= 2.5f;
             }
         }
         public override bool OnTileCollide(Vector2 oldVelocity)
@@ -51,11 +52,9 @@ namespace OdeMod.Projectiles.Misc
             {
                 Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.GreenTorch, 0f, 0f, 100, default(Color), 2f);
                 dust.noGravity = true;
-                dust.velocity *= 1.5f;
+                dust.velocity *= 2.5f;
 
             }
-            Projectile.velocity.Y += 100f;
-            Projectile.velocity.X = 0f;
             return base.OnTileCollide(oldVelocity);
         }
         public override void Kill(int timeLeft)
