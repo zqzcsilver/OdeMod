@@ -69,9 +69,9 @@
 			LightMushroomHolybow : 朝着敌人发出光明的一击
 			LightMushroomHolyknife : 真是搞不懂为什么会有人用蘑菇作为剑的材料
 			LightMushroomStaff : 魔力刺激明菇，明菇放出它储存的阳光
-			FrostedFlyingcutter : 暂无
-			FrostedSickle : 暂无
-			FrostedThorn : 暂无
+			FrostedFlyingcutter : 
+			FrostedSickle : 
+			FrostedThorn : 
 			BrightironBar : 
 			BrightironBroadsword : 
 			BrightironHeavyaxe : 
@@ -110,6 +110,7 @@
 			玩家的速度和跳跃高度略微提升
 			玩家受伤固定受到25伤害
 			玩家受伤后拥有更长时间的无敌帧
+
 			    高等生灵啊，这些话只说给你听。
 			走过这里你就会进入国王和造物主的领土。
 			    跨过这道门槛，遵从我们的法律。
@@ -210,9 +211,9 @@
 			NoneSeries:无系列
 			Brightiron:熙铁系列
 			Californium:锎系列
-			Frosted:寒霜系列
-			HollowKnight:空洞系列
-			LightMushroom:光蘑菇系列
+			Frosted:凝霜系列
+			HollowKnight:空洞骑士系列
+			LightMushroom:光明蘑菇系列
 			Mosscobble:苔石系列
 			RechargeableWeapon:充能系列
 			Sharpsand:纯砂系列

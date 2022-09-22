@@ -34,5 +34,16 @@ namespace OdeMod.Items.Series.HollowKnight
             Item.consumable = true;
             Item.channel = true;
         }
+        /*public override bool CanUseItem(Player player)
+        {
+            if (Static.hallow != 0)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }*/
     }
 }

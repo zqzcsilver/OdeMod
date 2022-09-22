@@ -168,7 +168,7 @@ namespace OdeMod.Projectiles.Series.Items.HollowKnight
                     mnm = 1f;
                 }
                 Vector2 drawPos2 = Projectile.position - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
-                Color color2 = Projectile.GetAlpha(lightColor) * (1f - 0.3f * mnm);
+                Color color2 = Projectile.GetAlpha(lightColor) * (1f - 0.25f * mnm);
                 Main.spriteBatch.Draw(texture2, drawPos2, null, color2, Projectile.rotation + mnm * 0.1f, drawOrigin2, (float)range3, SpriteEffects.None, 0f);
             }
             return true;

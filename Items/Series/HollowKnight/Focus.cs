@@ -25,7 +25,6 @@ namespace OdeMod.Items.Series.HollowKnight
             Item.damage = 60;
             Item.crit = -4;
             Item.knockBack = 9;
-            Item.mana = 50;
             Item.rare = ItemRarityID.Blue;
             Item.value = Item.sellPrice(0, 5, 0, 0);
             Item.shoot = ModContent.ProjectileType<Projectiles.Series.Items.HollowKnight.Focus>();//我一直好奇为什么银烛这里写的都是同一个PRO
@@ -36,14 +35,12 @@ namespace OdeMod.Items.Series.HollowKnight
             Item.useAnimation = 40;
             Item.noUseGraphic = true;
             Item.autoReuse = true;
+            Item.noMelee = true;
             Item.channel = true;
         }
         public override bool CanUseItem(Player player)
         {
-            if (player.statMana >= 50)
-                return !player.GetModPlayer<OdePlayer>().OnHollowKnightItemUsing;
-            else
-                return false;
+             return !player.GetModPlayer<OdePlayer>().OnHollowKnightItemUsing;
         }
     }
 }

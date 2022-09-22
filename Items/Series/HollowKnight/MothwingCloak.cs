@@ -98,7 +98,7 @@ namespace OdeMod.Items.Series.HollowKnight
                 }
                 if (dash1 <= 3)
                 {
-                    player.velocity.X = 3f;
+                    player.velocity.X = player.maxRunSpeed;
                     player.gravity = 0.001f;
                     //player.velocity.X *= 0.9f;
                 }
@@ -132,7 +132,7 @@ namespace OdeMod.Items.Series.HollowKnight
                 }
                 if (dash2 <= 3)
                 {
-                    player.velocity.X = -3f;
+                    player.velocity.X = -player.maxRunSpeed;
                     player.gravity = 0.001f;
                     //player.velocity.X *= 0.9f;
                 }
