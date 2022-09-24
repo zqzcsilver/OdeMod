@@ -31,55 +31,100 @@ namespace OdeMod.Projectiles.Series.Items.HollowKnight
         {
             Player player = Main.player[Projectile.owner];
 
-            if (Collision.SolidCollision(player.position, player.width, player.height + 1))
+            if(player.statMana<=0)
             {
-                if (Main.player[Projectile.owner].channel)
+                if (Main.GameZoomTarget <= screenSize)
                 {
+                    player.GetModPlayer<OdePlayer>().OnHollowKnightItemUsing = false;
+                    Projectile.active = false;
+                }
 
-                    timer++;
-                    if (timer == 1)
+                for (int i = 1; i <= 10; i++)
+                {
+                    if (Main.GameZoomTarget > screenSize)
                     {
-                        player.GetModPlayer<OdePlayer>().OnHollowKnightItemUsing = true;
-                        Still = player.position;
-                        screenSize = Main.GameZoomTarget;
+                        Main.GameZoomTarget -= 0.001f;
                     }
+                }
+                player.controlJump = true;
+                player.GetModPlayer<OdePlayer>().HollowKnightMovement = false;
+            }
+            else
+            {
+                if (Collision.SolidCollision(player.position, player.width, player.height + 1))
+                {
+                    if (Main.player[Projectile.owner].channel)
+                    {
 
-                    if (timer >= 1)
-                    {
-                        player.position = Still;
-                        player.velocity *= 0;
-                        player.controlJump = false;
-                        player.GetModPlayer<OdePlayer>().HollowKnightMovement = true;
-                    }
-                    if (timer >= 10 && timer < 110)
-                    {
-                        Dust d = Dust.NewDustDirect(player.position + new Vector2(-10f, 40f), player.width + 12, 3, ModContent.DustType<Dusts.Focus>(), Projectile.velocity.X / 2f, Projectile.velocity.Y / 2f, 0, Color.White, 1.5f);
-                        d.noGravity = true;
-                        d.velocity.X = 0;
-                        d.velocity.Y = -1.2f;
-                        Main.GameZoomTarget += 0.001f;
-                        if (timer % 2 == 0)
+                        timer++;
+                        if (timer == 1)
                         {
-                            player.statMana--;
+                            player.GetModPlayer<OdePlayer>().OnHollowKnightItemUsing = true;
+                            Still = player.position;
+                            screenSize = Main.GameZoomTarget;
                         }
-                    }
-                    if (timer == 110)
-                    {
-                        for (int i = 1; i <= 30; i++)
+
+                        if (timer >= 1)
                         {
-                            Dust d = Dust.NewDustDirect(player.position + new Vector2(0f, 40f), player.width, 3, DustID.GemDiamond, 0f, 0f, 255, Color.White, 1.5f);
+                            player.position = Still;
+                            player.velocity *= 0;
+                            player.controlJump = false;
+                            player.GetModPlayer<OdePlayer>().HollowKnightMovement = true;
+                        }
+                        if (timer >= 10 && timer < 110)
+                        {
+                            Dust d = Dust.NewDustDirect(player.position + new Vector2(-10f, 40f), player.width + 12, 3, ModContent.DustType<Dusts.Focus>(), Projectile.velocity.X / 2f, Projectile.velocity.Y / 2f, 0, Color.White, 1.5f);
                             d.noGravity = true;
-                            if (d.velocity.Y >= 0) d.velocity.Y *= -1;
-                            d.velocity.Y -= 1.5f + Main.rand.Next(15, 40) * 0.1f;
-                            if (Math.Abs(d.velocity.X) <= 1f) d.velocity.X = 2f * (d.velocity.X / Math.Abs(d.velocity.X));
-                            else
-                                d.velocity.X *= 2f;
+                            d.velocity.X = 0;
+                            d.velocity.Y = -1.2f;
+                            Main.GameZoomTarget += 0.001f;
+                            if (timer % 2 == 0)
+                            {
+                                player.statMana--;
+                            }
                         }
-                        player.statLife += 50;
-                        player.HealEffect(50);
+                        if (timer == 110)
+                        {
+                            for (int i = 1; i <= 30; i++)
+                            {
+                                Dust d = Dust.NewDustDirect(player.position + new Vector2(0f, 40f), player.width, 3, DustID.GemDiamond, 0f, 0f, 255, Color.White, 1.5f);
+                                d.noGravity = true;
+                                if (d.velocity.Y >= 0) d.velocity.Y *= -1;
+                                d.velocity.Y -= 1.5f + Main.rand.Next(15, 40) * 0.1f;
+                                if (Math.Abs(d.velocity.X) <= 1f) d.velocity.X = 2f * (d.velocity.X / Math.Abs(d.velocity.X));
+                                else
+                                    d.velocity.X *= 2f;
+                            }
+                            player.statLife += 50;
+                            player.HealEffect(50);
+                        }
+                        if (timer > 110 && timer <= 120)
+                        {
+                            for (int i = 1; i <= 10; i++)
+                            {
+                                if (Main.GameZoomTarget > screenSize)
+                                {
+                                    Main.GameZoomTarget -= 0.001f;
+                                }
+                            }
+
+                        }
+                        if (timer > 130)
+                        {
+                            player.controlJump = true;
+                            player.GetModPlayer<OdePlayer>().OnHollowKnightItemUsing = false;
+                            Projectile.active = false;
+                            player.GetModPlayer<OdePlayer>().HollowKnightMovement = false;
+                        }
                     }
-                    if (timer > 110 && timer <= 120)
+                    else
                     {
+                        if (Main.GameZoomTarget <= screenSize)
+                        {
+                            player.GetModPlayer<OdePlayer>().OnHollowKnightItemUsing = false;
+                            Projectile.active = false;
+                        }
+
                         for (int i = 1; i <= 10; i++)
                         {
                             if (Main.GameZoomTarget > screenSize)
@@ -87,35 +132,12 @@ namespace OdeMod.Projectiles.Series.Items.HollowKnight
                                 Main.GameZoomTarget -= 0.001f;
                             }
                         }
-
-                    }
-                    if (timer > 120)
-                    {
                         player.controlJump = true;
-                        player.GetModPlayer<OdePlayer>().OnHollowKnightItemUsing = false;
-                        Projectile.active = false;
                         player.GetModPlayer<OdePlayer>().HollowKnightMovement = false;
                     }
                 }
-                else
-                {
-                    if (Main.GameZoomTarget <= screenSize)
-                    {
-                        player.GetModPlayer<OdePlayer>().OnHollowKnightItemUsing = false;
-                        Projectile.active = false;
-                    }
-                    
-                    for (int i = 1; i <= 10; i++)
-                    {
-                        if (Main.GameZoomTarget > screenSize)
-                        {
-                            Main.GameZoomTarget -= 0.001f;
-                        }
-                    }
-                    player.controlJump = true;
-                    player.GetModPlayer<OdePlayer>().HollowKnightMovement = false;
-                }
             }
+            
         }
     }
 }

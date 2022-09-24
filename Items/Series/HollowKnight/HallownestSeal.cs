@@ -25,25 +25,14 @@ namespace OdeMod.Items.Series.HollowKnight
             Item.UseSound = SoundID.Item1;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.shoot = ModContent.ProjectileType<Projectiles.Series.Items.HollowKnight.BeFall>();
-            Item.useAnimation = 60;
-            Item.useTime = 60;
+            Item.useAnimation = 30;
+            Item.useTime = 30;
             Item.noMelee = true;
             Item.noUseGraphic = true;
             Item.autoReuse = false;
             Item.useTurn = true;
-            Item.consumable = true;
+            Item.consumable = false;
             Item.channel = true;
         }
-        /*public override bool CanUseItem(Player player)
-        {
-            if (Static.hallow != 0)
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
-        }*/
     }
 }

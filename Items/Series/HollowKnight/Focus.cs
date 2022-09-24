@@ -40,7 +40,12 @@ namespace OdeMod.Items.Series.HollowKnight
         }
         public override bool CanUseItem(Player player)
         {
+            if(player.statMana>0)
              return !player.GetModPlayer<OdePlayer>().OnHollowKnightItemUsing;
+            else
+            {
+                return false;
+            }
         }
     }
 }

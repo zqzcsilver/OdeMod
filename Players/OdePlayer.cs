@@ -1,11 +1,10 @@
 using Microsoft.Xna.Framework;
 
-using OdeMod.Projectiles.Series.Items.Frosted;
-
 using System;
 using System.Collections.Generic;
 
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
@@ -33,17 +32,18 @@ namespace OdeMod.Players
         }
         public override void PreUpdateMovement()
         {
-            if(HollowKnightMovement)
-            Player.velocity *= 0f;
+            if (HollowKnightMovement)
+                Player.velocity *= 0f;
         }
         public override void PostUpdate()
         {
-            if(wan >= 10)
+            if (wan >= 10)
             {
                 wanman = true;
             }
             base.PostUpdate();
         }
+
         public override void ModifyScreenPosition()
         {
             if (!Main.gameMenu)
@@ -80,10 +80,33 @@ namespace OdeMod.Players
             //}
 
         }
-
+        public override bool PreHurt(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
+        {
+            if (HallowMode)
+            {
+                damage = 25 + Player.statDefense / 2;
+            }
+            return true;
+        }
+        public override void Hurt(bool pvp, bool quiet, double damage, int hitDirection, bool crit)
+        {
+            if (HallowMode)
+            {
+                damage = 25;
+                crit = false;
+            }
+        }
+        public override void PostHurt(bool pvp, bool quiet, double damage, int hitDirection, bool crit)
+        {
+            if (HallowMode)
+            {
+                Player.immune = true;
+                Player.immuneTime = 60;
+            }
+        }
         public override void ResetEffects()
         {
-            if(fall==1)
+            if (fall == 1)
             {
                 fallTimer = 3;
                 Player.maxFallSpeed = 25f;
@@ -91,9 +114,9 @@ namespace OdeMod.Players
                 Player.immune = true;
                 Player.immuneTime = 10;
             }
-            if(fall==0)
+            if (fall == 0)
             {
-                if(fallTimer>0)
+                if (fallTimer > 0)
                 {
 
                     Player.maxFallSpeed = 10.01f;
@@ -101,6 +124,29 @@ namespace OdeMod.Players
                     fallTimer--;
                 }
             }
+            if(HallowMode)
+            {
+                if (Player.lifeRegen > 0)
+                {
+                    Player.lifeRegen = 0;
+                }
+                Player.lifeRegenTime = 0;
+                Player.lifeRegenCount = 0;
+                if (Player.manaRegen > 0)
+                {
+                    Player.manaRegen = 0;
+                }
+                Player.manaRegenCount = 0;
+                Player.manaRegenBuff = false;
+                Player.manaRegenBonus = 0;
+                Player.manaRegenDelay = 10;
+                Player.maxRunSpeed = 4f;
+                Player.runAcceleration = 1.5f;
+                Player.jumpSpeedBoost = 2.5f;
+                Player.noFallDmg = true;
+            }
+
+
         }
     }
 }
