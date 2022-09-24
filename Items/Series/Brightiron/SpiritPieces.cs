@@ -1,4 +1,5 @@
 ﻿using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -8,6 +9,8 @@ namespace OdeMod.Items.Series.Brightiron
     {
         public override void SetStaticDefaults()
         {
+            Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(5, 8));
+            ItemID.Sets.ItemNoGravity[Item.type] = true;
             /*
             base.SetStaticDefaults();
             DisplayName.SetDefault("Spirit Pieces");
@@ -20,8 +23,8 @@ namespace OdeMod.Items.Series.Brightiron
         public override void SetDefaults()
         {
             base.SetDefaults();
-            Item.width = 7;
-            Item.height = 10;
+            Item.width = 14;
+            Item.height = 24;
             Item.maxStack = 99;
             Item.rare = ItemRarityID.Blue;
             Item.value = Item.sellPrice(0, 0, 1, 20);

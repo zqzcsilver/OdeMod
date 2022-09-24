@@ -68,5 +68,10 @@ namespace OdeMod.Projectiles.Misc
         {
             return new Color(255 - Projectile.alpha, 255 - Projectile.alpha, 255 - Projectile.alpha, 255 - Projectile.alpha);
         }
+        public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
+        {
+
+            return base.Colliding(projHitbox, targetHitbox);
+        }
     }
 }

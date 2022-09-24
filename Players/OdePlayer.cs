@@ -37,7 +37,7 @@ namespace OdeMod.Players
         }
         public override void PostUpdate()
         {
-            if (wan >= 10)
+            if(wan >= 10)
             {
                 wanman = true;
             }
