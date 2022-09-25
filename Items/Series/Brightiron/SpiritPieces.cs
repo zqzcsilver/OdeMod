@@ -10,6 +10,7 @@ namespace OdeMod.Items.Series.Brightiron
         public override void SetStaticDefaults()
         {
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(5, 8));
+            ItemID.Sets.AnimatesAsSoul[Item.type] = true;
             ItemID.Sets.ItemNoGravity[Item.type] = true;
             /*
             base.SetStaticDefaults();
@@ -24,7 +25,7 @@ namespace OdeMod.Items.Series.Brightiron
         {
             base.SetDefaults();
             Item.width = 14;
-            Item.height = 24;
+            Item.height = 30;
             Item.maxStack = 99;
             Item.rare = ItemRarityID.Blue;
             Item.value = Item.sellPrice(0, 0, 1, 20);

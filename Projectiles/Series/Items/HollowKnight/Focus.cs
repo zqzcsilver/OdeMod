@@ -31,7 +31,7 @@ namespace OdeMod.Projectiles.Series.Items.HollowKnight
         {
             Player player = Main.player[Projectile.owner];
 
-            if(player.statMana<=0)
+            if(player.statMana<0)
             {
                 if (Main.GameZoomTarget <= screenSize)
                 {
