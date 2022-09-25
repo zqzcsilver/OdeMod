@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
 using Terraria.ID;
@@ -158,7 +157,8 @@ namespace OdeMod.Projectiles.Series.Items.HollowKnight
             Player player = Main.player[Projectile.owner];
             float x = Main.MouseWorld.X - player.position.X;
             float y = Main.MouseWorld.Y - player.position.Y;
-            player.statMana += 6;
+            if (mh == 1)
+                player.statMana += 6;
             if (Math.Abs(x) < Math.Abs(y) && y > 0)
             {
                 if (mh == 1)

@@ -155,7 +155,10 @@ namespace OdeMod.Projectiles.Series.Items.HollowKnight
             mh++;
 
             Player player = Main.player[Projectile.owner];
+
+            if (mh == 1) 
             player.statMana += 6;
+
             float x = Main.MouseWorld.X - player.position.X;
             float y = Main.MouseWorld.Y - player.position.Y;
 

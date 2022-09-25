@@ -35,6 +35,42 @@ namespace OdeMod.Projectiles.Series.Items.HollowKnight
                 }
             }
         }
+
+        public static bool SolidCollision(Vector2 Position, int Width, int Height)
+        {
+            int value = (int)(Position.X / 16f) - 1;
+            int value2 = (int)((Position.X + (float)Width) / 16f) + 2;
+            int value3 = (int)(Position.Y / 16f) - 1;
+            int value4 = (int)((Position.Y + (float)Height) / 16f) + 2;
+            int num = Terraria.Utils.Clamp(value, 0, Main.maxTilesX - 1);
+            value2 = Terraria.Utils.Clamp(value2, 0, Main.maxTilesX - 1);
+            value3 = Terraria.Utils.Clamp(value3, 0, Main.maxTilesY - 1);
+            value4 = Terraria.Utils.Clamp(value4, 0, Main.maxTilesY - 1);
+            Vector2 vector = default(Vector2);
+            for (int i = num; i < value2; i++)
+            {
+                for (int j = value3; j < value4; j++)
+                {
+                    if ((Main.tile[i, j] != null && Main.tile[i, j].HasTile && Main.tileSolid[Main.tile[i, j].TileType] && !Main.tileSolidTop[Main.tile[i, j].TileType])
+                        || Main.tile[i, j] != null && Main.tile[i, j].HasTile && Main.tile[i, j].TileType == 19)
+                    {
+                        vector.X = i * 16;
+                        vector.Y = j * 16;
+                        int num2 = 16;
+                        if (Main.tile[i, j].IsHalfBlock)
+                        {
+                            vector.Y += 8f;
+                            num2 -= 8;
+                        }
+
+                        if (Position.X + (float)Width > vector.X && Position.X < vector.X + 16f && Position.Y + (float)Height > vector.Y && Position.Y < vector.Y + (float)num2)
+                            return true;
+                    }
+                }
+            }
+
+            return false;
+        }
         public override void SetDefaults()
         {
             //统一顺序
@@ -151,7 +187,7 @@ namespace OdeMod.Projectiles.Series.Items.HollowKnight
                 //Vector2 playerLeftInWorld = (player.position + new Vector2(1, player.height)) / 16;
                 //Vector2 playerRightInWorld = (player.position + new Vector2(player.width - 1, player.height)) / 16;
 
-                if (Collision.SolidCollision(player.position, player.width, player.height+1))
+                if (SolidCollision(player.position, player.width, player.height+1))
                 {
 
                     pos3 = player.position;
