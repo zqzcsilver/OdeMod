@@ -142,8 +142,8 @@ namespace OdeMod.Players
                 Player.manaRegenDelay = 10;
                 Player.maxRunSpeed = 4.2f;
                 Player.runAcceleration = 1f;
-                Player.runSlowdown = 2f;
-                Player.jumpSpeedBoost = 2.4f;
+                Player.runSlowdown = 0.6f;
+                Player.jumpSpeedBoost = 2f;
                 Player.noFallDmg = true;
             }
 
