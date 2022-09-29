@@ -56,20 +56,20 @@ namespace OdeMod
                 LanguageType.LoadCulture();
 
                 //Ìí¼ÓHook
-                MonoModHooks.RequestNativeAccess();
-                MonoMod.RuntimeDetour.IDetour detour = new MonoMod.RuntimeDetour.Hook(
-                    typeof(ModDust).GetMethod("Draw", BindingFlags.Instance | BindingFlags.NonPublic),
-                   new Action<Action<ModDust, Dust, Color, float>, ModDust, Dust, Color, float>(
-                       (orig, self, dust, alpha, scale) =>
-                   {
-                       if (self is Dusts.IOdeDusts dusts && dusts.UseMyDraw)
-                       {
-                           dusts.Draw(self, dust, alpha, scale, Main.spriteBatch);
-                       }
-                       else
-                           orig(self, dust, alpha, scale);
-                   }));
-                detour.Apply();
+                //MonoModHooks.RequestNativeAccess();
+                //MonoMod.RuntimeDetour.IDetour detour = new MonoMod.RuntimeDetour.Hook(
+                //    typeof(ModDust).GetMethod("Draw", BindingFlags.Instance | BindingFlags.NonPublic),
+                //   new Action<Action<ModDust, Dust, Color, float>, ModDust, Dust, Color, float>(
+                //       (orig, self, dust, alpha, scale) =>
+                //   {
+                //       if (self is Dusts.IOdeDusts dusts && dusts.UseMyDraw)
+                //       {
+                //           dusts.Draw(self, dust, alpha, scale, Main.spriteBatch);
+                //       }
+                //       else
+                //           orig(self, dust, alpha, scale);
+                //   }));
+                //detour.Apply();
             }
         }
 

@@ -21,7 +21,7 @@ namespace OdeMod.NPCs.Chaos
             NPC.knockBackResist = 0.1f;
             NPC.width = 64;
             NPC.height = 68;
-            NPC.aiStyle = -1;
+            NPC.aiStyle = 3;
             NPC.boss = false;
             NPC.noGravity = true;
             NPC.HitSound = SoundID.NPCHit1;

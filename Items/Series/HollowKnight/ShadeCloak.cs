@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using OdeMod.Players;
-using OdeMod.Utils;
 
 using System;
 
@@ -63,6 +62,7 @@ namespace OdeMod.Items.Series.HollowKnight
         float yy = 0;
         int lacktime = 120;
         int timeall = 30;
+        int direction = 0;
         public override void UpdateInventory(Player player)
         {
             if (timer > 0)
@@ -100,14 +100,16 @@ namespace OdeMod.Items.Series.HollowKnight
                 {
                     if (lacktime != 0)
                     {
-                        if (timer > 0)
+                        if (timer > 0 && direction == 1)
                         {
+                            direction = 0;
                             timer = 0;
                             dash1 = 18;
                             yy = player.position.Y;
                         }
                         else
                         {
+                            direction = 1;
                             timer = 15;
                             return;
                         }
@@ -115,14 +117,16 @@ namespace OdeMod.Items.Series.HollowKnight
                     }
                     else
                     {
-                        if (timer > 0)
+                        if (timer > 0 && direction == 1)
                         {
+                            direction = 0;
                             timer = 0;
                             dash3 = 18;
                             yy = player.position.Y;
                         }
                         else
                         {
+                            direction = 1;
                             timer = 15;
                             return;
                         }
@@ -134,14 +138,16 @@ namespace OdeMod.Items.Series.HollowKnight
                 {
                     if (lacktime != 0)
                     {
-                        if (timer > 0)
+                        if (timer > 0 && direction == 2)
                         {
+                            direction = 0;
                             timer = 0;
                             dash2 = 18;
                             yy = player.position.Y;
                         }
                         else
                         {
+                            direction = 2;
                             timer = 15;
                             return;
                         }
@@ -149,14 +155,16 @@ namespace OdeMod.Items.Series.HollowKnight
                     }
                     else
                     {
-                        if (timer > 0)
+                        if (timer > 0 && direction == 2)
                         {
+                            direction = 0;
                             timer = 0;
                             dash4 = 18;
                             yy = player.position.Y;
                         }
                         else
                         {
+                            direction = 2;
                             timer = 15;
                             return;
                         }
@@ -183,7 +191,7 @@ namespace OdeMod.Items.Series.HollowKnight
                 if (dash1 > 3)
                 {
                     player.velocity.X = 12f;
-                   
+                    player.GetModPlayer<OdePlayer>().OnHollowKnightItemUsing = true;
                     player.gravity = 0.001f;
 
                     for (int i = 1; i <= 3; i++)
@@ -197,6 +205,7 @@ namespace OdeMod.Items.Series.HollowKnight
                 }
                 if (dash1 <= 3)
                 {
+                    player.GetModPlayer<OdePlayer>().OnHollowKnightItemUsing = false;
                     player.velocity.X = 3f;
                     player.gravity = 0.001f;
                 }
@@ -215,6 +224,7 @@ namespace OdeMod.Items.Series.HollowKnight
                 dash2--;
                 if (dash2 > 3)
                 {
+                    player.GetModPlayer<OdePlayer>().OnHollowKnightItemUsing = true;
                     player.velocity.X = -12f;
                     player.gravity = 0.001f;
                     for (int i = 1; i <= 3; i++)
@@ -227,6 +237,7 @@ namespace OdeMod.Items.Series.HollowKnight
                 }
                 if (dash2 <= 3)
                 {
+                    player.GetModPlayer<OdePlayer>().OnHollowKnightItemUsing = false;
                     player.velocity.X = -player.maxRunSpeed;
                     player.gravity = 0.001f;
                 }
@@ -257,7 +268,7 @@ namespace OdeMod.Items.Series.HollowKnight
                 if (dash3 > 3)
                 {
                     player.velocity.X = 12f;
-
+                    player.GetModPlayer<OdePlayer>().OnHollowKnightItemUsing = true;
                     for (int i = 1; i <= 3; i++)
                     {
                         int num = Dust.NewDust(player.position + new Vector2(14f, 5f), player.width, 30, DustID.BatScepter, 0f, 0f, 0, Color.Black, 2f);
@@ -269,6 +280,7 @@ namespace OdeMod.Items.Series.HollowKnight
                 }
                 if (dash3 <= 3)
                 {
+                    player.GetModPlayer<OdePlayer>().OnHollowKnightItemUsing = false;
                     player.velocity.X = player.maxRunSpeed;
                     player.gravity = 0.001f;
                 }
@@ -277,7 +289,7 @@ namespace OdeMod.Items.Series.HollowKnight
             {
                 if (dash4 == 18)
                 {
-                    Texture2D t2 = ModContent.Request<Texture2D>("OdeMod/Items/Series/HollowKnight/JetTrace",ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+                    Texture2D t2 = ModContent.Request<Texture2D>("OdeMod/Items/Series/HollowKnight/JetTrace", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                     CreateDust(t2, player.Center + new Vector2(0f, -5f), 1f);
                     for (float i = 1; i <= 90; i++)
                     {
@@ -298,6 +310,7 @@ namespace OdeMod.Items.Series.HollowKnight
                 dash4--;
                 if (dash4 > 3)
                 {
+                    player.GetModPlayer<OdePlayer>().OnHollowKnightItemUsing = true;
                     player.velocity.X = -12f;
                     player.gravity = 0.001f;
                     for (int i = 1; i <= 3; i++)
@@ -310,6 +323,7 @@ namespace OdeMod.Items.Series.HollowKnight
                 }
                 if (dash4 <= 3)
                 {
+                    player.GetModPlayer<OdePlayer>().OnHollowKnightItemUsing = false;
                     player.velocity.X = -3f;
                     player.gravity = 0.001f;
                 }

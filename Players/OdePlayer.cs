@@ -12,22 +12,27 @@ namespace OdeMod.Players
 {
     internal class OdePlayer : ModPlayer, IOdePlayer
     {
-        public bool HallowMode = false;
-        public int shakeInt = 0;
+        public bool Carapace = false;//ÉúÃü¼×¿Ç
+        private bool Carapace_Open = false;
+        private int Carapace_Num = 0;
+        public bool HallowMode = false;//Ê¥³²Ä£Ê½
+        public int shakeInt = 0;//ÕðÆÁ
         private int shaketick = 0;
         public int fall = 0;
         public bool OnHollowKnightItemUsing = false;
         protected int fallTimer = 0;
         public bool HollowKnightMovement = false;
         public int hallow = 0;
-        public int wan = 0;
-        public bool wanman = false;
         public override void SaveData(TagCompound tag)
         {
+            tag.Add("Carapace", Carapace);
+            tag.Add("Carapace_Open", Carapace_Open);
             tag.Add("HallowMode", HallowMode);
         }
         public override void LoadData(TagCompound tag)
         {
+            Carapace = tag.Get<bool>("Carapace");
+            Carapace_Open = tag.Get<bool>("Carapace_Open");
             HallowMode = tag.Get<bool>("HallowMode");
         }
         public override void PreUpdateMovement()
@@ -37,9 +42,14 @@ namespace OdeMod.Players
         }
         public override void PostUpdate()
         {
-            if(wan >= 10)
+            if (Carapace && !Carapace_Open)
             {
-                wanman = true;
+                Carapace_Num++;
+                if(Carapace_Num > 1200)
+                {
+                    Carapace_Open = true;
+                    Carapace_Num = 0;
+                }    
             }
             base.PostUpdate();
         }
@@ -142,8 +152,8 @@ namespace OdeMod.Players
                 Player.manaRegenDelay = 10;
                 Player.maxRunSpeed = 4.2f;
                 Player.runAcceleration = 1f;
-                Player.runSlowdown = 2f;
-                Player.jumpSpeedBoost = 2.4f;
+                Player.runSlowdown = 0.6f;
+                Player.jumpSpeedBoost = 2f;
                 Player.noFallDmg = true;
             }
 
