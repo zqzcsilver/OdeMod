@@ -1,13 +1,9 @@
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using OdeMod.Players;
 using OdeMod.UI.OdeUISystem;
 using OdeMod.Utils;
 
-using System;
-using System.Reflection;
-
 using Terraria;
+using Terraria.Graphics.Effects;
 using Terraria.ID;
 using Terraria.ModLoader;
 //using Candlight.Professions;
@@ -71,7 +67,9 @@ namespace OdeMod
                 //   }));
                 //detour.Apply();
             }
-        }
+            Filters.Scene["TemplateMod2:GBlur"] = new Filter(new BossSSD(new Ref<Effect>((Effect)ModContent.Request<Effect>("OdeMod/Effects/Content/SSD1", ReLogic.Content.AssetRequestMode.ImmediateLoad)), "Test"), EffectPriority.Medium);
+            Filters.Scene["TemplateMod2:GBlur"].Load();
 
+        }
     }
 }

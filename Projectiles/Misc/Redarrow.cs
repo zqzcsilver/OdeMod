@@ -1,6 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -70,8 +70,10 @@ namespace OdeMod.Projectiles.Misc
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
-
-            return base.Colliding(projHitbox, targetHitbox);
+            Player player = Main.player[Projectile.owner];
+            float point = 0f;
+            return Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), Projectile.Center + 96 * new Vector2((float)Math.Cos(Projectile.rotation + 1.57f), (float)Math.Sin(Projectile.rotation + 1.57f)),
+                Projectile.Center - 96 * new Vector2((float)Math.Cos(Projectile.rotation + 1.57f), (float)Math.Sin(Projectile.rotation + 1.57f)), 40, ref point);
         }
     }
 }

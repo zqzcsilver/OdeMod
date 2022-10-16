@@ -1,10 +1,7 @@
 using Microsoft.Xna.Framework;
-
-using System;
-using System.Collections.Generic;
-
 using Terraria;
 using Terraria.DataStructures;
+using Terraria.Graphics.Effects;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
@@ -29,14 +26,28 @@ namespace OdeMod.Players
             tag.Add("Carapace_Open", Carapace_Open);
             tag.Add("HallowMode", HallowMode);
         }
+        public class Ssd
+        {
+
+        }
         public override void LoadData(TagCompound tag)
         {
             Carapace = tag.Get<bool>("Carapace");
             Carapace_Open = tag.Get<bool>("Carapace_Open");
             HallowMode = tag.Get<bool>("HallowMode");
         }
+        public override void PreUpdate()
+        {
+            base.PreUpdate();
+            if (!Filters.Scene["TemplateMod2:GBlur"].IsActive())
+            {
+                // ¿ªÆôÂË¾µ
+                Filters.Scene.Activate("TemplateMod2:GBlur");
+            }
+        }
         public override void PreUpdateMovement()
         {
+
             if (HollowKnightMovement)
                 Player.velocity *= 0f;
         }
@@ -45,11 +56,11 @@ namespace OdeMod.Players
             if (Carapace && !Carapace_Open)
             {
                 Carapace_Num++;
-                if(Carapace_Num > 1200)
+                if (Carapace_Num > 1200)
                 {
                     Carapace_Open = true;
                     Carapace_Num = 0;
-                }    
+                }
             }
             base.PostUpdate();
         }
@@ -134,7 +145,7 @@ namespace OdeMod.Players
                     fallTimer--;
                 }
             }
-            if(HallowMode)
+            if (HallowMode)
             {
                 if (Player.lifeRegen > 0)
                 {

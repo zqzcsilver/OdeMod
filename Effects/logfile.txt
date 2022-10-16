@@ -139,3 +139,28 @@ Message at 2022/8/27 19:07:29: Compiling Content\Trail.xnb
 Message at 2022/8/27 19:10:05: Importing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
 Message at 2022/8/27 19:10:05: Processing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
 Message at 2022/8/27 19:10:05: Compiling Content\Trail.xnb
+Message at 2022/10/16 18:41:10: Importing SSD1.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/10/16 18:41:10: Processing SSD1.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/10/16 18:41:10: Compiling Content\SSD1.xnb
+Error at 2022/10/16 18:41:10: Building content threw IOException: 文件“C:\Users\admin\Documents\My Games\Terraria\tModLoader\ModSources\OdeMod\Effects\Content\SSD1.xnb”正由另一进程使用，因此该进程无法访问此文件。
+   在 System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   在 System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   在 System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share)
+   在 Microsoft.Xna.Framework.Content.Pipeline.BuildCoordinator.SerializeOutputAsset(BuildItem item, Object assetData, String outputFilename)
+   在 Microsoft.Xna.Framework.Content.Pipeline.BuildCoordinator.SerializeAsset(BuildItem item, Object assetData)
+   在 Microsoft.Xna.Framework.Content.Pipeline.BuildCoordinator.BuildAssetWorker(BuildItem item)
+   在 Microsoft.Xna.Framework.Content.Pipeline.BuildCoordinator.BuildAsset(BuildItem item)
+   在 Microsoft.Xna.Framework.Content.Pipeline.BuildCoordinator.RunTheBuild()
+   在 Microsoft.Xna.Framework.Content.Pipeline.Tasks.BuildContent.RemoteProxy.RunTheBuild(BuildCoordinatorSettings settings, TimestampCache timestampCache, ITaskItem[] sourceAssets, String[]& outputContent, String[]& rebuiltContent, String[]& intermediates, Dictionary`2& dependencyTimestamps, KeyValuePair`2[]& warnings)
+Message at 2022/10/16 19:02:13: Importing SSD1.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/10/16 19:02:13: Processing SSD1.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/10/16 19:02:13: Compiling Content\SSD1.xnb
+Message at 2022/10/16 19:02:13: Importing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/10/16 19:02:13: Processing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/10/16 19:02:13: Compiling Content\Trail.xnb
+Message at 2022/10/16 19:42:40: Importing SSD1.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/10/16 19:42:41: Processing SSD1.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/10/16 19:42:41: Compiling Content\SSD1.xnb
+Message at 2022/10/16 19:42:41: Importing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/10/16 19:42:41: Processing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/10/16 19:42:41: Compiling Content\Trail.xnb

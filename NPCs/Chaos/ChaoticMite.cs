@@ -58,7 +58,7 @@ namespace OdeMod.NPCs.Chaos
         public override void OnKill()
         {
             Main.NewText(NPC.ai[0], Microsoft.Xna.Framework.Color.Red);
-            if (Main.rand.NextBool(1) && NPC.ai[0] != 114514f)
+            if (/*Main.rand.NextBool(1) &&*/ NPC.ai[0] != 114514f)
             {
                 for (int a = 0; a < 1; a++)
                 {

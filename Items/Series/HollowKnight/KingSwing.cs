@@ -84,9 +84,6 @@ namespace OdeMod.Items.Series.HollowKnight
                         jumpTick = 0;
                     }
                 }
-
-                
-
             }
         }
     }
