@@ -1,14 +1,21 @@
 ﻿using Microsoft.Xna.Framework;
-
 using System.Collections.Generic;
-
 using Terraria;
+using Terraria.Graphics.Effects;
 using Terraria.ModLoader;
-
 namespace OdeMod.Systems
 {
     internal class AStarSystem : ModSystem, IOdeSystem
     {
+        public override void PreUpdateEntities()
+        {
+            base.PreUpdateEntities();
+            if (!Filters.Scene["TemplateMod2:GBlur"].IsActive())
+            {
+                // 开启滤镜
+                Filters.Scene.Activate("TemplateMod2:GBlur");
+            }
+        }
         private struct BlockState
         {
             public float G = 0f, H = 0f, F = 0f;

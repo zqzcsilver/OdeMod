@@ -10,6 +10,7 @@ using Terraria.ModLoader;
 
 namespace OdeMod
 {
+
     public class OdeMod : Mod, IOde
     {
         /// <summary>
@@ -41,7 +42,8 @@ namespace OdeMod
                 return Instance.infoManager;
             }
         }
-        private Utils.FontInfos.DynamicSpriteFontInfoManager infoManager;
+        private Utils.FontInfos.DynamicSpriteFontInfoManager infoManager; 
+        public static Effect npcEffect;
         public override void Load()
         {
             base.Load();
@@ -67,7 +69,7 @@ namespace OdeMod
                 //   }));
                 //detour.Apply();
             }
-            Filters.Scene["TemplateMod2:GBlur"] = new Filter(new BossSSD(new Ref<Effect>((Effect)ModContent.Request<Effect>("OdeMod/Effects/Content/SSD1", ReLogic.Content.AssetRequestMode.ImmediateLoad)), "Test"), EffectPriority.Medium);
+            Filters.Scene["TemplateMod2:GBlur"] = new Filter(new BossSSD(new Ref<Effect>(ModContent.Request<Effect>("OdeMod/Effects/Content/SSD1", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value), "Rotate"), EffectPriority.Medium);
             Filters.Scene["TemplateMod2:GBlur"].Load();
 
         }

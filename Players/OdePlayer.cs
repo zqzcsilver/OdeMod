@@ -36,15 +36,7 @@ namespace OdeMod.Players
             Carapace_Open = tag.Get<bool>("Carapace_Open");
             HallowMode = tag.Get<bool>("HallowMode");
         }
-        public override void PreUpdate()
-        {
-            base.PreUpdate();
-            if (!Filters.Scene["TemplateMod2:GBlur"].IsActive())
-            {
-                // ¿ªÆôÂË¾µ
-                Filters.Scene.Activate("TemplateMod2:GBlur");
-            }
-        }
+
         public override void PreUpdateMovement()
         {
 

@@ -164,3 +164,59 @@ Message at 2022/10/16 19:42:41: Compiling Content\SSD1.xnb
 Message at 2022/10/16 19:42:41: Importing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
 Message at 2022/10/16 19:42:41: Processing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
 Message at 2022/10/16 19:42:41: Compiling Content\Trail.xnb
+Message at 2022/10/16 19:49:30: Importing SSD1.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/10/16 19:49:30: Processing SSD1.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/10/16 19:49:30: Compiling Content\SSD1.xnb
+Message at 2022/10/16 19:49:30: Importing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/10/16 19:49:30: Processing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/10/16 19:49:30: Compiling Content\Trail.xnb
+Message at 2022/10/16 19:50:39: Importing SSD1.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/10/16 19:50:39: Processing SSD1.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Error at 2022/10/16 19:50:39: Errors compiling C:\Users\admin\Documents\My Games\Terraria\tModLoader\ModSources\OdeMod\Effects\SSD1.fx:
+C:\Users\admin\Documents\My Games\Terraria\tModLoader\ModSources\OdeMod\Effects\SSD1.fx(35,26): error X3004: undeclared identifier 'uImage0'
+Message at 2022/10/16 19:50:48: Importing SSD1.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/10/16 19:50:48: Processing SSD1.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Error at 2022/10/16 19:50:48: Errors compiling C:\Users\admin\Documents\My Games\Terraria\tModLoader\ModSources\OdeMod\Effects\SSD1.fx:
+C:\Users\admin\Documents\My Games\Terraria\tModLoader\ModSources\OdeMod\Effects\SSD1.fx(35,26): error X3004: undeclared identifier 'uImage0'
+Message at 2022/10/16 19:51:28: Importing SSD1.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/10/16 19:51:28: Processing SSD1.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/10/16 19:51:28: Compiling Content\SSD1.xnb
+Message at 2022/10/16 19:51:28: Importing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/10/16 19:51:28: Processing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/10/16 19:51:28: Compiling Content\Trail.xnb
+Message at 2022/10/16 22:06:47: Importing SSD1.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/10/16 22:06:47: Processing SSD1.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/10/16 22:06:47: Compiling Content\SSD1.xnb
+Message at 2022/10/16 22:06:47: Importing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/10/16 22:06:47: Processing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/10/16 22:06:47: Compiling Content\Trail.xnb
+Message at 2022/10/16 22:18:35: Importing SSD1.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/10/16 22:18:35: Processing SSD1.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/10/16 22:18:35: Compiling Content\SSD1.xnb
+Message at 2022/10/16 22:18:35: Importing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/10/16 22:18:35: Processing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/10/16 22:18:35: Compiling Content\Trail.xnb
+Message at 2022/10/16 22:26:55: Importing SSD1.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/10/16 22:26:55: Processing SSD1.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/10/16 22:26:55: Compiling Content\SSD1.xnb
+Message at 2022/10/16 22:26:55: Importing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/10/16 22:26:55: Processing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/10/16 22:26:55: Compiling Content\Trail.xnb
+Message at 2022/10/16 22:34:54: Importing SSD1.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/10/16 22:34:54: Processing SSD1.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/10/16 22:34:54: Compiling Content\SSD1.xnb
+Message at 2022/10/16 22:34:54: Importing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/10/16 22:34:54: Processing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/10/16 22:34:54: Compiling Content\Trail.xnb
+Message at 2022/10/16 22:48:42: Importing SSD1.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/10/16 22:48:42: Processing SSD1.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/10/16 22:48:42: Compiling Content\SSD1.xnb
+Message at 2022/10/16 22:48:42: Importing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/10/16 22:48:42: Processing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/10/16 22:48:42: Compiling Content\Trail.xnb
+Message at 2022/10/16 22:57:22: Importing SSD1.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/10/16 22:57:23: Processing SSD1.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/10/16 22:57:23: Compiling Content\SSD1.xnb
+Message at 2022/10/16 22:57:23: Importing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/10/16 22:57:23: Processing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/10/16 22:57:23: Compiling Content\Trail.xnb
