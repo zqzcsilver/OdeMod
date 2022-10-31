@@ -10,7 +10,7 @@ namespace OdeMod.Systems
         public override void PreUpdateEntities()
         {
             base.PreUpdateEntities();
-            if (!Filters.Scene["TemplateMod2:GBlur"].IsActive())
+            if (!Filters.Scene["TemplateMod2:GBlur"].IsActive()&&false)
             {
                 // 开启滤镜
                 Filters.Scene.Activate("TemplateMod2:GBlur");

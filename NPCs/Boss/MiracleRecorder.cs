@@ -24,7 +24,7 @@ namespace OdeMod.NPCs.Boss
         }
         public override void SetDefaults()
         {
-            NPC.lifeMax = 35000;
+            NPC.lifeMax = 28000;
             NPC.damage = 60;
             NPC.defense = 20;
             NPC.knockBackResist = 0f;
@@ -61,7 +61,7 @@ namespace OdeMod.NPCs.Boss
             }
 
         }
-        float[] rads = new float[3] { 0.5236f, 2.618f,  4.7116f };//冲刺用的角度数组
+        float[] rads = new float[3] { 0.5236f, 2.618f, 4.7116f };//冲刺用的角度数组
         int act = 0;//控制不同行为的draw
         bool IsDoing = false;
         float timer = 0;//计时器
@@ -71,11 +71,18 @@ namespace OdeMod.NPCs.Boss
         float ok2 = 0;//冲刺用2
         Vector2 noticeVec = Vector2.Zero;
         int count = 0;//冲刺次数
+        int count2 = 0;//召唤球球数量
+        float rando = Main.rand.Next(-10, 20) * 0.05f;//随机偏移量
+        Vector2 dir = Vector2.Zero;
+
+        float oldrotate = 0;
+        float newrotate = 0;
+
         public override void AI()
         {
             if (!IsDoing)
             {
-                control = Main.rand.Next(0, 1);//左闭右开，能取0,1
+                control = Main.rand.Next(1, 2);//左闭右开，能取0,1
             }
 
 
@@ -148,14 +155,20 @@ namespace OdeMod.NPCs.Boss
                 }
                 if (timer == 81)
                 {
-                    for (int i = 1; i <= 5; i++)
+                    for (int i = 1; i < 40; i++)
+                    {
+                        var dust2 = Dust.NewDustDirect(NPC.Center, 1, 1, DustID.PinkTorch, 0, 0, 0, Color.White, 2.5f);
+                        dust2.velocity = 4 * Main.rand.NextVector2Unit();
+                        dust2.noGravity = true;
+                    }
+                    for (int i = 1; i < 10; i++)
                     {
                         Vector2 value = Vector2.UnitX.RotatedBy(Main.rand.NextFloat() * ((float)Math.PI * 2f) + (float)Math.PI / 2f) * 13;
                         Vector2 posin = NPC.position + new Vector2(0f, -80f) + new Vector2(67, 147) + value;
                         settings = new ParticleOrchestraSettings
                         {
                             PositionInWorld = posin,//位置
-                            MovementVector = Vector2.Zero//速度
+                            MovementVector = 4 * Main.rand.NextVector2Unit()
 
                         };
                         ParticleOrchestrator.RequestParticleSpawn(clientOnly: true, ParticleOrchestraType.PrincessWeapon, settings, 255);
@@ -181,71 +194,41 @@ namespace OdeMod.NPCs.Boss
             {
                 if (timer == 1)
                 {
-                    ok2 = (float)Main.rand.Next(0, 629) / 100f;
+                    count2++;
                     noticeVec = NPC.Center;
                     IsDoing = true;
+                    rando = Main.rand.Next(-15, 16) * 0.03f;
                     plrCenter = player.Center;
-
+                    dir = player.Center - NPC.Center;
+                    dir.Normalize();
+                    dir = new Vector2((float)Math.Cos(dir.ToRotation() + rando), (float)Math.Sin(dir.ToRotation() + rando));
+                    newrotate = dir.ToRotation() - 1.57f;
+                    oldrotate = NPC.rotation;
                 }
-                if (timer >= 1 && timer <= 60)
+                if (timer > 1 && timer < 15)
                 {
-                    NPC.rotation = (NPC.Center - noticeVec).ToRotation() - 1.57f;
-                    noticeVec = NPC.Center;
-                    ok2 += 0.10472f;
-                    NPC.alpha = 0;
-                    Main.NewText(timer);
-                    Vector2 des0 = new Vector2(player.Center.X + (620 - timer * 8) * (float)Math.Cos(ok2), player.Center.Y + (620 - timer * 8) * (float)Math.Sin(ok2));
-                    NPC.Center = des0;
-
-
+                    NPC.rotation = (oldrotate * (15 - timer) * 0.067f) + newrotate * timer * 0.067f;
                 }
-                if (timer > 60 && timer < 70)
+                if (timer == 15)
                 {
-                    Vector2 witness = new Vector2(player.Center.X - NPC.Center.X, player.Center.Y - NPC.Center.Y);
-                    witness.Normalize();
-                    float lerp = (witness.ToRotation() - NPC.rotation - 1.57f);
-                    while (lerp > 3.14159f)
-                        lerp -= 6.28318f;
-
-                    while (lerp < -3.14159f)
-                        lerp += 6.28318f;
-
-                    if (Math.Abs(lerp) < 0.01f) lerp = 0;
-                    NPC.rotation += lerp * 0.25f;
+                    NPC.velocity = dir * 30f;
+                    NPC.rotation = newrotate;
                 }
-                if (timer == 70)
+                if (timer >= 15 && timer <= 45)
                 {
-                    Vector2 witness = new Vector2(player.Center.X - NPC.Center.X, player.Center.Y - NPC.Center.Y);
-                    witness.Normalize();
-                    float lerp = (witness.ToRotation() - NPC.rotation - 1.57f);
-                    while (lerp > 3.14159f)
-                        lerp -= 6.28318f;
-
-                    while (lerp < -3.14159f)
-                        lerp += 6.28318f;
-
-                    if (Math.Abs(lerp) < 0.01f) lerp = 0;
-                    NPC.rotation += lerp * 0.25f;
-                    NPC.velocity = witness;
-                    NPC.velocity.Normalize();
-                    NPC.velocity *= 2f;
+                    act = 3;
+                    NPC.velocity *= 0.96f;
                 }
-
-                if (timer > 70 && timer <= 85)
+                if (timer > 45)
                 {
-                    NPC.velocity *= 1.25f;
-                }
-                if (timer > 85 && timer <= 105)
-                {
-                    NPC.alpha += 13;
-                    NPC.velocity *= 0.9f;
-                }
-                if (timer > 105)
-                {
-                    NPC.alpha = 0;
+                    if (count2 >= 4)
+                    {
+                        NPC.alpha = 0;
+                        IsDoing = false;
+                        ok2 = 0;
+                        count2 = 0;
+                    }
                     timer = 0;
-                    IsDoing = false;
-                    ok2 = 0;
                 }
             }
 
@@ -262,7 +245,7 @@ namespace OdeMod.NPCs.Boss
                 for (int i = 0; i < NPC.oldPos.Length - 4; i++)
                 {
                     Vector2 drawPos2 = NPC.oldPos[i] - Main.screenPosition + drawOrigin + new Vector2(0f, NPC.gfxOffY) + new Vector2(0f, -80f);
-                    Color color = new Color(246, 162, 255) * ((NPC.oldPos.Length - i - 1) / (float)NPC.oldPos.Length);
+                    Color color = new Color(246, 162, 255) * ((NPC.oldPos.Length - i - 1) / (float)NPC.oldPos.Length) * 0.8f;
                     Main.spriteBatch.Draw(texture2, drawPos2, new Rectangle(0, NPC.frame.Y, 134, 209), color, NPC.rotation, drawOrigin, 1f, SpriteEffects.None, 0f);
                 }
 
@@ -316,7 +299,7 @@ namespace OdeMod.NPCs.Boss
                     // 按照顺序连接三角形，连接顺序请看裙子视频
 
                     Main.spriteBatch.End();
-                    Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.Default, RasterizerState.CullNone);
+                    Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.Default, RasterizerState.CullNone, null, Main.Transform);
                     RasterizerState originalState = Main.graphics.GraphicsDevice.RasterizerState;
                     // 干掉注释掉就可以只显示三角形栅格
                     //RasterizerState rasterizerState = new RasterizerState();
@@ -355,7 +338,7 @@ namespace OdeMod.NPCs.Boss
             }
             if (act == 2)
             {
-                int width = 30;
+                int width = 60 - (int)(timer - 60) * 2;
                 List<CustomVertexInfo> bars = new();
                 //顶点离弹幕坐标的距离，也是顶点三角形宽度的一半
                 // 把所有的点都生成出来，按照顺序
@@ -363,8 +346,8 @@ namespace OdeMod.NPCs.Boss
                 {
                     var normalDir = new Vector2((float)Math.Cos(i / 60f * 6.28318f), (float)Math.Sin(i / 60f * 6.28318f));
                     var color = Color.Lerp(Color.White, Color.Red, 1);
-                    bars.Add(new CustomVertexInfo(NPC.position + new Vector2(0f, -80f) + new Vector2(67, 147) + normalDir * (width + (83 - timer) * 25), color, new Vector3(1, 1, 1 - (Math.Abs(timer - 70) / 10))));
-                    bars.Add(new CustomVertexInfo(NPC.position + new Vector2(0f, -80f) + new Vector2(67, 147) + normalDir * (-width + (83 - timer) * 25), color, new Vector3(1, 0, 1 - (Math.Abs(timer - 70) / 10))));
+                    bars.Add(new CustomVertexInfo(NPC.position + new Vector2(0f, -80f) + new Vector2(67, 147) + normalDir * (width + (83 - timer) * 25), color, new Vector3(1, 1, 1 - (Math.Abs(timer - 60) / 25))));
+                    bars.Add(new CustomVertexInfo(NPC.position + new Vector2(0f, -80f) + new Vector2(67, 147) + normalDir * (-width + (83 - timer) * 25), color, new Vector3(1, 0, 1 - (Math.Abs(timer - 60) / 25))));
                 }
 
                 List<CustomVertexInfo> triangleList = new List<CustomVertexInfo>();
@@ -394,7 +377,7 @@ namespace OdeMod.NPCs.Boss
                     // 按照顺序连接三角形，连接顺序请看裙子视频
 
                     Main.spriteBatch.End();
-                    Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.Default, RasterizerState.CullNone);
+                    Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.Default, RasterizerState.CullNone, null, Main.Transform);
                     RasterizerState originalState = Main.graphics.GraphicsDevice.RasterizerState;
                     // 干掉注释掉就可以只显示三角形栅格
                     //RasterizerState rasterizerState = new RasterizerState();
@@ -408,7 +391,7 @@ namespace OdeMod.NPCs.Boss
                     //启用即时加载加载Shader
                     var shader = ModContent.Request<Effect>("OdeMod/Effects/Content/Trail", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                     var MainColor = ModContent.Request<Texture2D>("OdeMod/Images/Effects/heatmap3", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
-                    var MaskColor = ModContent.Request<Texture2D>("OdeMod/Images/Effects/Extra_189", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+                    var MaskColor = ModContent.Request<Texture2D>("OdeMod/Images/Effects/Flame0", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                     var MainShape = ModContent.Request<Texture2D>("OdeMod/Images/Effects/Extra_200", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                     // 把变换和所需信息丢给shader
                     shader.Parameters["uTransform"].SetValue(model * projection);//坐标变换，详见小裙子视频
@@ -428,6 +411,15 @@ namespace OdeMod.NPCs.Boss
                     Main.graphics.GraphicsDevice.RasterizerState = originalState;
                     Main.spriteBatch.End();
                     Main.spriteBatch.Begin();
+                }
+            }
+            if (act == 3)
+            {
+                for (int i = 0; i < NPC.oldPos.Length - 4; i++)
+                {
+                    Vector2 drawPos2 = NPC.oldPos[i] - Main.screenPosition + drawOrigin + new Vector2(0f, NPC.gfxOffY) + new Vector2(0f, -80f);
+                    Color color = new Color(246, 162, 255) * ((NPC.oldPos.Length - i - 1) / (float)NPC.oldPos.Length) * 0.8f;
+                    Main.spriteBatch.Draw(texture2, drawPos2, new Rectangle(0, NPC.frame.Y, 134, 209), color, NPC.rotation, drawOrigin, 1f, SpriteEffects.None, 0f);
                 }
             }
 

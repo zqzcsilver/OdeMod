@@ -53,7 +53,7 @@ namespace OdeMod.Projectiles.Series.Items.Sharpsand
                 Main.dust[num].noGravity = true;
             }
         }
-        Texture2D texture, texture2;
+        Texture2D texture;
         float sizex = 1.5f;
         public override bool PreDraw(ref Color lightColor)
         {
@@ -70,7 +70,13 @@ namespace OdeMod.Projectiles.Series.Items.Sharpsand
                     color = Color.Red * 0.5f * ((float)(Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
                 Main.spriteBatch.Draw(texture, drawPos, null, color, Projectile.rotation, drawOrigin, sizex, SpriteEffects.None, 0f);
             }
+
+            GraphicsDevice gd=Main.instance.GraphicsDevice;
+            SpriteBatch sb = Main.spriteBatch;
+
+
             return true;
+
         }
         public override Color? GetAlpha(Color lightColor)
         {

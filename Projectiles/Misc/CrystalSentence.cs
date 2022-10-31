@@ -19,7 +19,7 @@ namespace OdeMod.Projectiles.Misc
             Projectile.height = 56;
             Projectile.aiStyle = -1;
             Projectile.friendly = true;
-            Projectile.DamageType = DamageClass.Ranged;
+            Projectile.DamageType = DamageClass.Magic;
             Projectile.ignoreWater = true;
             Projectile.tileCollide = false;
             Projectile.timeLeft = 300;
@@ -85,7 +85,7 @@ namespace OdeMod.Projectiles.Misc
                     ok = 1;
                     plrOrig2 = Projectile.Center;
                 }
-                Projectile.Center = plrOrig + (vel + (Vector2.Distance(plrOrig, plrOrig2))) * new Vector2((float)Math.Cos(norm), (float)Math.Sin(norm));
+                Projectile.Center = plrOrig + (vel + Vector2.Distance(plrOrig, plrOrig2)) * new Vector2((float)Math.Cos(norm), (float)Math.Sin(norm));
                 vel += vel2;
                 vel2 *= 0.92f;
                 rotate++;
@@ -130,44 +130,46 @@ namespace OdeMod.Projectiles.Misc
                 }
                 Projectile.alpha += 10;
             }
-
-
         }
         public override bool PreDraw(ref Color lightColor)
         {
             Player player = Main.player[Projectile.owner];
-            var texture = ModContent.Request<Texture2D>(Texture).Value;
+            var texture = ModContent.Request<Texture2D>(Texture,ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             Vector2 drawOrigin = new Vector2(Projectile.width * 0.5f, Projectile.height * 0.5f);
+            Main.spriteBatch.End();
+            Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
             if (rotate > 0)
             {
                 if (direct == 1)
                 {
-                    for (int k = 0; k < Projectile.oldPos.Length - 7; k++)
+                    for (int k = 0; k < Projectile.oldPos.Length - 3; k++)
                     {
                         Vector2 drawPos = Projectile.oldPos[k] - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
-                        Color color = Projectile.GetAlpha(lightColor) * ((float)(Projectile.oldPos.Length - 9 - k) / (float)Projectile.oldPos.Length);
+                        Color color = Projectile.GetAlpha(lightColor) * ((float)(Projectile.oldPos.Length - 3 - k) / (float)Projectile.oldPos.Length);
                         Main.spriteBatch.Draw(texture, drawPos, null, color, Projectile.rotation - (k * 0.15f), drawOrigin, Projectile.scale, SpriteEffects.None, 0f);
                     }
                 }
                 else
                 {
-                    for (int k = 0; k < Projectile.oldPos.Length - 7; k++)
+                    for (int k = 0; k < Projectile.oldPos.Length - 3; k++)
                     {
                         Vector2 drawPos = Projectile.oldPos[k] - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
-                        Color color = Projectile.GetAlpha(lightColor) * ((float)(Projectile.oldPos.Length - 9 - k) / (float)Projectile.oldPos.Length);
+                        Color color = Projectile.GetAlpha(lightColor) * ((float)(Projectile.oldPos.Length - 3 - k) / (float)Projectile.oldPos.Length);
                         Main.spriteBatch.Draw(texture, drawPos, null, color, Projectile.rotation + (k * 0.15f), drawOrigin, Projectile.scale, SpriteEffects.None, 0f);
                     }
                 }
             }
             else
             {
-                for (int k = 0; k < Projectile.oldPos.Length - 9; k++)
+                for (int k = 0; k < Projectile.oldPos.Length - 3; k++)
                 {
                     Vector2 drawPos = Projectile.oldPos[k] - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
-                    Color color = Projectile.GetAlpha(lightColor) * ((float)(Projectile.oldPos.Length - 9 - k) / (float)Projectile.oldPos.Length) * 0.8f;
+                    Color color = Projectile.GetAlpha(lightColor) * ((float)(Projectile.oldPos.Length - 3 - k) / (float)Projectile.oldPos.Length) * 0.8f;
                     Main.spriteBatch.Draw(texture, drawPos, null, color, Projectile.rotation, drawOrigin, Projectile.scale, SpriteEffects.None, 0f);
                 }
             }
+            Main.spriteBatch.End();
+            Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
             return true;
         }
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
@@ -236,16 +238,11 @@ namespace OdeMod.Projectiles.Misc
                 // 按照顺序连接三角形，连接顺序请看裙子视频
 
                 Main.spriteBatch.End();
-                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.Default, RasterizerState.CullNone);
+                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.Default, RasterizerState.CullNone, null,Main.GameViewMatrix.TransformationMatrix);
                 RasterizerState originalState = Main.graphics.GraphicsDevice.RasterizerState;
-                // 干掉注释掉就可以只显示三角形栅格
-                //RasterizerState rasterizerState = new RasterizerState();
-                //rasterizerState.CullMode = CullMode.None;
-                //rasterizerState.FillMode = FillMode.WireFrame;
-                //Main.graphics.GraphicsDevice.RasterizerState = rasterizerState;
 
                 var projection = Matrix.CreateOrthographicOffCenter(0, Main.screenWidth, Main.screenHeight, 0, 0, 1);
-                var model = Matrix.CreateTranslation(new Vector3(-Main.screenPosition.X, -Main.screenPosition.Y, 0));
+                var model = Matrix.CreateTranslation(new Vector3(-Main.screenPosition.X, -Main.screenPosition.Y, 0)) * Main.Transform;
 
                 //启用即时加载加载Shader
                 var shader = ModContent.Request<Effect>("OdeMod/Effects/Content/Trail", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
@@ -276,9 +273,6 @@ namespace OdeMod.Projectiles.Misc
                     Main.graphics.GraphicsDevice.SamplerStates[1] = SamplerState.PointWrap;
                     Main.graphics.GraphicsDevice.SamplerStates[2] = SamplerState.PointWrap;
                 }
-                //Main.graphics.GraphicsDevice.Textures[0] = Main.magicPixel;
-                //Main.graphics.GraphicsDevice.Textures[1] = Main.magicPixel;
-                //Main.graphics.GraphicsDevice.Textures[2] = Main.magicPixel;
 
                 shader.CurrentTechnique.Passes[0].Apply();
 
@@ -287,7 +281,7 @@ namespace OdeMod.Projectiles.Misc
                 //连三角形，其中那个0是偏移量
                 Main.graphics.GraphicsDevice.RasterizerState = originalState;
                 Main.spriteBatch.End();
-                Main.spriteBatch.Begin();
+                Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.Default, RasterizerState.CullNone, null,Main.GameViewMatrix.TransformationMatrix);
             }
         }
 

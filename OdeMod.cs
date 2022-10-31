@@ -6,6 +6,7 @@ using Terraria;
 using Terraria.Graphics.Effects;
 using Terraria.ID;
 using Terraria.ModLoader;
+
 //using Candlight.Professions;
 
 namespace OdeMod

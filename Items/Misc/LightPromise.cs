@@ -14,7 +14,7 @@ namespace OdeMod.Items.Misc
         public override void SetDefaults()
         {
             base.SetDefaults();
-            Item.width = 62;
+            Item.width = 59;
             Item.height = 54;
             Item.DamageType = DamageClass.Magic;
             Item.knockBack = 4f;
@@ -34,19 +34,16 @@ namespace OdeMod.Items.Misc
             Item.shootSpeed = 0;
             Item.channel = true;
         }
-        int rank = 0;
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            if (rank == 0)
-            {
-                Vector2 des = Main.MouseWorld - player.Center;
-                des.Normalize();
-                if (player.direction == 1)
-                    des = new Vector2((float)Math.Cos(des.ToRotation() - 0.6f), (float)Math.Sin(des.ToRotation() - 0.6f));
-                else
-                    des = new Vector2((float)Math.Cos(des.ToRotation() + 0.6f), (float)Math.Sin(des.ToRotation() + 0.6f));
-                Projectile.NewProjectile(source, player.Center, des * 22, ModContent.ProjectileType<Projectiles.Misc.CrystalSentence>(), damage, knockback, player.whoAmI);
-            }
+            Vector2 des = Main.MouseWorld - player.Center;
+            des.Normalize();
+            if (player.direction == 1)
+                des = new Vector2((float)Math.Cos(des.ToRotation() - 0.6f), (float)Math.Sin(des.ToRotation() - 0.6f));
+            else
+                des = new Vector2((float)Math.Cos(des.ToRotation() + 0.6f), (float)Math.Sin(des.ToRotation() + 0.6f));
+            Projectile.NewProjectile(source, player.Center, des * 22, ModContent.ProjectileType<Projectiles.Misc.CrystalSentence>(), damage, knockback, player.whoAmI);
+
             return false;
         }
         public override void AddRecipes()

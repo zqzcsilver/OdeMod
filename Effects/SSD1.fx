@@ -25,13 +25,9 @@ float4 PixelShaderFunction(float2 coords : TEXCOORD0) : COLOR0
     float4 color = tex2D(uImage0, coords);
     if (!any(color))
         return color;
-    float2 pos = float2(0.5, 0.5);
-    float2 offset = (coords - pos);
-    float2 rpos = offset * float2(uScreenResolution.x / uScreenResolution.y, 1);
-    float dis = length(rpos);
-    float r = 3.14159;
-    float2 target = mul(offset, float2x2(cos(r), -sin(r), sin(r), cos(r)));
-    return tex2D(uImage0, pos + target);
+    float4 pink = float4(0.93, 0.4, 1, 1);
+    return color * pink * 0.8 + 0.2 * pink;
+    
 }
 
 technique Technique1 {
