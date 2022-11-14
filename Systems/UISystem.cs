@@ -16,9 +16,6 @@ namespace OdeMod.Systems
         {
             base.Load();
             OdeMod.OdeUISystem.Load();
-
-            Utils.FontInfos.DynamicSpriteFontInfoManager infoManager = new Utils.FontInfos.DynamicSpriteFontInfoManager();
-            infoManager.LoadDynamicSpriteFontInfo(FontAssets.MouseText.Value);
         }
         public override void UpdateUI(GameTime gameTime)
         {
