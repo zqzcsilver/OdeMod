@@ -1,5 +1,8 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+
+using OdeMod.CardMode.Cards;
+using OdeMod.CardMode.Cards.Components.BaseComponents;
 using OdeMod.UI.OdeUISystem;
 using OdeMod.Utils;
 
