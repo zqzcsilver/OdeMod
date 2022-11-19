@@ -1,8 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using OdeMod.CardMode.Cards;
-using OdeMod.CardMode.Cards.Components.BaseComponents;
+using OdeMod.CardMode;
 using OdeMod.UI.OdeUISystem;
 using OdeMod.Utils;
 
@@ -50,10 +49,11 @@ namespace OdeMod
                 return Instance.infoManager;
             }
         }
-        private Utils.FontInfos.DynamicSpriteFontInfoManager infoManager; 
+        private Utils.FontInfos.DynamicSpriteFontInfoManager infoManager;
         public override void Load()
         {
             base.Load();
+
             if (Main.netMode == NetmodeID.SinglePlayer)
             {
                 //On.Terraria.Main.DrawPlayer += Main_DrawPlayer;
@@ -75,9 +75,32 @@ namespace OdeMod
                            orig(self, dust, alpha, scale);
                    }));
                 detour.Apply();
+
+                On.Terraria.Main.Draw += Main_Draw;
             }
             Filters.Scene["TemplateMod2:GBlur"] = new Filter(new BossSSD(new Ref<Effect>(ModContent.Request<Effect>("OdeMod/Effects/Content/SSD1", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value), "Rotate"), EffectPriority.Medium);
             Filters.Scene["TemplateMod2:GBlur"].Load();
+        }
+
+        private void Main_Draw(On.Terraria.Main.orig_Draw orig, Main self, GameTime gameTime)
+        {
+            if (CardSystem.Instance.OpenCardMode)
+            {
+                Main.gamePaused = true;
+                Main.graphics.GraphicsDevice.SetRenderTarget(Main.screenTarget);
+                Main.graphics.GraphicsDevice.Clear(Color.Transparent);
+                Main.spriteBatch.Begin();
+
+                CardSystem.Instance.Draw(Main.spriteBatch);
+
+                Main.spriteBatch.End();
+                Main.graphics.GraphicsDevice.SetRenderTarget(null);
+                Main.spriteBatch.Begin();
+                Main.spriteBatch.Draw(Main.screenTarget, Vector2.Zero, Color.White);
+                Main.spriteBatch.End();
+            }
+            else
+                orig(self, gameTime);
         }
     }
 }

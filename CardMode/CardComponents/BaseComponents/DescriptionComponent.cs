@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OdeMod.CardMode.Cards.Components.BaseComponents
+namespace OdeMod.CardMode.CardComponents.BaseComponents
 {
     internal class DescriptionComponent
     {

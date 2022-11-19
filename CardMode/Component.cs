@@ -7,12 +7,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace OdeMod.CardMode.Cards.Components
+namespace OdeMod.CardMode
 {
-    internal abstract class CardComponent : ICardComponent
+    internal abstract class Component : IComponent
     {
-        public virtual Card Card { get; set; }
-        public CardComponent()
+        public virtual Entity Entity { get; set; }
+        public Component()
         {
         }
         /// <summary>
@@ -47,11 +47,16 @@ namespace OdeMod.CardMode.Cards.Components
         {
 
         }
-        public virtual void CardComponentsChange(Dictionary<Type, ICardComponent> cardComponents)
+        /// <summary>
+        /// 当组件改变时会调用
+        /// </summary>
+        /// <param name="cardComponents"></param>
+        /// <exception cref="Exception"></exception>
+        public virtual void EntityComponentsChange(Dictionary<Type, IComponent> entityComponents)
         {
-            if (cardComponents.Keys.ToList().Intersect(GetConflictComponents()))
-                throw new System.Exception($"现有组件与组件{GetType().FullName}产生了组件冲突！");
+            if (entityComponents.Keys.ToList().Intersect(GetConflictComponents()))
+                throw new Exception($"现有组件与组件{GetType().FullName}产生了组件冲突！");
         }
-        public abstract ICardComponent Clone();
+        public abstract IComponent Clone();
     }
 }
