@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using OdeMod.Players;
 using System;
 using System.Collections.Generic;
 using Terraria;
@@ -8,6 +9,7 @@ using Terraria.GameContent.Drawing;
 using Terraria.ID;
 using Terraria.ModLoader;
 
+using static Terraria.Utils;
 namespace OdeMod.NPCs.Boss
 {
     public class MiracleRecorder : ModNPC, IBoss
@@ -61,6 +63,7 @@ namespace OdeMod.NPCs.Boss
             }
 
         }
+        int mainlyCtrl = 1;
         float[] rads = new float[3] { 0.5236f, 2.618f, 4.7116f };//冲刺用的角度数组
         int act = 0;//控制不同行为的draw
         bool IsDoing = false;
@@ -75,14 +78,18 @@ namespace OdeMod.NPCs.Boss
         float rando = Main.rand.Next(-10, 20) * 0.05f;//随机偏移量
         Vector2 dir = Vector2.Zero;
 
+
         float oldrotate = 0;
         float newrotate = 0;
+        int times = 0;
 
         public override void AI()
         {
             if (!IsDoing)
             {
-                control = Main.rand.Next(1, 2);//左闭右开，能取0,1
+                mainlyCtrl++;
+                control = mainlyCtrl % 3;
+                Main.NewText(control);
             }
 
 
@@ -110,7 +117,7 @@ namespace OdeMod.NPCs.Boss
                 if (timer == 1)
                 {
                     IsDoing = true;
-                    NPC.alpha = 0;
+                    NPC.alpha = 255;
                     ok++;
                     ok2 = 0;
                     act = 0;
@@ -120,45 +127,88 @@ namespace OdeMod.NPCs.Boss
                     for (int i = 1; i < 40; i++)
                     {
                         var dust2 = Dust.NewDustDirect(NPC.Center, 1, 1, DustID.PinkTorch, 0, 0, 0, Color.White, 2.5f);
-                        dust2.velocity = 4 * Main.rand.NextVector2Unit();
+                        dust2.velocity = 10 * Main.rand.NextVector2Unit();
                         dust2.noGravity = true;
                     }
-                    for (int i = 1; i < 10; i++)
+                    for (int i = 1; i < 15; i++)
                     {
                         Vector2 value = Vector2.UnitX.RotatedBy(Main.rand.NextFloat() * ((float)Math.PI * 2f) + (float)Math.PI / 2f) * 13;
                         Vector2 posin = NPC.position + new Vector2(0f, -80f) + new Vector2(67, 147) + value;
                         settings = new ParticleOrchestraSettings
                         {
                             PositionInWorld = posin,//位置
-                            MovementVector = 4 * Main.rand.NextVector2Unit()
+                            MovementVector = 15 * Main.rand.NextVector2Unit()
 
                         };
                         ParticleOrchestrator.RequestParticleSpawn(clientOnly: true, ParticleOrchestraType.PrincessWeapon, settings, 255);
                     }
                     noticeVec = NPC.Center;
                 }
-                if (timer > 1 && timer < 61)
+                if(timer>1&&timer<=10)
                 {
-                    ok2 += 0.02741f * (float)Math.Sin((timer - 1) / 60 * Math.PI);
+                    NPC.alpha = 255;
+                    act = 0;
+                    ok2 += 0.027f * (float)Math.Sin(1 / 60 * Math.PI);
+                    NPC.Center = plrCenter + new Vector2((float)(Math.Sin(3 * (rads[ok] + ok2)) * Math.Cos(rads[ok] + ok2)), (float)(Math.Sin(3 * (rads[ok] + ok2)) * Math.Sin(rads[ok] + ok2))) * distance;
+                    NPC.rotation = (NPC.Center - noticeVec).ToRotation() - 1.57f;
+                }
+                if (timer > 10 && timer < 70)
+                {
+                    ok2 += 0.027f * (float)Math.Sin((timer - 10) / 60 * Math.PI);
                     NPC.Center = plrCenter + new Vector2((float)(Math.Sin(3 * (rads[ok] + ok2)) * Math.Cos(rads[ok] + ok2)), (float)(Math.Sin(3 * (rads[ok] + ok2)) * Math.Sin(rads[ok] + ok2))) * distance;
                     NPC.rotation = (NPC.Center - noticeVec).ToRotation() - 1.57f;
                     noticeVec = NPC.Center;
+                    NPC.alpha = 0;
                 }
-                if (timer > 15 && timer < 61)
+                if (timer > 25 && timer < 70)
                 {
                     act = 1;
                 }
-                if (timer >= 61 && timer < 81)
+                if (timer >= 70 && timer < 90)
                 {
-                    act = 2;
-                    NPC.alpha += 15;
+                    act = 0;
+                    NPC.alpha += 8;
+                    if(count<=4)
+                    {
+                        int ok3;
+                        if (ok == 0 || ok == 1) ok3 = ok + 1;
+                        else ok3 = 0;
+                        for (float i = 0; i < 6; i++)
+                        {
+
+                            int num = Dust.NewDust(player.Center, 1, 1, DustID.PinkTorch, 0, 0, 120,
+                                Color.White, 1f + ((timer - 62) / 8f));
+
+                            float rad = new Vector2((float)Math.Cos(i * 6.28 / 6) * 80f, (float)Math.Sin(i * 6.28 / 6) * 80f).ToRotation();
+
+                            Main.dust[num].position = player.Center + new Vector2((float)Math.Cos(rads[ok3]), (float)Math.Sin(rads[ok3])) * distance +
+                                new Vector2(
+
+                                    (float)(Math.Cos(i * 6.28 / 6) * 80 + Math.Cos(rad + ((float)(timer - 62) / 30f * 3.14f)) * 80),
+
+                                    (float)(Math.Sin(i * 6.28 / 6) * 80 + Math.Sin(rad + ((float)(timer - 62) / 30f * 3.14f)) * 80));
+
+                            Main.dust[num].velocity *= 0.1f;
+                            Main.dust[num].noGravity = true;
+
+
+                        }
+                    }
+                    for(int i = 0; i < 3; i++)
+                    {
+                        Vector2 dustpos = NPC.Center + 80 * Main.rand.NextVector2Unit();
+                        var dust2 = Dust.NewDustDirect(dustpos, 1, 1, DustID.PinkTorch, 0, 0, 0, Color.White, 2.5f);
+                        dust2.velocity = (NPC.Center - dustpos)/10f;
+                        dust2.noGravity = true;
+                    }
                 }
-                if (timer == 81)
+                if (timer == 90)
                 {
+                    NPC.alpha = 255;
                     for (int i = 1; i < 40; i++)
                     {
                         var dust2 = Dust.NewDustDirect(NPC.Center, 1, 1, DustID.PinkTorch, 0, 0, 0, Color.White, 2.5f);
-                        dust2.velocity = 4 * Main.rand.NextVector2Unit();
+                        dust2.velocity = 10 * Main.rand.NextVector2Unit();
                         dust2.noGravity = true;
                     }
                     for (int i = 1; i < 10; i++)
@@ -194,44 +244,131 @@ namespace OdeMod.NPCs.Boss
             {
                 if (timer == 1)
                 {
-                    count2++;
+
                     noticeVec = NPC.Center;
                     IsDoing = true;
-                    rando = Main.rand.Next(-15, 16) * 0.03f;
+
+                    rando = 0.6f;
+
                     plrCenter = player.Center;
                     dir = player.Center - NPC.Center;
                     dir.Normalize();
                     dir = new Vector2((float)Math.Cos(dir.ToRotation() + rando), (float)Math.Sin(dir.ToRotation() + rando));
                     newrotate = dir.ToRotation() - 1.57f;
                     oldrotate = NPC.rotation;
+                    noticeVec = NPC.Center;
                 }
-                if (timer > 1 && timer < 15)
+                if (timer > 1 && timer < 20)
                 {
-                    NPC.rotation = (oldrotate * (15 - timer) * 0.067f) + newrotate * timer * 0.067f;
+                    if (oldrotate <= 0 && newrotate >= 0)
+                    {
+                        oldrotate += 6.28318f;
+                    }
+                    NPC.rotation = (oldrotate * (20 - timer) * 0.05f) + newrotate * timer * 0.05f;
+                    NPC.velocity += dir;
+                    noticeVec = NPC.Center;
+
                 }
-                if (timer == 15)
+                if (timer == 20)
                 {
+                    act = 1;
                     NPC.velocity = dir * 30f;
                     NPC.rotation = newrotate;
                 }
-                if (timer >= 15 && timer <= 45)
+                if (timer >= 20 && timer <= 50)
                 {
                     act = 3;
-                    NPC.velocity *= 0.96f;
+                    NPC.velocity *= 0.94f;
+                    NPC.velocity += new Vector2(NPC.velocity.Y, -NPC.velocity.X) * 0.01f;
+                    NPC.rotation = (NPC.Center - noticeVec).ToRotation() - 1.57f;
+                    noticeVec = NPC.Center;
                 }
-                if (timer > 45)
+                if (timer > 50)
                 {
+                    count2++;
+                    for (int i = 1; i < 40; i++)
+                    {
+                        var dust2 = Dust.NewDustDirect(NPC.Center, 1, 1, DustID.PinkTorch, 0, 0, 0, Color.White, 2.5f);
+                        dust2.velocity = 4 * Main.rand.NextVector2Unit();
+                        dust2.noGravity = true;
+                    }
+                    for (int i = 1; i < 10; i++)
+                    {
+                        Vector2 value = Vector2.UnitX.RotatedBy(Main.rand.NextFloat() * ((float)Math.PI * 2f) + (float)Math.PI / 2f) * 13;
+                        Vector2 posin = NPC.position + new Vector2(0f, -80f) + new Vector2(67, 147) + value;
+                        settings = new ParticleOrchestraSettings
+                        {
+                            PositionInWorld = posin,//位置
+                            MovementVector = 4 * Main.rand.NextVector2Unit()
+
+                        };
+                        ParticleOrchestrator.RequestParticleSpawn(clientOnly: true, ParticleOrchestraType.PrincessWeapon, settings, 255);
+                    }
+                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.Series.Boss.Spark>(), 0, 0, player.whoAmI, count2, times);
+                    timer = 0;
                     if (count2 >= 4)
                     {
                         NPC.alpha = 0;
                         IsDoing = false;
                         ok2 = 0;
                         count2 = 0;
+                        rando = 0;
+                        times++;
                     }
-                    timer = 0;
+
                 }
             }
+            if (control == 2)
+            {
+                if (timer == 1)
+                {
+                    IsDoing = true;
 
+                }
+                if (timer > 1 && timer < 30)
+                {
+                    Vector2 witness = new Vector2(player.Center.X - NPC.Center.X, player.Center.Y - NPC.Center.Y);
+                    witness.Normalize();
+                    float lerp = (witness.ToRotation() - NPC.rotation - 1.57f);
+                    while (lerp > 3.14159f)
+                        lerp -= 6.28318f;
+
+                    while (lerp < -3.14159f)
+                        lerp += 6.28318f;
+                    NPC.velocity *= 0.8f;
+                    if (Math.Abs(lerp) < 0.01f) lerp = 0;
+                    NPC.rotation += lerp * (timer / 60f);
+
+                    act = 4;
+                }
+                if (timer >= 30 && timer < 50)
+                {
+
+                }
+                if (timer == 50)
+                {
+                    act = 1;
+                    Vector2 tor = player.Center - NPC.Center;
+                    float demo = 1 + Vector2.DistanceSquared(Main.player[Main.myPlayer].Center, NPC.Center) / 450000;
+                    player.GetModPlayer<OdePlayer>().shakeInt = Math.Max(player.GetModPlayer<OdePlayer>().shakeInt, (int)(30 / demo));
+                    Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2((float)Math.Cos(NPC.rotation + 1.57f), (float)Math.Sin(NPC.rotation + 1.57f)) * 50 + NPC.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.Series.Boss.Laser01>(), 0, 0, player.whoAmI, NPC.rotation);
+                }
+                if (timer >= 65)
+                {
+                    NPC.alpha = 0;
+                    NPC.velocity *= 0f;
+                    IsDoing = false;
+                    count = 0;
+                    ok = -1;
+                    timer = 0;
+                    ok2 = 0;
+                    Main.NewText(1);
+                }
+            }
+            if (control == 3) 
+            {
+
+            }
         }
 
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
@@ -338,7 +475,7 @@ namespace OdeMod.NPCs.Boss
             }
             if (act == 2)
             {
-                int width = 60 - (int)(timer - 60) * 2;
+                int width = (int)timer * 5;
                 List<CustomVertexInfo> bars = new();
                 //顶点离弹幕坐标的距离，也是顶点三角形宽度的一半
                 // 把所有的点都生成出来，按照顺序
@@ -346,8 +483,8 @@ namespace OdeMod.NPCs.Boss
                 {
                     var normalDir = new Vector2((float)Math.Cos(i / 60f * 6.28318f), (float)Math.Sin(i / 60f * 6.28318f));
                     var color = Color.Lerp(Color.White, Color.Red, 1);
-                    bars.Add(new CustomVertexInfo(NPC.position + new Vector2(0f, -80f) + new Vector2(67, 147) + normalDir * (width + (83 - timer) * 25), color, new Vector3(1, 1, 1 - (Math.Abs(timer - 60) / 25))));
-                    bars.Add(new CustomVertexInfo(NPC.position + new Vector2(0f, -80f) + new Vector2(67, 147) + normalDir * (-width + (83 - timer) * 25), color, new Vector3(1, 0, 1 - (Math.Abs(timer - 60) / 25))));
+                    bars.Add(new CustomVertexInfo(NPC.position + new Vector2(0f, -80f) + new Vector2(67, 147) + normalDir * (width + (timer) * 25), color, new Vector3(1, 1, 1 - (Math.Abs(10-timer) / 10))));
+                    bars.Add(new CustomVertexInfo(NPC.position + new Vector2(0f, -80f) + new Vector2(67, 147) + normalDir * (-width + (timer) * 25), color, new Vector3(1, 0, 1 - (Math.Abs(10-timer) / 10))));
                 }
 
                 List<CustomVertexInfo> triangleList = new List<CustomVertexInfo>();
@@ -422,9 +559,15 @@ namespace OdeMod.NPCs.Boss
                     Main.spriteBatch.Draw(texture2, drawPos2, new Rectangle(0, NPC.frame.Y, 134, 209), color, NPC.rotation, drawOrigin, 1f, SpriteEffects.None, 0f);
                 }
             }
+            if (act == 4)
+            {
+                Player player = Main.player[NPC.target];
+                Vector2 tor = player.Center - NPC.Center;
+                DrawLine(Main.spriteBatch, NPC.Center, new Vector2((float)Math.Cos(NPC.rotation + 1.57f), (float)Math.Sin(NPC.rotation + 1.57f)) * 5000 + NPC.Center, Color.White, Color.White, 1.5f);
+            }
 
             Main.spriteBatch.Draw(texture, drawPos, new Rectangle(0, NPC.frame.Y, 134, 209), drawColor * ((255f - (float)NPC.alpha) / 255f), NPC.rotation, drawOrigin, 1f, SpriteEffects.None, 0f);
-
+            //绘制本体
             return false;
         }
 

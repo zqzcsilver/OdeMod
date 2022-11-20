@@ -20,6 +20,7 @@ namespace OdeMod.Players
         protected int fallTimer = 0;
         public bool HollowKnightMovement = false;
         public int hallow = 0;
+        public int rolling = 0;
         public override void SaveData(TagCompound tag)
         {
             tag.Add("Carapace", Carapace);
