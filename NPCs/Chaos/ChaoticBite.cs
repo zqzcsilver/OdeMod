@@ -8,6 +8,20 @@ namespace OdeMod.NPCs.Chaos
 {
     internal class ChaoticBite :ModNPC,IChaos
     {
+        private enum NPC_State
+        {
+            Run,
+            Bite
+        }
+        private NPC_State State
+        {
+            get { return (NPC_State)(int)NPC.ai[0]; }
+            set { NPC.ai[0] = (int)value; }
+        }
+        private void SwitchTo(NPC_State state)
+        {
+            State = state;
+        }
         //攻击张嘴时 防御减半
         public override void SetStaticDefaults()
         {
@@ -29,6 +43,18 @@ namespace OdeMod.NPCs.Chaos
             NPC.value = Item.buyPrice(0, 0, 10, 0);
             NPC.noTileCollide = false;
             NPCID.Sets.TrailingMode[NPC.type] = 1;
+        }
+        public override void AI()
+        {
+            switch (State)
+            {
+                case NPC_State.Run:
+                    break;
+                case NPC_State.Bite:
+                    break;
+
+            }
+            base.AI();
         }
     }
 }

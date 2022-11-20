@@ -120,7 +120,9 @@ namespace OdeMod.UI.OdeUISystem.Containers.Recharge
         }
         public void SetRechargeWeapons(IRechargeableWeapon[] rechargeItems)
         {
-            for(int i = 0; i < RechargeItems.Length; i++)
+            for (int i = 0; i < RechargeItems.Length; i++)
+                RechargeItems[i].SetRechargeWeapon(null);
+            for (int i = 0; i < RechargeItems.Length; i++)
                 RechargeItems[i].SetRechargeWeapon(rechargeItems[i]);
         }
     }
