@@ -48,6 +48,8 @@
 			ShadeCloak : 暗影披风
 			ShadeSoul : 暗影之魂
 			VengefulSpirit : 复仇之魂
+
+			//充能系列
 			ElectrifiedBlasterCannon : 带电爆破炮
 			StarAngel : 星辰天使
 			Zapinator : 真红冲击波
@@ -60,6 +62,14 @@
 			LuminousReactor : 夜光加速炉
 			HeavenFragment : 天堂配件
 			KingSwing : 帝王之翼
+
+			//Chaos-混沌系列
+			BlackPage : 黑暗书页
+			Brain : 大脑
+			CursedSoul : 魔化触手
+			MagicTentacle : 1
+
+			//裂谷系列
 		}
 		#物品介绍
 		ItemTooltip:
@@ -155,8 +165,15 @@
 			TwilightGatling : 见证群星
 			PhotonicComponent : 光子
 			MarsBattery : 来自荧惑
-			LuminousReactor : 
-			HeavenFragment :
+			LuminousReactor : 1
+			HeavenFragment : 1
+
+			//Chaos-混沌系列
+			BlackPage : 写满了符文
+			Brain : 可食用
+			CursedSoul : 他试图挣脱你的掌握
+			MagicTentacle : 1
+
 		}
 		#弹幕名字
 		ProjectileName:
@@ -170,7 +187,7 @@
 			KnifeLight01 : 旧骨钉
 			KnifeLight2 : 旧骨钉
 			KnifeLight3 : 旧骨钉
-			SmashRange : 
+			SmashRange : 1
 			ShadeSoul : 暗影之魂
 			HowlingWraiths : 嚎叫幽灵
 			Focus : 聚集
@@ -182,6 +199,14 @@
 		NPCName:
 		{
 		    ShadowSwing : 暗翼
+			//Chaos-混沌之日
+			ChaoticAurora : 混沌极光
+			ChaoticBite : 混沌噬咬
+			ChaoticLicker : 混沌舔食者
+			ChaoticMite : 混沌螨
+			Mist : 无名之雾
+			Rumia : 露米娅
+			SoftGlueDragon : 软胶龙
 		}
 		#状态名字
 		BuffName:
@@ -236,6 +261,7 @@
 			Mosscobble:苔石系列
 			RechargeableWeapon:充能系列
 			Sharpsand:纯砂系列
+			Chaos : 混沌系列
 		}
 	}
 }

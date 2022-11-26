@@ -6,6 +6,9 @@ using Terraria.ModLoader;
 
 namespace OdeMod.NPCs.Chaos
 {
+    //每次处于撕咬状态对玩家造成伤害，会吸取玩家最大生命值5，储存在体内。
+    //最大储存20点，当死亡或者因任何因素消失时，会返还玩家最大生命值并且为其回复储存数量*10的血量
+    //
     internal class ChaoticBite :ModNPC,IChaos
     {
         private enum NPC_State
@@ -46,13 +49,13 @@ namespace OdeMod.NPCs.Chaos
         }
         public override void AI()
         {
+            Player player = Main.player[NPC.target];
             switch (State)
             {
                 case NPC_State.Run:
                     break;
                 case NPC_State.Bite:
                     break;
-
             }
             base.AI();
         }
