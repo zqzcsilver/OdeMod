@@ -4,10 +4,10 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 
-namespace OdeMod.CardMode.Cards.Components.BaseComponents
+namespace OdeMod.CardMode.CardComponents.BaseComponents
 {
-    internal delegate void CardDrawHandle(Card card, InfoComponent infoComponent, SpriteBatch sb);
-    internal class DrawComponent : CardComponent
+    internal delegate void CardDrawHandle(Entity card, CardInfoComponent infoComponent, SpriteBatch sb);
+    internal class DrawComponent : Component
     {
         public CardDrawHandle OnCardDraw;
         public DrawComponent()
@@ -15,17 +15,17 @@ namespace OdeMod.CardMode.Cards.Components.BaseComponents
         }
         public override List<Type> GetDependComponents()
         {
-            return new List<Type> { typeof(InfoComponent) };
+            return new List<Type> { typeof(CardInfoComponent) };
         }
         public override void Draw(SpriteBatch sb)
         {
             base.Draw(sb);
-            var info = Card.GetComponent<InfoComponent>();
-            sb.Draw(info.Texture, info.Center, null, Color.White, info.Rotation, 
+            var info = Entity.GetComponent<CardInfoComponent>();
+            sb.Draw(info.Texture, info.Center, null, Color.White, info.Rotation,
                 new Vector2(info.Texture.Width, info.Texture.Height) * info.Scale / 2f, info.Scale, SpriteEffects.None, 0f);
-            OnCardDraw?.Invoke(Card, info, sb);
+            OnCardDraw?.Invoke(Entity, info, sb);
         }
-        public override ICardComponent Clone()
+        public override IComponent Clone()
         {
             DrawComponent component = new DrawComponent();
             component.OnCardDraw = OnCardDraw;

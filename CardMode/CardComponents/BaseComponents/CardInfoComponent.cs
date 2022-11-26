@@ -1,9 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace OdeMod.CardMode.Cards.Components.BaseComponents
+namespace OdeMod.CardMode.CardComponents.BaseComponents
 {
-    internal class InfoComponent : CardComponent
+    internal class CardInfoComponent : Component
     {
         /// <summary>
         /// 卡牌状态
@@ -28,10 +28,11 @@ namespace OdeMod.CardMode.Cards.Components.BaseComponents
         public Texture2D Texture;
         public float Rotation = 0f;
         public CardState State;
-        public InfoComponent() { }
-        public override ICardComponent Clone()
+        public Entity Owner;
+        public CardInfoComponent() { }
+        public override IComponent Clone()
         {
-            InfoComponent component = new InfoComponent();
+            CardInfoComponent component = new CardInfoComponent();
             component.Scale = Scale;
             component.Texture = Texture;
             component.State = State;
