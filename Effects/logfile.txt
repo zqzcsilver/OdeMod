@@ -316,3 +316,49 @@ Message at 2022/10/26 9:08:57: Compiling Content\SSD1.xnb
 Message at 2022/10/26 9:08:57: Importing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
 Message at 2022/10/26 9:08:57: Processing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
 Message at 2022/10/26 9:08:57: Compiling Content\Trail.xnb
+Message at 2022/11/25 17:27:48: Importing SSD1.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/11/25 17:27:48: Processing SSD1.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/11/25 17:27:48: Compiling Content\SSD1.xnb
+Message at 2022/11/25 17:27:48: Importing Starry.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/11/25 17:27:48: Processing Starry.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Error at 2022/11/25 17:27:48: Errors compiling C:\Users\admin\Documents\My Games\Terraria\tModLoader\ModSources\OdeMod\Effects\Starry.fx:
+C:\Users\admin\Documents\My Games\Terraria\tModLoader\ModSources\OdeMod\Effects\Starry.fx(36,18): error X3004: undeclared identifier 'VertexShaderFunction'
+Message at 2022/11/25 17:27:59: Importing SSD1.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/11/25 17:27:59: Processing SSD1.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/11/25 17:27:59: Compiling Content\SSD1.xnb
+Message at 2022/11/25 17:27:59: Importing Starry.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/11/25 17:27:59: Processing Starry.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Error at 2022/11/25 17:27:59: Errors compiling C:\Users\admin\Documents\My Games\Terraria\tModLoader\ModSources\OdeMod\Effects\Starry.fx:
+C:\Users\admin\Documents\My Games\Terraria\tModLoader\ModSources\OdeMod\Effects\Starry.fx(36,18): error X3004: undeclared identifier 'VertexShaderFunction'
+Message at 2022/11/25 17:28:34: Importing SSD1.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/11/25 17:28:34: Processing SSD1.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/11/25 17:28:34: Compiling Content\SSD1.xnb
+Message at 2022/11/25 17:28:34: Importing Starry.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/11/25 17:28:34: Processing Starry.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Error at 2022/11/25 17:28:34: Errors compiling C:\Users\admin\Documents\My Games\Terraria\tModLoader\ModSources\OdeMod\Effects\Starry.fx:
+C:\Users\admin\Documents\My Games\Terraria\tModLoader\ModSources\OdeMod\Effects\Starry.fx(33,18): error X3004: undeclared identifier 'VertexShaderFunction'
+Message at 2022/11/25 17:29:24: Importing SSD1.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/11/25 17:29:24: Processing SSD1.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/11/25 17:29:24: Compiling Content\SSD1.xnb
+Message at 2022/11/25 17:29:24: Importing Starry.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/11/25 17:29:24: Processing Starry.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Error at 2022/11/25 17:29:24: Errors compiling C:\Users\admin\Documents\My Games\Terraria\tModLoader\ModSources\OdeMod\Effects\Starry.fx:
+C:\Users\admin\Documents\My Games\Terraria\tModLoader\ModSources\OdeMod\Effects\Starry.fx(19,18): error X3004: undeclared identifier 'VertexShaderFunction'
+Message at 2022/11/25 17:29:49: Importing SSD1.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/11/25 17:29:49: Processing SSD1.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/11/25 17:29:49: Compiling Content\SSD1.xnb
+Message at 2022/11/25 17:29:49: Importing Starry.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/11/25 17:29:49: Processing Starry.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/11/25 17:29:49: Compiling Content\Starry.xnb
+Message at 2022/11/25 17:29:49: Importing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/11/25 17:29:49: Processing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/11/25 17:29:49: Compiling Content\Trail.xnb
+Message at 2022/11/26 10:54:09: Importing SSD1.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/11/26 10:54:09: Processing SSD1.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/11/26 10:54:09: Compiling Content\SSD1.xnb
+Message at 2022/11/26 10:54:09: Importing Starry.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/11/26 10:54:09: Processing Starry.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/11/26 10:54:09: Compiling Content\Starry.xnb
+Message at 2022/11/26 10:54:09: Importing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/11/26 10:54:09: Processing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/11/26 10:54:09: Compiling Content\Trail.xnb

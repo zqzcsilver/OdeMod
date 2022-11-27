@@ -71,7 +71,7 @@ namespace OdeMod.Projectiles.Series.Items.Sharpsand
         {
             return new Color(255 - Projectile.alpha, 255 - Projectile.alpha, 255 - Projectile.alpha, 255 - Projectile.alpha);
         }
-
+        
         public override bool PreDraw(ref Color lightColor)
         {
             float size1 = 2f;
@@ -85,6 +85,7 @@ namespace OdeMod.Projectiles.Series.Items.Sharpsand
                 Main.spriteBatch.Draw(texture, drawPos, new Rectangle(0, 32 * Projectile.frame, 14, 32), color, Projectile.rotation, drawOrigin, size1, SpriteEffects.None, 0f);
             }
             return true;
+
         }
     }
 }
