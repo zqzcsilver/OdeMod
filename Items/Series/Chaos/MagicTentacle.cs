@@ -10,9 +10,9 @@ namespace OdeMod.Items.Series.Chaos
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("MagicTentacle");
-            DisplayName.AddTranslation(LanguageType.Chinese, "魔化触手");
-            Tooltip.SetDefault("暂无");
+            //DisplayName.SetDefault("MagicTentacle");
+            //DisplayName.AddTranslation(LanguageType.Chinese, "魔化触手");
+            //Tooltip.SetDefault("暂无");
         }
         public override void SetDefaults()
         {

@@ -30,7 +30,6 @@ namespace OdeMod.Items.Misc
         }
         public override bool? UseItem(Player player)
         {
-            
             Item.damage = Main.rand.Next(1, 100);
             Item.crit = Main.rand.Next(1, 50);
             var pls = player.GetModPlayer<EggPlayer>();
