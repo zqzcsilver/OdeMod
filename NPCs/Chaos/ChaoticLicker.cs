@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using OdeMod.Utils;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -27,6 +28,14 @@ namespace OdeMod.NPCs.Chaos
             NPC.value = Item.buyPrice(0, 0, 10, 0);
             NPC.noTileCollide = false;
             NPCID.Sets.TrailingMode[NPC.type] = 1;
+        }
+        public override void OnHitPlayer(Player target, int damage, bool crit)
+        {
+            var pls = target.GetModPlayer<EggPlayer>();
+            pls.GG++;
+            int time = pls.GG * 30;
+            target.AddBuff(BuffID.Confused, time);
+            Main.NewText("附加" + time, Color.Red);
         }
     }
 }

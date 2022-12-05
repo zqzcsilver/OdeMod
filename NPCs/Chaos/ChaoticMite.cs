@@ -13,7 +13,7 @@ namespace OdeMod.NPCs.Chaos
         }
         public override void SetDefaults()
         {
-            NPC.lifeMax = 100;
+            NPC.lifeMax = 50;
             NPC.damage = 80;
             NPC.defense = 20;
             NPC.knockBackResist = 0.1f;

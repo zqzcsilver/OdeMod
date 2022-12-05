@@ -18,11 +18,11 @@ namespace OdeMod.Items.Misc
             Item.height = 54;
             Item.DamageType = DamageClass.Magic;
             Item.knockBack = 4f;
-            Item.damage = 78;
+            Item.damage = 56;
             Item.crit = 16;
             Item.mana = 8;
-            Item.useTime = 20;
-            Item.useAnimation = 20;
+            Item.useTime = 24;
+            Item.useAnimation = 24;
             Item.useTurn = false;
             Item.noMelee = true;
             Item.noUseGraphic = true;

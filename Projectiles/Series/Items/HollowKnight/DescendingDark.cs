@@ -128,7 +128,7 @@ namespace OdeMod.Projectiles.Series.Items.HollowKnight
 
                     int num = Dust.NewDust(player.Center, 1, 1, DustID.GemDiamond, 0, 0, 120,
                         Color.White, 0.5f + ((585 - Projectile.timeLeft) / 14f));
-                    float rad = (player.Center + new Vector2((float)Math.Cos(i * 6.28 / 3) * 20f, (float)Math.Sin(i * 6.28 / 3) * 20f) - player.Center).ToRotation();
+                    float rad = new Vector2((float)Math.Cos(i * 6.28 / 3) * 20f, (float)Math.Sin(i * 6.28 / 3) * 20f).ToRotation();
 
                     Main.dust[num].position = player.Center +
                         new Vector2(

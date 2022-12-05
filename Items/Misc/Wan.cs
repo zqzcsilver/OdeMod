@@ -27,7 +27,6 @@ namespace OdeMod.Items.Misc
         }
         public override bool? UseItem(Player player)
         {
-
             Item.damage = Main.rand.Next(1, 100);
             Item.crit = Main.rand.Next(1, 50);
             var pls = player.GetModPlayer<EggPlayer>();
@@ -40,7 +39,6 @@ namespace OdeMod.Items.Misc
         }
         //public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         //{
-
         //    return base.Shoot(player, source, position, velocity, type, damage, knockback);
         //}
     }
