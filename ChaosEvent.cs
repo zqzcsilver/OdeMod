@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace OdeMod
 {
-    internal class ChaosEvent : OdeMod
+    internal class ChaosEvent : ModSystem
     {
         public static bool Chaos;//开启混沌之日
         /// <summary>
