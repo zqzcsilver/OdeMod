@@ -316,3 +316,33 @@ Message at 2022/10/26 9:08:57: Compiling Content\SSD1.xnb
 Message at 2022/10/26 9:08:57: Importing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
 Message at 2022/10/26 9:08:57: Processing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
 Message at 2022/10/26 9:08:57: Compiling Content\Trail.xnb
+Message at 2022/11/30 23:42:57: Importing SSD1.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/11/30 23:42:57: Processing SSD1.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/11/30 23:42:57: Compiling Content\SSD1.xnb
+Message at 2022/11/30 23:42:57: Importing TextureMapping.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/11/30 23:42:57: Processing TextureMapping.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Error at 2022/11/30 23:42:57: Errors compiling C:\Users\Silver\Documents\My Games\Terraria\tModLoader\ModSources\OdeMod\Effects\TextureMapping.fx:
+C:\Users\Silver\Documents\My Games\Terraria\tModLoader\ModSources\OdeMod\Effects\TextureMapping.fx(42,23): error X3041: unsupported compiler target 'ps_4_0_level_9_1'
+Message at 2022/11/30 23:44:05: Importing Mapping.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/11/30 23:44:06: Processing Mapping.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Error at 2022/11/30 23:44:06: Errors compiling C:\Users\Silver\Documents\My Games\Terraria\tModLoader\ModSources\OdeMod\Effects\Mapping.fx:
+C:\Users\Silver\Documents\My Games\Terraria\tModLoader\ModSources\OdeMod\Effects\Mapping.fx(33,23): error X3041: unsupported compiler target 'PS_SHADERMODEL'
+Message at 2022/11/30 23:44:47: Importing Mapping.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/11/30 23:44:47: Processing Mapping.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Error at 2022/11/30 23:44:47: Errors compiling C:\Users\Silver\Documents\My Games\Terraria\tModLoader\ModSources\OdeMod\Effects\Mapping.fx:
+C:\Users\Silver\Documents\My Games\Terraria\tModLoader\ModSources\OdeMod\Effects\Mapping.fx(33,9): ID3DXEffectCompiler: State 'PIXELSHADER' was assigned an incompatible type
+ID3DXEffectCompiler: There was an error initializing the compiler
+Message at 2022/11/30 23:46:10: Importing Mapping.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/11/30 23:46:10: Processing Mapping.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Error at 2022/11/30 23:46:10: Errors compiling C:\Users\Silver\Documents\My Games\Terraria\tModLoader\ModSources\OdeMod\Effects\Mapping.fx:
+C:\Users\Silver\Documents\My Games\Terraria\tModLoader\ModSources\OdeMod\Effects\Mapping.fx(32,9): ID3DXEffectCompiler: State 'PIXELSHADER' was assigned an incompatible type
+ID3DXEffectCompiler: There was an error initializing the compiler
+Message at 2022/11/30 23:47:06: Importing Mapping.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/11/30 23:47:06: Processing Mapping.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/11/30 23:47:06: Compiling Content\Mapping.xnb
+Message at 2022/11/30 23:47:06: Importing SSD1.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/11/30 23:47:06: Processing SSD1.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/11/30 23:47:06: Compiling Content\SSD1.xnb
+Message at 2022/11/30 23:47:06: Importing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/11/30 23:47:06: Processing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/11/30 23:47:06: Compiling Content\Trail.xnb

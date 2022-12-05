@@ -2,13 +2,13 @@
 颂歌模组([OdeMod](https://github.com/zqzcsilver/OdeMod))是基于游戏 [Terraria](https://store.steampowered.com/app/105600/Terraria/) 的模组加载器 [tModLoader](https://store.steampowered.com/app/1281930/tModLoader/) 开发的一个模组。
 
  * [模组内容](#模组内容)
- * * [物品](#物品)
- * * [敌怪](#敌怪)
- * * [Boss](#boss)
- * * [城镇NPC](#城镇npc)
- * * [事件](#事件)
- * * [充能武器](#充能系列的武器)
- * * [卡牌模式](#卡牌模式)
+   * [物品](#物品)
+   * [敌怪](#敌怪)
+   * [Boss](#boss)
+   * [城镇NPC](#城镇npc)
+   * [事件](#事件)
+   * [充能武器](#充能系列的武器)
+   * [卡牌模式](#卡牌模式)
  * [开源许可证](#开源许可证)
   
 ## 模组内容

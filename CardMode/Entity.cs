@@ -15,14 +15,18 @@ namespace OdeMod.CardMode
         /// Entity来源
         /// </summary>
         public readonly object Source;
+
         /// <summary>
         /// Entity已加载的组件
         /// </summary>
         private Dictionary<Type, IComponent> components;
+
         /// <summary>
         /// Entity已加载的组件
         /// </summary>
-        public Dictionary<Type, IComponent> Components { get { return new Dictionary<Type, IComponent>(components); } }
+        public Dictionary<Type, IComponent> Components
+        { get { return new Dictionary<Type, IComponent>(components); } }
+
         /// <summary>
         /// 构造一个Entity
         /// </summary>
@@ -32,6 +36,7 @@ namespace OdeMod.CardMode
             Source = source;
             components = new Dictionary<Type, IComponent>();
         }
+
         /// <summary>
         /// 执行组件逻辑
         /// </summary>
@@ -41,56 +46,75 @@ namespace OdeMod.CardMode
             foreach (var c in Components)
                 c.Value.Update(gt);
         }
+
         /// <summary>
         /// 绘制组件
         /// </summary>
         /// <param name="sb">画笔</param>
         public void Draw(SpriteBatch sb)
         {
-            foreach (var c in Components)
-                c.Value.Draw(sb);
+            var l = Components.Values.ToArray();
+            for (int i = l.Length - 1; i >= 0; l[i--].Draw(sb)) ;
         }
+
         /// <summary>
-        /// 移除组件
+        /// 卸载组件
         /// </summary>
-        /// <param name="type">被移除组件的Type</param>
-        /// <returns>移除成功返回true，否则返回false</returns>
+        /// <param name="type">被卸载组件的Type</param>
+        /// <returns>卸载成功返回true，否则返回false</returns>
         public bool RemoveComponent(Type type)
         {
             List<Type> op = new List<Type>();
             if (Components.ContainsKey(type))
             {
-                op.Add(type);
-                foreach (var c in Components.Values)
+                getRemoveComponent(type, op);
+                Type t;
+                for (int i = op.Count - 1; i >= 0; i--)
                 {
-                    if (c.GetDependComponents().Contains(type))
-                    {
-                        op.Add(type);
-                    }
+                    t = op[i];
+                    components[t].UnLoad();
+                    components.Remove(t);
                 }
-                op.ForEach(x => components.Remove(x));
                 return true;
             }
             return false;
         }
+
         /// <summary>
-        /// 移除组件
+        /// 卸载组件
         /// </summary>
-        /// <typeparam name="T">被移除组件的类型</typeparam>
-        /// <returns>移除成功返回true，否则返回false</returns>
+        /// <typeparam name="T">被卸载组件的类型</typeparam>
+        /// <returns>卸载成功返回true，否则返回false</returns>
         public bool RemoveComponent<T>() where T : IComponent
         {
             return RemoveComponent(typeof(T));
         }
+
         /// <summary>
-        /// 移除组件
+        /// 卸载组件
         /// </summary>
-        /// <param name="component">被移除的组件</param>
-        /// <returns>移除成功返回true，否则返回false</returns>
+        /// <param name="component">被卸载的组件</param>
+        /// <returns>卸载成功返回true，否则返回false</returns>
         public bool RemoveComponent(IComponent component)
         {
             return RemoveComponent(component.GetType());
         }
+
+        private void getRemoveComponent(Type type, List<Type> types)
+        {
+            if (Components.ContainsKey(type))
+            {
+                types.Add(type);
+                foreach (var c in Components.Values)
+                {
+                    if (c.GetDependComponents().Contains(type))
+                    {
+                        getRemoveComponent(c.GetType(), types);
+                    }
+                }
+            }
+        }
+
         /// <summary>
         /// 装载组件
         /// </summary>
@@ -103,6 +127,7 @@ namespace OdeMod.CardMode
                 c.Value.EntityComponentsChange(Components);
             return op;
         }
+
         /// <summary>
         /// 装载组件
         /// </summary>
@@ -121,6 +146,7 @@ namespace OdeMod.CardMode
             }
             return false;
         }
+
         /// <summary>
         /// 装载组件（将自动创建组件实例并装载）
         /// </summary>
@@ -131,17 +157,18 @@ namespace OdeMod.CardMode
             T t = (T)Activator.CreateInstance(typeof(T));
             return AddComponent(t);
         }
+
         /// <summary>
-        /// 按照依赖关系装载一堆组件
+        /// 按照依赖关系装载组件组
         /// </summary>
-        /// <param name="components">等待被装载的组件们</param>
+        /// <param name="components">等待被装载的组件组</param>
         /// <returns>全部装载成功返回true，否则返回false</returns>
-        public bool AddComponents(IEnumerable<IComponent> components)
+        public int AddComponents(IEnumerable<IComponent> components)
         {
-            bool op = true;
-            int i = 0;
+            int op = 0;
+            int i, j;
             Type type;
-            List<Type> ts = new List<Type>(Components.Keys);
+            Dictionary<Type, IComponent> ts = new Dictionary<Type, IComponent>(Components);
             List<IComponent> cs = new List<IComponent>(components);
             foreach (var component in components)
             {
@@ -149,25 +176,46 @@ namespace OdeMod.CardMode
                 if (Components.ContainsKey(type))
                 {
                     cs.Remove(component);
-                    op = false;
                 }
                 else
                 {
                     if (AddComponent(component))
+                    {
                         cs.Remove(component);
+                        op++;
+                    }
                     else
-                        ts.Add(type);
+                        ts.Add(type, component);
                 }
             }
-            while (i < cs.Count)
+            bool needContinueRemove = true;
+
+            List<Type> componentTypes;
+            while (needContinueRemove)
             {
-                if (!ts.Contains(cs[i].GetDependComponents()))
+                i = 0;
+                needContinueRemove = false;
+                componentTypes = ts.Keys.ToList();
+                while (i < cs.Count)
                 {
-                    cs.RemoveAt(i);
-                    op = false;
+                    if (!componentTypes.Contains(cs[i].GetDependComponents()))
+                    {
+                        needContinueRemove = true;
+                        j = 0;
+                        while (j < componentTypes.Count)
+                        {
+                            if (ts[componentTypes[j]].GetDependComponents().Contains(cs[i].GetType()))
+                            {
+                                ts.Remove(componentTypes[j]);
+                                needContinueRemove = true;
+                            }
+                            j++;
+                        }
+                        cs.RemoveAt(i);
+                    }
+                    else
+                        i++;
                 }
-                else
-                    i++;
             }
             while (cs.Count > 0)
             {
@@ -175,7 +223,10 @@ namespace OdeMod.CardMode
                 while (i < cs.Count)
                 {
                     if (AddComponent(cs[i]))
+                    {
                         cs.RemoveAt(i);
+                        op++;
+                    }
                     else
                         i++;
                 }
@@ -184,18 +235,21 @@ namespace OdeMod.CardMode
                 c.Value.EntityComponentsChange(Components);
             return op;
         }
+
         /// <summary>
         /// 是否已装载组件
         /// </summary>
         /// <typeparam name="T">需要判断的组件类型</typeparam>
         /// <returns>如果已装载返回true，否则返回false</returns>
         public bool HasComponent<T>() => components.ContainsKey(typeof(T));
+
         /// <summary>
         /// 是否已装载组件
         /// </summary>
         /// <param name="type">组件的Type</param>
         /// <returns>如果已装载组件返回true，否则返回false</returns>
         public bool HasComponent(Type type) => components.ContainsKey(type);
+
         /// <summary>
         /// 获取组件
         /// </summary>
@@ -205,6 +259,7 @@ namespace OdeMod.CardMode
         {
             return (T)components[typeof(T)];
         }
+
         /// <summary>
         /// 获取组件
         /// </summary>
@@ -214,6 +269,7 @@ namespace OdeMod.CardMode
         {
             return components[type];
         }
+
         /// <summary>
         /// 克隆该Entity与其已装载的组件
         /// </summary>
@@ -222,9 +278,12 @@ namespace OdeMod.CardMode
         {
             Entity card = new Entity(this);
             card.components = new Dictionary<Type, IComponent>();
+            IComponent compon;
             foreach (var component in components)
             {
-                components.Add(component.Key, component.Value.Clone());
+                compon = component.Value.Clone(card);
+                compon.Entity = card;
+                components.Add(component.Key, compon);
             }
             return card;
         }

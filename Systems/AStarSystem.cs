@@ -1,5 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
+
 using System.Collections.Generic;
+
 using Terraria;
 using Terraria.Graphics.Effects;
 using Terraria.ModLoader;
@@ -10,7 +12,7 @@ namespace OdeMod.Systems
         public override void PreUpdateEntities()
         {
             base.PreUpdateEntities();
-            if (!Filters.Scene["TemplateMod2:GBlur"].IsActive()&&false)
+            if (!Filters.Scene["TemplateMod2:GBlur"].IsActive() && false)
             {
                 // 开启滤镜
                 Filters.Scene.Activate("TemplateMod2:GBlur");

@@ -45,7 +45,7 @@ namespace OdeMod.UI.OdeUISystem.UIElements
             {
                 return Percent * pixel + Pixel;
             }
-            public void SetValue(float pixel,float percent)
+            public void SetValue(float pixel, float percent)
             {
                 Pixel = pixel;
                 Percent = percent;

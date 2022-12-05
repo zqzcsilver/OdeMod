@@ -1,13 +1,11 @@
-﻿using OdeMod.Utils;
-using Terraria;
-using Terraria.DataStructures;
+﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace OdeMod.NPCs.Chaos
 {
     //吸 你 脑 髓 不如加个设定 被击中后眩晕 击中次数越多眩晕越多 最后直接暴毙（x
-    internal class ChaoticLicker :ModNPC,IChaos
+    internal class ChaoticLicker : ModNPC, IChaos
     {
         public override void SetStaticDefaults()
         {

@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+
 using ReLogic.Content;
+
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -34,7 +36,7 @@ namespace OdeMod.Items.Series.Recharge
             Item.height = 26;
             Item.damage = 70;
             Item.DamageType = DamageClass.Ranged;//这里Wan的设定应该是要加充能伤害
-            Item.useStyle = ItemUseStyleID.Shoot; 
+            Item.useStyle = ItemUseStyleID.Shoot;
             Item.shoot = ModContent.ProjectileType<Projectiles.Series.Items.ReCharge.Prism>();
             Item.shootSpeed = 20f;
             Item.useTime = 25;

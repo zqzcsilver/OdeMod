@@ -1,6 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using System;
+
+using Terraria;
 using Terraria.GameContent;
 
 namespace OdeMod.Utils
@@ -29,6 +32,115 @@ namespace OdeMod.Utils
                 rectangle.Y = (int)(startPoint.Y + i * normalVec.Y);
                 sb.Draw(TextureAssets.MagicPixel.Value, rectangle, color);
             }
+        }
+
+        /// <summary>
+        /// 获取一块具有DrawLayer绘制内容的画布
+        /// </summary>
+        /// <param name="sb"></param>
+        /// <param name="drawLayer"></param>
+        /// <param name="width"></param>
+        /// <param name="height"></param>
+        /// <returns></returns>
+        public static RenderTarget2D GetDrawRenderTarget(SpriteBatch sb, Action<SpriteBatch> drawLayer, int width, int height)
+        {
+            sb.End();
+            sb.GraphicsDevice.SetRenderTarget(Main.screenTargetSwap);
+            sb.GraphicsDevice.Clear(Color.Black);
+            sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp,
+                DepthStencilState.Default, RasterizerState.CullNone, null, Matrix.Invert(Main.GameViewMatrix.EffectMatrix));
+            sb.Draw(Main.screenTarget, Vector2.Zero, Color.White);
+            sb.End();
+
+            var render = new RenderTarget2D(sb.GraphicsDevice, width, height, false, sb.GraphicsDevice.PresentationParameters.BackBufferFormat, DepthFormat.None);
+            sb.GraphicsDevice.SetRenderTarget(render);
+            sb.GraphicsDevice.Clear(Color.Transparent);
+            sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp,
+                DepthStencilState.Default, RasterizerState.CullNone, null, Matrix.Invert(Main.GameViewMatrix.EffectMatrix));
+            drawLayer(sb);
+            sb.End();
+
+            sb.GraphicsDevice.SetRenderTarget(Main.screenTarget);
+            sb.GraphicsDevice.Clear(Color.Black);
+            sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp,
+                DepthStencilState.Default, RasterizerState.CullNone, null, Matrix.Invert(Main.GameViewMatrix.EffectMatrix));
+            sb.Draw(Main.screenTargetSwap, Vector2.Zero, Color.White);
+            sb.End();
+
+            sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp,
+                DepthStencilState.Default, RasterizerState.CullNone, null, Matrix.Invert(Main.GameViewMatrix.EffectMatrix));
+            return render;
+        }
+
+        public static RenderTarget2D SetDrawRenderTarget(SpriteBatch sb, Action<SpriteBatch> drawLayer, RenderTarget2D render,
+            RenderTarget2D screenRender, RenderTarget2D screenRenderSwap)
+        {
+            sb.End();
+            sb.GraphicsDevice.SetRenderTarget(screenRenderSwap);
+            sb.GraphicsDevice.Clear(Color.Transparent);
+            sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp,
+                DepthStencilState.Default, RasterizerState.CullNone, null, Matrix.Invert(Main.GameViewMatrix.EffectMatrix));
+            sb.Draw(screenRender, Vector2.Zero, Color.White);
+            sb.End();
+
+            sb.GraphicsDevice.SetRenderTarget(render);
+            sb.GraphicsDevice.Clear(Color.Transparent);
+            sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp,
+                DepthStencilState.Default, RasterizerState.CullNone, null, Matrix.Invert(Main.GameViewMatrix.EffectMatrix));
+            drawLayer(sb);
+            sb.End();
+
+            sb.GraphicsDevice.SetRenderTarget(screenRender);
+            sb.GraphicsDevice.Clear(Color.Transparent);
+            sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp,
+                DepthStencilState.Default, RasterizerState.CullNone, null, Matrix.Invert(Main.GameViewMatrix.EffectMatrix));
+            sb.Draw(screenRenderSwap, Vector2.Zero, Color.White);
+            sb.End();
+
+            sb.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.LinearClamp,
+                DepthStencilState.Default, RasterizerState.CullNone, null, Matrix.Invert(Main.GameViewMatrix.EffectMatrix));
+            return render;
+        }
+
+        /// <summary>
+        /// 对画笔所在的桌子上的画布释放魔法
+        /// </summary>
+        /// <param name="sb"></param>
+        /// <param name="effect"></param>
+        public static void SetEffectToScreen(SpriteBatch sb, Effect effect)
+        {
+            sb.End();
+            sb.GraphicsDevice.SetRenderTarget(Main.screenTargetSwap);
+            sb.GraphicsDevice.Clear(Color.Black);
+            sb.Begin(SpriteSortMode.Immediate, BlendState.Opaque);
+            sb.Draw(Main.screenTarget, Vector2.Zero, Color.White);
+            sb.End();
+
+            sb.GraphicsDevice.SetRenderTarget(Main.screenTarget);
+            sb.GraphicsDevice.Clear(Color.Black);
+            sb.Begin(SpriteSortMode.Immediate, null, null, null, null, effect);
+            sb.Draw(Main.screenTargetSwap, Vector2.Zero, Color.White);
+            sb.End();
+            sb.Begin();
+        }
+
+        public static void SetDrawToScreen(SpriteBatch sb, Action<SpriteBatch, RenderTarget2D> draw)
+        {
+            sb.End();
+            sb.GraphicsDevice.SetRenderTarget(Main.screenTargetSwap);
+            sb.GraphicsDevice.Clear(Color.Black);
+            sb.Begin(SpriteSortMode.Immediate, BlendState.Opaque);
+            sb.Draw(Main.screenTarget, Vector2.Zero, Color.White);
+            sb.End();
+
+            sb.GraphicsDevice.SetRenderTarget(Main.screenTarget);
+            sb.GraphicsDevice.Clear(Color.Black);
+            sb.Begin(SpriteSortMode.Immediate, BlendState.Opaque);
+            draw(sb, Main.screenTargetSwap);
+            sb.End();
+
+            sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp,
+                DepthStencilState.Default, RasterizerState.CullNone, null, Matrix.Invert(Main.GameViewMatrix.EffectMatrix));
         }
     }
 }

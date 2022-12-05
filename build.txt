@@ -1,3 +1,4 @@
 displayName = 颂歌
 author = 幽银&永耀&Wan&银烛
 version = 0.0.0.4
+dllReferences = 

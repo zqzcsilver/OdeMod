@@ -2,10 +2,6 @@
 using Microsoft.Xna.Framework.Graphics;
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
@@ -79,7 +75,7 @@ namespace OdeMod.Items.Series.Recharge
         /// <param name="tag"></param>
         public void LoadRechargeAccessories(TagCompound tag)
         {
-            for(int c = 0; c < RechargeAccessories.Length; c++)
+            for (int c = 0; c < RechargeAccessories.Length; c++)
             {
                 if (tag.ContainsKey($"rechargeAccessories{c}"))
                     RechargeAccessories[c] = (IRechargeAccessory)ItemIO.Load(tag.Get<TagCompound>($"rechargeAccessories{c}")).ModItem;

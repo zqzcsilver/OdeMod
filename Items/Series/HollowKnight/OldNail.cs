@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
+
 using OdeMod.Players;
-using OdeMod.Utils;
 
 using Terraria;
 using Terraria.DataStructures;
@@ -28,7 +28,7 @@ namespace OdeMod.Items.Series.HollowKnight
             Item.crit = -4;
             Item.knockBack = 4;
             Item.rare = ItemRarityID.Blue;
-            Item.shoot = ModContent.ProjectileType<Projectiles.Series.Items.HollowKnight.KnifeLight> ();
+            Item.shoot = ModContent.ProjectileType<Projectiles.Series.Items.HollowKnight.KnifeLight>();
             Item.shootSpeed = 5.5f;
             Item.UseSound = SoundID.Item1;
             Item.useStyle = ItemUseStyleID.Swing;

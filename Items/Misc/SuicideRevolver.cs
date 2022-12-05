@@ -1,10 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
+
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.GameContent.Creative;
 
 namespace OdeMod.Items.Misc
 {
@@ -12,7 +11,7 @@ namespace OdeMod.Items.Misc
     //这个翻译SuicideRevolver并不满意 Suicide可以翻译为自杀性的 也能翻译自杀的 左轮无妨 很有可能变成自杀的左轮（其实不用担心
     //有趣的事MC的mod将这个自尽用的左轮翻译成“翻转左轮(Flipped Revolver)” Ode的翻译之后可以更有趣些
     //而且设定是反向发射子弹 翻转一词也不错 或许可以右键自杀？
-    internal class SuicideRevolver : ModItem,IMiscItem
+    internal class SuicideRevolver : ModItem, IMiscItem
     {
         public override void SetDefaults()
         {
@@ -61,7 +60,7 @@ namespace OdeMod.Items.Misc
         //射击出口有问题 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            if(player.altFunctionUse != 2)
+            if (player.altFunctionUse != 2)
             {
                 velocity.X *= -1;
                 velocity.Y *= -1;

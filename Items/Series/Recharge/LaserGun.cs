@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+
 using ReLogic.Content;
+
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -50,7 +52,7 @@ namespace OdeMod.Items.Series.Recharge
         {
             //这里右键发射充能弹幕前提是 先充满 然后发射三次 再充 未充满无法发射 麻烦写个bool判断一下能量达到最大值
             //另外这个的设定太过于普通了 不如充能子弹给怪加个过载？
-            if(player.altFunctionUse != 2)
+            if (player.altFunctionUse != 2)
             {
                 Item.mana = 10;
                 Item.damage = 30;

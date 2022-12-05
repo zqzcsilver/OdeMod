@@ -1,8 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System;
-using Terraria;
-using Terraria.GameContent;
+﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -19,7 +15,7 @@ namespace OdeMod.NPCs.TownNPCs
         public override void SetupShop(int type, Chest shop, ref int nextSlot)
         {
             base.SetupShop(type, shop, ref nextSlot);
-            if(type == NPCID.PartyGirl)
+            if (type == NPCID.PartyGirl)
             {
                 shop.item[nextSlot++].SetDefaults(ModContent.ItemType<Items.Misc.WanGift>());
             }

@@ -1,13 +1,10 @@
-﻿using OdeMod.Utils;
-using System;
-using Terraria;
-using Terraria.DataStructures;
+﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace OdeMod.NPCs.Chaos
 {
-    internal class ChaoticMite : ModNPC,IChaos
+    internal class ChaoticMite : ModNPC, IChaos
     {
         //每次生成一大堆
         public override void SetStaticDefaults()

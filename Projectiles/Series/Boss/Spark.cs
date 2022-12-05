@@ -1,11 +1,13 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+
 using System.Collections.Generic;
+
 using Terraria;
 using Terraria.ModLoader;
 namespace OdeMod.Projectiles.Series.Boss
 {
-    internal class Spark : ModProjectile,IBossProjectile
+    internal class Spark : ModProjectile, IBossProjectile
     {
         public override void SetDefaults()
         {
@@ -60,7 +62,7 @@ namespace OdeMod.Projectiles.Series.Boss
             // 按照顺序连接三角形，连接顺序请看裙子视频
 
             Main.spriteBatch.End();
-            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.Default, RasterizerState.CullNone,null,Main.Transform);
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.Default, RasterizerState.CullNone, null, Main.Transform);
             RasterizerState originalState = Main.graphics.GraphicsDevice.RasterizerState;
             // 干掉注释掉就可以只显示三角形栅格
             //RasterizerState rasterizerState = new RasterizerState();
@@ -69,7 +71,7 @@ namespace OdeMod.Projectiles.Series.Boss
             //Main.graphics.GraphicsDevice.RasterizerState = rasterizerState;
 
             var projection = Matrix.CreateOrthographicOffCenter(0, Main.screenWidth, Main.screenHeight, 0, 0, 1);
-            var model = Matrix.CreateTranslation(new Vector3(-Main.screenPosition.X, -Main.screenPosition.Y, 0))*Main.Transform;
+            var model = Matrix.CreateTranslation(new Vector3(-Main.screenPosition.X, -Main.screenPosition.Y, 0)) * Main.Transform;
 
             //启用即时加载加载Shader
             var shader = ModContent.Request<Effect>("OdeMod/Effects/Content/Trail", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;

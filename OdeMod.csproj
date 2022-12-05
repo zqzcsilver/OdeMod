@@ -16,5 +16,12 @@
     <Folder Include="Items\Misc\Armor\" />
     <Folder Include="Items\Misc\Placeable\" />
     <Folder Include="Items\Misc\Accessories\" />
+    <Folder Include="Utils\CardMode\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EditorConfigFiles Remove="C:\Users\Silver\Documents\My Games\Terraria\tModLoader\ModSources\OdeMod\.editorconfig" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="C:\Users\Silver\Documents\My Games\Terraria\tModLoader\ModSources\OdeMod\.editorconfig" />
   </ItemGroup>
 </Project>

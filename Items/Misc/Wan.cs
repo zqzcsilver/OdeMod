@@ -1,11 +1,8 @@
-﻿using Microsoft.Xna.Framework;
-using System;
+﻿using OdeMod.Players;
+
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.GameContent.Creative;
-using OdeMod.Players;
 
 namespace OdeMod.Items.Misc
 {
@@ -30,7 +27,7 @@ namespace OdeMod.Items.Misc
         }
         public override bool? UseItem(Player player)
         {
-            
+
             Item.damage = Main.rand.Next(1, 100);
             Item.crit = Main.rand.Next(1, 50);
             var pls = player.GetModPlayer<EggPlayer>();

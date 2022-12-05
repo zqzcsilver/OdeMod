@@ -12,9 +12,11 @@ namespace OdeMod.CardMode
     internal abstract class Component : IComponent
     {
         public virtual Entity Entity { get; set; }
+
         public Component()
         {
         }
+
         /// <summary>
         /// 获取前置组件
         /// </summary>
@@ -23,6 +25,7 @@ namespace OdeMod.CardMode
         {
             return null;
         }
+
         /// <summary>
         /// 获取冲突组件
         /// </summary>
@@ -31,22 +34,23 @@ namespace OdeMod.CardMode
         {
             return null;
         }
+
         public virtual void Draw(SpriteBatch sb)
         {
-
         }
+
         public virtual void Load()
         {
-
         }
+
         public virtual void UnLoad()
         {
-
         }
+
         public virtual void Update(GameTime gt)
         {
-
         }
+
         /// <summary>
         /// 当组件改变时会调用
         /// </summary>
@@ -57,6 +61,7 @@ namespace OdeMod.CardMode
             if (entityComponents.Keys.ToList().Intersect(GetConflictComponents()))
                 throw new Exception($"现有组件与组件{GetType().FullName}产生了组件冲突！");
         }
-        public abstract IComponent Clone();
+
+        public abstract IComponent Clone(Entity cloneEntity);
     }
 }

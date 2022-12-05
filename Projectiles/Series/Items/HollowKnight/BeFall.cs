@@ -1,7 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+
 using OdeMod.Players;
+
 using System.Collections.Generic;
+
 using Terraria;
 using Terraria.ModLoader;
 
@@ -25,7 +28,7 @@ namespace OdeMod.Projectiles.Series.Items.HollowKnight
         }
         public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
         {
-            
+
             overPlayers.Add(index);
         }
         public override bool ShouldUpdatePosition()
@@ -48,7 +51,7 @@ namespace OdeMod.Projectiles.Series.Items.HollowKnight
 
             if (Main.player[Projectile.owner].channel)
             {
-                
+
                 //Static.hallow = (int)Projectile.ai[0];
 
             }
@@ -135,7 +138,7 @@ namespace OdeMod.Projectiles.Series.Items.HollowKnight
                 Main.spriteBatch.Draw(texture2, drawPos, null, new Color(255 - ((int)Projectile.ai[0] - 160) * 6, 255 - ((int)Projectile.ai[0] - 160) * 6, 255 - ((int)Projectile.ai[0] - 160) * 6, 255 - ((int)Projectile.ai[0] - 160) * 6), Projectile.rotation, drawOrigin2, 2, SpriteEffects.None, 0f);
 
             }
-            
+
             return false;
         }
     }

@@ -20,6 +20,13 @@ float uSaturation;
 float4 uSourceRect;
 float2 uZoom;
 
+Texture2D SpriteTexture;
+
+sampler2D SpriteTextureSampler = sampler_state
+{
+    Texture = <SpriteTexture>;
+};
+
 float4 PixelShaderFunction(float2 coords : TEXCOORD0) : COLOR0
 {
     float4 color = tex2D(uImage0, coords);
@@ -27,6 +34,8 @@ float4 PixelShaderFunction(float2 coords : TEXCOORD0) : COLOR0
         return color;
     float4 pink = float4(0.93, 0.4, 1, 1);
     return color * pink * 0.8 + 0.2 * pink;
+    
+    return color;
     
 }
 

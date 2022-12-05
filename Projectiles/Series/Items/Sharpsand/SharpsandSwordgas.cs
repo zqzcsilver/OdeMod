@@ -71,7 +71,7 @@ namespace OdeMod.Projectiles.Series.Items.Sharpsand
                 Main.spriteBatch.Draw(texture, drawPos, null, color, Projectile.rotation, drawOrigin, sizex, SpriteEffects.None, 0f);
             }
 
-            GraphicsDevice gd=Main.instance.GraphicsDevice;
+            GraphicsDevice gd = Main.instance.GraphicsDevice;
             SpriteBatch sb = Main.spriteBatch;
 
 
