@@ -1,12 +1,15 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+
 using OdeMod.Players;
+
 using System;
 using System.Collections.Generic;
 
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+
 namespace OdeMod.Projectiles.Series.Boss
 {
     internal class Spark : ModProjectile, IBossProjectile
@@ -28,8 +31,10 @@ namespace OdeMod.Projectiles.Series.Boss
             ProjectileID.Sets.TrailCacheLength[base.Projectile.type] = 12;
             ProjectileID.Sets.TrailingMode[base.Projectile.type] = 0;
         }
-        float a = 0;
-        bool ok = false;
+
+        private float a = 0;
+        private bool ok = false;
+
         public override void AI()
         {
             Projectile.velocity *= 0;
@@ -38,7 +43,6 @@ namespace OdeMod.Projectiles.Series.Boss
             if (Projectile.timeLeft > 360) a += 0.025f;
             if (Projectile.timeLeft < 40) Projectile.alpha += 7;
             if (Projectile.timeLeft > 360) Projectile.alpha -= 7;
-
 
             if (Projectile.timeLeft % 5 == 0)
             {
@@ -49,19 +53,18 @@ namespace OdeMod.Projectiles.Series.Boss
             Projectile.velocity = player.Center - Projectile.Center;
             Projectile.velocity.Normalize();
             Projectile.velocity *= 0.012f * (400 - Projectile.timeLeft);
-
         }
 
         public override void Kill(int timeLeft)
         {
             Player player = Main.player[Projectile.owner];
-            player.GetModPlayer<OdePlayer>().rolling = 0;
-
+            player.GetModPlayer<OdePlayer>().Rolling = 0;
         }
-        float scaleDraw = 1f;
+
+        private float scaleDraw = 1f;
+
         public override bool PreDraw(ref Color lightColor)
         {
-
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
             double range = Projectile.scale * 1;
@@ -95,7 +98,8 @@ namespace OdeMod.Projectiles.Series.Boss
             return true;
         }
 
-        bool found = false;
+        private bool found = false;
+
         public override void PostDraw(Color lightColor)
         {
             if (Projectile.ai[0] > 1)
@@ -111,7 +115,6 @@ namespace OdeMod.Projectiles.Series.Boss
 
                 foreach (Projectile spawn in Main.projectile)
                 {
-
                     if (spawn.type == ModContent.ProjectileType<Projectiles.Series.Boss.Spark>() && spawn.ai[0] - Projectile.ai[0] == -1 && spawn.ai[1] == Projectile.ai[1])
                     {
                         var normalDir = spawn.Center - Projectile.Center;//两帧之间的切线向量
@@ -120,7 +123,6 @@ namespace OdeMod.Projectiles.Series.Boss
                         bars.Add(new CustomVertexInfo(Projectile.Center + normalDir * -10, color, new Vector3(factor, 0, a)));
                         bars.Add(new CustomVertexInfo(spawn.Center + normalDir * 10, color, new Vector3(factor, 1, a)));
                         bars.Add(new CustomVertexInfo(spawn.Center + normalDir * -10, color, new Vector3(factor, 0, a)));
-
                     }
                 }
                 List<CustomVertexInfo> triangleList = new List<CustomVertexInfo>();
@@ -158,26 +160,22 @@ namespace OdeMod.Projectiles.Series.Boss
                 Main.graphics.GraphicsDevice.SamplerStates[1] = SamplerState.PointWrap;
                 Main.graphics.GraphicsDevice.SamplerStates[2] = SamplerState.PointWrap;
 
-
                 shader.CurrentTechnique.Passes[0].Apply();
-
 
                 Main.graphics.GraphicsDevice.DrawUserPrimitives(PrimitiveType.TriangleList, triangleList.ToArray(), 0, triangleList.Count / 3);
                 //连三角形，其中那个0是偏移量
                 Main.graphics.GraphicsDevice.RasterizerState = originalState;
                 Main.spriteBatch.End();
                 Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-
             }
-
         }
+
         /*public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
             Player player = Main.player[Projectile.owner];
 
             foreach (Projectile spawn in Main.projectile)
             {
-
                 if (spawn.type == ModContent.ProjectileType<Projectiles.Series.Boss.Spark>() && spawn.ai[0] - Projectile.ai[0] == -1 && spawn.ai[1] == Projectile.ai[1])
                 {
                     float point = 0f;
@@ -185,8 +183,8 @@ namespace OdeMod.Projectiles.Series.Boss
                         Projectile.Center - 96 * new Vector2((float)Math.Cos(Projectile.rotation + 1.57f), (float)Math.Sin(Projectile.rotation + 1.57f)), 40, ref point);
                 }
             }
-           
         }*/
+
         public override Color? GetAlpha(Color lightColor)
         {
             return new Color(255 - Projectile.alpha, 255 - Projectile.alpha, 255 - Projectile.alpha, 255 - Projectile.alpha);
@@ -200,6 +198,7 @@ namespace OdeMod.Projectiles.Series.Boss
                 new VertexElement(8, VertexElementFormat.Color, VertexElementUsage.Color, 0),
                 new VertexElement(12, VertexElementFormat.Vector3, VertexElementUsage.TextureCoordinate, 0)
             });
+
             public Vector2 Position;
             public Color Color;
             public Vector3 TexCoord;

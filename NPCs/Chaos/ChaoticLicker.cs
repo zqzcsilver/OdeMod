@@ -1,4 +1,8 @@
-﻿using OdeMod.Utils;
+﻿using Microsoft.Xna.Framework;
+
+using OdeMod.Players;
+using OdeMod.Utils;
+
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -12,6 +16,7 @@ namespace OdeMod.NPCs.Chaos
         {
             Main.npcFrameCount[NPC.type] = 8;
         }
+
         public override void SetDefaults()
         {
             NPC.lifeMax = 100;
@@ -29,6 +34,7 @@ namespace OdeMod.NPCs.Chaos
             NPC.noTileCollide = false;
             NPCID.Sets.TrailingMode[NPC.type] = 1;
         }
+
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             var pls = target.GetModPlayer<EggPlayer>();

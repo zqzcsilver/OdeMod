@@ -28,6 +28,7 @@ namespace OdeMod.Players
         protected int FallTimer = 0;
         public bool HollowKnightMovement = false;
         public int Hallow = 0;
+        public int Rolling = 0;
 
         public override void SaveData(TagCompound tag)
         {

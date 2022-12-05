@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using OdeMod.Players;
+
 using System;
 using System.Collections.Generic;
 
@@ -11,6 +13,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 
 using static Terraria.Utils;
+
 namespace OdeMod.NPCs.Boss
 {
     public class MiracleRecorder : ModNPC, IBoss
@@ -20,10 +23,12 @@ namespace OdeMod.NPCs.Boss
             if (vec0.ToRotation() <= 0) return -vec0.ToRotation();
             else return (2 * MathHelper.Pi) - vec0.ToRotation();
         }
+
         public override void SetStaticDefaults()
         {
             Main.npcFrameCount[NPC.type] = 4;
         }
+
         public override void SetDefaults()
         {
             NPC.lifeMax = 28000;
@@ -43,8 +48,10 @@ namespace OdeMod.NPCs.Boss
             NPCID.Sets.TrailingMode[NPC.type] = 0;
             NPCID.Sets.TrailCacheLength[NPC.type] = 8;
         }
-        int control = 0;//控制怪物的行为：0：游荡，1：冲刺
-        int framecontrol = 0;
+
+        private int control = 0;//控制怪物的行为：0：游荡，1：冲刺
+        private int framecontrol = 0;
+
         public override void FindFrame(int frameHeight)
         {
             framecontrol++;
@@ -61,26 +68,28 @@ namespace OdeMod.NPCs.Boss
                 }
             }
         }
-        int mainlyCtrl = 0;
-        float[] rads = new float[3] { 0.5236f, 2.618f, 4.7116f };//冲刺用的角度数组
-        int act = 0;//控制不同行为的draw
-        bool IsDoing = false;
-        float timer = 0;//计时器
-        Vector2 plrCenter = Vector2.Zero;//定时记录玩家位置
-        float distance = 0;//玩家距离
-        int ok = -1;//冲刺用1
-        float ok2 = 0;//冲刺用2
-        Vector2 noticeVec = Vector2.Zero;
-        int count = 0;//冲刺次数
-        int count2 = 0;//召唤球球数量
-        float rando = Main.rand.Next(-10, 20) * 0.05f;//随机偏移量
-        Vector2 dir = Vector2.Zero;
 
-        float oldrotate = 0;
-        float newrotate = 0;
-        int times = 0;
+        private int mainlyCtrl = 0;
+        private float[] rads = new float[3] { 0.5236f, 2.618f, 4.7116f };//冲刺用的角度数组
+        private int act = 0;//控制不同行为的draw
+        private bool IsDoing = false;
+        private float timer = 0;//计时器
+        private Vector2 plrCenter = Vector2.Zero;//定时记录玩家位置
+        private float distance = 0;//玩家距离
+        private int ok = -1;//冲刺用1
+        private float ok2 = 0;//冲刺用2
+        private Vector2 noticeVec = Vector2.Zero;
+        private int count = 0;//冲刺次数
+        private int count2 = 0;//召唤球球数量
+        private float rando = Main.rand.Next(-10, 20) * 0.05f;//随机偏移量
+        private Vector2 dir = Vector2.Zero;
 
-        int[] mode = new int[3] { 0, 0, 0 };
+        private float oldrotate = 0;
+        private float newrotate = 0;
+        private int times = 0;
+
+        private int[] mode = new int[3] { 0, 0, 0 };
+
         public override void AI()
         {
             if (!IsDoing)
@@ -163,7 +172,7 @@ namespace OdeMod.NPCs.Boss
                         dust2.noGravity = true;
                     }
                     float demo = 1 + Vector2.DistanceSquared(Main.player[Main.myPlayer].Center, player.Center) / 420000;
-                    player.GetModPlayer<OdePlayer>().shakeInt = Math.Max(player.GetModPlayer<OdePlayer>().shakeInt, (int)(45 / demo));
+                    player.GetModPlayer<OdePlayer>().ShakeInt = Math.Max(player.GetModPlayer<OdePlayer>().ShakeInt, (int)(45 / demo));
                     Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.Series.Boss.Circle1>(), 0, 0, player.whoAmI);
                 }
                 if (timer >= 300)
@@ -413,7 +422,7 @@ namespace OdeMod.NPCs.Boss
                     act = 1;
                     Vector2 tor = player.Center - NPC.Center;
                     float demo = 1 + Vector2.DistanceSquared(Main.player[Main.myPlayer].Center, player.Center) / 420000;
-                    player.GetModPlayer<OdePlayer>().shakeInt = Math.Max(player.GetModPlayer<OdePlayer>().shakeInt, (int)(30 / demo));
+                    player.GetModPlayer<OdePlayer>().ShakeInt = Math.Max(player.GetModPlayer<OdePlayer>().ShakeInt, (int)(30 / demo));
                     Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2((float)Math.Cos(NPC.rotation + 1.57f), (float)Math.Sin(NPC.rotation + 1.57f)) * 50 + NPC.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.Series.Boss.Laser01>(), 0, 0, player.whoAmI, NPC.rotation);
                     distance = Vector2.Distance(NPC.Center, player.Center);
                 }
@@ -430,7 +439,7 @@ namespace OdeMod.NPCs.Boss
             }
             if (control == 3)
             {
-                if(timer==1)
+                if (timer == 1)
                 {
                     IsDoing = true;
                     NPC.velocity = player.Center - NPC.Center;
@@ -440,13 +449,15 @@ namespace OdeMod.NPCs.Boss
                     {
                     }
                 }
-                if(timer>1&&timer<40)
+                if (timer > 1 && timer < 40)
                 {
                     NPC.velocity *= 0.95f;
                 }
             }
         }
-        RenderTarget2D render;
+
+        private RenderTarget2D render;
+
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
             Texture2D texture = TextureAssets.Npc[NPC.type].Value;
@@ -695,6 +706,7 @@ namespace OdeMod.NPCs.Boss
                 new VertexElement(8, VertexElementFormat.Color, VertexElementUsage.Color, 0),
                 new VertexElement(12, VertexElementFormat.Vector3, VertexElementUsage.TextureCoordinate, 0)
             });
+
             public Vector2 Position;
             public Color Color;
             public Vector3 TexCoord;
