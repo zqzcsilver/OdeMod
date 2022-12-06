@@ -82,7 +82,6 @@ namespace OdeMod
             Filters.Scene["TemplateMod2:GBlur"] = new Filter(new BossSSD(new Ref<Effect>(ModContent.Request<Effect>("OdeMod/Effects/Content/SSD1", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value), "Rotate"), EffectPriority.Medium);
             Filters.Scene["TemplateMod2:GBlur"].Load();
         }
-        //RenderTarget2D render;
         private void Main_Draw(On.Terraria.Main.orig_Draw orig, Main self, GameTime gameTime)
         {
            

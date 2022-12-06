@@ -25,7 +25,8 @@ namespace OdeMod.Projectiles.Series.Boss
 
         }
         float a = 0;
-        float width = 0;
+        float factor = 0;
+        
         public override void AI()
         {
             Projectile.velocity *= 0;
@@ -33,15 +34,14 @@ namespace OdeMod.Projectiles.Series.Boss
             //Player player = Main.player[Projectile.owner];
             if(Projectile.timeLeft>25)
             {
-                width += 6;
+                factor += 0.2f;
                 a += 0.2f;
             }
             if(Projectile.timeLeft<10)
             {
-                width -= 6;
+                factor -= 0.1f;
                 a -= 0.1f;
             }
-            if (width <=6) width = 6;
         }
 
         public override void PostDraw(Color lightColor)
@@ -50,29 +50,51 @@ namespace OdeMod.Projectiles.Series.Boss
             List<CustomVertexInfo> bars = new();
             //顶点离弹幕坐标的距离，也是顶点三角形宽度的一半
             // 把所有的点都生成出来，按照顺序
-            var factor = 1;
             //这里是计算颜色用的插值，但最终效果实际上是用图片上色，所以这里的颜色处理没有必要
             var color = Color.Lerp(Color.White, Color.Red, factor);
             //w是纹理坐标的插值，使纹理的位置能够正确对应
             //朝切线的两个方向分别找顶点
+            float width = 0f;
+            /*for (int i = 0; i < 5; i++)    
+            {
+                width = (float)i / 4f;
+                width = (float)Math.Sqrt(width);
+                width *= 30f;
+                width *= factor;
+                //bars.Add(new CustomVertexInfo(Projectile.Center + new Vector2((float)Math.Cos(Projectile.ai[0]), (float)Math.Sin(Projectile.ai[0])) * width, color, new Vector3(factor, 1, a)));
+                //bars.Add(new CustomVertexInfo(Projectile.Center - new Vector2((float)Math.Cos(Projectile.ai[0]), (float)Math.Sin(Projectile.ai[0])) * width, color, new Vector3(factor, 0, a)));
+                bars.Add(new CustomVertexInfo(new Vector2((float)Math.Cos(Projectile.ai[0] + 1.57f), (float)Math.Sin(Projectile.ai[0] + 1.57f)) * i*5 + Projectile.Center + new Vector2((float)Math.Cos(Projectile.ai[0]), (float)Math.Sin(Projectile.ai[0])) * width, color, new Vector3(factor, 1, a)));
+                bars.Add(new CustomVertexInfo(new Vector2((float)Math.Cos(Projectile.ai[0] + 1.57f), (float)Math.Sin(Projectile.ai[0] + 1.57f)) * i*5 + Projectile.Center - new Vector2((float)Math.Cos(Projectile.ai[0]), (float)Math.Sin(Projectile.ai[0])) * width, color, new Vector3(factor, 0, a)));
+            }*/
+            for (int i = 0; i < 25; i++)
+            {
+                width = (float)i/24f;
+                width = -(float)Math.Pow(2.71828, -width) + 1.37f;
+                width *= 30f;
+                width *= factor;
+                bars.Add(new CustomVertexInfo(new Vector2((float)Math.Cos(Projectile.ai[0] + 1.57f), (float)Math.Sin(Projectile.ai[0] + 1.57f)) * i*2 + Projectile.Center + new Vector2((float)Math.Cos(Projectile.ai[0]), (float)Math.Sin(Projectile.ai[0])) * width, color, new Vector3(factor, 1, a*i/24f)));
+                bars.Add(new CustomVertexInfo(new Vector2((float)Math.Cos(Projectile.ai[0] + 1.57f), (float)Math.Sin(Projectile.ai[0] + 1.57f)) * i*2 + Projectile.Center - new Vector2((float)Math.Cos(Projectile.ai[0]), (float)Math.Sin(Projectile.ai[0])) * width, color, new Vector3(factor, 0, a*i/24f)));
+            }
+            width = 40.8f;
+            width *= factor;
+            bars.Add(new CustomVertexInfo(new Vector2((float)Math.Cos(Projectile.ai[0] + 1.57f), (float)Math.Sin(Projectile.ai[0] + 1.57f)) * 5000 + Projectile.Center + new Vector2((float)Math.Cos(Projectile.ai[0]), (float)Math.Sin(Projectile.ai[0])) * width, color, new Vector3(factor, 1, a)));
+            bars.Add(new CustomVertexInfo(new Vector2((float)Math.Cos(Projectile.ai[0] + 1.57f), (float)Math.Sin(Projectile.ai[0] + 1.57f)) * 5000 + Projectile.Center - new Vector2((float)Math.Cos(Projectile.ai[0]), (float)Math.Sin(Projectile.ai[0])) * width, color, new Vector3(factor, 0, a)));
 
-
-            bars.Add(new CustomVertexInfo(Projectile.Center + new Vector2((float)Math.Cos(Projectile.ai[0]), (float)Math.Sin(Projectile.ai[0])) * width, color, new Vector3(factor, 1, a)));
-            bars.Add(new CustomVertexInfo(Projectile.Center - new Vector2((float)Math.Cos(Projectile.ai[0]), (float)Math.Sin(Projectile.ai[0])) * width, color, new Vector3(factor, 0, a)));
-            bars.Add(new CustomVertexInfo(new Vector2((float)Math.Cos(Projectile.ai[0] + 1.57f), (float)Math.Sin(Projectile.ai[0] + 1.57f)) * 2500 + Projectile.Center + new Vector2((float)Math.Cos(Projectile.ai[0]), (float)Math.Sin(Projectile.ai[0])) * width, color, new Vector3(factor, 1, a)));
-            bars.Add(new CustomVertexInfo(new Vector2((float)Math.Cos(Projectile.ai[0] + 1.57f), (float)Math.Sin(Projectile.ai[0] + 1.57f)) * 2500 + Projectile.Center - new Vector2((float)Math.Cos(Projectile.ai[0]), (float)Math.Sin(Projectile.ai[0])) * width, color, new Vector3(factor, 0, a)));
 
             List<CustomVertexInfo> triangleList = new List<CustomVertexInfo>();
             //count用于返回bars里面的元素数量（即顶点数量）
             if (bars.Count > 2)
             {
-                triangleList.Add(bars[0]);
-                triangleList.Add(bars[2]);
-                triangleList.Add(bars[1]);
+                for (int i = 0; i < bars.Count - 2; i += 2)
+                {
+                    triangleList.Add(bars[i]);
+                    triangleList.Add(bars[i + 2]);
+                    triangleList.Add(bars[i + 1]);
 
-                triangleList.Add(bars[1]);
-                triangleList.Add(bars[2]);
-                triangleList.Add(bars[3]);
+                    triangleList.Add(bars[i + 1]);
+                    triangleList.Add(bars[i + 2]);
+                    triangleList.Add(bars[i + 3]);
+                }
             }
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.Default, RasterizerState.CullNone, null, Main.Transform);
@@ -84,7 +106,7 @@ namespace OdeMod.Projectiles.Series.Boss
             //启用即时加载加载Shader
             var shader = ModContent.Request<Effect>("OdeMod/Effects/Content/Trail", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             var MainColor = ModContent.Request<Texture2D>("OdeMod/Images/Effects/heatmap", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
-            var MaskColor = ModContent.Request<Texture2D>("OdeMod/Images/Effects/Extra_189", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+            var MaskColor = ModContent.Request<Texture2D>("OdeMod/Images/Effects/Flame0", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             var MainShape = ModContent.Request<Texture2D>("OdeMod/Images/Effects/Extra_197", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             // 把变换和所需信息丢给shader
             shader.Parameters["uTransform"].SetValue(model * projection);//坐标变换，详见小裙子视频

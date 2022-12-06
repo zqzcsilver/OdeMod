@@ -7,6 +7,7 @@ using Terraria.ModLoader.IO;
 
 namespace OdeMod.Players
 {
+    
     internal class OdePlayer : ModPlayer, IOdePlayer
     {
         public bool Carapace = false;//ÉúÃü¼×¿Ç
@@ -21,6 +22,7 @@ namespace OdeMod.Players
         public bool HollowKnightMovement = false;
         public int hallow = 0;
         public int rolling = 0;
+        public int MiracleRecorderShader = 0;
         public override void SaveData(TagCompound tag)
         {
             tag.Add("Carapace", Carapace);
@@ -37,7 +39,7 @@ namespace OdeMod.Players
             Carapace_Open = tag.Get<bool>("Carapace_Open");
             HallowMode = tag.Get<bool>("HallowMode");
         }
-
+        
         public override void PreUpdateMovement()
         {
 

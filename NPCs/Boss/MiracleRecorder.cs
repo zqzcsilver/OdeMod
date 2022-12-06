@@ -66,6 +66,7 @@ namespace OdeMod.NPCs.Boss
         int mainlyCtrl = 0;
         float[] rads = new float[3] { 0.5236f, 2.618f, 4.7116f };//冲刺用的角度数组
         int act = 0;//控制不同行为的draw
+        int line = 0;//是否绘制瞄准线
         bool IsDoing = false;
         float timer = 0;//计时器
         Vector2 plrCenter = Vector2.Zero;//定时记录玩家位置
@@ -169,6 +170,7 @@ namespace OdeMod.NPCs.Boss
                     float demo = 1 + Vector2.DistanceSquared(Main.player[Main.myPlayer].Center, player.Center) / 420000;
                     player.GetModPlayer<OdePlayer>().shakeInt = Math.Max(player.GetModPlayer<OdePlayer>().shakeInt, (int)(45 / demo));
                     Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.Series.Boss.Circle1>(), 0, 0, player.whoAmI);
+                    player.GetModPlayer<OdePlayer>().MiracleRecorderShader = 1;
                 }
                 if (timer >= 300)
                 {
@@ -217,20 +219,20 @@ namespace OdeMod.NPCs.Boss
                     NPC.Center = plrCenter + new Vector2((float)(Math.Sin(3 * (rads[ok] + ok2)) * Math.Cos(rads[ok] + ok2)), (float)(Math.Sin(3 * (rads[ok] + ok2)) * Math.Sin(rads[ok] + ok2))) * distance;
                     NPC.rotation = (NPC.Center - noticeVec).ToRotation() - 1.57f;
                 }
-                if (timer > 10 && timer < 70)
+                if (timer > 10 && timer < 60)
                 {
-                    ok2 += 0.027f * (float)Math.Sin((timer - 10) / 60 * Math.PI);
+                    ok2 += 0.029f * (float)Math.Sin((timer - 10) / 50 * Math.PI);
                     NPC.Center = plrCenter + new Vector2((float)(Math.Sin(3 * (rads[ok] + ok2)) * Math.Cos(rads[ok] + ok2)), (float)(Math.Sin(3 * (rads[ok] + ok2)) * Math.Sin(rads[ok] + ok2))) * distance;
                     NPC.rotation = (NPC.Center - noticeVec).ToRotation() - 1.57f;
                     noticeVec = NPC.Center;
                     NPC.alpha -= 20;
                     if (NPC.alpha <= 0) NPC.alpha = 0;
                 }
-                if (timer > 25 && timer < 70)
+                if (timer > 25 && timer < 60)
                 {
                     act = 1;
                 }
-                if (timer >= 70 && timer < 90)
+                if (timer >= 60 && timer < 80)
                 {
                     act = 0;
 
@@ -244,16 +246,16 @@ namespace OdeMod.NPCs.Boss
                         {
 
                             int num = Dust.NewDust(player.Center, 1, 1, ModContent.DustType<Dusts.Dream>(), 0, 0, 120,
-                                Color.White, 0f + ((timer - 62) / 12f));
+                                Color.White, 0f + ((timer - 52) / 12f));
 
                             float rad = new Vector2((float)Math.Cos(i * 6.28 / 6) * 80f, (float)Math.Sin(i * 6.28 / 6) * 80f).ToRotation();
 
                             Main.dust[num].position = player.Center + new Vector2((float)Math.Cos(rads[ok3]), (float)Math.Sin(rads[ok3])) * distance +
                                 new Vector2(
 
-                                    (float)(Math.Cos(i * 6.28 / 6) * 80 + Math.Cos(rad + ((float)(timer - 62) / 30f * 3.14f)) * 80),
+                                    (float)(Math.Cos(i * 6.28 / 6) * 80 + Math.Cos(rad + ((float)(timer - 52) / 30f * 3.14f)) * 80),
 
-                                    (float)(Math.Sin(i * 6.28 / 6) * 80 + Math.Sin(rad + ((float)(timer - 62) / 30f * 3.14f)) * 80));
+                                    (float)(Math.Sin(i * 6.28 / 6) * 80 + Math.Sin(rad + ((float)(timer - 52) / 30f * 3.14f)) * 80));
 
                             Main.dust[num].velocity *= 0.1f;
                             Main.dust[num].noGravity = true;
@@ -270,11 +272,11 @@ namespace OdeMod.NPCs.Boss
                     }
                     else
                     {
-                        timer = 90;
+                        timer = 80;
                     }
 
                 }
-                if (timer == 90)
+                if (timer == 80)
                 {
                     NPC.alpha = 255;
                     for (int i = 1; i < 40; i++)
@@ -352,18 +354,18 @@ namespace OdeMod.NPCs.Boss
                 if (timer == 20)
                 {
                     act = 1;
-                    NPC.velocity = dir * 30f;
+                    NPC.velocity = dir * 32f;
                     NPC.rotation = newrotate;
                 }
-                if (timer >= 20 && timer <= 50)
+                if (timer >= 20 && timer <= 40)
                 {
                     act = 3;
-                    NPC.velocity *= 0.94f;
+                    NPC.velocity *= 0.92f;
                     NPC.velocity += new Vector2(NPC.velocity.Y, -NPC.velocity.X) * 0.01f;
                     NPC.rotation = (NPC.Center - noticeVec).ToRotation() - 1.57f;
                     noticeVec = NPC.Center;
                 }
-                if (timer > 50)
+                if (timer > 40)
                 {
                     count2++;
                     for (int i = 1; i < 40; i++)
@@ -403,9 +405,10 @@ namespace OdeMod.NPCs.Boss
                 if (timer == 1)
                 {
                     IsDoing = true;
-
+                    line = 1;
+                    act = 1;
                 }
-                if (timer > 1 && timer < 30)
+                if (timer > 1 && timer < 25)
                 {
                     Vector2 witness = new Vector2(player.Center.X - NPC.Center.X, player.Center.Y - NPC.Center.Y);
                     witness.Normalize();
@@ -415,34 +418,58 @@ namespace OdeMod.NPCs.Boss
 
                     while (lerp < -3.14159f)
                         lerp += 6.28318f;
-                    NPC.velocity *= 0.8f;
+                    NPC.velocity *= 0.85f;
+                    NPC.velocity += new Vector2((float)Math.Cos(NPC.rotation + 1.57f), (float)Math.Sin(NPC.rotation + 1.57f)) * 0.2f;
                     if (Math.Abs(lerp) < 0.01f) lerp = 0;
                     NPC.rotation += lerp * (timer / 60f);
 
-                    act = 4;
+                    
                 }
-                if (timer >= 30 && timer < 50)
+                if (timer >= 25 && timer < 38)
                 {
 
                 }
-                if (timer == 50)
+                if (timer == 38)
                 {
-                    act = 1;
+                    line = 0;
                     Vector2 tor = player.Center - NPC.Center;
                     float demo = 1 + Vector2.DistanceSquared(Main.player[Main.myPlayer].Center, player.Center) / 420000;
                     player.GetModPlayer<OdePlayer>().shakeInt = Math.Max(player.GetModPlayer<OdePlayer>().shakeInt, (int)(30 / demo));
-                    Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2((float)Math.Cos(NPC.rotation + 1.57f), (float)Math.Sin(NPC.rotation + 1.57f)) * 50 + NPC.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.Series.Boss.Laser01>(), 0, 0, player.whoAmI, NPC.rotation);
+                    Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2((float)Math.Cos(NPC.rotation + 1.57f), (float)Math.Sin(NPC.rotation + 1.57f)) * 45 + NPC.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.Series.Boss.Laser01>(), 0, 0, player.whoAmI, NPC.rotation);
                     distance = Vector2.Distance(NPC.Center, player.Center);
                 }
-                if (timer >= 70)
+                if(timer==58)
                 {
-                    NPC.alpha = 0;
-                    NPC.velocity *= 0f;
-                    IsDoing = false;
-                    count = 0;
-                    ok = -1;
+                    if(count2==3)
+                    {
+                        count2 = 0;
+                        NPC.alpha = 0;
+                        NPC.velocity *= 0f;
+                        IsDoing = false;
+                        count = 0;
+                        ok = -1;
+                        ok2 = 0;
+                        timer = 0;
+                    }
+                }
+                if(timer>=58&&timer<80)
+                {
+                    Vector2 witness = new Vector2(player.Center.X - NPC.Center.X, player.Center.Y - NPC.Center.Y);
+                    witness.Normalize();
+                    float lerp = (witness.ToRotation() - NPC.rotation - 1.57f);
+                    while (lerp > 3.14159f)
+                        lerp -= 6.28318f;
+
+                    while (lerp < -3.14159f)
+                        lerp += 6.28318f;
+                    if (Math.Abs(lerp) < 0.01f) lerp = 0;
+                    NPC.rotation += lerp * (timer / 80f);
+                    NPC.velocity = new Vector2(-(float)Math.Sin(NPC.rotation + 1.57f), (float)Math.Cos(NPC.rotation + 1.57f)) * (18f - Math.Abs(timer - 77))*1.5f;
+                }
+                if (timer >= 80)
+                {
+                    count2++;
                     timer = 0;
-                    ok2 = 0;
                 }
             }
             if (control == 3)
@@ -450,19 +477,17 @@ namespace OdeMod.NPCs.Boss
                 if(timer==1)
                 {
                     IsDoing = true;
-                    NPC.velocity = player.Center - NPC.Center;
-                    NPC.velocity.Normalize();
-                    NPC.velocity *= 10f;
-                    for (int i = 0; i < 6; i++)
-                    {
-
-                    }
+                    NPC.velocity = new Vector2((float)Math.Cos(NPC.rotation + 1.57f), (float)Math.Sin(NPC.rotation + 1.57f))*32f;
                 }
                 if(timer>1&&timer<40)
                 {
                     NPC.velocity *= 0.95f;
                 }
             }
+        }
+        public override void OnKill()
+        {
+            Main.LocalPlayer.GetModPlayer<OdePlayer>().MiracleRecorderShader = 0;
         }
         RenderTarget2D render;
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
@@ -700,11 +725,19 @@ namespace OdeMod.NPCs.Boss
                     Main.spriteBatch.Draw(texture2, drawPos2, new Rectangle(0, NPC.frame.Y, 134, 209), color, NPC.rotation, drawOrigin, 1f, SpriteEffects.None, 0f);
                 }
             }
-            if (act == 4)
+            if (line == 1)
             {
                 Player player = Main.player[NPC.target];
                 Vector2 tor = player.Center - NPC.Center;
-                DrawLine(Main.spriteBatch, NPC.Center, new Vector2((float)Math.Cos(NPC.rotation + 1.57f), (float)Math.Sin(NPC.rotation + 1.57f)) * 5000 + NPC.Center, Color.White, Color.White, 1.5f);
+                Color color1 = new Color(255, 255, 255, 1); 
+                Color color2 = new Color(0, 0, 0, 1);
+                Color color4;
+                if (timer<30f)
+                    color4 = Color.Lerp(color2, color1, timer/30f);
+                else
+                    color4 = Color.Lerp(color2, color1, 1);
+
+                DrawLine(Main.spriteBatch, NPC.Center, new Vector2((float)Math.Cos(NPC.rotation + 1.57f), (float)Math.Sin(NPC.rotation + 1.57f)) * 5000 + NPC.Center, color4, color4, 1.5f);
             }
 
             Main.spriteBatch.Draw(texture, drawPos, new Rectangle(0, NPC.frame.Y, 134, 209), drawColor * ((255f - (float)NPC.alpha) / 255f), NPC.rotation, drawOrigin, 1f, SpriteEffects.None, 0f);
