@@ -1,7 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+
 using OdeMod.Players;
+
 using System;
+
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -178,7 +181,7 @@ namespace OdeMod.Projectiles.Series.Items.HollowKnight
 
             if (Projectile.timeLeft <= 570 && Projectile.timeLeft > 25)
             {
-                player.GetModPlayer<OdePlayer>().fall = 1;
+                player.GetModPlayer<OdePlayer>().Fall = 1;
 
 
                 if (SolidCollision(player.position, player.width, player.height + 1))
@@ -187,7 +190,7 @@ namespace OdeMod.Projectiles.Series.Items.HollowKnight
 
 
                     pos3 = player.position;
-                    player.GetModPlayer<OdePlayer>().fall = 0;
+                    player.GetModPlayer<OdePlayer>().Fall = 0;
                     Projectile.timeLeft = 25;
                     player.immune = true;
                     player.immuneTime = 35;
@@ -219,7 +222,7 @@ namespace OdeMod.Projectiles.Series.Items.HollowKnight
                     }
 
                     float demo = 1 + Vector2.DistanceSquared(Main.player[Main.myPlayer].Center, Projectile.Center) / 420000;
-                    player.GetModPlayer<OdePlayer>().shakeInt = Math.Max(player.GetModPlayer<OdePlayer>().shakeInt, (int)(45 / demo));
+                    player.GetModPlayer<OdePlayer>().ShakeInt = Math.Max(player.GetModPlayer<OdePlayer>().ShakeInt, (int)(45 / demo));
 
                 }
 

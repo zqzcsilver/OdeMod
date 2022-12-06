@@ -1,14 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Terraria.GameContent;
-
 namespace OdeMod.UI.OdeUISystem.UIElements
 {
     internal class UIImage : BaseElement
@@ -34,8 +26,8 @@ namespace OdeMod.UI.OdeUISystem.UIElements
         private Texture2D _texture;
         private Color _color;
         public CalculationStyle Style = CalculationStyle.None;
-        public UIImage(Texture2D texture,Color color) 
-        { 
+        public UIImage(Texture2D texture, Color color)
+        {
             _texture = texture;
             _color = color;
             Info.Width.Pixel = texture.Width;
@@ -54,7 +46,7 @@ namespace OdeMod.UI.OdeUISystem.UIElements
                 float aspectRatio = (float)_texture.Width / (float)_texture.Height;
                 Info.Height = Info.Width / aspectRatio;
             }
-            else if(Style == CalculationStyle.LockedAspectRatioMainHeight)
+            else if (Style == CalculationStyle.LockedAspectRatioMainHeight)
             {
                 float aspectRatio = (float)_texture.Width / (float)_texture.Height;
                 Info.Width = Info.Height * aspectRatio;

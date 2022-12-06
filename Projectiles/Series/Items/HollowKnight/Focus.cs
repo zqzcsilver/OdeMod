@@ -1,6 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
+
 using OdeMod.Players;
+
 using System;
+
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -31,7 +34,7 @@ namespace OdeMod.Projectiles.Series.Items.HollowKnight
         {
             Player player = Main.player[Projectile.owner];
 
-            if(player.statMana<0)
+            if (player.statMana < 0)
             {
                 if (Main.GameZoomTarget <= screenSize)
                 {
@@ -137,7 +140,7 @@ namespace OdeMod.Projectiles.Series.Items.HollowKnight
                     }
                 }
             }
-            
+
         }
     }
 }

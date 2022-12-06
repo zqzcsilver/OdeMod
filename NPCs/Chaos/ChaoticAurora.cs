@@ -1,9 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Graphics;
-using System;
+
 using Terraria;
-using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -23,7 +20,7 @@ namespace OdeMod.NPCs.Chaos
         private NPC_State State
         {
             get { return (NPC_State)(int)NPC.ai[0]; }
-            set { NPC.ai[0] = (int)value; } 
+            set { NPC.ai[0] = (int)value; }
         }
         private void SwitchTo(NPC_State state)
         {
@@ -60,11 +57,11 @@ namespace OdeMod.NPCs.Chaos
         int framecontrol3;
         public override void FindFrame(int frameHeight)
         {
-            
-            if(State == NPC_State.FindP)
+
+            if (State == NPC_State.FindP)
             {
                 framecontrol++;
-                if(framecontrol % 8 == 0)
+                if (framecontrol % 8 == 0)
                 {
                     if (NPC.frame.Y < frameHeight * 5)
                         NPC.frame.Y += frameHeight;
@@ -72,10 +69,10 @@ namespace OdeMod.NPCs.Chaos
                         NPC.frame.Y = 0;
                 }
             }
-            if(State == NPC_State.ReadyShoot)
+            if (State == NPC_State.ReadyShoot)
             {
                 framecontrol2++;
-                if(framecontrol2 % 10 == 0)
+                if (framecontrol2 % 10 == 0)
                 {
                     if (NPC.frame.Y < frameHeight * 9 && NPC.frame.Y >= frameHeight * 6)
                         NPC.frame.Y += frameHeight;
@@ -83,7 +80,7 @@ namespace OdeMod.NPCs.Chaos
                         NPC.frame.Y = frameHeight * 6;
                 }
             }
-            if(State == NPC_State.OnShoot)
+            if (State == NPC_State.OnShoot)
             {
                 framecontrol3++;
                 if (framecontrol3 % 10 == 0)
@@ -104,7 +101,7 @@ namespace OdeMod.NPCs.Chaos
             {
                 case NPC_State.FindP:
                     NPC.ai[2]++;
-                    if(NPC.ai[2] >= 180)
+                    if (NPC.ai[2] >= 180)
                     {
                         NPC.ai[2] = 0;
                         Main.NewText("在蓄能啦！", Color.Red);//这里放到怪物上面
@@ -125,7 +122,7 @@ namespace OdeMod.NPCs.Chaos
                     NPC.ai[2]++;
                     if (NPC.ai[2] % 30 == 0)
                     {
-                        Main.NewText("Ready!",Color.Red);
+                        Main.NewText("Ready!", Color.Red);
                     }
                     break;
                 default:
@@ -138,7 +135,7 @@ namespace OdeMod.NPCs.Chaos
         {
             if (Main.rand.NextBool(5))
             {
-                NPC.NewNPC(NPC.GetSource_Death(), (int)NPC.position.X, (int)NPC.position.Y, ModContent.NPCType<ChaoticMite>()); 
+                NPC.NewNPC(NPC.GetSource_Death(), (int)NPC.position.X, (int)NPC.position.Y, ModContent.NPCType<ChaoticMite>());
             }
             for (int i = 0; i < 40; i++)
             {

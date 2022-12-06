@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using OdeMod.Players;
 using System.Collections.Generic;
+
 using Terraria;
 using Terraria.Graphics.Effects;
 using Terraria.ModLoader;
@@ -11,8 +12,7 @@ namespace OdeMod.Systems
         public override void PreUpdateEntities()
         {
             base.PreUpdateEntities();
-            Player player = Main.LocalPlayer;
-            if (!Filters.Scene["TemplateMod2:GBlur"].IsActive() && player.GetModPlayer<OdePlayer>().MiracleRecorderShader == 100) 
+            if (!Filters.Scene["TemplateMod2:GBlur"].IsActive()&&false)
             {
                 // 开启滤镜
                 Filters.Scene.Activate("TemplateMod2:GBlur");

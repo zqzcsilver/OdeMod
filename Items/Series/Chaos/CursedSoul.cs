@@ -1,4 +1,5 @@
 ﻿using OdeMod.Utils;
+
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -6,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace OdeMod.Items.Series.Chaos
 {
-    internal class CursedSoul : ModItem,IChaos
+    internal class CursedSoul : ModItem, IChaos
     {
         public override void SetStaticDefaults()
         {

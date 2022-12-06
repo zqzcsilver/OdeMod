@@ -1,14 +1,9 @@
-﻿using Humanizer;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework;
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ReLogic.Content;
+
 using Terraria;
 
 namespace OdeMod.UI.OdeUISystem.UIElements
@@ -33,7 +28,7 @@ namespace OdeMod.UI.OdeUISystem.UIElements
         }
         public VerticalScrollbar(float wheelValue = 0f)
         {
-            Info.Width=new PositionStyle(20f, 0f);
+            Info.Width = new PositionStyle(20f, 0f);
             Info.Left = new PositionStyle(-20f, 1f);
             Info.Height = new PositionStyle(-20f, 1f);
             Info.Top = new PositionStyle(10f, 0f);
@@ -115,16 +110,16 @@ namespace OdeMod.UI.OdeUISystem.UIElements
         }
         protected override void DrawSelf(SpriteBatch sb)
         {
-            sb.Draw(uiScrollbarTexture, new Rectangle(Info.HitBox.X + (Info.HitBox.Width - uiScrollbarTexture.Width) / 2, 
-                Info.HitBox.Y - 12, uiScrollbarTexture.Width, 12), 
+            sb.Draw(uiScrollbarTexture, new Rectangle(Info.HitBox.X + (Info.HitBox.Width - uiScrollbarTexture.Width) / 2,
+                Info.HitBox.Y - 12, uiScrollbarTexture.Width, 12),
                 new Rectangle(0, 0, uiScrollbarTexture.Width, 12), Color.White * alpha);
 
-            sb.Draw(uiScrollbarTexture, new Rectangle(Info.HitBox.X + (Info.HitBox.Width - uiScrollbarTexture.Width) / 2, 
-                Info.HitBox.Y, uiScrollbarTexture.Width, Info.HitBox.Height), 
+            sb.Draw(uiScrollbarTexture, new Rectangle(Info.HitBox.X + (Info.HitBox.Width - uiScrollbarTexture.Width) / 2,
+                Info.HitBox.Y, uiScrollbarTexture.Width, Info.HitBox.Height),
                 new Rectangle(0, 12, uiScrollbarTexture.Width, uiScrollbarTexture.Height - 24), Color.White * alpha);
 
-            sb.Draw(uiScrollbarTexture, new Rectangle(Info.HitBox.X + (Info.HitBox.Width - uiScrollbarTexture.Width) / 2, 
-                Info.HitBox.Y + Info.HitBox.Height, uiScrollbarTexture.Width, 12), 
+            sb.Draw(uiScrollbarTexture, new Rectangle(Info.HitBox.X + (Info.HitBox.Width - uiScrollbarTexture.Width) / 2,
+                Info.HitBox.Y + Info.HitBox.Height, uiScrollbarTexture.Width, 12),
                 new Rectangle(0, uiScrollbarTexture.Height - 12, uiScrollbarTexture.Width, 12), Color.White * alpha);
         }
     }

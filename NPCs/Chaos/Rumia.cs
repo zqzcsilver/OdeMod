@@ -1,12 +1,10 @@
-﻿using OdeMod.Utils;
-using Terraria;
-using Terraria.DataStructures;
+﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace OdeMod.NPCs.Chaos
 {
-    internal class Rumia : ModNPC,IChaos
+    internal class Rumia : ModNPC, IChaos
     {
         public override void SetStaticDefaults()
         {

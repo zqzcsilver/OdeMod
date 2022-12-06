@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -37,7 +38,7 @@ namespace OdeMod.Projectiles.Series.Items.HollowKnight
             }
 
             int num = Dust.NewDust(Projectile.Center + new Vector2(-30f, -20f), 60, 40, DustID.GemDiamond, 0f, 0f, 0, Color.White, 1.5f);
-            Main.dust[num].velocity = -player.velocity*0.6f;
+            Main.dust[num].velocity = -player.velocity * 0.6f;
             Main.dust[num].noGravity = true;
 
 

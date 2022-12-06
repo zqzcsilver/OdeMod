@@ -1,13 +1,12 @@
-﻿using OdeMod.Utils;
-using Terraria;
-using Terraria.DataStructures;
+﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace OdeMod.NPCs.Chaos
 {
     //The Nameless Mist 彩蛋 无名之雾 当击杀此NPC达到999只 并且在同一区域有13个对应旗子 出现彩蛋无名之雾（之后让Wan和银烛画个好点的特效XD
-    internal class Mist : ModNPC, IChaos    {
+    internal class Mist : ModNPC, IChaos
+    {
 
         //我忘记了这个的设定了
         public override void SetStaticDefaults()

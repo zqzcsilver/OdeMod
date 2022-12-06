@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
+
 using OdeMod.Players;
-using OdeMod.Utils;
 
 using Terraria;
 using Terraria.DataStructures;

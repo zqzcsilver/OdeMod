@@ -1,5 +1,13 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework.Graphics;
+
+using OdeMod.CardMode.PublicComponents;
+
+using ReLogic.Graphics;
+
+using System;
+using System.Collections.Generic;
+
+using Terraria.GameContent;
 
 namespace OdeMod.CardMode.CardComponents.BaseComponents
 {
@@ -14,27 +22,57 @@ namespace OdeMod.CardMode.CardComponents.BaseComponents
             /// 在牌库
             /// </summary>
             CardPile,
+
             /// <summary>
             /// 在手牌
             /// </summary>
             CardHand,
+
             /// <summary>
             /// 在墓地
             /// </summary>
             CardGraveyard,
         }
-        public Vector2 Center;
-        public float Scale = 1f;
-        public Texture2D Texture;
-        public float Rotation = 0f;
+
+        public Texture2D CardBodyTexture,
+            CardCostTexture,
+            CardNameTexture,
+            CardTipTexture,
+            CardIllustrationTexture,
+            CardFrameworkTexture;
+
+        public Texture2D CardIllustration;
         public CardState State;
-        public Entity Owner;
-        public CardInfoComponent() { }
-        public override IComponent Clone()
+        public Entity CardOwner;
+        public string CardID;
+        public string CardTip;
+        public string CardName;
+        public DynamicSpriteFont Font;
+        public int CardCost;
+        private static int DefaultIDCount;
+        public BaseInfoComponent BaseInfoComponent => Entity.GetComponent<BaseInfoComponent>();
+
+        public CardInfoComponent()
+        {
+            State = CardState.CardPile;
+            CardCost = 0;
+            Font = FontAssets.MouseText.Value;
+            CardName = "Default Card";
+            CardTip = "This is a default card";
+
+            CardID = $"Default Card {DefaultIDCount}";
+            DefaultIDCount++;
+        }
+
+        public override List<Type> GetDependComponents()
+        {
+            return new List<Type> { typeof(CardComponent), typeof(BaseInfoComponent) };
+        }
+
+        public override IComponent Clone(Entity cloneEntity)
         {
             CardInfoComponent component = new CardInfoComponent();
-            component.Scale = Scale;
-            component.Texture = Texture;
+            component.CardBodyTexture = CardBodyTexture;
             component.State = State;
             return component;
         }

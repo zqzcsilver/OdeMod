@@ -1,11 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace OdeMod.UI.OdeUISystem.UIElements
 {
     internal class UIContainerPanel : BaseElement
@@ -72,7 +66,7 @@ namespace OdeMod.UI.OdeUISystem.UIElements
                 Calculation();
             return flag;
         }
-        public bool RemoveElement(BaseElement element) 
+        public bool RemoveElement(BaseElement element)
         {
             bool flag = _innerPanel.Remove(element);
             if (flag)

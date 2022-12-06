@@ -1,30 +1,29 @@
-﻿using Microsoft.Xna.Framework;
-using Terraria;
+﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace OdeMod.Items.Series.SoulCemetery
 {
-	internal class BoneOak : ModItem, ISoulCemetery
-	{
-		public override void SetStaticDefaults()
-		{
-			base.SetStaticDefaults();
-			DisplayName.SetDefault("骨橡木");
-			Tooltip.SetDefault("阴森");
-		}
-		public override void SetDefaults()
-		{
-			Item.width = 24;
-			Item.height = 20;
-			Item.maxStack = 999;
-			Item.useTurn = true;
-			Item.autoReuse = true;
-			Item.useAnimation = 10;
-			Item.useTime = 10;
-			Item.useStyle = ItemUseStyleID.Swing;
-			Item.consumable = true;
-			Item.createTile = ModContent.TileType<Tiles.RiftValley.SoulCemetery.Plant>();
-		}
-	}
+    internal class BoneOak : ModItem, ISoulCemetery
+    {
+        public override void SetStaticDefaults()
+        {
+            base.SetStaticDefaults();
+            DisplayName.SetDefault("骨橡木");
+            Tooltip.SetDefault("阴森");
+        }
+        public override void SetDefaults()
+        {
+            Item.width = 24;
+            Item.height = 20;
+            Item.maxStack = 999;
+            Item.useTurn = true;
+            Item.autoReuse = true;
+            Item.useAnimation = 10;
+            Item.useTime = 10;
+            Item.useStyle = ItemUseStyleID.Swing;
+            Item.consumable = true;
+            Item.createTile = ModContent.TileType<Tiles.RiftValley.SoulCemetery.Plant>();
+        }
+    }
 }

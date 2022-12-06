@@ -1,7 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+
 using OdeMod.Players;
+
 using System;
+
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -32,7 +35,7 @@ namespace OdeMod.Projectiles.Series.Items.HollowKnight
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];
-            if (Projectile.timeLeft>300)
+            if (Projectile.timeLeft > 300)
             {
                 player.GetModPlayer<OdePlayer>().OnHollowKnightItemUsing = true;
                 Projectile.tileCollide = false;
@@ -42,7 +45,7 @@ namespace OdeMod.Projectiles.Series.Items.HollowKnight
                 player.GetModPlayer<OdePlayer>().OnHollowKnightItemUsing = false;
                 Projectile.tileCollide = true;
             }
-            
+
             Projectile.direction = player.direction;
             if (Projectile.timeLeft == 360)
             {
@@ -80,7 +83,7 @@ namespace OdeMod.Projectiles.Series.Items.HollowKnight
                 try
                 {
                     float demo = 1 + Vector2.DistanceSquared(Main.player[Main.myPlayer].Center, Projectile.Center) / 500000;
-                    player.GetModPlayer<OdePlayer>().shakeInt = Math.Max(player.GetModPlayer<OdePlayer>().shakeInt, (int)(10 / demo));
+                    player.GetModPlayer<OdePlayer>().ShakeInt = Math.Max(player.GetModPlayer<OdePlayer>().ShakeInt, (int)(10 / demo));
                 }
                 catch
                 {

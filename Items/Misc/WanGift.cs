@@ -1,10 +1,7 @@
-﻿using Microsoft.Xna.Framework;
-using System;
-using Terraria;
-using Terraria.DataStructures;
+﻿using Terraria;
+using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.GameContent.Creative;
 
 namespace OdeMod.Items.Misc
 {
@@ -29,11 +26,11 @@ namespace OdeMod.Items.Misc
         {
             return true;
         }
-		public override void RightClick(Player player)
-		{
-			var entitySource = player.GetSource_OpenItem(Type);
-			player.QuickSpawnItem(entitySource, ModContent.ItemType<Wan>(), Main.rand.Next(5, 15));
-		}
-	}
+        public override void RightClick(Player player)
+        {
+            var entitySource = player.GetSource_OpenItem(Type);
+            player.QuickSpawnItem(entitySource, ModContent.ItemType<Wan>(), Main.rand.Next(5, 15));
+        }
+    }
 }
 

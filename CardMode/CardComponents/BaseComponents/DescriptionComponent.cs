@@ -1,12 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OdeMod.CardMode.CardComponents.BaseComponents
 {
-    internal class DescriptionComponent
+    internal class DescriptionComponent : Component
     {
+        public override IComponent Clone(Entity cloneEntity)
+        {
+            return new DescriptionComponent();
+        }
+
+        public override List<Type> GetDependComponents()
+        {
+            return new List<Type> { typeof(CardComponent) };
+        }
     }
 }

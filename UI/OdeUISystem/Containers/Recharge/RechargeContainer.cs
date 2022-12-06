@@ -36,7 +36,7 @@ namespace OdeMod.UI.OdeUISystem.Containers.Recharge
             panel.Info.SetMargin(11f);
             Register(panel);
 
-            UIImage closeButton= new UIImage(ModContent.Request<Texture2D>("OdeMod/UI/OdeUISystem/Containers/Recharge/Images/CloseButtonUp",
+            UIImage closeButton = new UIImage(ModContent.Request<Texture2D>("OdeMod/UI/OdeUISystem/Containers/Recharge/Images/CloseButtonUp",
                 AssetRequestMode.ImmediateLoad).Value, Color.White);
             closeButton.Info.Left.Pixel = 2f;
             closeButton.Info.Top.Pixel = 2f;
@@ -101,7 +101,7 @@ namespace OdeMod.UI.OdeUISystem.Containers.Recharge
             if (player.HeldItem != null && player.HeldItem.ModItem != null && player.HeldItem.ModItem is IRechargeableWeapon)
             {
                 var x = (IRechargeableWeapon)player.HeldItem.ModItem;
-                if(rechargeableWeapons.Contains(x))
+                if (rechargeableWeapons.Contains(x))
                 {
                     rechargeableWeapons.Remove(x);
                     rechargeableWeapons.Insert(0, x);

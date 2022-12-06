@@ -1,7 +1,7 @@
 ﻿using OdeMod.Players;
 using OdeMod.Utils;
+
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -15,6 +15,7 @@ namespace OdeMod.Items.Series.Chaos
             //DisplayName.AddTranslation(LanguageType.Chinese, "脑");
             //Tooltip.SetDefault("可食用");
         }
+
         public override void SetDefaults()
         {
             base.SetDefaults();
@@ -26,16 +27,16 @@ namespace OdeMod.Items.Series.Chaos
             Item.useAnimation = 15;
             Item.consumable = true;
         }
+
         public override bool? UseItem(Player player)
         {
             var pls = player.GetModPlayer<EggPlayer>();
-            if(pls.BrainNum < 99)
+            if (pls.BrainNum < 99)
             {
                 pls.BrainNum++;
             }
-            
+
             return base.UseItem(player);
         }
-        
     }
 }

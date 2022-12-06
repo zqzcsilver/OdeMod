@@ -1,12 +1,10 @@
-﻿using OdeMod.Utils;
-using Terraria;
-using Terraria.DataStructures;
+﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace OdeMod.NPCs.Chaos
 {
-    internal class SoftGlueDragon : ModNPC,IChaos
+    internal class SoftGlueDragon : ModNPC, IChaos
     {
         public override void SetStaticDefaults()
         {

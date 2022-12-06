@@ -1,11 +1,8 @@
-﻿using Microsoft.Xna.Framework;
-using System;
+﻿using OdeMod.Players;
+
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.GameContent.Creative;
-using OdeMod.Players;
 
 namespace OdeMod.Items.Misc
 {
@@ -42,7 +39,6 @@ namespace OdeMod.Items.Misc
         }
         //public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         //{
-
         //    return base.Shoot(player, source, position, velocity, type, damage, knockback);
         //}
     }
