@@ -30,6 +30,7 @@ namespace OdeMod.Players
         public bool HollowKnightMovement = false;
         public int Hallow = 0;
         public int Rolling = 0;
+        public int MiracleRecorderShader = 0;
 
         public override void SaveData(TagCompound tag)
         {

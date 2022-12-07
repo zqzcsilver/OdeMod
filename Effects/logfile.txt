@@ -362,3 +362,110 @@ Message at 2022/11/26 10:54:09: Compiling Content\Starry.xnb
 Message at 2022/11/26 10:54:09: Importing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
 Message at 2022/11/26 10:54:09: Processing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
 Message at 2022/11/26 10:54:09: Compiling Content\Trail.xnb
+Message at 2022/12/7 9:49:00: Importing Mapping.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/12/7 9:49:00: Processing Mapping.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/12/7 9:49:00: Compiling Content\Mapping.xnb
+Message at 2022/12/7 9:49:00: Importing SSD1.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/12/7 9:49:00: Processing SSD1.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/12/7 9:49:00: Compiling Content\SSD1.xnb
+Message at 2022/12/7 9:49:00: Importing Starry.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/12/7 9:49:00: Processing Starry.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/12/7 9:49:00: Compiling Content\Starry.xnb
+Message at 2022/12/7 9:49:00: Importing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/12/7 9:49:00: Processing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/12/7 9:49:00: Compiling Content\Trail.xnb
+Message at 2022/12/7 10:06:14: Importing Mapping.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/12/7 10:06:14: Processing Mapping.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/12/7 10:06:14: Compiling Content\Mapping.xnb
+Message at 2022/12/7 10:06:14: Importing SSD1.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/12/7 10:06:14: Processing SSD1.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Error at 2022/12/7 10:06:14: Errors compiling C:\Users\admin\Documents\My Games\Terraria\tModLoader\ModSources\OdeMod\Effects\SSD1.fx:
+C:\Users\admin\Documents\My Games\Terraria\tModLoader\ModSources\OdeMod\Effects\SSD1.fx(35,69): error X3000: syntax error: unexpected token 'f'
+Message at 2022/12/7 10:06:35: Importing Mapping.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/12/7 10:06:35: Processing Mapping.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/12/7 10:06:35: Compiling Content\Mapping.xnb
+Message at 2022/12/7 10:06:35: Importing SSD1.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/12/7 10:06:35: Processing SSD1.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Error at 2022/12/7 10:06:35: Errors compiling C:\Users\admin\Documents\My Games\Terraria\tModLoader\ModSources\OdeMod\Effects\SSD1.fx:
+C:\Users\admin\Documents\My Games\Terraria\tModLoader\ModSources\OdeMod\Effects\SSD1.fx(35,69): error X3000: syntax error: unexpected token 'f'
+Message at 2022/12/7 10:07:40: Importing Mapping.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/12/7 10:07:40: Processing Mapping.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/12/7 10:07:40: Compiling Content\Mapping.xnb
+Message at 2022/12/7 10:07:40: Importing SSD1.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/12/7 10:07:40: Processing SSD1.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Error at 2022/12/7 10:07:40: Errors compiling C:\Users\admin\Documents\My Games\Terraria\tModLoader\ModSources\OdeMod\Effects\SSD1.fx:
+C:\Users\admin\Documents\My Games\Terraria\tModLoader\ModSources\OdeMod\Effects\SSD1.fx(35,69): error X3000: syntax error: unexpected token 'f'
+Message at 2022/12/7 10:17:33: Importing Mapping.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/12/7 10:17:33: Processing Mapping.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/12/7 10:17:33: Compiling Content\Mapping.xnb
+Message at 2022/12/7 10:17:33: Importing SSD1.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/12/7 10:17:33: Processing SSD1.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Error at 2022/12/7 10:17:33: Errors compiling C:\Users\admin\Documents\My Games\Terraria\tModLoader\ModSources\OdeMod\Effects\SSD1.fx:
+C:\Users\admin\Documents\My Games\Terraria\tModLoader\ModSources\OdeMod\Effects\SSD1.fx(35,69): error X3000: syntax error: unexpected token 'f'
+Message at 2022/12/7 10:18:58: Importing Mapping.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/12/7 10:18:58: Processing Mapping.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/12/7 10:18:58: Compiling Content\Mapping.xnb
+Message at 2022/12/7 10:18:58: Importing SSD1.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/12/7 10:18:58: Processing SSD1.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Error at 2022/12/7 10:18:58: Errors compiling C:\Users\admin\Documents\My Games\Terraria\tModLoader\ModSources\OdeMod\Effects\SSD1.fx:
+C:\Users\admin\Documents\My Games\Terraria\tModLoader\ModSources\OdeMod\Effects\SSD1.fx(29,69): error X3000: syntax error: unexpected token 'f'
+Message at 2022/12/7 10:20:35: Importing Mapping.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/12/7 10:20:35: Processing Mapping.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/12/7 10:20:35: Compiling Content\Mapping.xnb
+Message at 2022/12/7 10:20:35: Importing SSD1.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/12/7 10:20:35: Processing SSD1.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/12/7 10:20:35: Compiling Content\SSD1.xnb
+Message at 2022/12/7 10:20:35: Importing Starry.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/12/7 10:20:35: Processing Starry.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/12/7 10:20:35: Compiling Content\Starry.xnb
+Message at 2022/12/7 10:20:35: Importing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/12/7 10:20:35: Processing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/12/7 10:20:35: Compiling Content\Trail.xnb
+Message at 2022/12/7 10:22:56: Importing Mapping.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/12/7 10:22:56: Processing Mapping.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/12/7 10:22:56: Compiling Content\Mapping.xnb
+Message at 2022/12/7 10:22:56: Importing SSD1.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/12/7 10:22:56: Processing SSD1.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/12/7 10:22:56: Compiling Content\SSD1.xnb
+Message at 2022/12/7 10:22:56: Importing Starry.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/12/7 10:22:56: Processing Starry.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/12/7 10:22:56: Compiling Content\Starry.xnb
+Message at 2022/12/7 10:22:56: Importing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/12/7 10:22:56: Processing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/12/7 10:22:56: Compiling Content\Trail.xnb
+Message at 2022/12/7 10:28:52: Importing Mapping.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/12/7 10:28:52: Processing Mapping.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/12/7 10:28:52: Compiling Content\Mapping.xnb
+Message at 2022/12/7 10:28:52: Importing SSD1.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/12/7 10:28:52: Processing SSD1.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/12/7 10:28:52: Compiling Content\SSD1.xnb
+Message at 2022/12/7 10:28:52: Importing Starry.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/12/7 10:28:52: Processing Starry.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/12/7 10:28:52: Compiling Content\Starry.xnb
+Message at 2022/12/7 10:28:52: Importing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/12/7 10:28:52: Processing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/12/7 10:28:52: Compiling Content\Trail.xnb
+Message at 2022/12/7 10:32:18: Importing Mapping.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/12/7 10:32:18: Processing Mapping.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/12/7 10:32:18: Compiling Content\Mapping.xnb
+Message at 2022/12/7 10:32:18: Importing SSD1.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/12/7 10:32:18: Processing SSD1.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/12/7 10:32:18: Compiling Content\SSD1.xnb
+Message at 2022/12/7 10:32:18: Importing Starry.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/12/7 10:32:18: Processing Starry.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/12/7 10:32:18: Compiling Content\Starry.xnb
+Message at 2022/12/7 10:32:18: Importing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/12/7 10:32:18: Processing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/12/7 10:32:18: Compiling Content\Trail.xnb
+Message at 2022/12/7 10:33:10: Importing Mapping.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/12/7 10:33:10: Processing Mapping.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/12/7 10:33:10: Compiling Content\Mapping.xnb
+Message at 2022/12/7 10:33:10: Importing SSD1.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/12/7 10:33:10: Processing SSD1.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/12/7 10:33:10: Compiling Content\SSD1.xnb
+Message at 2022/12/7 10:33:10: Importing Starry.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/12/7 10:33:10: Processing Starry.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/12/7 10:33:10: Compiling Content\Starry.xnb
+Message at 2022/12/7 10:33:10: Importing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/12/7 10:33:10: Processing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/12/7 10:33:10: Compiling Content\Trail.xnb

@@ -84,20 +84,6 @@ namespace OdeMod.NPCs.Boss
         float rando = Main.rand.Next(-10, 20) * 0.05f;//随机偏移量
         Vector2 dir = Vector2.Zero;
 
-        private int mainlyCtrl = 0;
-        private float[] rads = new float[3] { 0.5236f, 2.618f, 4.7116f };//冲刺用的角度数组
-        private int act = 0;//控制不同行为的draw
-        private bool IsDoing = false;
-        private float timer = 0;//计时器
-        private Vector2 plrCenter = Vector2.Zero;//定时记录玩家位置
-        private float distance = 0;//玩家距离
-        private int ok = -1;//冲刺用1
-        private float ok2 = 0;//冲刺用2
-        private Vector2 noticeVec = Vector2.Zero;
-        private int count = 0;//冲刺次数
-        private int count2 = 0;//召唤球球数量
-        private float rando = Main.rand.Next(-10, 20) * 0.05f;//随机偏移量
-        private Vector2 dir = Vector2.Zero;
 
         private float oldrotate = 0;
         private float newrotate = 0;
@@ -257,6 +243,7 @@ namespace OdeMod.NPCs.Boss
                     if (count <= 4)
                     {
                         int ok3;
+                        NPC.velocity = new Vector2((float)Math.Cos(NPC.rotation + 1.57f), (float)Math.Sin(NPC.rotation + 1.57f)) * (80 - timer) * 0.1f;
                         NPC.alpha += 8;
                         if (ok == 0 || ok == 1) ok3 = ok + 1;
                         else ok3 = 0;
@@ -440,10 +427,15 @@ namespace OdeMod.NPCs.Boss
                 {
                     line = 0;
                     Vector2 tor = player.Center - NPC.Center;
+                    NPC.velocity += new Vector2((float)Math.Cos(NPC.rotation + 1.57f), (float)Math.Sin(NPC.rotation + 1.57f)) * -10f;
                     float demo = 1 + Vector2.DistanceSquared(Main.player[Main.myPlayer].Center, player.Center) / 420000;
-                    player.GetModPlayer<OdePlayer>().shakeInt = Math.Max(player.GetModPlayer<OdePlayer>().shakeInt, (int)(30 / demo));
+                    player.GetModPlayer<OdePlayer>().ShakeInt = Math.Max(player.GetModPlayer<OdePlayer>().ShakeInt, (int)(30 / demo));
                     Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2((float)Math.Cos(NPC.rotation + 1.57f), (float)Math.Sin(NPC.rotation + 1.57f)) * 45 + NPC.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.Series.Boss.Laser01>(), 0, 0, player.whoAmI, NPC.rotation);
                     distance = Vector2.Distance(NPC.Center, player.Center);
+                }
+                if(timer>38&&timer<58)
+                {
+                    NPC.velocity *= 0.5f;
                 }
                 if(timer==58)
                 {
@@ -459,7 +451,7 @@ namespace OdeMod.NPCs.Boss
                         timer = 0;
                     }
                 }
-                if(timer>=58&&timer<80)
+                if(timer>=58&&timer<82)
                 {
                     Vector2 witness = new Vector2(player.Center.X - NPC.Center.X, player.Center.Y - NPC.Center.Y);
                     witness.Normalize();
@@ -472,8 +464,9 @@ namespace OdeMod.NPCs.Boss
                     if (Math.Abs(lerp) < 0.01f) lerp = 0;
                     NPC.rotation += lerp * (timer / 80f);
                     NPC.velocity = new Vector2(-(float)Math.Sin(NPC.rotation + 1.57f), (float)Math.Cos(NPC.rotation + 1.57f)) * (18f - Math.Abs(timer - 77))*1.5f;
+                    NPC.velocity += new Vector2((float)Math.Cos(NPC.rotation + 1.57f), (float)Math.Sin(NPC.rotation + 1.57f));
                 }
-                if (timer >= 80)
+                if (timer >= 82)
                 {
                     count2++;
                     timer = 0;

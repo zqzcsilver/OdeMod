@@ -12,12 +12,12 @@ namespace OdeMod.Systems
         public override void PreUpdateEntities()
         {
             base.PreUpdateEntities();
-            if (!Filters.Scene["TemplateMod2:GBlur"].IsActive()&&false)
+            if (!Filters.Scene["TemplateMod2:GBlur"].IsActive() && Main.LocalPlayer.GetModPlayer<OdePlayer>().MiracleRecorderShader == 1)
             {
                 // 开启滤镜
                 Filters.Scene.Activate("TemplateMod2:GBlur");
             }
-            if(Filters.Scene["TemplateMod2:GBlur"].IsActive() && player.GetModPlayer<OdePlayer>().MiracleRecorderShader == 101)
+            if(Filters.Scene["TemplateMod2:GBlur"].IsActive() && Main.LocalPlayer.GetModPlayer<OdePlayer>().MiracleRecorderShader == 0)
             {
                 Filters.Scene.Deactivate("TemplateMod2:GBlur");
             }
