@@ -68,22 +68,22 @@ namespace OdeMod.NPCs.Boss
                 }
             }
         }
-        int mainlyCtrl = 0;
-        float[] rads = new float[3] { 0.5236f, 2.618f, 4.7116f };//冲刺用的角度数组
-        int act = 0;//控制不同行为的draw
-        int line = 0;//是否绘制瞄准线
-        bool IsDoing = false;
-        float timer = 0;//计时器
-        Vector2 plrCenter = Vector2.Zero;//定时记录玩家位置
-        float distance = 0;//玩家距离
-        int ok = -1;//冲刺用1
-        float ok2 = 0;//冲刺用2
-        Vector2 noticeVec = Vector2.Zero;
-        int count = 0;//冲刺次数
-        int count2 = 0;//召唤球球数量
-        float rando = Main.rand.Next(-10, 20) * 0.05f;//随机偏移量
-        Vector2 dir = Vector2.Zero;
 
+        private int mainlyCtrl = 0;
+        private float[] rads = new float[3] { 0.5236f, 2.618f, 4.7116f };//冲刺用的角度数组
+        private int act = 0;//控制不同行为的draw
+        private int line = 0;//是否绘制瞄准线
+        private bool IsDoing = false;
+        private float timer = 0;//计时器
+        private Vector2 plrCenter = Vector2.Zero;//定时记录玩家位置
+        private float distance = 0;//玩家距离
+        private int ok = -1;//冲刺用1
+        private float ok2 = 0;//冲刺用2
+        private Vector2 noticeVec = Vector2.Zero;
+        private int count = 0;//冲刺次数
+        private int count2 = 0;//召唤球球数量
+        private float rando = Main.rand.Next(-10, 20) * 0.05f;//随机偏移量
+        private Vector2 dir = Vector2.Zero;
 
         private float oldrotate = 0;
         private float newrotate = 0;
@@ -417,8 +417,6 @@ namespace OdeMod.NPCs.Boss
                     NPC.velocity += new Vector2((float)Math.Cos(NPC.rotation + 1.57f), (float)Math.Sin(NPC.rotation + 1.57f)) * 0.2f;
                     if (Math.Abs(lerp) < 0.01f) lerp = 0;
                     NPC.rotation += lerp * (timer / 60f);
-
-                    
                 }
                 if (timer >= 25 && timer < 38)
                 {
@@ -439,7 +437,7 @@ namespace OdeMod.NPCs.Boss
                 }
                 if(timer==58)
                 {
-                    if(count2==3)
+                    if (count2 == 3)
                     {
                         count2 = 0;
                         NPC.alpha = 0;
@@ -477,7 +475,7 @@ namespace OdeMod.NPCs.Boss
                 if (timer == 1)
                 {
                     IsDoing = true;
-                    NPC.velocity = new Vector2((float)Math.Cos(NPC.rotation + 1.57f), (float)Math.Sin(NPC.rotation + 1.57f))*32f;
+                    NPC.velocity = new Vector2((float)Math.Cos(NPC.rotation + 1.57f), (float)Math.Sin(NPC.rotation + 1.57f)) * 32f;
                 }
                 if (timer > 1 && timer < 40)
                 {
@@ -485,6 +483,7 @@ namespace OdeMod.NPCs.Boss
                 }
             }
         }
+
         public override void OnKill()
         {
             Main.LocalPlayer.GetModPlayer<OdePlayer>().MiracleRecorderShader = 0;
@@ -724,11 +723,11 @@ namespace OdeMod.NPCs.Boss
             {
                 Player player = Main.player[NPC.target];
                 Vector2 tor = player.Center - NPC.Center;
-                Color color1 = new Color(255, 255, 255, 1); 
+                Color color1 = new Color(255, 255, 255, 1);
                 Color color2 = new Color(0, 0, 0, 1);
                 Color color4;
-                if (timer<30f)
-                    color4 = Color.Lerp(color2, color1, timer/30f);
+                if (timer < 30f)
+                    color4 = Color.Lerp(color2, color1, timer / 30f);
                 else
                     color4 = Color.Lerp(color2, color1, 1);
 
