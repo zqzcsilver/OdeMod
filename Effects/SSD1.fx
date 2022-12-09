@@ -2,6 +2,7 @@
 sampler uImage1 : register(s1);
 sampler uImage2 : register(s2);
 sampler uImage3 : register(s3);
+sampler uImage4 : register(s4);
 float3 uColor;
 float3 uSecondaryColor;
 float2 uScreenResolution;
@@ -30,12 +31,8 @@ sampler2D SpriteTextureSampler = sampler_state
 float4 PixelShaderFunction(float2 coords : TEXCOORD0) : COLOR0
 {
     float4 color = tex2D(uImage0, coords);
-    if (!any(color))
-        return color;
-    float4 pink = float4(0.93, 0.4, 1, 1);
-    return color * pink * 0.8 + 0.2 * pink;
-    
-    return color;
+    float4 color2 = tex2D(uImage4, coords);
+    return color + color2;
     
 }
 
