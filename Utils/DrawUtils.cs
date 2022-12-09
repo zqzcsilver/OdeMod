@@ -48,7 +48,7 @@ namespace OdeMod.Utils
             sb.GraphicsDevice.SetRenderTarget(Main.screenTargetSwap);
             sb.GraphicsDevice.Clear(Color.Black);
             sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp,
-                DepthStencilState.Default, RasterizerState.CullNone, null, Matrix.Invert(Main.GameViewMatrix.EffectMatrix));
+                DepthStencilState.Default, RasterizerState.CullNone);
             sb.Draw(Main.screenTarget, Vector2.Zero, Color.White);
             sb.End();
 
@@ -56,19 +56,19 @@ namespace OdeMod.Utils
             sb.GraphicsDevice.SetRenderTarget(render);
             sb.GraphicsDevice.Clear(Color.Transparent);
             sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp,
-                DepthStencilState.Default, RasterizerState.CullNone, null, Matrix.Invert(Main.GameViewMatrix.EffectMatrix));
+                DepthStencilState.Default, RasterizerState.CullNone);
             drawLayer(sb);
             sb.End();
 
             sb.GraphicsDevice.SetRenderTarget(Main.screenTarget);
             sb.GraphicsDevice.Clear(Color.Black);
             sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp,
-                DepthStencilState.Default, RasterizerState.CullNone, null, Matrix.Invert(Main.GameViewMatrix.EffectMatrix));
+                DepthStencilState.Default, RasterizerState.CullNone);
             sb.Draw(Main.screenTargetSwap, Vector2.Zero, Color.White);
             sb.End();
 
             sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp,
-                DepthStencilState.Default, RasterizerState.CullNone, null, Matrix.Invert(Main.GameViewMatrix.EffectMatrix));
+                DepthStencilState.Default, RasterizerState.CullNone, null, Main.Transform);
             return render;
         }
 
@@ -78,27 +78,24 @@ namespace OdeMod.Utils
             sb.End();
             sb.GraphicsDevice.SetRenderTarget(screenRenderSwap);
             sb.GraphicsDevice.Clear(Color.Transparent);
-            sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp,
-                DepthStencilState.Default, RasterizerState.CullNone, null, Matrix.Invert(Main.GameViewMatrix.EffectMatrix));
+            sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone);
             sb.Draw(screenRender, Vector2.Zero, Color.White);
             sb.End();
 
             sb.GraphicsDevice.SetRenderTarget(render);
             sb.GraphicsDevice.Clear(Color.Transparent);
-            sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp,
-                DepthStencilState.Default, RasterizerState.CullNone, null, Matrix.Invert(Main.GameViewMatrix.EffectMatrix));
+            sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone);
             drawLayer(sb);
             sb.End();
 
             sb.GraphicsDevice.SetRenderTarget(screenRender);
             sb.GraphicsDevice.Clear(Color.Transparent);
-            sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp,
-                DepthStencilState.Default, RasterizerState.CullNone, null, Matrix.Invert(Main.GameViewMatrix.EffectMatrix));
+            sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone);
             sb.Draw(screenRenderSwap, Vector2.Zero, Color.White);
             sb.End();
 
             sb.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.LinearClamp,
-                DepthStencilState.Default, RasterizerState.CullNone, null, Matrix.Invert(Main.GameViewMatrix.EffectMatrix));
+                DepthStencilState.Default, RasterizerState.CullNone, null, Main.Transform);
             return render;
         }
 
@@ -121,7 +118,8 @@ namespace OdeMod.Utils
             sb.Begin(SpriteSortMode.Immediate, null, null, null, null, effect);
             sb.Draw(Main.screenTargetSwap, Vector2.Zero, Color.White);
             sb.End();
-            sb.Begin();
+            sb.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.LinearClamp,
+                DepthStencilState.Default, RasterizerState.CullNone, null, Main.Transform);
         }
 
         public static void SetDrawToScreen(SpriteBatch sb, Action<SpriteBatch, RenderTarget2D> draw)
@@ -140,7 +138,7 @@ namespace OdeMod.Utils
             sb.End();
 
             sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp,
-                DepthStencilState.Default, RasterizerState.CullNone, null, Matrix.Invert(Main.GameViewMatrix.EffectMatrix));
+                DepthStencilState.Default, RasterizerState.CullNone, null, Main.Transform);
         }
     }
 }
