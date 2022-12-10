@@ -531,7 +531,7 @@ namespace OdeMod.NPCs.Boss
             var render = OdeMod.RenderTarget2DPool.Pool(Main.ScreenSize);
             gd.SetRenderTarget(render);
             gd.Clear(Color.Transparent);
-            sb.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+            sb.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null, Main.Transform);
             foreach (Dust d in Main.dust)
             {
                 if (d.type == ModContent.DustType<Dusts.Dream>() && d.active)
@@ -543,12 +543,12 @@ namespace OdeMod.NPCs.Boss
             sb.End();
 
             //在render中绘制图案
-
             gd.SetRenderTarget(Main.screenTarget);
             gd.Clear(Color.Transparent);
-            sb.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+            sb.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone);
             sb.Draw(Main.screenTargetSwap, Vector2.Zero, Color.White);
             sb.End();
+
             //在screenTarget上绘制保存过的原图
             sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
             var shader = ModContent.Request<Effect>("OdeMod/Effects/PixelShaders/Starry", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
@@ -559,7 +559,7 @@ namespace OdeMod.NPCs.Boss
             shader.CurrentTechnique.Passes[0].Apply();
             sb.Draw(render, Vector2.Zero, Color.White);
             sb.End();
-            sb.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
+            Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.Default, RasterizerState.CullNone, null, Main.Transform);
 
             if (act == 1)
             {
@@ -650,7 +650,7 @@ namespace OdeMod.NPCs.Boss
                     //连三角形，其中那个0是偏移量
                     Main.graphics.GraphicsDevice.RasterizerState = originalState;
                     Main.spriteBatch.End();
-                    Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+                    Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.Default, RasterizerState.CullNone, null, Main.Transform);
                 }
             }
             if (act == 2)
@@ -725,7 +725,7 @@ namespace OdeMod.NPCs.Boss
                     //连三角形，其中那个0是偏移量
                     Main.graphics.GraphicsDevice.RasterizerState = originalState;
                     Main.spriteBatch.End();
-                    Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+                    Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.Default, RasterizerState.CullNone, null, Main.Transform);
                 }
             }
             if (act == 3)
@@ -749,15 +749,15 @@ namespace OdeMod.NPCs.Boss
                 else
                     color4 = Color.Lerp(color2, color1, 1);
                 Main.spriteBatch.End();
-                Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+                Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.Default, RasterizerState.CullNone, null, Main.Transform);
                 DrawLine(Main.spriteBatch, NPC.Center, new Vector2((float)Math.Cos(NPC.rotation + 1.57f), (float)Math.Sin(NPC.rotation + 1.57f)) * 5000 + NPC.Center, color4, color4, 1.5f);
             }
             Main.spriteBatch.End();
-            Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-            Main.spriteBatch.Draw(texture, drawPos, new Rectangle(0, NPC.frame.Y, 134, 209), drawColor * ((255f - (float)NPC.alpha) / 255f), NPC.rotation, drawOrigin, 1f, SpriteEffects.None, 0f);
+            Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.Default, RasterizerState.CullNone, null, Main.Transform);
             //绘制本体
+            Main.spriteBatch.Draw(texture, drawPos, new Rectangle(0, NPC.frame.Y, 134, 209), drawColor * ((255f - (float)NPC.alpha) / 255f), NPC.rotation, drawOrigin, 1f, SpriteEffects.None, 0f);
 
-            Utils.DrawUtils.SetDrawRenderTarget(Main.spriteBatch, (sb) =>
+            DrawUtils.SetDrawRenderTarget(Main.spriteBatch, (sb) =>
             {
                 sb.Draw(ModContent.Request<Texture2D>("OdeMod/Images/Effects/Decrate", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value,
                     new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), Color.White);
