@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using OdeMod.Players;
+using OdeMod.Utils;
 
 using System;
 using System.Collections.Generic;
@@ -147,7 +148,7 @@ namespace OdeMod.Projectiles.Series.Boss
                 var model = Matrix.CreateTranslation(new Vector3(-Main.screenPosition.X, -Main.screenPosition.Y, 0)) * Main.Transform;
 
                 //启用即时加载加载Shader
-                var shader = ModContent.Request<Effect>("OdeMod/Effects/Content/Trail", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+                var shader = ModContent.Request<Effect>("OdeMod/Effects/VertexShaders/Trail", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                 var MainColor = ModContent.Request<Texture2D>("OdeMod/Images/Effects/heatmap", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                 var MaskColor = ModContent.Request<Texture2D>("OdeMod/Images/Effects/Extra_189", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                 var MainShape = ModContent.Request<Texture2D>("OdeMod/Images/Effects/Extra_197", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
@@ -190,35 +191,6 @@ namespace OdeMod.Projectiles.Series.Boss
         public override Color? GetAlpha(Color lightColor)
         {
             return new Color(255 - Projectile.alpha, 255 - Projectile.alpha, 255 - Projectile.alpha, 255 - Projectile.alpha);
-        }
-
-        private struct CustomVertexInfo : IVertexType
-        {
-            private static VertexDeclaration _vertexDeclaration = new VertexDeclaration(new VertexElement[3]
-            {
-                new VertexElement(0, VertexElementFormat.Vector2, VertexElementUsage.Position, 0),
-                new VertexElement(8, VertexElementFormat.Color, VertexElementUsage.Color, 0),
-                new VertexElement(12, VertexElementFormat.Vector3, VertexElementUsage.TextureCoordinate, 0)
-            });
-
-            public Vector2 Position;
-            public Color Color;
-            public Vector3 TexCoord;
-
-            public CustomVertexInfo(Vector2 position, Color color, Vector3 texCoord)
-            {
-                this.Position = position;
-                this.Color = color;
-                this.TexCoord = texCoord;
-            }
-
-            public VertexDeclaration VertexDeclaration
-            {
-                get
-                {
-                    return _vertexDeclaration;
-                }
-            }
         }
     }
 }

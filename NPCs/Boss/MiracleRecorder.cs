@@ -2,7 +2,8 @@
 using Microsoft.Xna.Framework.Graphics;
 
 using OdeMod.Players;
-using Steamworks;
+using OdeMod.Utils;
+
 using System;
 using System.Collections.Generic;
 
@@ -511,8 +512,6 @@ namespace OdeMod.NPCs.Boss
             Main.LocalPlayer.GetModPlayer<OdePlayer>().MiracleRecorderShader = 0;
         }
 
-        private RenderTarget2D render;
-
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
             Texture2D texture = TextureAssets.Npc[NPC.type].Value;
@@ -529,10 +528,7 @@ namespace OdeMod.NPCs.Boss
             sb.Draw(Main.screenTarget, Vector2.Zero, Color.White);
             sb.End();
             //在screenTargetSwap中保存原图
-            if (render == null)
-            {
-                render = new RenderTarget2D(Main.graphics.GraphicsDevice, Main.screenWidth, Main.screenHeight);
-            }
+            var render = OdeMod.RenderTarget2DPool.Pool(Main.ScreenSize);
             gd.SetRenderTarget(render);
             gd.Clear(Color.Transparent);
             sb.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
@@ -555,7 +551,7 @@ namespace OdeMod.NPCs.Boss
             sb.End();
             //在screenTarget上绘制保存过的原图
             sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
-            var shader = ModContent.Request<Effect>("OdeMod/Effects/Content/Starry", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+            var shader = ModContent.Request<Effect>("OdeMod/Effects/PixelShaders/Starry", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             gd.Textures[0] = render;
             gd.Textures[1] = ModContent.Request<Texture2D>("OdeMod/Images/Effects/Night", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             Main.graphics.GraphicsDevice.SamplerStates[0] = SamplerState.PointWrap;
@@ -634,7 +630,7 @@ namespace OdeMod.NPCs.Boss
                     var model = Matrix.CreateTranslation(new Vector3(-Main.screenPosition.X, -Main.screenPosition.Y, 0)) * Main.Transform;
 
                     //启用即时加载加载Shader
-                    var shader2 = ModContent.Request<Effect>("OdeMod/Effects/Content/Trail", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+                    var shader2 = ModContent.Request<Effect>("OdeMod/Effects/VertexShaders/Trail", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                     var MainColor = ModContent.Request<Texture2D>("OdeMod/Images/Effects/heatmap", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                     var MaskColor = ModContent.Request<Texture2D>("OdeMod/Images/Effects/Extra_189", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                     var MainShape = ModContent.Request<Texture2D>("OdeMod/Images/Effects/Extra_199", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
@@ -709,7 +705,7 @@ namespace OdeMod.NPCs.Boss
                     var model = Matrix.CreateTranslation(new Vector3(-Main.screenPosition.X, -Main.screenPosition.Y, 0));
 
                     //启用即时加载加载Shader
-                    var shader3 = ModContent.Request<Effect>("OdeMod/Effects/Content/Trail", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+                    var shader3 = ModContent.Request<Effect>("OdeMod/Effects/VertexShaders/Trail", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                     var MainColor = ModContent.Request<Texture2D>("OdeMod/Images/Effects/heatmap3", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                     var MaskColor = ModContent.Request<Texture2D>("OdeMod/Images/Effects/Flame0", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                     var MainShape = ModContent.Request<Texture2D>("OdeMod/Images/Effects/Extra_200", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
@@ -765,36 +761,13 @@ namespace OdeMod.NPCs.Boss
             Main.spriteBatch.End();
             Main.spriteBatch.Begin();
             //绘制本体
+
+            Utils.DrawUtils.SetDrawRenderTarget(Main.spriteBatch, (sb) =>
+            {
+                sb.Draw(ModContent.Request<Texture2D>("OdeMod/Images/Effects/Decrate", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value,
+                    new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), Color.White);
+            }, OdeMod.RenderTarget2DPool.PoolOther(Main.ScreenSize, "MiracleRecorder:Decrate"), Main.screenTarget, Main.screenTargetSwap);
             return false;
-        }
-
-        private struct CustomVertexInfo : IVertexType
-        {
-            private static VertexDeclaration _vertexDeclaration = new VertexDeclaration(new VertexElement[3]
-            {
-                new VertexElement(0, VertexElementFormat.Vector2, VertexElementUsage.Position, 0),
-                new VertexElement(8, VertexElementFormat.Color, VertexElementUsage.Color, 0),
-                new VertexElement(12, VertexElementFormat.Vector3, VertexElementUsage.TextureCoordinate, 0)
-            });
-
-            public Vector2 Position;
-            public Color Color;
-            public Vector3 TexCoord;
-
-            public CustomVertexInfo(Vector2 position, Color color, Vector3 texCoord)
-            {
-                this.Position = position;
-                this.Color = color;
-                this.TexCoord = texCoord;
-            }
-
-            public VertexDeclaration VertexDeclaration
-            {
-                get
-                {
-                    return _vertexDeclaration;
-                }
-            }
         }
     }
 }

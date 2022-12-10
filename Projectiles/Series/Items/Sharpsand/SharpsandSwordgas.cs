@@ -6,6 +6,7 @@ using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+
 namespace OdeMod.Projectiles.Series.Items.Sharpsand
 {
     internal class SharpsandSwordgas : ModProjectile, ISharpsandProjectile
@@ -27,21 +28,23 @@ namespace OdeMod.Projectiles.Series.Items.Sharpsand
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
             Projectile.extraUpdates = 1;
         }
+
         public override void AI()
         {
             int num = Dust.NewDust(Projectile.Center - new Vector2(4f, 4f), 8, 8, DustID.FlameBurst, 0f, 0f, 0, Color.White, 1.2f + (float)Math.Sin((300 - Projectile.timeLeft) * 0.06f) * 0.5f);
             Main.dust[num].velocity *= 0.5f;
             Main.dust[num].noGravity = true;
 
-
             Projectile.rotation = (float)
                System.Math.Atan2((double)Projectile.velocity.Y,
                (double)Projectile.velocity.X) + 0.785f;
         }
+
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             target.AddBuff(BuffID.OnFire, damage);
         }
+
         public override void Kill(int timeLeft)
         {
             Player player = Main.player[Projectile.owner];
@@ -53,15 +56,14 @@ namespace OdeMod.Projectiles.Series.Items.Sharpsand
                 Main.dust[num].noGravity = true;
             }
         }
-        Texture2D texture;
-        float sizex = 1.5f;
 
-        RenderTarget2D render;
+        private Texture2D texture;
+        private float sizex = 1.5f;
+
         public override bool PreDraw(ref Color lightColor)
         {
             /*GraphicsDevice gd = Main.instance.GraphicsDevice;
             SpriteBatch sb = Main.spriteBatch;
-
 
             gd.SetRenderTarget(Main.screenTargetSwap);
             sb.End();
@@ -125,10 +127,9 @@ namespace OdeMod.Projectiles.Series.Items.Sharpsand
             GraphicsDevice gd = Main.instance.GraphicsDevice;
             SpriteBatch sb = Main.spriteBatch;
 
-
             return true;
-
         }
+
         public override Color? GetAlpha(Color lightColor)
         {
             return new Color(255 - Projectile.alpha, 255 - Projectile.alpha, 255 - Projectile.alpha, 255 - Projectile.alpha);

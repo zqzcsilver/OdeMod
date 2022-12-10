@@ -31,6 +31,7 @@ namespace OdeMod.Players
         public int Rolling = 0;
         public int MiracleRecorderShader = 0;
 
+        public bool MagicBoneShield = false;//Ä§·¨¹Ç¶Ü
         public override void SaveData(TagCompound tag)
         {
             tag.Add("Carapace", Carapace);
@@ -182,6 +183,7 @@ namespace OdeMod.Players
 
         public override void ResetEffects()
         {
+            MagicBoneShield = false;
             if (Fall == 1)
             {
                 FallTimer = 3;
@@ -220,6 +222,41 @@ namespace OdeMod.Players
                 Player.runSlowdown = 0.6f;
                 Player.jumpSpeedBoost = 2f;
                 Player.noFallDmg = true;
+            }
+        }
+        public override void ModifyHitByProjectile(Projectile proj, ref int damage, ref bool crit)
+        {
+            base.ModifyHitByProjectile(proj, ref damage, ref crit);
+        }
+        public override void OnHitByProjectile(Projectile proj, int damage, bool crit)
+        {
+            if (MagicBoneShield)
+            {
+                proj.friendly = true;
+                proj.hostile = false;
+                proj.damage = damage / 2;
+                NPC target = null;
+                float dismax = 3200;
+                foreach (NPC npc in Main.npc)
+                {
+                    if (npc.active && !npc.friendly)
+                    {
+                        float dis = Vector2.Distance(npc.Center, proj.Center);
+                        if (dis < dismax)
+                        {
+                            dismax = dis;
+                            target = npc;
+                        }
+                    }
+                }
+                if (target != null)
+                {
+                    Vector2 targetVec = target.Center - proj.Center;
+                    targetVec.Normalize();
+                    targetVec *= 20f;
+                    proj.velocity = targetVec;
+                }
+                base.OnHitByProjectile(proj, damage, crit);
             }
         }
     }

@@ -4,7 +4,7 @@ using Terraria.Graphics.Effects;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace OdeMod
+namespace OdeMod.Events
 {
     internal class ChaosEvent : ModSystem
     {

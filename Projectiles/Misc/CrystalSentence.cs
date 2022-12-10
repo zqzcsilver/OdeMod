@@ -1,6 +1,8 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using OdeMod.Utils;
+
 using System;
 using System.Collections.Generic;
 
@@ -29,19 +31,21 @@ namespace OdeMod.Projectiles.Misc
             ProjectileID.Sets.TrailCacheLength[base.Projectile.type] = 15;
             ProjectileID.Sets.TrailingMode[base.Projectile.type] = 0;
         }
-        int reduceVel = 0;
-        int rotate = 0;
-        int ok = 0;
-        int ok2 = 0;
-        float norm = 0;
-        float lerpRad = 0.01f;
-        Vector2 plrOrig = Vector2.Zero;
-        Vector2 plrOrig2 = Vector2.Zero;
-        float vel = 0;
-        float direct = 0;
-        float vel2 = 5;
-        int ok3 = 0;
-        bool directionIsLeft = false;
+
+        private int reduceVel = 0;
+        private int rotate = 0;
+        private int ok = 0;
+        private int ok2 = 0;
+        private float norm = 0;
+        private float lerpRad = 0.01f;
+        private Vector2 plrOrig = Vector2.Zero;
+        private Vector2 plrOrig2 = Vector2.Zero;
+        private float vel = 0;
+        private float direct = 0;
+        private float vel2 = 5;
+        private int ok3 = 0;
+        private bool directionIsLeft = false;
+
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];
@@ -67,7 +71,6 @@ namespace OdeMod.Projectiles.Misc
             }
             else if (rotate <= 20)
             {
-
                 ParticleOrchestraSettings settings;
 
                 Vector2 value = Vector2.UnitX.RotatedBy(Main.rand.NextFloat() * ((float)Math.PI * 2f) + (float)Math.PI / 2f) * 13;
@@ -76,7 +79,6 @@ namespace OdeMod.Projectiles.Misc
                 {
                     PositionInWorld = posin,//位置
                     MovementVector = Projectile.velocity//速度
-
                 };
                 ParticleOrchestrator.RequestParticleSpawn(clientOnly: true, ParticleOrchestraType.PrincessWeapon, settings, 255);
 
@@ -131,6 +133,7 @@ namespace OdeMod.Projectiles.Misc
                 Projectile.alpha += 10;
             }
         }
+
         public override bool PreDraw(ref Color lightColor)
         {
             Player player = Main.player[Projectile.owner];
@@ -172,15 +175,19 @@ namespace OdeMod.Projectiles.Misc
             Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
             return true;
         }
+
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             Projectile.NewProjectileDirect(Projectile.GetSource_FromAI(), target.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.Misc.Light>(), Projectile.damage, 0);
         }
+
         public override Color? GetAlpha(Color lightColor)
         {
             return new Color(255 - Projectile.alpha, 255 - Projectile.alpha, 255 - Projectile.alpha, 255 - Projectile.alpha);
         }
-        int width = 24;
+
+        private int width = 24;
+
         public override void PostDraw(Color lightColor)
         {
             List<CustomVertexInfo> bars = new();
@@ -217,8 +224,6 @@ namespace OdeMod.Projectiles.Misc
             //count用于返回bars里面的元素数量（即顶点数量）
             if (bars.Count > 2)
             {
-
-
                 /*triangleList.Add(bars[0]);
                 var vertex = new CustomVertexInfo((bars[0].Position + bars[1].Position) * 0.5f + Vector2.Normalize(Projectile.velocity) * 30, Color.White,
                     new Vector3(0, 0.5f, 1));
@@ -245,7 +250,7 @@ namespace OdeMod.Projectiles.Misc
                 var model = Matrix.CreateTranslation(new Vector3(-Main.screenPosition.X, -Main.screenPosition.Y, 0)) * Main.Transform;
 
                 //启用即时加载加载Shader
-                var shader = ModContent.Request<Effect>("OdeMod/Effects/Content/Trail", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+                var shader = ModContent.Request<Effect>("OdeMod/Effects/VertexShaders/Trail", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                 var MainColor = ModContent.Request<Texture2D>("OdeMod/Images/Effects/heatmap", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                 var MaskColor = ModContent.Request<Texture2D>("OdeMod/Images/Effects/Extra_190", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                 var MainShape = ModContent.Request<Texture2D>("OdeMod/Images/Effects/Extra_197", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
@@ -276,40 +281,11 @@ namespace OdeMod.Projectiles.Misc
 
                 shader.CurrentTechnique.Passes[0].Apply();
 
-
                 Main.graphics.GraphicsDevice.DrawUserPrimitives(PrimitiveType.TriangleList, triangleList.ToArray(), 0, triangleList.Count / 3);
                 //连三角形，其中那个0是偏移量
                 Main.graphics.GraphicsDevice.RasterizerState = originalState;
                 Main.spriteBatch.End();
                 Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-            }
-        }
-
-        private struct CustomVertexInfo : IVertexType
-        {
-            private static VertexDeclaration _vertexDeclaration = new VertexDeclaration(new VertexElement[3]
-            {
-                new VertexElement(0, VertexElementFormat.Vector2, VertexElementUsage.Position, 0),
-                new VertexElement(8, VertexElementFormat.Color, VertexElementUsage.Color, 0),
-                new VertexElement(12, VertexElementFormat.Vector3, VertexElementUsage.TextureCoordinate, 0)
-            });
-            public Vector2 Position;
-            public Color Color;
-            public Vector3 TexCoord;
-
-            public CustomVertexInfo(Vector2 position, Color color, Vector3 texCoord)
-            {
-                this.Position = position;
-                this.Color = color;
-                this.TexCoord = texCoord;
-            }
-
-            public VertexDeclaration VertexDeclaration
-            {
-                get
-                {
-                    return _vertexDeclaration;
-                }
             }
         }
     }

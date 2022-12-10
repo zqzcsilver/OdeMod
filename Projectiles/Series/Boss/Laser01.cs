@@ -1,10 +1,15 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+
+using OdeMod.Utils;
+
 using System;
 using System.Collections.Generic;
+
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+
 namespace OdeMod.Projectiles.Series.Boss
 {
     internal class Laser01 : ModProjectile, IBossProjectile
@@ -22,22 +27,22 @@ namespace OdeMod.Projectiles.Series.Boss
             Projectile.timeLeft = 30;
             Projectile.penetrate = 1;
             Projectile.scale = 1f;
-
         }
-        float a = 0;
-        float factor = 0;
-        
+
+        private float a = 0;
+        private float factor = 0;
+
         public override void AI()
         {
             Projectile.velocity *= 0;
             //Projectile.Center=
             //Player player = Main.player[Projectile.owner];
-            if(Projectile.timeLeft>25)
+            if (Projectile.timeLeft > 25)
             {
                 factor += 0.2f;
                 a += 0.2f;
             }
-            if(Projectile.timeLeft<10)
+            if (Projectile.timeLeft < 10)
             {
                 factor -= 0.1f;
                 a -= 0.1f;
@@ -46,7 +51,6 @@ namespace OdeMod.Projectiles.Series.Boss
 
         public override void PostDraw(Color lightColor)
         {
-
             List<CustomVertexInfo> bars = new();
             //顶点离弹幕坐标的距离，也是顶点三角形宽度的一半
             // 把所有的点都生成出来，按照顺序
@@ -55,7 +59,7 @@ namespace OdeMod.Projectiles.Series.Boss
             //w是纹理坐标的插值，使纹理的位置能够正确对应
             //朝切线的两个方向分别找顶点
             float width = 0f;
-            /*for (int i = 0; i < 5; i++)    
+            /*for (int i = 0; i < 5; i++)
             {
                 width = (float)i / 4f;
                 width = (float)Math.Sqrt(width);
@@ -68,18 +72,17 @@ namespace OdeMod.Projectiles.Series.Boss
             }*/
             for (int i = 0; i < 25; i++)
             {
-                width = (float)i/24f;
+                width = (float)i / 24f;
                 width = -(float)Math.Pow(2.71828, -width) + 1.37f;
                 width *= 30f;
                 width *= factor;
-                bars.Add(new CustomVertexInfo(new Vector2((float)Math.Cos(Projectile.ai[0] + 1.57f), (float)Math.Sin(Projectile.ai[0] + 1.57f)) * i*2 + Projectile.Center + new Vector2((float)Math.Cos(Projectile.ai[0]), (float)Math.Sin(Projectile.ai[0])) * width, color, new Vector3(factor, 1, a*i/24f)));
-                bars.Add(new CustomVertexInfo(new Vector2((float)Math.Cos(Projectile.ai[0] + 1.57f), (float)Math.Sin(Projectile.ai[0] + 1.57f)) * i*2 + Projectile.Center - new Vector2((float)Math.Cos(Projectile.ai[0]), (float)Math.Sin(Projectile.ai[0])) * width, color, new Vector3(factor, 0, a*i/24f)));
+                bars.Add(new CustomVertexInfo(new Vector2((float)Math.Cos(Projectile.ai[0] + 1.57f), (float)Math.Sin(Projectile.ai[0] + 1.57f)) * i * 2 + Projectile.Center + new Vector2((float)Math.Cos(Projectile.ai[0]), (float)Math.Sin(Projectile.ai[0])) * width, color, new Vector3(factor, 1, a * i / 24f)));
+                bars.Add(new CustomVertexInfo(new Vector2((float)Math.Cos(Projectile.ai[0] + 1.57f), (float)Math.Sin(Projectile.ai[0] + 1.57f)) * i * 2 + Projectile.Center - new Vector2((float)Math.Cos(Projectile.ai[0]), (float)Math.Sin(Projectile.ai[0])) * width, color, new Vector3(factor, 0, a * i / 24f)));
             }
             width = 40.8f;
             width *= factor;
             bars.Add(new CustomVertexInfo(new Vector2((float)Math.Cos(Projectile.ai[0] + 1.57f), (float)Math.Sin(Projectile.ai[0] + 1.57f)) * 5000 + Projectile.Center + new Vector2((float)Math.Cos(Projectile.ai[0]), (float)Math.Sin(Projectile.ai[0])) * width, color, new Vector3(factor, 1, a)));
             bars.Add(new CustomVertexInfo(new Vector2((float)Math.Cos(Projectile.ai[0] + 1.57f), (float)Math.Sin(Projectile.ai[0] + 1.57f)) * 5000 + Projectile.Center - new Vector2((float)Math.Cos(Projectile.ai[0]), (float)Math.Sin(Projectile.ai[0])) * width, color, new Vector3(factor, 0, a)));
-
 
             List<CustomVertexInfo> triangleList = new List<CustomVertexInfo>();
             //count用于返回bars里面的元素数量（即顶点数量）
@@ -104,7 +107,7 @@ namespace OdeMod.Projectiles.Series.Boss
             var model = Matrix.CreateTranslation(new Vector3(-Main.screenPosition.X, -Main.screenPosition.Y, 0)) * Main.Transform;
 
             //启用即时加载加载Shader
-            var shader = ModContent.Request<Effect>("OdeMod/Effects/Content/Trail", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+            var shader = ModContent.Request<Effect>("OdeMod/Effects/VertexShaders/Trail", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             var MainColor = ModContent.Request<Texture2D>("OdeMod/Images/Effects/heatmap", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             var MaskColor = ModContent.Request<Texture2D>("OdeMod/Images/Effects/Flame0", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             var MainShape = ModContent.Request<Texture2D>("OdeMod/Images/Effects/Extra_197", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
@@ -119,26 +122,21 @@ namespace OdeMod.Projectiles.Series.Boss
             Main.graphics.GraphicsDevice.SamplerStates[1] = SamplerState.PointWrap;
             Main.graphics.GraphicsDevice.SamplerStates[2] = SamplerState.PointWrap;
 
-
             shader.CurrentTechnique.Passes[0].Apply();
-
 
             Main.graphics.GraphicsDevice.DrawUserPrimitives(PrimitiveType.TriangleList, triangleList.ToArray(), 0, triangleList.Count / 3);
             //连三角形，其中那个0是偏移量
             Main.graphics.GraphicsDevice.RasterizerState = originalState;
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-
-
-
         }
+
         /*public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
             Player player = Main.player[Projectile.owner];
 
             foreach (Projectile spawn in Main.projectile)
             {
-
                 if (spawn.type == ModContent.ProjectileType<Projectiles.Series.Boss.Spark>() && spawn.ai[0] - Projectile.ai[0] == -1 && spawn.ai[1] == Projectile.ai[1])
                 {
                     float point = 0f;
@@ -146,39 +144,11 @@ namespace OdeMod.Projectiles.Series.Boss
                         Projectile.Center - 96 * new Vector2((float)Math.Cos(Projectile.rotation + 1.57f), (float)Math.Sin(Projectile.rotation + 1.57f)), 40, ref point);
                 }
             }
-           
         }*/
+
         public override Color? GetAlpha(Color lightColor)
         {
             return new Color(255 - Projectile.alpha, 255 - Projectile.alpha, 255 - Projectile.alpha, 255 - Projectile.alpha);
-        }
-
-        private struct CustomVertexInfo : IVertexType
-        {
-            private static VertexDeclaration _vertexDeclaration = new VertexDeclaration(new VertexElement[3]
-            {
-                new VertexElement(0, VertexElementFormat.Vector2, VertexElementUsage.Position, 0),
-                new VertexElement(8, VertexElementFormat.Color, VertexElementUsage.Color, 0),
-                new VertexElement(12, VertexElementFormat.Vector3, VertexElementUsage.TextureCoordinate, 0)
-            });
-            public Vector2 Position;
-            public Color Color;
-            public Vector3 TexCoord;
-
-            public CustomVertexInfo(Vector2 position, Color color, Vector3 texCoord)
-            {
-                this.Position = position;
-                this.Color = color;
-                this.TexCoord = texCoord;
-            }
-
-            public VertexDeclaration VertexDeclaration
-            {
-                get
-                {
-                    return _vertexDeclaration;
-                }
-            }
         }
     }
 }
