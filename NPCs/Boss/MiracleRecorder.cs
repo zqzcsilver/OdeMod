@@ -533,7 +533,7 @@ namespace OdeMod.NPCs.Boss
             sb.End();
             //在screenTarget上绘制保存过的原图
             sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
-            var shader = ModContent.Request<Effect>("OdeMod/Effects/PixelShader/Starry", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+            var shader = ModContent.Request<Effect>("OdeMod/Effects/PixelShaders/Starry", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             gd.Textures[0] = render;
             gd.Textures[1] = ModContent.Request<Texture2D>("OdeMod/Images/Effects/Night", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             Main.graphics.GraphicsDevice.SamplerStates[0] = SamplerState.PointWrap;
