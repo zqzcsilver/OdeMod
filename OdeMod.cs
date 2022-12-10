@@ -1,4 +1,5 @@
 using IL.Terraria.GameContent;
+
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -24,6 +25,7 @@ namespace OdeMod
         /// OdeMod的实例
         /// </summary>
         internal static OdeMod Instance { get => ModContent.GetInstance<OdeMod>(); }
+
         /// <summary>
         /// Ode的UI管理系统实例
         /// </summary>
@@ -36,7 +38,9 @@ namespace OdeMod
                 return Instance.uiSystem;
             }
         }
+
         private OdeUISystem uiSystem;
+
         /// <summary>
         /// 字体信息管理系统的实例
         /// </summary>
@@ -49,7 +53,9 @@ namespace OdeMod
                 return Instance.infoManager;
             }
         }
+
         private Utils.FontInfos.DynamicSpriteFontInfoManager infoManager;
+
         public override void Load()
         {
             base.Load();
@@ -78,13 +84,13 @@ namespace OdeMod
 
                 On.Terraria.Main.Draw += Main_Draw;
             }
-            Filters.Scene["TemplateMod2:GBlur"] = new Filter(new BossSSD(new Ref<Effect>(ModContent.Request<Effect>("OdeMod/Effects/Content/SSD1", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value), "Rotate"), EffectPriority.Medium);
+            Filters.Scene["TemplateMod2:GBlur"] = new Filter(new BossSSD(new Ref<Effect>(ModContent.Request<Effect>("OdeMod/Effects/PixelShaders/SSD1", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value), "Rotate"), EffectPriority.Medium);
 
             Filters.Scene["TemplateMod2:GBlur"].Load();
         }
+
         private void Main_Draw(On.Terraria.Main.orig_Draw orig, Main self, GameTime gameTime)
         {
-           
             ///
             if (CardSystem.Instance.OpenCardMode)
             {

@@ -4,6 +4,8 @@ using Microsoft.Xna.Framework.Graphics;
 using OdeMod.CardMode.CardComponents.BaseComponents;
 using OdeMod.CardMode.PublicComponents;
 
+using System.IO;
+
 using Terraria;
 using Terraria.ModLoader;
 
@@ -53,7 +55,7 @@ namespace OdeMod.CardMode.CardComponents.DrawComponents
             }, render, DrawComponent.Render, DrawComponent.RenderSwap);
 
             sb.End();
-            var effect = ModContent.Request<Effect>("OdeMod/Effects/Content/Mapping", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+            var effect = ModContent.Request<Effect>("OdeMod/Effects/PixelShaders/Mapping", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             effect.Parameters["SpriteTexture"].SetValue(info.CardIllustrationTexture);
             effect.Parameters["MappingSpriteTexture"].SetValue(render);
             sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointWrap,

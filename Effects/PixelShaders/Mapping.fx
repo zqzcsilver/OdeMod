@@ -29,6 +29,6 @@ technique SpriteDrawing
 {
     pass Pass0
     {
-        PixelShader = compile ps_2_0 MainImage();
+        PixelShader = compile ps_3_0 MainImage();
     }
 };

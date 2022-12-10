@@ -431,11 +431,11 @@ namespace OdeMod.NPCs.Boss
                     Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2((float)Math.Cos(NPC.rotation + 1.57f), (float)Math.Sin(NPC.rotation + 1.57f)) * 45 + NPC.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.Series.Boss.Laser01>(), 0, 0, player.whoAmI, NPC.rotation);
                     distance = Vector2.Distance(NPC.Center, player.Center);
                 }
-                if(timer>38&&timer<58)
+                if (timer > 38 && timer < 58)
                 {
                     NPC.velocity *= 0.5f;
                 }
-                if(timer==58)
+                if (timer == 58)
                 {
                     if (count2 == 3)
                     {
@@ -449,7 +449,7 @@ namespace OdeMod.NPCs.Boss
                         timer = 0;
                     }
                 }
-                if(timer>=58&&timer<82)
+                if (timer >= 58 && timer < 82)
                 {
                     Vector2 witness = new Vector2(player.Center.X - NPC.Center.X, player.Center.Y - NPC.Center.Y);
                     witness.Normalize();
@@ -461,7 +461,7 @@ namespace OdeMod.NPCs.Boss
                         lerp += 6.28318f;
                     if (Math.Abs(lerp) < 0.01f) lerp = 0;
                     NPC.rotation += lerp * (timer / 80f);
-                    NPC.velocity = new Vector2(-(float)Math.Sin(NPC.rotation + 1.57f), (float)Math.Cos(NPC.rotation + 1.57f)) * (18f - Math.Abs(timer - 77))*1.5f;
+                    NPC.velocity = new Vector2(-(float)Math.Sin(NPC.rotation + 1.57f), (float)Math.Cos(NPC.rotation + 1.57f)) * (18f - Math.Abs(timer - 77)) * 1.5f;
                     NPC.velocity += new Vector2((float)Math.Cos(NPC.rotation + 1.57f), (float)Math.Sin(NPC.rotation + 1.57f));
                 }
                 if (timer >= 82)
@@ -533,7 +533,7 @@ namespace OdeMod.NPCs.Boss
             sb.End();
             //在screenTarget上绘制保存过的原图
             sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
-            var shader = ModContent.Request<Effect>("OdeMod/Effects/Content/Starry", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+            var shader = ModContent.Request<Effect>("OdeMod/Effects/PixelShader/Starry", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             gd.Textures[0] = render;
             gd.Textures[1] = ModContent.Request<Texture2D>("OdeMod/Images/Effects/Night", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             Main.graphics.GraphicsDevice.SamplerStates[0] = SamplerState.PointWrap;
@@ -612,7 +612,7 @@ namespace OdeMod.NPCs.Boss
                     var model = Matrix.CreateTranslation(new Vector3(-Main.screenPosition.X, -Main.screenPosition.Y, 0));
 
                     //启用即时加载加载Shader
-                    var shader2 = ModContent.Request<Effect>("OdeMod/Effects/Content/Trail", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+                    var shader2 = ModContent.Request<Effect>("OdeMod/Effects/VertexShaders/Trail", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                     var MainColor = ModContent.Request<Texture2D>("OdeMod/Images/Effects/heatmap", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                     var MaskColor = ModContent.Request<Texture2D>("OdeMod/Images/Effects/Extra_189", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                     var MainShape = ModContent.Request<Texture2D>("OdeMod/Images/Effects/Extra_199", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
@@ -687,7 +687,7 @@ namespace OdeMod.NPCs.Boss
                     var model = Matrix.CreateTranslation(new Vector3(-Main.screenPosition.X, -Main.screenPosition.Y, 0));
 
                     //启用即时加载加载Shader
-                    var shader3 = ModContent.Request<Effect>("OdeMod/Effects/Content/Trail", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+                    var shader3 = ModContent.Request<Effect>("OdeMod/Effects/VertexShaders/Trail", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                     var MainColor = ModContent.Request<Texture2D>("OdeMod/Images/Effects/heatmap3", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                     var MaskColor = ModContent.Request<Texture2D>("OdeMod/Images/Effects/Flame0", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                     var MainShape = ModContent.Request<Texture2D>("OdeMod/Images/Effects/Extra_200", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;

@@ -1,9 +1,12 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+
 using System;
 using System.Collections.Generic;
+
 using Terraria;
 using Terraria.ModLoader;
+
 namespace OdeMod.Projectiles.Series.Boss
 {
     internal class Circle0 : ModProjectile, IBossProjectile
@@ -21,10 +24,11 @@ namespace OdeMod.Projectiles.Series.Boss
             Projectile.timeLeft = 30;
             Projectile.penetrate = 1;
             Projectile.scale = 1f;
-
         }
-        float a = 0;
-        float width = 0;
+
+        private float a = 0;
+        private float width = 0;
+
         public override void AI()
         {
             Projectile.velocity *= 0;
@@ -32,7 +36,6 @@ namespace OdeMod.Projectiles.Series.Boss
 
         public override void PostDraw(Color lightColor)
         {
-
             List<CustomVertexInfo> bars = new();
             var factor = 1;
             var color = Color.Lerp(Color.White, Color.Red, factor);
@@ -48,7 +51,6 @@ namespace OdeMod.Projectiles.Series.Boss
             //count用于返回bars里面的元素数量（即顶点数量）
             if (bars.Count > 2)
             {
-
                 for (int i = 0; i < bars.Count - 2; i += 2)
                 {
                     triangleList.Add(bars[i]);
@@ -68,7 +70,6 @@ namespace OdeMod.Projectiles.Series.Boss
                 triangleList.Add(bars[0]);
                 triangleList.Add(bars[1]);
 
-
                 //count用于返回bars里面的元素数量（即顶点数量）
 
                 Main.spriteBatch.End();
@@ -79,7 +80,7 @@ namespace OdeMod.Projectiles.Series.Boss
                 var model = Matrix.CreateTranslation(new Vector3(-Main.screenPosition.X, -Main.screenPosition.Y, 0)) * Main.Transform;
 
                 //启用即时加载加载Shader
-                var shader = ModContent.Request<Effect>("OdeMod/Effects/Content/Trail", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+                var shader = ModContent.Request<Effect>("OdeMod/Effects/VertexShaders/Trail", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                 var MainColor = ModContent.Request<Texture2D>("OdeMod/Images/Effects/heatmap", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                 var MaskColor = ModContent.Request<Texture2D>("OdeMod/Images/Effects/Flame0", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                 var MainShape = ModContent.Request<Texture2D>("OdeMod/Images/Effects/Extra_200", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
@@ -94,20 +95,16 @@ namespace OdeMod.Projectiles.Series.Boss
                 Main.graphics.GraphicsDevice.SamplerStates[1] = SamplerState.PointWrap;
                 Main.graphics.GraphicsDevice.SamplerStates[2] = SamplerState.PointWrap;
 
-
                 shader.CurrentTechnique.Passes[0].Apply();
-
 
                 Main.graphics.GraphicsDevice.DrawUserPrimitives(PrimitiveType.TriangleList, triangleList.ToArray(), 0, triangleList.Count / 3);
                 //连三角形，其中那个0是偏移量
                 Main.graphics.GraphicsDevice.RasterizerState = originalState;
                 Main.spriteBatch.End();
                 Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-
-
-
             }
         }
+
         public override Color? GetAlpha(Color lightColor)
         {
             return new Color(255 - Projectile.alpha, 255 - Projectile.alpha, 255 - Projectile.alpha, 255 - Projectile.alpha);
@@ -121,6 +118,7 @@ namespace OdeMod.Projectiles.Series.Boss
                 new VertexElement(8, VertexElementFormat.Color, VertexElementUsage.Color, 0),
                 new VertexElement(12, VertexElementFormat.Vector3, VertexElementUsage.TextureCoordinate, 0)
             });
+
             public Vector2 Position;
             public Color Color;
             public Vector3 TexCoord;
