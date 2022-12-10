@@ -4,8 +4,6 @@ using Microsoft.Xna.Framework.Graphics;
 using OdeMod.CardMode.CardComponents.BaseComponents;
 using OdeMod.CardMode.PublicComponents;
 
-using System.IO;
-
 using Terraria;
 using Terraria.ModLoader;
 
@@ -16,8 +14,18 @@ namespace OdeMod.CardMode.CardComponents.DrawComponents
     internal class CardIllustrationComponent : DrawComponentBase
     {
         public DrawIllustration OnDrawIllustration;
-        private RenderTarget2D render;
-        public RenderTarget2D Render => render;
+
+        public RenderTarget2D Render
+        {
+            get
+            {
+                var info = Entity.GetComponent<CardInfoComponent>();
+                var infoComponent = Entity.GetComponent<BaseInfoComponent>();
+                var size = new Point((int)(info.CardIllustrationTexture.Width * infoComponent.Scale),
+                    (int)(info.CardIllustrationTexture.Height * infoComponent.Scale));
+                return OdeMod.RenderTarget2DPool.Pool(size);
+            }
+        }
 
         public CardIllustrationComponent(bool useDefaultDrawStyle = true)
         {
@@ -44,20 +52,15 @@ namespace OdeMod.CardMode.CardComponents.DrawComponents
                 (int)(info.CardIllustrationTexture.Height * infoComponent.Scale));
             var drawsize = DrawComponent.DrawSize;
 
-            if (render == null)
-            {
-                render = new RenderTarget2D(Main.graphics.GraphicsDevice, size.X, size.Y, false,
-                    Main.graphics.GraphicsDevice.PresentationParameters.BackBufferFormat, DepthFormat.None);
-            }
             Utils.DrawUtils.SetDrawRenderTarget(sb, (spriteBatch) =>
             {
-                OnDrawIllustration?.Invoke(spriteBatch, render, size);
-            }, render, DrawComponent.Render, DrawComponent.RenderSwap);
+                OnDrawIllustration?.Invoke(spriteBatch, OdeMod.RenderTarget2DPool.Pool(size), size);
+            }, OdeMod.RenderTarget2DPool.Pool(size), DrawComponent.Render, DrawComponent.RenderSwap);
 
             sb.End();
             var effect = ModContent.Request<Effect>("OdeMod/Effects/PixelShaders/Mapping", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             effect.Parameters["SpriteTexture"].SetValue(info.CardIllustrationTexture);
-            effect.Parameters["MappingSpriteTexture"].SetValue(render);
+            effect.Parameters["MappingSpriteTexture"].SetValue(OdeMod.RenderTarget2DPool.Pool(size));
             sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointWrap,
                 DepthStencilState.Default, RasterizerState.CullNone, effect);
 
@@ -73,13 +76,6 @@ namespace OdeMod.CardMode.CardComponents.DrawComponents
         public override IComponent Clone(Entity cloneEntity)
         {
             return new CardIllustrationComponent();
-        }
-
-        public override void UnLoad()
-        {
-            base.UnLoad();
-            render?.Dispose();
-            render = null;
         }
     }
 }

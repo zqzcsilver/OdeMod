@@ -52,7 +52,7 @@ namespace OdeMod.Utils
             sb.Draw(Main.screenTarget, Vector2.Zero, Color.White);
             sb.End();
 
-            var render = new RenderTarget2D(sb.GraphicsDevice, width, height, false, sb.GraphicsDevice.PresentationParameters.BackBufferFormat, DepthFormat.None);
+            var render = OdeMod.RenderTarget2DPool.Pool(width, height);
             sb.GraphicsDevice.SetRenderTarget(render);
             sb.GraphicsDevice.Clear(Color.Transparent);
             sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp,

@@ -1,14 +1,9 @@
-using IL.Terraria.GameContent;
-
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using OdeMod.CardMode;
 using OdeMod.UI.OdeUISystem;
 using OdeMod.Utils;
-
-using System;
-using System.Reflection;
 
 using Terraria;
 using Terraria.Graphics.Effects;
@@ -55,6 +50,18 @@ namespace OdeMod
         }
 
         private Utils.FontInfos.DynamicSpriteFontInfoManager infoManager;
+
+        internal static RenderTarget2DPool RenderTarget2DPool
+        {
+            get
+            {
+                if (Instance.renderTarget2DPool == null)
+                    Instance.renderTarget2DPool = new RenderTarget2DPool();
+                return Instance.renderTarget2DPool;
+            }
+        }
+
+        private Utils.RenderTarget2DPool renderTarget2DPool;
 
         public override void Load()
         {

@@ -489,8 +489,6 @@ namespace OdeMod.NPCs.Boss
             Main.LocalPlayer.GetModPlayer<OdePlayer>().MiracleRecorderShader = 0;
         }
 
-        private RenderTarget2D render;
-
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
             Texture2D texture = TextureAssets.Npc[NPC.type].Value;
@@ -507,10 +505,7 @@ namespace OdeMod.NPCs.Boss
             sb.Draw(Main.screenTarget, Vector2.Zero, Color.White);
             sb.End();
             //在screenTargetSwap中保存原图
-            if (render == null)
-            {
-                render = new RenderTarget2D(Main.graphics.GraphicsDevice, Main.screenWidth, Main.screenHeight);
-            }
+            var render = OdeMod.RenderTarget2DPool.Pool(Main.ScreenSize);
             gd.SetRenderTarget(render);
             gd.Clear(Color.Transparent);
             sb.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
