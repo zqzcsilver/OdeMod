@@ -84,7 +84,7 @@ namespace OdeMod.Utils
 
             sb.GraphicsDevice.SetRenderTarget(render);
             sb.GraphicsDevice.Clear(Color.Transparent);
-            sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone);
+            sb.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone);
             drawLayer(sb);
             sb.End();
 

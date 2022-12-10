@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 
 using OdeMod.Players;
+using OdeMod.Utils;
 
 using System;
 using System.Collections.Generic;
@@ -731,36 +732,13 @@ namespace OdeMod.NPCs.Boss
 
             Main.spriteBatch.Draw(texture, drawPos, new Rectangle(0, NPC.frame.Y, 134, 209), drawColor * ((255f - (float)NPC.alpha) / 255f), NPC.rotation, drawOrigin, 1f, SpriteEffects.None, 0f);
             //绘制本体
+
+            Utils.DrawUtils.SetDrawRenderTarget(Main.spriteBatch, (sb) =>
+            {
+                sb.Draw(ModContent.Request<Texture2D>("OdeMod/Images/Effects/Decrate", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value,
+                    new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), Color.White);
+            }, OdeMod.RenderTarget2DPool.PoolOther(Main.ScreenSize, "MiracleRecorder:Decrate"), Main.screenTarget, Main.screenTargetSwap);
             return false;
-        }
-
-        private struct CustomVertexInfo : IVertexType
-        {
-            private static VertexDeclaration _vertexDeclaration = new VertexDeclaration(new VertexElement[3]
-            {
-                new VertexElement(0, VertexElementFormat.Vector2, VertexElementUsage.Position, 0),
-                new VertexElement(8, VertexElementFormat.Color, VertexElementUsage.Color, 0),
-                new VertexElement(12, VertexElementFormat.Vector3, VertexElementUsage.TextureCoordinate, 0)
-            });
-
-            public Vector2 Position;
-            public Color Color;
-            public Vector3 TexCoord;
-
-            public CustomVertexInfo(Vector2 position, Color color, Vector3 texCoord)
-            {
-                this.Position = position;
-                this.Color = color;
-                this.TexCoord = texCoord;
-            }
-
-            public VertexDeclaration VertexDeclaration
-            {
-                get
-                {
-                    return _vertexDeclaration;
-                }
-            }
         }
     }
 }
