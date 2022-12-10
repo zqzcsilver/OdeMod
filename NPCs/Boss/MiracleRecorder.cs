@@ -243,6 +243,7 @@ namespace OdeMod.NPCs.Boss
                     if (count <= 4)
                     {
                         int ok3;
+                        NPC.velocity = new Vector2((float)Math.Cos(NPC.rotation + 1.57f), (float)Math.Sin(NPC.rotation + 1.57f)) * (80 - timer) * 0.1f;
                         NPC.alpha += 8;
                         if (ok == 0 || ok == 1) ok3 = ok + 1;
                         else ok3 = 0;
@@ -424,12 +425,17 @@ namespace OdeMod.NPCs.Boss
                 {
                     line = 0;
                     Vector2 tor = player.Center - NPC.Center;
+                    NPC.velocity += new Vector2((float)Math.Cos(NPC.rotation + 1.57f), (float)Math.Sin(NPC.rotation + 1.57f)) * -10f;
                     float demo = 1 + Vector2.DistanceSquared(Main.player[Main.myPlayer].Center, player.Center) / 420000;
                     player.GetModPlayer<OdePlayer>().ShakeInt = Math.Max(player.GetModPlayer<OdePlayer>().ShakeInt, (int)(30 / demo));
                     Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2((float)Math.Cos(NPC.rotation + 1.57f), (float)Math.Sin(NPC.rotation + 1.57f)) * 45 + NPC.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.Series.Boss.Laser01>(), 0, 0, player.whoAmI, NPC.rotation);
                     distance = Vector2.Distance(NPC.Center, player.Center);
                 }
-                if (timer == 58)
+                if(timer>38&&timer<58)
+                {
+                    NPC.velocity *= 0.5f;
+                }
+                if(timer==58)
                 {
                     if (count2 == 3)
                     {
@@ -443,7 +449,7 @@ namespace OdeMod.NPCs.Boss
                         timer = 0;
                     }
                 }
-                if (timer >= 58 && timer < 80)
+                if(timer>=58&&timer<82)
                 {
                     Vector2 witness = new Vector2(player.Center.X - NPC.Center.X, player.Center.Y - NPC.Center.Y);
                     witness.Normalize();
@@ -455,9 +461,10 @@ namespace OdeMod.NPCs.Boss
                         lerp += 6.28318f;
                     if (Math.Abs(lerp) < 0.01f) lerp = 0;
                     NPC.rotation += lerp * (timer / 80f);
-                    NPC.velocity = new Vector2(-(float)Math.Sin(NPC.rotation + 1.57f), (float)Math.Cos(NPC.rotation + 1.57f)) * (18f - Math.Abs(timer - 77)) * 1.5f;
+                    NPC.velocity = new Vector2(-(float)Math.Sin(NPC.rotation + 1.57f), (float)Math.Cos(NPC.rotation + 1.57f)) * (18f - Math.Abs(timer - 77))*1.5f;
+                    NPC.velocity += new Vector2((float)Math.Cos(NPC.rotation + 1.57f), (float)Math.Sin(NPC.rotation + 1.57f));
                 }
-                if (timer >= 80)
+                if (timer >= 82)
                 {
                     count2++;
                     timer = 0;
