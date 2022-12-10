@@ -1,9 +1,14 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+
+using OdeMod.Utils;
+
 using System.Collections.Generic;
+
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+
 namespace OdeMod.Projectiles.Series.Boss
 {
     internal class Holyproj : ModProjectile, IBossProjectile
@@ -27,7 +32,9 @@ namespace OdeMod.Projectiles.Series.Boss
             ProjectileID.Sets.TrailCacheLength[base.Projectile.type] = 12;
             ProjectileID.Sets.TrailingMode[base.Projectile.type] = 0;
         }
-        Vector2 vec = Vector2.Zero;
+
+        private Vector2 vec = Vector2.Zero;
+
         public override void AI()
         {
             //Projectile.rotation += 0.05f;
@@ -49,11 +56,12 @@ namespace OdeMod.Projectiles.Series.Boss
                 else Projectile.frame = 0;
             }
         }
+
         public override Color? GetAlpha(Color lightColor)
         {
             return new Color(255 - Projectile.alpha, 255 - Projectile.alpha, 255 - Projectile.alpha, 255 - Projectile.alpha);
         }
-        
+
         public override void PostDraw(Color lightColor)
         {
             List<CustomVertexInfo> bars = new();
@@ -62,7 +70,6 @@ namespace OdeMod.Projectiles.Series.Boss
             int width = 15;
             for (int i = 1; i < Projectile.oldPos.Length; ++i)
             {
-                
                 width -= 1;
 
                 if (Projectile.oldPos[i] == Vector2.Zero) break;//貌似删掉影响不大，弹幕的位置在（0，0）是一种几乎不可能遇到的情况
@@ -87,8 +94,6 @@ namespace OdeMod.Projectiles.Series.Boss
             //count用于返回bars里面的元素数量（即顶点数量）
             if (bars.Count > 2)
             {
-
-
                 /*triangleList.Add(bars[0]);
                 var vertex = new CustomVertexInfo((bars[0].Position + bars[1].Position) * 0.5f + Vector2.Normalize(Projectile.velocity) * 30, Color.White,
                     new Vector3(0, 0.5f, 1));
@@ -115,7 +120,7 @@ namespace OdeMod.Projectiles.Series.Boss
                 var model = Matrix.CreateTranslation(new Vector3(-Main.screenPosition.X, -Main.screenPosition.Y, 0)) * Main.Transform;
 
                 //启用即时加载加载Shader
-                var shader = ModContent.Request<Effect>("OdeMod/Effects/Content/Trail", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+                var shader = ModContent.Request<Effect>("OdeMod/Effects/VertexShaders/Trail", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                 var MainColor = ModContent.Request<Texture2D>("OdeMod/Images/Effects/heatmap", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                 var MaskColor2 = ModContent.Request<Texture2D>("OdeMod/Images/Effects/Flame0", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                 var MainShape2 = ModContent.Request<Texture2D>("OdeMod/Images/Effects/Extra_197", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
@@ -130,9 +135,7 @@ namespace OdeMod.Projectiles.Series.Boss
                 Main.graphics.GraphicsDevice.SamplerStates[1] = SamplerState.PointWrap;
                 Main.graphics.GraphicsDevice.SamplerStates[2] = SamplerState.PointWrap;
 
-
                 shader.CurrentTechnique.Passes[0].Apply();
-
 
                 Main.graphics.GraphicsDevice.DrawUserPrimitives(PrimitiveType.TriangleList, triangleList.ToArray(), 0, triangleList.Count / 3);
                 //连三角形，其中那个0是偏移量
@@ -141,34 +144,5 @@ namespace OdeMod.Projectiles.Series.Boss
                 Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
             }
         }
-
-        private struct CustomVertexInfo : IVertexType
-        {
-            private static VertexDeclaration _vertexDeclaration = new VertexDeclaration(new VertexElement[3]
-            {
-                new VertexElement(0, VertexElementFormat.Vector2, VertexElementUsage.Position, 0),
-                new VertexElement(8, VertexElementFormat.Color, VertexElementUsage.Color, 0),
-                new VertexElement(12, VertexElementFormat.Vector3, VertexElementUsage.TextureCoordinate, 0)
-            });
-            public Vector2 Position;
-            public Color Color;
-            public Vector3 TexCoord;
-
-            public CustomVertexInfo(Vector2 position, Color color, Vector3 texCoord)
-            {
-                this.Position = position;
-                this.Color = color;
-                this.TexCoord = texCoord;
-            }
-
-            public VertexDeclaration VertexDeclaration
-            {
-                get
-                {
-                    return _vertexDeclaration;
-                }
-            }
-        }
-
     }
 }
