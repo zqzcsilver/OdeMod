@@ -19,7 +19,7 @@ namespace OdeMod.Items.Misc
             Item.damage = 10;
             Item.crit = 1;
             Item.shoot = ModContent.ProjectileType<Projectiles.Misc.Wan>();
-            Item.shootSpeed = 10f;
+            Item.shootSpeed = 8f;
             Item.useAnimation = 10;
             Item.useTime = 10;
             Item.consumable = true;

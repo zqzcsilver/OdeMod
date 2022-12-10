@@ -26,6 +26,7 @@ namespace OdeMod.Items.Misc
             Item.shootSpeed = 10f;
             Item.useAnimation = 10;
             Item.useTime = 10;
+            Item.value = Item.sellPrice(0, 10, 0, 0);
         }
         public override Vector2? HoldoutOffset()
         {

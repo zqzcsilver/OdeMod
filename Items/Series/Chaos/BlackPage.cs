@@ -1,6 +1,7 @@
-﻿using OdeMod.Utils;
-
+﻿using OdeMod.Events;
+using OdeMod.Utils;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -26,7 +27,7 @@ namespace OdeMod.Items.Series.Chaos
             Item.useStyle = ItemUseStyleID.HoldUp;
             Item.consumable = true;
         }
-       /* public override bool CanUseItem(Player player)
+        public override bool CanUseItem(Player player)
         {
             if (!ChaosEvent.Chaos && Main.dayTime)
             {
@@ -39,6 +40,6 @@ namespace OdeMod.Items.Series.Chaos
                 ChaosEvent.StopChaos();
             }
             return base.CanUseItem(player);
-        }*/
+        }
     }
 }

@@ -12,7 +12,6 @@ namespace OdeMod.NPCs.TownNPCs
         {
             if (npc.type == NPCID.Zombie)
                 return true;
-
             return base.CanChat(npc);
         }
 
@@ -21,7 +20,7 @@ namespace OdeMod.NPCs.TownNPCs
             if (npc.type == NPCID.Nurse)
             {
                 Player player = Main.player[npc.FindClosestPlayer()];
-                if (player.statLife >= player.statLifeMax)
+                if (player.statLife >= player.statLifeMax || Main.rand.NextBool(5))
                 {
                     chat = "我唯一能给的建议就是打个胶先";
                 }
@@ -34,8 +33,12 @@ namespace OdeMod.NPCs.TownNPCs
 
         public override bool PreChatButtonClicked(NPC npc, bool firstButton)
         {
-            Player player = Main.player[npc.FindClosestPlayer()];
-            return !(player.statLife >= player.statLifeMax);
+            if(npc.type == NPCID.Nurse)
+            {
+                Player player = Main.player[npc.FindClosestPlayer()];
+                return !(player.statLife >= player.statLifeMax);
+            }
+            return base.PreChatButtonClicked(npc, firstButton);
         }
 
         public override void SetupShop(int type, Chest shop, ref int nextSlot)

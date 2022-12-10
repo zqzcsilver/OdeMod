@@ -16,28 +16,29 @@ namespace OdeMod.Projectiles.Misc
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.friendly = true;
             Projectile.ignoreWater = true;
-            Projectile.tileCollide = true;
-            Projectile.aiStyle = ProjAIStyleID.GroundProjectile;
-            Projectile.timeLeft = 180;
+            Projectile.tileCollide = false;
+            Projectile.aiStyle = 149;
             Projectile.alpha = 0;
             Projectile.penetrate = -1;
-            Projectile.scale = 1f;
+            Projectile.scale = 0.8f;
         }
-        private bool hit = false;
         public override void AI()
         {
-            base.AI();
-            if (hit)
+            Projectile.ai[1]++;
+            if (Projectile.ai[1] >= 120)
             {
                 Projectile.tileCollide = false;
                 Projectile.rotation += 0.1f;
                 Projectile.velocity.Y = -10f;
                 Projectile.velocity.X = 0f;
             }
+            if (Projectile.ai[1] >= 180)
+            {
+                Projectile.Kill();
+            }
         }
         public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
-            hit = true;
             base.ModifyHitNPC(target, ref damage, ref knockback, ref crit, ref hitDirection);
             for (int i = 0; i < 30; i++)
             {

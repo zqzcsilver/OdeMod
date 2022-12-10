@@ -37,8 +37,6 @@ namespace OdeMod.Items.Series.Brightiron
                 AddIngredient(ModContent.ItemType<BrightironOre>(), 3).
                 AddTile(TileID.Furnaces).
                 Register();
-
-
         }
     }
 }

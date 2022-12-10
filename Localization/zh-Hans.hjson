@@ -70,6 +70,21 @@
 			MagicTentacle : 1
 
 			//裂谷系列
+
+			//食物
+			Cola : 可乐
+			ShadyShaddock_B : 阴影柚
+			ShadyShaddock_C : 阴影柚
+			StarLollipop : 星辰棒棒糖
+			SteamedStuffedBun : 包子
+			SteamedBreadOfCorn : 窝窝头
+			RiceNoodles : 米粉
+			Kabob : 烤肉串
+			GuoKui : 锅盔
+			GlacierMineralWater : 冰川矿泉水
+
+			//杂项
+			SuicideRevolver : 自尽左轮
 		}
 		#物品介绍
 		ItemTooltip:
@@ -173,6 +188,9 @@
 			Brain : 可食用
 			CursedSoul : 他试图挣脱你的掌握
 			MagicTentacle : 1
+
+			//杂项
+			SuicideRevolver : 军火商的箱子最底部的一把枪，看上去完全不像是能伤害到敌人的样子。
 
 		}
 		#弹幕名字
