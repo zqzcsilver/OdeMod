@@ -15,7 +15,6 @@
     <Folder Include="Items\Misc\Weapons\" />
     <Folder Include="Items\Misc\Armor\" />
     <Folder Include="Items\Misc\Placeable\" />
-    <Folder Include="Items\Misc\Accessories\" />
     <Folder Include="Utils\CardMode\" />
   </ItemGroup>
   <ItemGroup>
