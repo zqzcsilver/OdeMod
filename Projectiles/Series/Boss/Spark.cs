@@ -19,7 +19,8 @@ namespace OdeMod.Projectiles.Series.Boss
             Projectile.width = 38;
             Projectile.height = 38;
             Projectile.aiStyle = -1;
-            Projectile.friendly = true;
+            Projectile.friendly = false;
+            Projectile.hostile = true;
             Projectile.DamageType = DamageClass.Melee;
             Projectile.ignoreWater = true;
             Projectile.tileCollide = false;
@@ -27,6 +28,7 @@ namespace OdeMod.Projectiles.Series.Boss
             Projectile.timeLeft = 400;
             Projectile.penetrate = 1;
             Projectile.scale = 1f;
+
             Main.projFrames[Projectile.type] = 4;
             ProjectileID.Sets.TrailCacheLength[base.Projectile.type] = 12;
             ProjectileID.Sets.TrailingMode[base.Projectile.type] = 0;

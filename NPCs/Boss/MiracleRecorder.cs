@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 
 using OdeMod.Players;
-
+using Steamworks;
 using System;
 using System.Collections.Generic;
 
@@ -175,6 +175,11 @@ namespace OdeMod.NPCs.Boss
                     float demo = 1 + Vector2.DistanceSquared(Main.player[Main.myPlayer].Center, player.Center) / 420000;
                     player.GetModPlayer<OdePlayer>().ShakeInt = Math.Max(player.GetModPlayer<OdePlayer>().ShakeInt, (int)(45 / demo));
                     Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.Series.Boss.Circle1>(), 0, 0, player.whoAmI);
+                    for (int i = 1; i <= 15; i++)
+                    {
+                        float rad2 = 0.41888f * i;
+                        Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, new Vector2((float)Math.Cos(rad2), (float)Math.Sin(rad2)) * 15f, ModContent.ProjectileType<Projectiles.Series.Boss.Holyproj>(), NPC.damage, 0, player.whoAmI);
+                    }
                     player.GetModPlayer<OdePlayer>().MiracleRecorderShader = 1;
                 }
                 if (timer >= 300)
@@ -212,6 +217,11 @@ namespace OdeMod.NPCs.Boss
                             MovementVector = 15 * Main.rand.NextVector2Unit()
                         };
                         ParticleOrchestrator.RequestParticleSpawn(clientOnly: true, ParticleOrchestraType.PrincessWeapon, settings, 255);
+                    }
+                    for (int i = 1; i <= 6; i++)
+                    {
+                        float rad2 = 1.0472f * i;
+                        Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, new Vector2((float)Math.Cos(rad2), (float)Math.Sin(rad2)) * 12f, ModContent.ProjectileType<Projectiles.Series.Boss.Holyproj>(), NPC.damage, 0, player.whoAmI);
                     }
                     noticeVec = NPC.Center;
                 }
@@ -423,6 +433,18 @@ namespace OdeMod.NPCs.Boss
                 }
                 if (timer == 38)
                 {
+                    var r = NPC.rotation + 1.57f;
+                    for (int i = 1; i <= 60; i++)
+                    {
+                        float r2 = r + (Main.rand.Next(-10, 11) * 0.05f);
+                        Vector2 shootVel = r2.ToRotationVector2() * Main.rand.Next(40, 200) * 0.2f;
+                        int num = Dust.NewDust(new Vector2((float)Math.Cos(NPC.rotation + 1.57f), (float)Math.Sin(NPC.rotation + 1.57f)) * 45 + NPC.Center, 1, 1, DustID.PinkTorch, 0, 0, 100, default, 1.5f);
+
+                        Main.dust[num].velocity = shootVel;
+
+                        Main.dust[num].noGravity = true;
+                        Main.dust[num].scale = Main.rand.Next(15, 25) * 0.1f;
+                    }
                     line = 0;
                     Vector2 tor = player.Center - NPC.Center;
                     NPC.velocity += new Vector2((float)Math.Cos(NPC.rotation + 1.57f), (float)Math.Sin(NPC.rotation + 1.57f)) * -10f;
@@ -431,11 +453,11 @@ namespace OdeMod.NPCs.Boss
                     Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2((float)Math.Cos(NPC.rotation + 1.57f), (float)Math.Sin(NPC.rotation + 1.57f)) * 45 + NPC.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.Series.Boss.Laser01>(), 0, 0, player.whoAmI, NPC.rotation);
                     distance = Vector2.Distance(NPC.Center, player.Center);
                 }
-                if(timer>38&&timer<58)
+                if (timer > 38 && timer < 58)
                 {
                     NPC.velocity *= 0.5f;
                 }
-                if(timer==58)
+                if (timer == 58)
                 {
                     if (count2 == 3)
                     {
@@ -449,7 +471,7 @@ namespace OdeMod.NPCs.Boss
                         timer = 0;
                     }
                 }
-                if(timer>=58&&timer<82)
+                if (timer >= 58 && timer < 82)
                 {
                     Vector2 witness = new Vector2(player.Center.X - NPC.Center.X, player.Center.Y - NPC.Center.Y);
                     witness.Normalize();
@@ -461,7 +483,7 @@ namespace OdeMod.NPCs.Boss
                         lerp += 6.28318f;
                     if (Math.Abs(lerp) < 0.01f) lerp = 0;
                     NPC.rotation += lerp * (timer / 80f);
-                    NPC.velocity = new Vector2(-(float)Math.Sin(NPC.rotation + 1.57f), (float)Math.Cos(NPC.rotation + 1.57f)) * (18f - Math.Abs(timer - 77))*1.5f;
+                    NPC.velocity = new Vector2(-(float)Math.Sin(NPC.rotation + 1.57f), (float)Math.Cos(NPC.rotation + 1.57f)) * (18f - Math.Abs(timer - 77)) * 1.5f;
                     NPC.velocity += new Vector2((float)Math.Cos(NPC.rotation + 1.57f), (float)Math.Sin(NPC.rotation + 1.57f));
                 }
                 if (timer >= 82)
@@ -609,7 +631,7 @@ namespace OdeMod.NPCs.Boss
                     //Main.graphics.GraphicsDevice.RasterizerState = rasterizerState;
 
                     var projection = Matrix.CreateOrthographicOffCenter(0, Main.screenWidth, Main.screenHeight, 0, 0, 1);
-                    var model = Matrix.CreateTranslation(new Vector3(-Main.screenPosition.X, -Main.screenPosition.Y, 0));
+                    var model = Matrix.CreateTranslation(new Vector3(-Main.screenPosition.X, -Main.screenPosition.Y, 0)) * Main.Transform;
 
                     //启用即时加载加载Shader
                     var shader2 = ModContent.Request<Effect>("OdeMod/Effects/Content/Trail", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
@@ -632,7 +654,7 @@ namespace OdeMod.NPCs.Boss
                     //连三角形，其中那个0是偏移量
                     Main.graphics.GraphicsDevice.RasterizerState = originalState;
                     Main.spriteBatch.End();
-                    Main.spriteBatch.Begin();
+                    Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
                 }
             }
             if (act == 2)
@@ -707,7 +729,7 @@ namespace OdeMod.NPCs.Boss
                     //连三角形，其中那个0是偏移量
                     Main.graphics.GraphicsDevice.RasterizerState = originalState;
                     Main.spriteBatch.End();
-                    Main.spriteBatch.Begin();
+                    Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
                 }
             }
             if (act == 3)
@@ -730,11 +752,18 @@ namespace OdeMod.NPCs.Boss
                     color4 = Color.Lerp(color2, color1, timer / 30f);
                 else
                     color4 = Color.Lerp(color2, color1, 1);
-
+                Main.spriteBatch.End();
+                Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
                 DrawLine(Main.spriteBatch, NPC.Center, new Vector2((float)Math.Cos(NPC.rotation + 1.57f), (float)Math.Sin(NPC.rotation + 1.57f)) * 5000 + NPC.Center, color4, color4, 1.5f);
+                Main.spriteBatch.End();
+                Main.spriteBatch.Begin();
+                Main.NewText(1);
             }
-
+            Main.spriteBatch.End();
+            Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
             Main.spriteBatch.Draw(texture, drawPos, new Rectangle(0, NPC.frame.Y, 134, 209), drawColor * ((255f - (float)NPC.alpha) / 255f), NPC.rotation, drawOrigin, 1f, SpriteEffects.None, 0f);
+            Main.spriteBatch.End();
+            Main.spriteBatch.Begin();
             //绘制本体
             return false;
         }
