@@ -6,9 +6,10 @@ using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-namespace OdeMod.Projectiles.Series.Boss
+
+namespace OdeMod.Projectiles.Series.Boss.MiracleRecorder
 {
-    internal class Space : ModProjectile, IBossProjectile
+    internal class Space : ModProjectile, IMiracleRecorderProj
     {
         public override void SetDefaults()
         {
@@ -26,10 +27,10 @@ namespace OdeMod.Projectiles.Series.Boss
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 1;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
         }
-        
+
         public override void AI()
         {
-            float size = (float)(30-Projectile.timeLeft )/ 15f;
+            float size = (float)(30 - Projectile.timeLeft) / 15f;
             int num = Dust.NewDust(Projectile.Center - new Vector2(4f, 4f), 8, 8, ModContent.DustType<Dusts.Dream>(), 0f, 0f, 0, Color.White, size);
             Main.dust[num].velocity *= 0.5f;
             Main.dust[num].noGravity = true;
@@ -39,11 +40,10 @@ namespace OdeMod.Projectiles.Series.Boss
             Projectile.velocity.Normalize();
             Projectile.velocity *= 12f;
         }
-        
-        Texture2D texture;
-        float sizex = 1.5f;
 
-        
+        private Texture2D texture;
+        private float sizex = 1.5f;
+
         public override bool PreDraw(ref Color lightColor)
         {
             return false;
