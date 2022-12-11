@@ -6,7 +6,6 @@ using OdeMod.Utils;
 
 using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 
 using Terraria;
 using Terraria.GameContent;
@@ -130,6 +129,7 @@ namespace OdeMod.NPCs.Boss.MiracleRecorder
             if (timer == 1)
             {
                 NPC.velocity *= 0f;
+                NPC.dontTakeDamage = true;
             }
             if (timer > 120 && timer < 250)
             {
@@ -196,6 +196,7 @@ namespace OdeMod.NPCs.Boss.MiracleRecorder
             {
                 act = 1;
                 timer = 0;
+                NPC.dontTakeDamage = false;
 
                 state = NPCState.Wandering;
             }
@@ -564,6 +565,7 @@ namespace OdeMod.NPCs.Boss.MiracleRecorder
             sb.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
             sb.Draw(Main.screenTarget, Vector2.Zero, Color.White);
             sb.End();
+
             //在screenTargetSwap中保存原图
             var render = OdeMod.RenderTarget2DPool.Pool(Main.ScreenSize);
             gd.SetRenderTarget(render);
