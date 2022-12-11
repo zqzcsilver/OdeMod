@@ -70,7 +70,7 @@ namespace OdeMod
         public override void Load()
         {
             base.Load();
-
+    
             if (Main.netMode == NetmodeID.SinglePlayer)
             {
                 //On.Terraria.Main.DrawPlayer += Main_DrawPlayer;

@@ -84,6 +84,7 @@ namespace OdeMod.Projectiles.Series.Boss.MiracleRecorder
                 //这里是计算颜色用的插值，但最终效果实际上是用图片上色，所以这里的颜色处理没有必要
                 var color = Color.Lerp(Color.White, Color.Red, factor);
                 var w = MathHelper.Lerp(1f, 0.05f, factor);
+                w *= (255 - Projectile.alpha) / 255f;
                 //w是纹理坐标的插值，使纹理的位置能够正确对应
                 //朝切线的两个方向分别找顶点
                 bars.Add(new CustomVertexInfo(Projectile.oldPos[i] + 0.5f * new Vector2(Projectile.width, Projectile.height) + normalDir * width, color, new Vector3(factor, 1, w)));
