@@ -27,6 +27,7 @@ namespace OdeMod.Projectiles.Series.Boss
             Projectile.timeLeft = 30;
             Projectile.penetrate = 1;
             Projectile.scale = 1f;
+            ProjectileID.Sets.DrawScreenCheckFluff[Type] = 6000;
         }
 
         private float a = 0;
@@ -81,8 +82,11 @@ namespace OdeMod.Projectiles.Series.Boss
             }
             width = 40.8f;
             width *= factor;
-            bars.Add(new CustomVertexInfo(new Vector2((float)Math.Cos(Projectile.ai[0] + 1.57f), (float)Math.Sin(Projectile.ai[0] + 1.57f)) * 5000 + Projectile.Center + new Vector2((float)Math.Cos(Projectile.ai[0]), (float)Math.Sin(Projectile.ai[0])) * width, color, new Vector3(factor, 1, a)));
-            bars.Add(new CustomVertexInfo(new Vector2((float)Math.Cos(Projectile.ai[0] + 1.57f), (float)Math.Sin(Projectile.ai[0] + 1.57f)) * 5000 + Projectile.Center - new Vector2((float)Math.Cos(Projectile.ai[0]), (float)Math.Sin(Projectile.ai[0])) * width, color, new Vector3(factor, 0, a)));
+
+                bars.Add(new CustomVertexInfo(new Vector2((float)Math.Cos(Projectile.ai[0] + 1.57f), (float)Math.Sin(Projectile.ai[0] + 1.57f)) * 5000 + Projectile.Center + new Vector2((float)Math.Cos(Projectile.ai[0]), (float)Math.Sin(Projectile.ai[0])) * width, color, new Vector3(factor, 1, a)));
+                bars.Add(new CustomVertexInfo(new Vector2((float)Math.Cos(Projectile.ai[0] + 1.57f), (float)Math.Sin(Projectile.ai[0] + 1.57f)) * 5000 + Projectile.Center - new Vector2((float)Math.Cos(Projectile.ai[0]), (float)Math.Sin(Projectile.ai[0])) * width, color, new Vector3(factor, 0, a)));
+            
+            
 
             List<CustomVertexInfo> triangleList = new List<CustomVertexInfo>();
             //count用于返回bars里面的元素数量（即顶点数量）

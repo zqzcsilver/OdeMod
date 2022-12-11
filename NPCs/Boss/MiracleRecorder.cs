@@ -94,6 +94,7 @@ namespace OdeMod.NPCs.Boss
 
         public override void AI()
         {
+
             if (!IsDoing)
             {
                 if (mode[0] == 0)
@@ -113,7 +114,7 @@ namespace OdeMod.NPCs.Boss
             timer++;
             NPC.TargetClosest(true);
             Player player = Main.player[NPC.target];
-
+            Main.NewText(player.statDefense);
             /*Vector2 witness = new Vector2(player.Center.X - NPC.Center.X, player.Center.Y - NPC.Center.Y);
             witness.Normalize();
             float lerp = (witness.ToRotation() - NPC.rotation - 1.57f);
@@ -179,7 +180,7 @@ namespace OdeMod.NPCs.Boss
                     for (int i = 1; i <= 15; i++)
                     {
                         float rad2 = 0.41888f * i;
-                        Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, new Vector2((float)Math.Cos(rad2), (float)Math.Sin(rad2)) * 15f, ModContent.ProjectileType<Projectiles.Series.Boss.Holyproj>(), NPC.damage, 0, player.whoAmI);
+                        Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, new Vector2((float)Math.Cos(rad2), (float)Math.Sin(rad2)) * 16f, ModContent.ProjectileType<Projectiles.Series.Boss.Holyproj>(), NPC.damage, 0, player.whoAmI);
                     }
                     player.GetModPlayer<OdePlayer>().MiracleRecorderShader = 1;
                 }
@@ -222,7 +223,7 @@ namespace OdeMod.NPCs.Boss
                     for (int i = 1; i <= 6; i++)
                     {
                         float rad2 = 1.0472f * i;
-                        Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, new Vector2((float)Math.Cos(rad2), (float)Math.Sin(rad2)) * 12f, ModContent.ProjectileType<Projectiles.Series.Boss.Holyproj>(), NPC.damage, 0, player.whoAmI);
+                        Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, new Vector2((float)Math.Cos(rad2), (float)Math.Sin(rad2)) * 16f, ModContent.ProjectileType<Projectiles.Series.Boss.Holyproj>(), NPC.damage, 0, player.whoAmI);
                     }
                     noticeVec = NPC.Center;
                 }
@@ -499,8 +500,9 @@ namespace OdeMod.NPCs.Boss
                 {
                     IsDoing = true;
                     NPC.velocity = new Vector2((float)Math.Cos(NPC.rotation + 1.57f), (float)Math.Sin(NPC.rotation + 1.57f)) * 32f;
+                    noticeVec = NPC.Center;
                 }
-                if (timer > 1 && timer < 40)
+                if (timer > 1 && timer < 20)
                 {
                     NPC.velocity *= 0.95f;
                 }
