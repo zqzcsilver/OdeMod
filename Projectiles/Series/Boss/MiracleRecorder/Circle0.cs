@@ -9,9 +9,9 @@ using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace OdeMod.Projectiles.Series.Boss
+namespace OdeMod.Projectiles.Series.Boss.MiracleRecorder
 {
-    internal class Circle1 : ModProjectile, IBossProjectile
+    internal class Circle0 : ModProjectile, IMiracleRecorderProj
     {
         public override void SetDefaults()
         {
@@ -23,7 +23,7 @@ namespace OdeMod.Projectiles.Series.Boss
             Projectile.ignoreWater = true;
             Projectile.tileCollide = false;
             Projectile.alpha = 255;
-            Projectile.timeLeft = 50;
+            Projectile.timeLeft = 30;
             Projectile.penetrate = 1;
             Projectile.scale = 1f;
         }
@@ -41,12 +41,12 @@ namespace OdeMod.Projectiles.Series.Boss
             List<CustomVertexInfo> bars = new();
             var factor = 1;
             var color = Color.Lerp(Color.White, Color.Red, factor);
-            width = ((float)(10 + Projectile.timeLeft) * 1.5f);
+            width = ((float)Projectile.timeLeft + 15) * 1.5f;
             for (float i = 1; i <= 60; i++)
             {
                 var normalDir = new Vector2((float)Math.Cos(i / 60f * 6.28318f), (float)Math.Sin(i / 60f * 6.28318f));
-                bars.Add(new CustomVertexInfo(Projectile.position + normalDir * (width + (50 - Projectile.timeLeft) * 30), color, new Vector3(1, 1, ((float)Projectile.timeLeft / 50f))));
-                bars.Add(new CustomVertexInfo(Projectile.position + normalDir * (-width + (50 - Projectile.timeLeft) * 30), color, new Vector3(1, 0, ((float)Projectile.timeLeft / 50f))));
+                bars.Add(new CustomVertexInfo(Projectile.position + normalDir * (width + Projectile.timeLeft * 30), color, new Vector3(1, 1, 0.6f - ((float)Projectile.timeLeft / 30f))));
+                bars.Add(new CustomVertexInfo(Projectile.position + normalDir * (-width + Projectile.timeLeft * 30), color, new Vector3(1, 0, 0.6f - ((float)Projectile.timeLeft / 30f))));
             }
 
             List<CustomVertexInfo> triangleList = new List<CustomVertexInfo>();

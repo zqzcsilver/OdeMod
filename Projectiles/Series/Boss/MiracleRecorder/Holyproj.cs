@@ -9,9 +9,9 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace OdeMod.Projectiles.Series.Boss
+namespace OdeMod.Projectiles.Series.Boss.MiracleRecorder
 {
-    internal class Holyproj : ModProjectile, IBossProjectile
+    internal class Holyproj : ModProjectile, IMiracleRecorderProj
     {
         public override void SetDefaults()
         {

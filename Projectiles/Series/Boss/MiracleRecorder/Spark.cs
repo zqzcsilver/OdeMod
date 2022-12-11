@@ -4,16 +4,15 @@ using Microsoft.Xna.Framework.Graphics;
 using OdeMod.Players;
 using OdeMod.Utils;
 
-using System;
 using System.Collections.Generic;
 
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace OdeMod.Projectiles.Series.Boss
+namespace OdeMod.Projectiles.Series.Boss.MiracleRecorder
 {
-    internal class Spark : ModProjectile, IBossProjectile
+    internal class Spark : ModProjectile, IMiracleRecorderProj
     {
         public override void SetDefaults()
         {
@@ -118,7 +117,7 @@ namespace OdeMod.Projectiles.Series.Boss
 
                 foreach (Projectile spawn in Main.projectile)
                 {
-                    if (spawn.type == ModContent.ProjectileType<Projectiles.Series.Boss.Spark>() && spawn.ai[0] - Projectile.ai[0] == -1 && spawn.ai[1] == Projectile.ai[1])
+                    if (spawn.type == ModContent.ProjectileType<Projectiles.Series.Boss.MiracleRecorder.Spark>() && spawn.ai[0] - Projectile.ai[0] == -1 && spawn.ai[1] == Projectile.ai[1])
                     {
                         var normalDir = spawn.Center - Projectile.Center;//两帧之间的切线向量
                         normalDir = Vector2.Normalize(new Vector2(-normalDir.Y, normalDir.X));
