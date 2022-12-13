@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 
 using OdeMod.Players;
+using OdeMod.Projectiles.Series.Items.ReCharge;
 using OdeMod.Utils;
 
 using System;
@@ -45,6 +46,11 @@ namespace OdeMod.NPCs.Boss.MiracleRecorder
             /// <summary>
             /// 死亡
             /// </summary>
+            Focus,
+
+            /// <summary>
+            /// 聚集
+            /// </summary>
             Dead
         }
 
@@ -80,6 +86,7 @@ namespace OdeMod.NPCs.Boss.MiracleRecorder
                 { NPCState.Wandering, wandering },
                 { NPCState.Dash, dash },
                 { NPCState.EmitLaser, emitLaser },
+                { NPCState.Focus, focus },
                 { NPCState.Dead, dead }
             };
         }
@@ -129,6 +136,7 @@ namespace OdeMod.NPCs.Boss.MiracleRecorder
         {
             if (timer == 1)
             {
+                NPC.dontTakeDamage = true;
                 NPC.velocity *= 0f;
             }
             if (timer > 120 && timer < 250)
@@ -156,6 +164,8 @@ namespace OdeMod.NPCs.Boss.MiracleRecorder
                         dust2.velocity = (NPC.Center - dustpos) / 20f;
                         dust2.noGravity = true;
 
+                        dustpos = NPC.Center + randomDis * Main.rand.NextVector2Unit();
+
                         var dust3 = Dust.NewDustDirect(dustpos, 1, 1,
                             ModContent.DustType<Dusts.Dream>(), 0, 0, 0, Color.White, 1f);
                         dust3.velocity = (NPC.Center - dustpos) / 20f;
@@ -168,8 +178,23 @@ namespace OdeMod.NPCs.Boss.MiracleRecorder
                         ModContent.ProjectileType<Projectiles.Series.Boss.MiracleRecorder.Circle0>(), 0, 0, player.whoAmI);
                 }
             }
+            if(timer>100)
+            {
+                Vector2 witness = new Vector2(player.Center.X - NPC.Center.X, player.Center.Y - NPC.Center.Y);
+                witness.Normalize();
+                float lerp = (witness.ToRotation() - NPC.rotation - 1.57f);
+                while (lerp > 3.14159f)
+                    lerp -= 6.28318f;
+
+                while (lerp < -3.14159f)
+                    lerp += 6.28318f;
+
+                if (Math.Abs(lerp) < 0.01f) lerp = 0;
+                NPC.rotation += lerp * 0.02f;
+            }
             if (timer == 260)
             {
+                NPC.dontTakeDamage = false;
                 for (int i = 1; i < 40; i++)
                 {
                     var dust2 = Dust.NewDustDirect(NPC.Center, 1, 1, DustID.PinkTorch
@@ -236,9 +261,11 @@ namespace OdeMod.NPCs.Boss.MiracleRecorder
                 }
                 for (int i = 1; i <= 6; i++)
                 {
-                    float rad2 = 1.0472f * i;
+                    float rad2 = 1.0472f * i + (player.Center - NPC.Center).ToRotation();
                     Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, new Vector2((float)Math.Cos(rad2), (float)Math.Sin(rad2)) * 12f, ModContent.ProjectileType<Projectiles.Series.Boss.MiracleRecorder.Holyproj>(), NPC.damage, 0, player.whoAmI);
                 }
+                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, Vector2.Zero,
+                    ModContent.ProjectileType<Projectiles.Series.Boss.MiracleRecorder.Circle2>(), 0, 0, player.whoAmI);
                 noticeVec = NPC.Center;
             }
             if (timer > 1 && timer <= 10)
@@ -489,7 +516,7 @@ namespace OdeMod.NPCs.Boss.MiracleRecorder
                     count2 = 0;
                     NPC.alpha = 0;
                     NPC.velocity *= 0f;
-                    state = NPCState.Wandering;
+                    state = NPCState.Focus;
                     count = 0;
                     ok = -1;
                     ok2 = 0;
@@ -522,6 +549,73 @@ namespace OdeMod.NPCs.Boss.MiracleRecorder
         /// 死亡
         /// </summary>
         /// <param name="player"></param>
+        private void focus(Player player)
+        {
+
+            if (timer >= 1 && timer < 20)
+            {
+                NPC.velocity *= 0.9f;
+                act = 4;
+                if (timer == 1) 
+                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.Series.Boss.MiracleRecorder.DamageCircle>(), NPC.damage, 0, player.whoAmI);
+            }
+            if(timer>=20&&timer<200)
+            {
+                act = 1;
+                float randomRad = Main.rand.Next(0, 629);
+                int randomDis = Main.rand.Next(260, 400);
+                if(timer%2==0)
+                {
+                    Vector2 dustpos = NPC.Center + randomDis * Main.rand.NextVector2Unit();
+                    var dust2 = Dust.NewDustDirect(dustpos, 1, 1,
+                        DustID.PinkTorch, 0, 0, 0, Color.White, 2.5f);
+                    dust2.velocity = (NPC.Center - dustpos) / 20f;
+                    dust2.noGravity = true;
+
+                    dustpos = NPC.Center + randomDis * Main.rand.NextVector2Unit();
+
+                    var dust3 = Dust.NewDustDirect(dustpos, 1, 1,
+                        ModContent.DustType<Dusts.Dream>(), 0, 0, 0, Color.White, 1f);
+                    dust3.velocity = (NPC.Center - dustpos) / 20f;
+                    dust3.noGravity = true;
+                }
+                
+            }
+            if(timer==180)
+            {
+                for (int i = 0; i < 40; i++) 
+                {
+                    var dust2 = Dust.NewDustDirect(NPC.Center, 1, 1, DustID.PinkTorch, 0, 0, 0, Color.White, 2.5f);
+                    dust2.position = NPC.Center + 160 * Main.rand.NextVector2Unit();
+                    dust2.velocity *= 2f;
+                    dust2.noGravity = true;
+
+                    var dust3 = Dust.NewDustDirect(NPC.Center, 1, 1,
+                        ModContent.DustType<Dusts.Dream>(), 0, 0, 0, Color.White, 1f);
+                    dust3.position = NPC.Center + 160 * Main.rand.NextVector2Unit();
+                    
+                    dust3.noGravity = true;
+                }
+                for (int i = 1; i <= 6; i++)
+                {
+                    float rad2 = 1.0472f * i + (player.Center - NPC.Center).ToRotation();
+                    Projectile.NewProjectile(NPC.GetSource_FromAI(), 
+                        NPC.Center+ new Vector2((float)Math.Cos(rad2), (float)Math.Sin(rad2)) * 100f, new Vector2((float)Math.Cos(rad2), (float)Math.Sin(rad2)) * 6f, ModContent.ProjectileType<Projectiles.Series.Boss.MiracleRecorder.Pin>(), NPC.damage, 0, player.whoAmI);
+                }
+            }
+            if(timer==200)
+            {
+                
+                count2 = 0;
+                NPC.alpha = 0;
+                count = 0;
+                ok = -1;
+                ok2 = 0;
+                timer = 0;
+                state = NPCState.Wandering;
+            }
+        }
+
         private void dead(Player player)
         {
             if (timer == 1)
@@ -772,6 +866,18 @@ namespace OdeMod.NPCs.Boss.MiracleRecorder
                     Vector2 drawPos2 = NPC.oldPos[i] - Main.screenPosition + drawOrigin + new Vector2(0f, NPC.gfxOffY) + new Vector2(0f, -80f);
                     Color color = new Color(246, 162, 255) * ((NPC.oldPos.Length - i - 1) / (float)NPC.oldPos.Length) * 0.8f;
                     Main.spriteBatch.Draw(texture2, drawPos2, new Rectangle(0, NPC.frame.Y, 134, 209), color, NPC.rotation, drawOrigin, 1f, SpriteEffects.None, 0f);
+                }
+            }
+            if (act == 4) 
+            {
+                float scaleDraw = 1f;
+                for(int i=3;i<=8;i++)
+                {
+                    scaleDraw = 1f + i * 0.2f;
+                    scaleDraw *= (40 - timer) / 40f;
+                    Vector2 drawPos2 = NPC.position - Main.screenPosition + drawOrigin + new Vector2(0f, NPC.gfxOffY) + new Vector2(0f, -80f);
+                    Color color2 = new Color(246, 162, 255) * (1f - 0.4f * scaleDraw);
+                    Main.spriteBatch.Draw(texture2, drawPos2, new Rectangle(0, NPC.frame.Y, 134, 209), color2, NPC.rotation, drawOrigin, scaleDraw, SpriteEffects.None, 0f);
                 }
             }
             if (line == 1)

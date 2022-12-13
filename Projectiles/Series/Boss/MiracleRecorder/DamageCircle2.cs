@@ -11,7 +11,7 @@ using Terraria.ModLoader;
 
 namespace OdeMod.Projectiles.Series.Boss.MiracleRecorder
 {
-    internal class Circle0 : ModProjectile, IMiracleRecorderProj
+    internal class DamageCircle2 : ModProjectile, IMiracleRecorderProj
     {
         public override void SetDefaults()
         {
@@ -23,17 +23,18 @@ namespace OdeMod.Projectiles.Series.Boss.MiracleRecorder
             Projectile.ignoreWater = true;
             Projectile.tileCollide = false;
             Projectile.alpha = 255;
-            Projectile.timeLeft = 30;
+            Projectile.timeLeft = 15;
             Projectile.penetrate = 1;
             Projectile.scale = 1f;
         }
 
-        private float a = 0;
         private float width = 0;
-
+        float a = 0f;
         public override void AI()
         {
             Projectile.velocity *= 0;
+            if (Projectile.timeLeft > 10) a += 0.2f;
+            if (Projectile.timeLeft < 5) a -= 0.2f;
         }
 
         public override void PostDraw(Color lightColor)
@@ -41,12 +42,12 @@ namespace OdeMod.Projectiles.Series.Boss.MiracleRecorder
             List<CustomVertexInfo> bars = new();
             var factor = 1;
             var color = Color.Lerp(Color.White, Color.Red, factor);
-            width = ((float)Projectile.timeLeft + 15) * 1.5f;
+            width = Projectile.timeLeft + 20;
             for (float i = 1; i <= 60; i++)
             {
                 var normalDir = new Vector2((float)Math.Cos(i / 60f * 6.28318f), (float)Math.Sin(i / 60f * 6.28318f));
-                bars.Add(new CustomVertexInfo(Projectile.position + normalDir * (width + Projectile.timeLeft * 30), color, new Vector3(1, 1, 0.6f - ((float)Projectile.timeLeft / 30f))));
-                bars.Add(new CustomVertexInfo(Projectile.position + normalDir * (-width + Projectile.timeLeft * 30), color, new Vector3(1, 0, 0.6f - ((float)Projectile.timeLeft / 30f))));
+                bars.Add(new CustomVertexInfo(Projectile.position + normalDir * (width + (15 - Projectile.timeLeft) * 10), color, new Vector3(1, 1, a)));
+                bars.Add(new CustomVertexInfo(Projectile.position + normalDir * (width + (15 - Projectile.timeLeft) * 10), color, new Vector3(1, 0, a)));
             }
 
             List<CustomVertexInfo> triangleList = new List<CustomVertexInfo>();
@@ -83,9 +84,9 @@ namespace OdeMod.Projectiles.Series.Boss.MiracleRecorder
 
                 //启用即时加载加载Shader
                 var shader = ModContent.Request<Effect>("OdeMod/Effects/VertexShaders/Trail", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
-                var MainColor = ModContent.Request<Texture2D>("OdeMod/Images/Effects/heatmap3", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+                var MainColor = ModContent.Request<Texture2D>("OdeMod/Images/Effects/heatmap", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                 var MaskColor = ModContent.Request<Texture2D>("OdeMod/Images/Effects/Flame0", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
-                var MainShape = ModContent.Request<Texture2D>("OdeMod/Images/Effects/Extra_200", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+                var MainShape = ModContent.Request<Texture2D>("OdeMod/Images/Effects/Extra_198", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                 // 把变换和所需信息丢给shader
                 shader.Parameters["uTransform"].SetValue(model * projection);//坐标变换，详见小裙子视频
                 shader.Parameters["uTime"].SetValue(-(float)Main.time * 0.05f);//使纹理随时间变化
@@ -105,11 +106,6 @@ namespace OdeMod.Projectiles.Series.Boss.MiracleRecorder
                 Main.spriteBatch.End();
                 Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
             }
-        }
-
-        public override Color? GetAlpha(Color lightColor)
-        {
-            return new Color(255 - Projectile.alpha, 255 - Projectile.alpha, 255 - Projectile.alpha, 255 - Projectile.alpha);
         }
     }
 }

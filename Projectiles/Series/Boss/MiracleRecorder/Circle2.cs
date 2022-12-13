@@ -11,7 +11,7 @@ using Terraria.ModLoader;
 
 namespace OdeMod.Projectiles.Series.Boss.MiracleRecorder
 {
-    internal class Circle0 : ModProjectile, IMiracleRecorderProj
+    internal class Circle2 : ModProjectile, IMiracleRecorderProj
     {
         public override void SetDefaults()
         {
@@ -28,7 +28,6 @@ namespace OdeMod.Projectiles.Series.Boss.MiracleRecorder
             Projectile.scale = 1f;
         }
 
-        private float a = 0;
         private float width = 0;
 
         public override void AI()
@@ -41,12 +40,12 @@ namespace OdeMod.Projectiles.Series.Boss.MiracleRecorder
             List<CustomVertexInfo> bars = new();
             var factor = 1;
             var color = Color.Lerp(Color.White, Color.Red, factor);
-            width = ((float)Projectile.timeLeft + 15) * 1.5f;
+            width = Projectile.timeLeft + 10;
             for (float i = 1; i <= 60; i++)
             {
                 var normalDir = new Vector2((float)Math.Cos(i / 60f * 6.28318f), (float)Math.Sin(i / 60f * 6.28318f));
-                bars.Add(new CustomVertexInfo(Projectile.position + normalDir * (width + Projectile.timeLeft * 30), color, new Vector3(1, 1, 0.6f - ((float)Projectile.timeLeft / 30f))));
-                bars.Add(new CustomVertexInfo(Projectile.position + normalDir * (-width + Projectile.timeLeft * 30), color, new Vector3(1, 0, 0.6f - ((float)Projectile.timeLeft / 30f))));
+                bars.Add(new CustomVertexInfo(Projectile.position + normalDir * (width + (30 - Projectile.timeLeft) * 10), color, new Vector3(1, 1, ((float)Projectile.timeLeft / 50f))));
+                bars.Add(new CustomVertexInfo(Projectile.position + normalDir * (-width + (30 - Projectile.timeLeft) * 10), color, new Vector3(1, 0, ((float)Projectile.timeLeft / 50f))));
             }
 
             List<CustomVertexInfo> triangleList = new List<CustomVertexInfo>();

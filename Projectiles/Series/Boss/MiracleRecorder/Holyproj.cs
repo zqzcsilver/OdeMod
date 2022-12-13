@@ -28,6 +28,7 @@ namespace OdeMod.Projectiles.Series.Boss.MiracleRecorder
             Projectile.penetrate = 1;
             Projectile.scale = 1f;
             Projectile.extraUpdates = 1;
+
             Main.projFrames[Projectile.type] = 4;
             ProjectileID.Sets.TrailCacheLength[base.Projectile.type] = 12;
             ProjectileID.Sets.TrailingMode[base.Projectile.type] = 0;
@@ -61,13 +62,47 @@ namespace OdeMod.Projectiles.Series.Boss.MiracleRecorder
         {
             return new Color(255 - Projectile.alpha, 255 - Projectile.alpha, 255 - Projectile.alpha, 255 - Projectile.alpha);
         }
+        private float scaleDraw = 1f;
+        public override bool PreDraw(ref Color lightColor)
+        {
+            Main.spriteBatch.End();
+            Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+            double range = Projectile.scale * 1;
+            double range2 = Projectile.scale * 1;
+            if (scaleDraw <= 2f)
+            {
+                scaleDraw += 0.025f;
+            }
+            else
+            {
+                scaleDraw = 1f;
+            }
+            double range3 = Projectile.scale * scaleDraw;
+            Texture2D texture = ModContent.Request<Texture2D>(Texture).Value;
+            Vector2 drawOrigin = new Vector2(23, 23);
+            for (int k = 0; k < Projectile.oldPos.Length; k++)
+            {
 
+
+                Vector2 drawPos = Projectile.oldPos[k] - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
+                Color color = Projectile.GetAlpha(lightColor) * ((float)(Projectile.oldPos.Length - (int)((k + 5) * 1.5)) / (float)Projectile.oldPos.Length);
+                Main.spriteBatch.Draw(texture, drawPos, new Rectangle(0, 46 * Projectile.frame, 46, 46), color, Projectile.rotation, drawOrigin, (float)range, SpriteEffects.None, 0f);
+
+            }
+            Vector2 drawPos2 = Projectile.position - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
+            Color color2 = Projectile.GetAlpha(lightColor) * (1f - 0.4f * scaleDraw);
+            Main.spriteBatch.Draw(texture, drawPos2, new Rectangle(0, 46 * Projectile.frame, 46, 46), color2, Projectile.rotation, drawOrigin, (float)range3, SpriteEffects.None, 0f);
+
+            Main.spriteBatch.End();
+            Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+            return true;
+        }
         public override void PostDraw(Color lightColor)
         {
             List<CustomVertexInfo> bars = new();
             //顶点离弹幕坐标的距离，也是顶点三角形宽度的一半
             // 把所有的点都生成出来，按照顺序
-            int width = 15;
+            int width = 20;
             for (int i = 1; i < Projectile.oldPos.Length; ++i)
             {
                 width -= 1;
@@ -84,11 +119,10 @@ namespace OdeMod.Projectiles.Series.Boss.MiracleRecorder
                 //这里是计算颜色用的插值，但最终效果实际上是用图片上色，所以这里的颜色处理没有必要
                 var color = Color.Lerp(Color.White, Color.Red, factor);
                 var w = MathHelper.Lerp(1f, 0.05f, factor);
-                w *= (255 - Projectile.alpha) / 255f;
                 //w是纹理坐标的插值，使纹理的位置能够正确对应
                 //朝切线的两个方向分别找顶点
-                bars.Add(new CustomVertexInfo(Projectile.oldPos[i] + 0.5f * new Vector2(Projectile.width, Projectile.height) + normalDir * width, color, new Vector3(factor, 1, w)));
-                bars.Add(new CustomVertexInfo(Projectile.oldPos[i] + 0.5f * new Vector2(Projectile.width, Projectile.height) + normalDir * -width, color, new Vector3(factor, 0, w)));
+                bars.Add(new CustomVertexInfo(Projectile.oldPos[i] + 0.5f * new Vector2(Projectile.width, Projectile.height) + normalDir * width, color, new Vector3(factor, 1, w * (255 - Projectile.alpha) / 255f)));
+                bars.Add(new CustomVertexInfo(Projectile.oldPos[i] + 0.5f * new Vector2(Projectile.width, Projectile.height) + normalDir * -width, color, new Vector3(factor, 0, w * (255 - Projectile.alpha) / 255f)));
             }
 
             List<CustomVertexInfo> triangleList = new List<CustomVertexInfo>();
