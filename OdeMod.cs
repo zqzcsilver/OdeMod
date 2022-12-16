@@ -2,7 +2,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using OdeMod.CardMode;
-using OdeMod.ScreenShaders;
+using OdeMod.ShaderDatas.ScreenShaderDatas;
 using OdeMod.UI.OdeUISystem;
 using OdeMod.Utils;
 
@@ -67,10 +67,22 @@ namespace OdeMod
 
         private Utils.RenderTarget2DPool renderTarget2DPool;
 
+        internal static OdeScreenShaderDataManager ScreenShaderDataManager
+        {
+            get
+            {
+                if (Instance._screenShaderDataManager == null)
+                    Instance._screenShaderDataManager = new OdeScreenShaderDataManager();
+                return Instance._screenShaderDataManager;
+            }
+        }
+
+        private OdeScreenShaderDataManager _screenShaderDataManager;
+
         public override void Load()
         {
             base.Load();
-    
+
             if (Main.netMode == NetmodeID.SinglePlayer)
             {
                 //On.Terraria.Main.DrawPlayer += Main_DrawPlayer;
@@ -95,13 +107,11 @@ namespace OdeMod
 
                 On.Terraria.Main.Draw += Main_Draw;
             }
-            Filters.Scene["OdeMod:MiracleRecorder"] = new Filter(
-                new BossSSD(
+
+            ScreenShaderDataManager.Register("OdeMod:MiracleRecorder", new BossSSD(
                     new Ref<Effect>(
                         ModContent.Request<Effect>("OdeMod/Effects/PixelShaders/SSD1",
                         ReLogic.Content.AssetRequestMode.ImmediateLoad).Value), "Rotate"), EffectPriority.Medium);
-
-            Filters.Scene["OdeMod:MiracleRecorder"].Load();
         }
 
         private void Main_Draw(On.Terraria.Main.orig_Draw orig, Main self, GameTime gameTime)

@@ -29,9 +29,9 @@ namespace OdeMod.Players
         public bool HollowKnightMovement = false;
         public int Hallow = 0;
         public int Rolling = 0;
-        public int MiracleRecorderShader = 0;
 
         public bool MagicBoneShield = false;//Ä§·¨¹Ç¶Ü
+
         public override void SaveData(TagCompound tag)
         {
             tag.Add("Carapace", Carapace);
@@ -224,10 +224,12 @@ namespace OdeMod.Players
                 Player.noFallDmg = true;
             }
         }
+
         public override void ModifyHitByProjectile(Projectile proj, ref int damage, ref bool crit)
         {
             base.ModifyHitByProjectile(proj, ref damage, ref crit);
         }
+
         public override void OnHitByProjectile(Projectile proj, int damage, bool crit)
         {
             if (MagicBoneShield)

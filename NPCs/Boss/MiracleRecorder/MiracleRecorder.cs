@@ -178,7 +178,7 @@ namespace OdeMod.NPCs.Boss.MiracleRecorder
                         ModContent.ProjectileType<Projectiles.Series.Boss.MiracleRecorder.Circle0>(), 0, 0, player.whoAmI);
                 }
             }
-            if(timer>100)
+            if (timer > 100)
             {
                 Vector2 witness = new Vector2(player.Center.X - NPC.Center.X, player.Center.Y - NPC.Center.Y);
                 witness.Normalize();
@@ -215,7 +215,7 @@ namespace OdeMod.NPCs.Boss.MiracleRecorder
                         ModContent.ProjectileType<Projectiles.Series.Boss.MiracleRecorder.Holyproj>(),
                         NPC.damage, 0, player.whoAmI);
                 }
-                player.GetModPlayer<OdePlayer>().MiracleRecorderShader = 1;
+                OdeMod.ScreenShaderDataManager["OdeMod:MiracleRecorder"].Visible = true;
             }
             if (timer >= 300)
             {
@@ -552,20 +552,19 @@ namespace OdeMod.NPCs.Boss.MiracleRecorder
         /// <param name="player"></param>
         private void focus(Player player)
         {
-
             if (timer >= 1 && timer < 20)
             {
                 NPC.velocity *= 0.9f;
                 act = 4;
-                if (timer == 1) 
-                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.Series.Boss.MiracleRecorder.DamageCircle>(), NPC.damage, 0, player.whoAmI);
+                if (timer == 1)
+                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.Series.Boss.MiracleRecorder.DamageCircle>(), NPC.damage, 0, player.whoAmI);
             }
-            if(timer>=20&&timer<200)
+            if (timer >= 20 && timer < 200)
             {
                 act = 1;
                 float randomRad = Main.rand.Next(0, 629);
                 int randomDis = Main.rand.Next(260, 400);
-                if(timer%2==0)
+                if (timer % 2 == 0)
                 {
                     Vector2 dustpos = NPC.Center + randomDis * Main.rand.NextVector2Unit();
                     var dust2 = Dust.NewDustDirect(dustpos, 1, 1,
@@ -580,11 +579,10 @@ namespace OdeMod.NPCs.Boss.MiracleRecorder
                     dust3.velocity = (NPC.Center - dustpos) / 20f;
                     dust3.noGravity = true;
                 }
-                
             }
-            if(timer==180)
+            if (timer == 180)
             {
-                for (int i = 0; i < 40; i++) 
+                for (int i = 0; i < 40; i++)
                 {
                     var dust2 = Dust.NewDustDirect(NPC.Center, 1, 1, DustID.PinkTorch, 0, 0, 0, Color.White, 2.5f);
                     dust2.position = NPC.Center + 160 * Main.rand.NextVector2Unit();
@@ -594,19 +592,18 @@ namespace OdeMod.NPCs.Boss.MiracleRecorder
                     var dust3 = Dust.NewDustDirect(NPC.Center, 1, 1,
                         ModContent.DustType<Dusts.Dream>(), 0, 0, 0, Color.White, 1f);
                     dust3.position = NPC.Center + 160 * Main.rand.NextVector2Unit();
-                    
+
                     dust3.noGravity = true;
                 }
                 for (int i = 1; i <= 6; i++)
                 {
                     float rad2 = 1.0472f * i + (player.Center - NPC.Center).ToRotation();
-                    Projectile.NewProjectile(NPC.GetSource_FromAI(), 
-                        NPC.Center+ new Vector2((float)Math.Cos(rad2), (float)Math.Sin(rad2)) * 100f, new Vector2((float)Math.Cos(rad2), (float)Math.Sin(rad2)) * 6f, ModContent.ProjectileType<Projectiles.Series.Boss.MiracleRecorder.Pin>(), NPC.damage, 0, player.whoAmI);
+                    Projectile.NewProjectile(NPC.GetSource_FromAI(),
+                        NPC.Center + new Vector2((float)Math.Cos(rad2), (float)Math.Sin(rad2)) * 100f, new Vector2((float)Math.Cos(rad2), (float)Math.Sin(rad2)) * 6f, ModContent.ProjectileType<Projectiles.Series.Boss.MiracleRecorder.Pin>(), NPC.damage, 0, player.whoAmI);
                 }
             }
-            if(timer==200)
+            if (timer == 200)
             {
-                
                 count2 = 0;
                 NPC.alpha = 0;
                 count = 0;
@@ -641,7 +638,7 @@ namespace OdeMod.NPCs.Boss.MiracleRecorder
 
         public override void OnKill()
         {
-            Main.LocalPlayer.GetModPlayer<OdePlayer>().MiracleRecorderShader = 0;
+            OdeMod.ScreenShaderDataManager["OdeMod:MiracleRecorder"].Visible = false;
         }
 
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
@@ -870,10 +867,10 @@ namespace OdeMod.NPCs.Boss.MiracleRecorder
                     Main.spriteBatch.Draw(texture2, drawPos2, new Rectangle(0, NPC.frame.Y, 134, 209), color, NPC.rotation, drawOrigin, 1f, SpriteEffects.None, 0f);
                 }
             }
-            if (act == 4) 
+            if (act == 4)
             {
                 float scaleDraw = 1f;
-                for(int i=3;i<=8;i++)
+                for (int i = 3; i <= 8; i++)
                 {
                     scaleDraw = 1f + i * 0.2f;
                     scaleDraw *= (40 - timer) / 40f;
