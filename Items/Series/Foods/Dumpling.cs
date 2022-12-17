@@ -6,6 +6,9 @@ using Microsoft.Xna.Framework;
 
 namespace OdeMod.Items.Series.Foods
 {
+    /// <summary>
+    /// 吃完后获得吃饱2buff，连续吃2碗后获得吃撑buff，部分食物无法摄入。
+    /// </summary>
     internal class Dumpling : ModItem, IFoods
     {
         public override void SetStaticDefaults()

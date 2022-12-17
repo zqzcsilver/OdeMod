@@ -85,6 +85,26 @@
 
 			//杂项
 			SuicideRevolver : 自尽左轮
+			Wan : Wan
+			WanGift : Wan的礼物
+			TwistedSteelBlade : 精铁弯刀
+			SunLight : 日曜
+			StrangeDoorplate : 奇异门牌
+			SimpleSteelCannon : 简陋钢炮
+			Redmoon : 赤红幼月
+			Paradise : 天界
+			LightPromise : 光辉誓言
+			LargePottedPlant : 大型盆栽
+			ChenAi : 陈艾
+			AyTsao : 艾草
+			DarkMoonSoul : 暗月之魂
+			GreenSoul : 碧绿之魂
+			RelicSpiritStone : 遗迹灵石
+			HolyFlameCrown : 圣火冠
+			LightningAmulet : 闪电护符
+			MagicBoneShield : 魔法骨盾
+			BrilliantDragon : 煌龙
+			BuleLight : 碧蓝之光
 		}
 		#物品介绍
 		ItemTooltip:
@@ -191,7 +211,47 @@
 
 			//杂项
 			SuicideRevolver : 军火商的箱子最底部的一把枪，看上去完全不像是能伤害到敌人的样子。
-
+			Wan : 
+			'''
+			奇怪的物品，你可以将它投出
+			它试图摆脱你的手掌
+			'''
+			WanGift : 可以开出奇奇怪怪的东西
+			TwistedSteelBlade : 骷髅王掉落
+			SunLight : 
+			'''
+			奇奇怪怪,射出魔能弹,穿透怪物会提升魔能弹的威力
+			增加乱七八糟的奇怪能力
+			似乎并不属于这个世界?
+			'''
+			StrangeDoorplate : 将你传送至地狱
+			SimpleSteelCannon : 肉山掉落
+			Redmoon : 这次一定会中！
+			Paradise : 未完成
+			LightPromise : 握紧它，你感到一股奇怪的力量
+			LargePottedPlant : 富有生机
+			ChenAi : 
+			'''
+			用于制作艾叶护符和艾汁酒
+			流通在泰拉大陆通常都只有三年陈艾
+			'''
+			AyTsao : 用途极多
+			DarkMoonSoul : 
+			'''
+			现于暗月
+			月后夜晚天空、混沌之蚀掉落
+			'''
+			GreenSoul : 翠绿
+			RelicSpiritStone : 花后神庙怪物掉落
+			HolyFlameCrown : 
+			'''
+			圣火洗礼
+			你的每一次攻击都有几率会附加一次圣火爆炸
+			'''
+			LightningAmulet : 闪电护佑着你
+			MagicBoneShield : 化敌为友
+			BrilliantDragon : 煌龙
+			BuleLight : 一把最“自然”的刀
 		}
 		#弹幕名字
 		ProjectileName:
@@ -212,6 +272,16 @@
 			DesolateDive : 荒芜俯冲
 			DescendingDark : 黑暗降临
 			DescendingDark_Two : 黑暗降临
+
+			//物品杂项弹幕
+			BlueLightPro : 碧蓝之光
+			CrystalSentence : 光辉誓言
+			Accumulation : 光辉誓言
+			HolyFlame : 圣火
+			Light : 赤红幼月
+			Redarrow : 赤红幼月
+			Suicide : 自尽左轮
+			Yao : 日曜
 		}
 		#生物名字
 		NPCName:
@@ -225,39 +295,37 @@
 			Mist : 无名之雾
 			Rumia : 露米娅
 			SoftGlueDragon : 软胶龙
+
+			//Boss
+			MiracleRecorder : 辉煌记录者
 		}
 		#状态名字
 		BuffName:
 		{
+			//食物系列
+			Addiction : 上瘾
+			Happy : 快乐
+			Inappetence : 厌食
+
+			//杂项
+			NaturalPower : 自然力量
+			Vitality : 元气
 		}
 		#状态介绍
 		BuffDescription:
 		{
-		}
-		#附魔
-		Prefix:
-		{
-		}
-		#物块在地图上的名字
-		MapObject:
-		{
-		}
-		#弹幕名字
-		ProjectileName:
-		{
-		
-		}
-		#生物名字
-		NPCName:
-		{
-		}
-		#状态名字
-		BuffName:
-		{
-		}
-		#状态介绍
-		BuffDescription:
-		{
+			//食物系列
+			Addiction : 
+			'''
+			攻击力提升30% 防御力减半
+			你疯狂得渴望某种物质
+			'''
+			Happy : 你兴奋的打了几个嗝
+			Inappetence : 你厌恶
+
+			//杂项
+			NaturalPower : 被自然所敌视
+			Vitality : 免疫寒冷，大大增加生命回复速度。
 		}
 		#附魔
 		Prefix:

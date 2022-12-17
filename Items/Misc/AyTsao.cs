@@ -9,7 +9,6 @@ namespace OdeMod.Items.Misc
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            Tooltip.SetDefault("辟邪");
         }
         public override void SetDefaults()
         {

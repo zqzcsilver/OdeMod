@@ -11,7 +11,6 @@ namespace OdeMod.Items.Misc
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            Tooltip.SetDefault("用于制作艾叶护符和艾汁酒\n流通在泰拉大陆通常都只有三年陈艾");
         }
         public override void SetDefaults()
         {

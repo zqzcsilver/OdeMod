@@ -31,7 +31,7 @@ namespace OdeMod.Tiles
             TileMaterials.SetForTileId(Type, TileMaterials._materialsByName["Plant"]); //高尔夫球棒
             ModTranslation name = CreateMapEntryName();
             name.SetDefault("艾草");
-            AddMapEntry(new Color(128, 128, 128), name);
+            AddMapEntry(new Color(110, 181, 83), name);
 
             TileObjectData.newTile.CopyFrom(TileObjectData.StyleAlch);
             TileObjectData.newTile.AnchorValidTiles = new int[] {

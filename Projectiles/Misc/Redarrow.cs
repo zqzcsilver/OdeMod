@@ -60,10 +60,9 @@ namespace OdeMod.Projectiles.Misc
         {
             for (int i = 0; i < 60; i++)
             {
-                var dust2 = Dust.NewDustDirect(target.Center, 1, 1, 235, 0, 0, 0, Color.White, 2f);
+                var dust2 = Dust.NewDustDirect(target.Center, 1, 1, DustID.LifeDrain, 0, 0, 0, Color.White, 2f);
                 dust2.velocity = 4 * Main.rand.NextVector2Unit();
                 dust2.noGravity = true;
-
             }
         }
         public override Color? GetAlpha(Color lightColor)

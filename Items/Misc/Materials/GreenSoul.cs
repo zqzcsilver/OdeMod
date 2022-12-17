@@ -13,7 +13,6 @@ namespace OdeMod.Items.Misc.Materials
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(5, 8));
             ItemID.Sets.AnimatesAsSoul[Item.type] = true;
             ItemID.Sets.ItemNoGravity[Item.type] = true;
-            Tooltip.SetDefault("翠绿\n");
         }
         public override void SetDefaults()
         {

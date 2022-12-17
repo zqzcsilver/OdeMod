@@ -9,7 +9,7 @@ namespace OdeMod.Items.Series.Foods
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            Tooltip.SetDefault("似乎有些腐烂");
+            Tooltip.SetDefault("沾满鲜血的柚子\n散发出奇异的香甜");
         }
         public override void SetDefaults()
         {

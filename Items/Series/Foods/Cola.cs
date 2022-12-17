@@ -4,9 +4,14 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using OdeMod.Buffs.Foods;
 using OdeMod.Players;
+using OdeMod.Globals.GlobalItems;
 
 namespace OdeMod.Items.Series.Foods
 {
+    /// <summary>
+    /// 7餐中有>=3餐吃的是可乐时，会附加效果打嗝 期间会不时附加0.5s的沉默。
+    /// 喝下后给予快乐buff
+    /// </summary>
     internal class Cola : ModItem, IFoods
     {
         public override void SetStaticDefaults()
@@ -25,11 +30,11 @@ namespace OdeMod.Items.Series.Foods
             Item.consumable = true;
             Item.maxStack = 99;
         }
-        public override bool CanUseItem(Player player)
+        public override bool? UseItem(Player player)
         {
             player.GetModPlayer<OdeFoodPlayer>().Food_Variety_Test(Item);
             player.AddBuff(ModContent.BuffType<Happy>(), 6000);
-            return base.CanUseItem(player);
+            return true;
         }
     }
 }

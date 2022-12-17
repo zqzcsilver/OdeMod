@@ -6,12 +6,12 @@ using Microsoft.Xna.Framework;
 
 namespace OdeMod.Items.Series.Foods
 {
-    internal class JiaoDui : ModItem, IFoods
+    internal class CandiedFruit : ModItem, IFoods
     {
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("焦䭔");
+            DisplayName.SetDefault("糖油果子");
             Tooltip.SetDefault("再来一串！");
             Main.RegisterItemAnimation(Type, new DrawAnimationVertical(int.MaxValue, 3));
             ItemID.Sets.FoodParticleColors[Item.type] = new Color[3] {
@@ -35,6 +35,38 @@ namespace OdeMod.Items.Series.Foods
         public override bool CanUseItem(Player player)
         {
             return base.CanUseItem(player);
+        }
+    }
+    internal class JiaoDui : ModItem, IFoods
+    {
+
+        public override void SetStaticDefaults()
+        {
+            base.SetStaticDefaults();
+            DisplayName.SetDefault("焦䭔");
+            Tooltip.SetDefault("看起来十分像糖油果子，但是上面的外壳看起来硬邦邦的\n上面仿佛还带着一些沙土...这东西真的能吃吗？");
+            Main.RegisterItemAnimation(Type, new DrawAnimationVertical(int.MaxValue, 3));
+            ItemID.Sets.FoodParticleColors[Item.type] = new Color[3] {
+                new Color(248,248,255),
+                new Color(253,245,230),
+                new Color(255,248,220)
+            };
+            ItemID.Sets.IsFood[Type] = true;
+        }
+        public override void SetDefaults()
+        {
+            base.SetDefaults();
+            Item.width = 30;
+            Item.height = 30;
+            Item.useStyle = ItemUseStyleID.DrinkLiquid;
+            Item.useAnimation = 15;
+            Item.useTime = 15;
+            Item.consumable = true;
+            Item.maxStack = 99;
+        }
+        public override bool? UseItem(Player player)
+        {
+            return base.UseItem(player);
         }
     }
 }

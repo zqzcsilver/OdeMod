@@ -9,7 +9,7 @@ namespace OdeMod.Items.Misc.Materials
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            Tooltip.SetDefault("花后神庙怪物掉落");
+            //Tooltip.SetDefault("花后神庙怪物掉落");
         }
         public override void SetDefaults()
         {

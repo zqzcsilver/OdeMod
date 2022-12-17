@@ -6,12 +6,15 @@ using Microsoft.Xna.Framework;
 
 namespace OdeMod.Items.Series.Foods
 {
+    /// <summary>
+    /// 
+    /// </summary>
     internal class StarLollipop : ModItem, IFoods
     {
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            Tooltip.SetDefault("我要吃!星辰棒棒糖!");
+            Tooltip.SetDefault("我要吃!星辰棒棒糖!\n传说有天上降落的星辰融入其中");
             Main.RegisterItemAnimation(Type, new DrawAnimationVertical(int.MaxValue, 3));
             ItemID.Sets.FoodParticleColors[Item.type] = new Color[3] {
                 new Color(248,248,255),
@@ -28,6 +31,7 @@ namespace OdeMod.Items.Series.Foods
             Item.useTime = 25;
             Item.consumable = true;
             Item.maxStack = 99;
+            Item.manaIncrease = 100;
         }
         public override bool CanUseItem(Player player)
         {

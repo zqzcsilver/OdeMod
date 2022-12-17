@@ -12,7 +12,6 @@
     <PackageReference Include="tModLoader.CodeAssist" Version="0.1.*" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Items\Misc\Weapons\" />
     <Folder Include="Items\Misc\Armor\" />
     <Folder Include="Items\Misc\Placeable\" />
     <Folder Include="Utils\CardMode\" />

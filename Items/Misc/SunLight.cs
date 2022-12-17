@@ -11,8 +11,6 @@ namespace OdeMod.Items.Misc
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("曜");
-            Tooltip.SetDefault("奇奇怪怪\n射出魔能弹\n穿透怪物会提升魔能弹的威力\n增加乱七八糟的奇怪能力\n似乎并不属于这个世界？");
         }
         public override void SetDefaults()
         {

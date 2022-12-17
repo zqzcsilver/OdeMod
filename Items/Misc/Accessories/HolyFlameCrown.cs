@@ -6,13 +6,12 @@ using OdeMod.Players;
 
 namespace OdeMod.Items.Misc.Accessories
 {
-    internal class MagicBoneShield : ModItem,IMiscItem
+    internal class HolyFlameCrown : ModItem, IMiscItem
     {
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-            //Tooltip.SetDefault("化敌为友");
+            //Tooltip.SetDefault("圣火洗礼\n你的每一次攻击都有几率会附加一次圣火爆炸");
         }
         public override void SetDefaults()
         {
@@ -24,7 +23,7 @@ namespace OdeMod.Items.Misc.Accessories
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.GetModPlayer<OdePlayer>().MagicBoneShield = true;
+            player.GetModPlayer<OdePlayer>().HolyFlameCrown = true;
             base.UpdateAccessory(player, hideVisual);
         }
     }
