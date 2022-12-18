@@ -13,7 +13,7 @@ namespace OdeMod.Items.Misc.Materials
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(5, 22));
             ItemID.Sets.AnimatesAsSoul[Item.type] = true;
             ItemID.Sets.ItemNoGravity[Item.type] = true;
-            Tooltip.SetDefault("现于暗月\n月后夜晚天空、混沌之蚀掉落");
+            //Tooltip.SetDefault("现于暗月\n月后夜晚天空、混沌之蚀掉落");
         }
         public override void SetDefaults()
         {

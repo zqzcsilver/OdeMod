@@ -12,7 +12,6 @@ namespace OdeMod.Items.Misc
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            Tooltip.SetDefault("地狱门牌");
         }
         public override void SetDefaults()
         {

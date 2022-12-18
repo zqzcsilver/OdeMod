@@ -11,9 +11,9 @@ namespace OdeMod.Items.Series.HollowKnight
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Focus");
-            DisplayName.AddTranslation(LanguageType.Chinese, "聚集");
-            Tooltip.SetDefault("消耗50点法力值，回复50点生命。");
+            //DisplayName.SetDefault("Focus");
+            //DisplayName.AddTranslation(LanguageType.Chinese, "聚集");
+            //Tooltip.SetDefault("消耗50点法力值，回复50点生命。");
         }
         public override void SetDefaults()
         {

@@ -6,6 +6,7 @@ using OdeMod.Utils.Expends;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Terraria.DataStructures;
 
 namespace OdeMod.CardMode
 {
@@ -286,6 +287,11 @@ namespace OdeMod.CardMode
                 components.Add(component.Key, compon);
             }
             return card;
+        }
+
+        internal IEntitySource GetSource_OnHit()
+        {
+            throw new NotImplementedException();
         }
     }
 }

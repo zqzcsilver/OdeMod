@@ -8,5 +8,6 @@ namespace OdeMod.Items.Misc.Accessories
 {
     internal class LightningAmulet
     {
+
     }
 }

@@ -6,6 +6,9 @@ using Microsoft.Xna.Framework;
 
 namespace OdeMod.Items.Series.Foods
 {
+    /// <summary>
+    /// 烤羊肉串 
+    /// </summary>
     internal class Kabob : ModItem,IFoods
     {
         public override void SetStaticDefaults()

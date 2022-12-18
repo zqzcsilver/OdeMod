@@ -15,15 +15,7 @@ namespace OdeMod.Systems
         public override void PreUpdateEntities()
         {
             base.PreUpdateEntities();
-            if (!Filters.Scene["OdeMod:MiracleRecorder"].IsActive() && Main.LocalPlayer.GetModPlayer<OdePlayer>().MiracleRecorderShader == 1)
-            {
-                // 开启滤镜
-                Filters.Scene.Activate("OdeMod:MiracleRecorder");
-            }
-            else if (Filters.Scene["OdeMod:MiracleRecorder"].IsActive() && Main.LocalPlayer.GetModPlayer<OdePlayer>().MiracleRecorderShader == 0)
-            {
-                Filters.Scene.Deactivate("OdeMod:MiracleRecorder");
-            }
+            OdeMod.ScreenShaderDataManager.Update();
         }
     }
 }

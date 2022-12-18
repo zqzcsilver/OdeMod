@@ -10,8 +10,8 @@ namespace OdeMod.Buffs
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("自然力量");
-            Description.SetDefault("被自然所敌视");
+            //DisplayName.SetDefault("自然力量");
+            //Description.SetDefault("被自然所敌视");
             Main.debuff[Type] = true;
             Main.pvpBuff[Type] = true;
             Main.buffNoSave[Type] = true;

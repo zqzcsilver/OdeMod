@@ -45,7 +45,7 @@ namespace OdeMod.Tiles.RiftValley.SoulCemetery
         // Top Textures
         public override Asset<Texture2D> GetTopTextures()
         {
-            return ModContent.Request<Texture2D>("ExampleMod/Content/Tiles/Plants/BoneOakCrown");
+            return ModContent.Request<Texture2D>("OdeMod/Tiles/RiftValley/SoulCemetery/BoneOakCrown");
         }
 
         public override int DropWood()

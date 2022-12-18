@@ -21,7 +21,7 @@ namespace OdeMod.Tiles.RiftValley
 
             ModTranslation name = CreateMapEntryName();
             name.SetDefault("DisasterSilverOre");
-            AddMapEntry(new Color(152, 171, 198), name);
+            AddMapEntry(new Color(207, 207, 207), name);
 
             DustType = 84;
             ItemDrop = ModContent.ItemType<Items.Series.RiftValley.DisasterSilverOre>();

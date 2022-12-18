@@ -10,8 +10,8 @@ namespace OdeMod.Buffs
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults(); 
-            DisplayName.SetDefault("元气");
-            Description.SetDefault("免疫寒冷，大大增加生命回复速度。");
+            //DisplayName.SetDefault("元气");
+            //Description.SetDefault("免疫寒冷，大大增加生命回复速度。");
             Main.debuff[Type] = false;
             Main.pvpBuff[Type] = true;
             Main.buffNoSave[Type] = true;

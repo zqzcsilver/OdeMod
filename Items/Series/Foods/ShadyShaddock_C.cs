@@ -2,14 +2,19 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Microsoft.Xna.Framework;
+
 namespace OdeMod.Items.Series.Foods
 {
+    /// <summary>
+    /// 阴影柚
+    /// </summary>
     internal class ShadyShaddock_C : ModItem, IFoods
     {
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            Tooltip.SetDefault("沾满鲜血的柚子");
+            Tooltip.SetDefault("闻起来似乎有些腐烂\n你捏了捏 里面似乎有种糊状物质\n你有些害怕且兴奋");
         }
         public override void SetDefaults()
         {
@@ -22,9 +27,25 @@ namespace OdeMod.Items.Series.Foods
             Item.consumable = true;
             Item.maxStack = 99;
         }
-        public override bool CanUseItem(Player player)
+        public int pip = 0;
+        public override bool? UseItem(Player player)
         {
-            return base.CanUseItem(player);
+            pip++;
+            Rectangle rectangle = new Rectangle((int)player.Center.X-75, (int)player.Center.Y + 32, 150, 50);
+            
+            switch (pip)
+            {
+                case 1:
+                    CombatText.NewText(rectangle, Color.Red, "有股怪怪的味道...");
+                    break;
+                case 2:
+                    CombatText.NewText(rectangle, Color.Red, "我的肚子突然好疼...");
+                    break;
+                case 3:
+                    CombatText.NewText(rectangle, Color.Red, "啊！忍不住啦！");
+                    break;
+            }
+            return true;
         }
     }
 }

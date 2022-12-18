@@ -13,7 +13,9 @@ namespace OdeMod.Tiles.RiftValley
             Main.tileMergeDirt[Type] = true;
             Main.tileBlockLight[Type] = true;
             ItemDrop = ModContent.ItemType<Items.Series.RiftValley.Test>();
-            AddMapEntry(new Color(0, 0, 0));
+            ModTranslation name = CreateMapEntryName();
+            name.SetDefault("ShineBlock");
+            AddMapEntry(new Color(255, 247, 191),name);
         }
 
         public override void NumDust(int i, int j, bool fail, ref int num)

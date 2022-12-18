@@ -272,7 +272,7 @@ namespace OdeMod.NPCs.Boss.MiracleRecorder
                         ModContent.ProjectileType<Projectiles.Series.Boss.MiracleRecorder.Holyproj>(),
                         NPC.damage, 0, player.whoAmI);
                 }
-                player.GetModPlayer<OdePlayer>().MiracleRecorderShader = 1;
+                OdeMod.ScreenShaderDataManager["OdeMod:MiracleRecorder"].Visible = true;
             }
             if (timer >= 300)
             {
@@ -665,7 +665,6 @@ namespace OdeMod.NPCs.Boss.MiracleRecorder
         /// <param name="player"></param>
         private void focus(Player player)
         {
-
             if (timer >= 1 && timer < 20)
             {
                 NPC.velocity *= 0f;
@@ -853,7 +852,7 @@ ModContent.ProjectileType<Projectiles.Series.Boss.MiracleRecorder.GoldCircle1>()
 
         public override void OnKill()
         {
-            Main.LocalPlayer.GetModPlayer<OdePlayer>().MiracleRecorderShader = 0;
+            OdeMod.ScreenShaderDataManager["OdeMod:MiracleRecorder"].Visible = false;
         }
 
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)

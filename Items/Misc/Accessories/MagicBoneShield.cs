@@ -12,7 +12,7 @@ namespace OdeMod.Items.Misc.Accessories
         {
             base.SetStaticDefaults();
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-            Tooltip.SetDefault("化敌为友");
+            //Tooltip.SetDefault("化敌为友");
         }
         public override void SetDefaults()
         {

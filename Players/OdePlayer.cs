@@ -33,6 +33,7 @@ namespace OdeMod.Players
         public int MiracleLogic = 0;
 
         public bool MagicBoneShield = false;//Ä§·¨¹Ç¶Ü
+        public bool HolyFlameCrown = false;
         public override void SaveData(TagCompound tag)
         {
             tag.Add("Carapace", Carapace);
@@ -185,6 +186,7 @@ namespace OdeMod.Players
         public override void ResetEffects()
         {
             MagicBoneShield = false;
+            HolyFlameCrown = false;
             if (Fall == 1)
             {
                 FallTimer = 3;
@@ -225,10 +227,29 @@ namespace OdeMod.Players
                 Player.noFallDmg = true;
             }
         }
+        public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+        {
+            if (HolyFlameCrown && proj.type != ModContent.ProjectileType<Projectiles.Misc.HolyFlame>() && Main.rand.NextBool(10))
+            {
+                Vector2 vector2 = new(0, 0);
+                Projectile.NewProjectile(proj.GetSource_OnHit(target), target.position, vector2, ModContent.ProjectileType<Projectiles.Misc.HolyFlame>(), proj.damage / 2, 0, proj.whoAmI);
+            }
+            base.ModifyHitNPCWithProj(proj, target, ref damage, ref knockback, ref crit, ref hitDirection);
+        }
+        public override void ModifyHitNPC(Item item, NPC target, ref int damage, ref float knockback, ref bool crit)
+        {
+            if (HolyFlameCrown && Main.rand.NextBool(10))
+            {
+                Vector2 vector2 = new(0, 0);
+                Projectile.NewProjectile(item.GetSource_OnHit(target), target.position, vector2, ModContent.ProjectileType<Projectiles.Misc.HolyFlame>(), item.damage / 2, 0, item.whoAmI);
+            }
+            base.ModifyHitNPC(item, target, ref damage, ref knockback, ref crit);
+        }
         public override void ModifyHitByProjectile(Projectile proj, ref int damage, ref bool crit)
         {
             base.ModifyHitByProjectile(proj, ref damage, ref crit);
         }
+
         public override void OnHitByProjectile(Projectile proj, int damage, bool crit)
         {
             if (MagicBoneShield)
