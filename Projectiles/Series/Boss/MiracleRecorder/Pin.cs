@@ -23,7 +23,7 @@ namespace OdeMod.Projectiles.Series.Boss.MiracleRecorder
             Projectile.DamageType = DamageClass.Melee;
             Projectile.ignoreWater = true;
             Projectile.tileCollide = false;
-            Projectile.alpha = 0;
+            Projectile.alpha = 255;
             Projectile.timeLeft = 30;
             Projectile.penetrate = 1;
             Projectile.scale = 1f;

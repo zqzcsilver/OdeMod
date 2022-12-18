@@ -20,3 +20,19 @@ Message at 2022/12/10 16:38:59: Rebuilding all content because build settings ha
 Message at 2022/12/10 16:39:00: Importing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
 Message at 2022/12/10 16:39:00: Processing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
 Message at 2022/12/10 16:39:00: Compiling Trail.xnb
+Message at 2022/12/15 11:22:00: Importing Mapping.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/12/15 11:22:00: Processing Mapping.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/12/15 11:22:00: Compiling Mapping.xnb
+Message at 2022/12/15 11:22:00: Importing SSD1.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/12/15 11:22:00: Processing SSD1.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/12/15 11:22:00: Compiling SSD1.xnb
+Message at 2022/12/15 11:22:00: Importing Starry.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/12/15 11:22:00: Processing Starry.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/12/15 11:22:00: Compiling Starry.xnb
+Message at 2022/12/15 11:22:00: Rebuilding all content because build settings have changed
+Message at 2022/12/15 11:22:00: Importing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/12/15 11:22:00: Processing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/12/15 11:22:00: Compiling Trail.xnb
+Message at 2022/12/15 11:22:18: Importing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/12/15 11:22:18: Processing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/12/15 11:22:18: Compiling Trail.xnb

@@ -21,7 +21,7 @@ namespace OdeMod.Items.Misc
             Item.useTurn = false;
             Item.useStyle = ItemUseStyleID.Swing;
             Item.rare = ItemRarityID.Pink;
-            Item.shoot = ModContent.ProjectileType<Projectiles.Series.Items.Sharpsand.SharpsandSwordgas>();
+            Item.shoot = ModContent.ProjectileType<Projectiles.Series.Boss.MiracleRecorder.Servants>();
             Item.value = Item.sellPrice(0, 7, 50, 0);
             Item.autoReuse = true;
             Item.shootSpeed = 5;

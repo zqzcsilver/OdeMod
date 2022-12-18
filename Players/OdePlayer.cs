@@ -30,6 +30,7 @@ namespace OdeMod.Players
         public int Hallow = 0;
         public int Rolling = 0;
         public int MiracleRecorderShader = 0;
+        public int MiracleLogic = 0;
 
         public bool MagicBoneShield = false;//Ä§·¨¹Ç¶Ü
         public override void SaveData(TagCompound tag)

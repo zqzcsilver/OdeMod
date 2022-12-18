@@ -31,7 +31,7 @@ float4 PixelShaderFunction(PSInput input) : COLOR0 {
 	float4 c1 = tex2D(uImage1, float2(coord.x, coord.y));
 	float4 c3 = tex2D(uImage2, float2(y, coord.y));
 	c1 *= c3;
-	float4 c = tex2D(uImage0, float2(c1.b, 0));
+	float4 c = tex2D(uImage0, float2(c1.r, 0));
 	return 2 * c * coord.z;
 
 }
