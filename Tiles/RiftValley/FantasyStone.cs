@@ -13,9 +13,7 @@ namespace OdeMod.Tiles.RiftValley
             Main.tileMergeDirt[Type] = true;
             Main.tileBlockLight[Type] = true;
             ItemDrop = ModContent.ItemType<Items.Series.RiftValley.FantasyStone>();
-            ModTranslation name = CreateMapEntryName();
-            name.SetDefault("FantasyStone");
-            AddMapEntry(new Color(255, 130, 189),name);
+            AddMapEntry(new Color(255, 130, 189));
         }
 
         public override void NumDust(int i, int j, bool fail, ref int num)

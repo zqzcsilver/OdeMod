@@ -12,6 +12,11 @@ namespace OdeMod.NPCs.Chaos
     //吸 你 脑 髓 不如加个设定 被击中后眩晕 击中次数越多眩晕越多 最后直接暴毙（x
     internal class ChaoticLicker : ModNPC, IChaos
     {
+        private enum NPC_State
+        {
+            Wander,
+            Lick
+        }
         public override void SetStaticDefaults()
         {
             Main.npcFrameCount[NPC.type] = 8;
@@ -34,7 +39,10 @@ namespace OdeMod.NPCs.Chaos
             NPC.noTileCollide = false;
             NPCID.Sets.TrailingMode[NPC.type] = 1;
         }
-
+        public override void AI()
+        {
+            base.AI();
+        }
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             var pls = target.GetModPlayer<EggPlayer>();

@@ -28,10 +28,8 @@ namespace OdeMod.Tiles
             TileID.Sets.ReplaceTileBreakUp[Type] = true;
             TileID.Sets.IgnoredInHouseScore[Type] = true;
             TileID.Sets.IgnoredByGrowingSaplings[Type] = true;
-            TileMaterials.SetForTileId(Type, TileMaterials._materialsByName["Plant"]); //高尔夫球棒
-            ModTranslation name = CreateMapEntryName();
-            name.SetDefault("艾草");
-            AddMapEntry(new Color(110, 181, 83), name);
+            TileMaterials.SetForTileId(Type, TileMaterials._materialsByName["Plant"]); //高尔夫球棒;
+            AddMapEntry(new Color(110, 181, 83));
 
             TileObjectData.newTile.CopyFrom(TileObjectData.StyleAlch);
             TileObjectData.newTile.AnchorValidTiles = new int[] {

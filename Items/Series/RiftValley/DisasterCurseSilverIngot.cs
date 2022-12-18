@@ -8,8 +8,6 @@ namespace OdeMod.Items.Series.RiftValley
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("灾咒银锭");
-            Tooltip.SetDefault("你感觉银锭上覆盖着一层不详的气息");
         }
         public override void SetDefaults()
         {

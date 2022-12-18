@@ -20,9 +20,7 @@ namespace OdeMod.Tiles.RiftValley
 			TileObjectData.newTile.StyleHorizontal = true;
 			TileObjectData.newTile.LavaDeath = false;
 			TileObjectData.addTile(Type);
-			ModTranslation name = CreateMapEntryName();
-			name.SetDefault("灾咒银锭");
-			AddMapEntry(new Color(151, 161, 180), name);
+			AddMapEntry(new Color(151, 161, 180));
 		}
 		public override bool Drop(int i, int j)
 		{

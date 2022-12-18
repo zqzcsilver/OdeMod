@@ -13,9 +13,7 @@ namespace OdeMod.Tiles.RiftValley
             Main.tileMergeDirt[Type] = true;
             Main.tileBlockLight[Type] = true;
             ItemDrop = ModContent.ItemType<Items.Series.RiftValley.FlowFireGold>();
-            ModTranslation name = CreateMapEntryName();
-            name.SetDefault("FlowFireGold");
-            AddMapEntry(new Color(255, 193, 94),name);
+            AddMapEntry(new Color(255, 193, 94));
         }
 
         public override void NumDust(int i, int j, bool fail, ref int num)

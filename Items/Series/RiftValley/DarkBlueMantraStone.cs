@@ -9,7 +9,6 @@ namespace OdeMod.Items.Series.RiftValley
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            Tooltip.SetDefault("咒术");
         }
         public override void SetDefaults()
         {

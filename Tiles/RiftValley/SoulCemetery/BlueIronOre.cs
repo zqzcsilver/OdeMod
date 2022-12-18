@@ -18,10 +18,7 @@ namespace OdeMod.Tiles.RiftValley.SoulCemetery
             Main.tileMergeDirt[Type] = true;
             Main.tileSolid[Type] = true;
             Main.tileBlockLight[Type] = true;
-
-            ModTranslation name = CreateMapEntryName();
-            name.SetDefault("BlueIronOre");
-            AddMapEntry(new Color(152, 171, 198), name);
+            AddMapEntry(new Color(152, 171, 198));
 
             DustType = 84;
             ItemDrop = ModContent.ItemType<Items.Series.SoulCemetery.BlueIronOre>();

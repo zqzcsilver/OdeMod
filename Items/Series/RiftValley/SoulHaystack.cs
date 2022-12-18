@@ -9,8 +9,6 @@ namespace OdeMod.Items.Series.RiftValley
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("灵魂草堆");
-            Tooltip.SetDefault("哀嚎");
         }
         public override void SetDefaults()
         {

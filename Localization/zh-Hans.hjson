@@ -21,6 +21,9 @@
 			BrightironPickaxe : 熙铁镐
 			BrightironShortbow : 熙铁短弓
 			BrightironStaff : 熙铁法杖
+			BrightironBreastplate :熙铁胸甲
+			BrightironHelmet : 熙铁头盔
+			BrightironLeggings : 熙铁护腿
 			SpiritPieces : 异灵体
 			CaliforniumBar : 锎锭
 			GammaDisembower : 伽马开膛者
@@ -66,10 +69,8 @@
 			//Chaos-混沌系列
 			BlackPage : 黑暗书页
 			Brain : 大脑
-			CursedSoul : 魔化触手
-			MagicTentacle : 1
-
-			//裂谷系列
+			CursedSoul : 被诅咒的灵魂
+			MagicTentacle : 魔化触手
 
 			//食物
 			Cola : 可乐
@@ -105,6 +106,27 @@
 			MagicBoneShield : 魔法骨盾
 			BrilliantDragon : 煌龙
 			BuleLight : 碧蓝之光
+
+			//裂谷系列
+			DarkBlueMantraStone : 暗蓝咒石
+			DarkBlueSting : 暗蓝之刺
+			DisasterCurseSilverIngot : 灾咒银锭
+			DisasterSilverOre : 灾咒银矿石
+			EmeraldLeaf : 翠叶
+			FantasyStone : 幻想石
+			Flamehappy : 火之高兴
+			FlowFireGold : 流火金块
+			FlowFireGoldBrick : 流火金砖
+			HolyLightRotatingBlade : 圣光旋刃
+			HolySpiritCutter : 圣灵切割器
+			RosewoodCrystalStaff : 红木晶杖
+			RottenMeatcs : 破碎血肉块
+			SoulHaystack : 灵魂草堆
+			SpiritualPowerRosewood : 灵力红木
+			BlueIronOre : 蓝铁矿
+			BoneOak : 骨橡木
+			SoulCongealingSoil : 凝魂土
+			WhiteSoulStone : 白魄石
 		}
 		#物品介绍
 		ItemTooltip:
@@ -252,6 +274,27 @@
 			MagicBoneShield : 化敌为友
 			BrilliantDragon : 煌龙
 			BuleLight : 一把最“自然”的刀
+
+			//裂谷系列
+			DarkBlueMantraStone : 咒术
+			DarkBlueSting : 待补充
+			DisasterCurseSilverIngot :你感觉银锭上覆盖着一层不详的气息
+			DisasterSilverOre : 灾祸
+			EmeraldLeaf : 待补充
+			FantasyStone : 现在是 幻想时刻！
+			Flamehappy : 待补充
+			FlowFireGold : 灾祸
+			FlowFireGoldBrick : 灾祸
+			HolyLightRotatingBlade : 待补充
+			HolySpiritCutter : 待补充
+			RosewoodCrystalStaff : 待补充
+			RottenMeatcs : 血肉
+			SoulHaystack : 哀嚎
+			SpiritualPowerRosewood : 待补充
+			BlueIronOre : 蓝色铁
+			BoneOak : 阴森
+			SoulCongealingSoil : 哀嚎
+			WhiteSoulStone : 白色的石头
 		}
 		#弹幕名字
 		ProjectileName:
@@ -287,6 +330,7 @@
 		NPCName:
 		{
 		    ShadowSwing : 暗翼
+			Raider : 强袭者
 			//Chaos-混沌之日
 			ChaoticAurora : 混沌极光
 			ChaoticBite : 混沌噬咬
@@ -334,6 +378,23 @@
 		#物块在地图上的名字
 		MapObject:
 		{
+			//杂项
+			AyTsao : 艾草
+			LargePottedPlant : 大型盆栽
+			//裂谷
+			DarkBlueMantraStone : 暗蓝咒石
+			DisasterSilverBar : 灾咒银锭
+			DisasterSilverOre :灾咒银矿
+			FantasyStone : 幻想石
+			FlowFireGold : 流火金块
+			FlowFireGoldBrick : 流火金砖
+			RottenMeatcs : 腐烂肉块
+			ShineBlock : 光芒方块
+			SoulHaystack : 灵魂草堆
+			WhiteSoulStone : 白魄石
+			SoulCongealingSoil : 凝魂土
+			BlueIronOre : 蓝铁矿
+			BoneOak : 骨橡树
 		}
 		#系列名字
 		SeriesName:
@@ -348,6 +409,9 @@
 			RechargeableWeapon:充能系列
 			Sharpsand:纯砂系列
 			Chaos : 混沌系列
+			SoulCemetery : 灵魂墓园系列
+			RiftValley : 裂谷系列
+			Foods : 食物系列
 		}
 	}
 }

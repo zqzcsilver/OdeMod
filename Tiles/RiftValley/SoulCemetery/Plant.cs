@@ -36,10 +36,6 @@ namespace OdeMod.Tiles.RiftValley.SoulCemetery
             TileObjectData.newTile.RandomStyleRange = 3;
             TileObjectData.newTile.StyleMultiplier = 3;
 
-            //TileObjectData.newSubTile.CopyFrom(TileObjectData.newTile);
-            //TileObjectData.newSubTile.AnchorValidTiles = new int[] { TileType<ExampleSand>() };
-            //TileObjectData.addSubTile(1);
-
             TileObjectData.addTile(Type);
 
             ModTranslation name = CreateMapEntryName();
