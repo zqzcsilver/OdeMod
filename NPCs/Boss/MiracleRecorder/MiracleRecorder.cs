@@ -842,7 +842,7 @@ ModContent.ProjectileType<Projectiles.Series.Boss.MiracleRecorder.GoldCircle1>()
 
             _npcLogic[state](player);
             timer++;
-
+            Main.NewText(NPC.damage);
             for (int i = 8; i > 0; i--)
             {
                 rot[i] = rot[i - 1];
