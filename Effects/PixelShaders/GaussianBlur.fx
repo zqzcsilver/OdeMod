@@ -1,7 +1,7 @@
 ﻿sampler SpriteTextureSampler : register(s0);
 float2 uScaleFactor;
 
-float gauss[11];
+float gauss[21];
 
 struct VertexShaderOutput
 {
@@ -15,9 +15,9 @@ float4 BlurV(VertexShaderOutput input) : COLOR
     float2 coord = input.TextureCoordinates;
     float4 color = tex2D(SpriteTextureSampler, coord);
     color = float4(0, 0, 0, 0);
-    for (int j = -5; j <= 5; j++)
+    for (int j = -10; j <= 10; j++)
     {
-        color += gauss[j + 5] * tex2D(SpriteTextureSampler, coord + float2(0, j * uScaleFactor.y));
+        color += gauss[j + 10] * tex2D(SpriteTextureSampler, coord + float2(0, j * uScaleFactor.y));
     }
     return color;
 }
@@ -26,9 +26,9 @@ float4 BlurH(VertexShaderOutput input) : COLOR
     float2 coord = input.TextureCoordinates;
     float4 color = tex2D(SpriteTextureSampler, coord);
     color = float4(0, 0, 0, 0);
-    for (int i = -5; i <= 5; i++)
+    for (int i = -10; i <= 10; i++)
     {
-        color += gauss[i + 5] * tex2D(SpriteTextureSampler, coord + float2(i * uScaleFactor.x, 0));
+        color += gauss[i + 10] * tex2D(SpriteTextureSampler, coord + float2(i * uScaleFactor.x, 0));
     }
     return color;
 }

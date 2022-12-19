@@ -1126,6 +1126,7 @@ namespace OdeMod.NPCs.Boss.MiracleRecorder
             //绘制本体
             Main.spriteBatch.Draw(texture, drawPos, new Rectangle(0, NPC.frame.Y, 134, 209), drawColor * ((255f - (float)NPC.alpha) / 255f), NPC.rotation, drawOrigin, 1f, SpriteEffects.None, 0f);
 
+            var ssd = (BossSSD)OdeMod.ScreenShaderDataManager["OdeMod:MiracleRecorder"];
             //以下是对屏幕滤镜做处理
             sb.End();
             sb.GraphicsDevice.SetRenderTarget(Main.screenTargetSwap);
@@ -1137,7 +1138,7 @@ namespace OdeMod.NPCs.Boss.MiracleRecorder
             sb.GraphicsDevice.SetRenderTarget(OdeMod.RenderTarget2DPool.PoolOther(Main.ScreenSize, "MiracleRecorder:Night"));
             sb.GraphicsDevice.Clear(Color.Transparent);
             var effect = ModContent.Request<Effect>("OdeMod/Effects/PixelShaders/HighlightExtraction", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
-            effect.Parameters["uLightRange"].SetValue(((BossSSD)OdeMod.ScreenShaderDataManager["OdeMod:MiracleRecorder"]).LightRange);
+            effect.Parameters["uLightRange"].SetValue(ssd.LightRange);
             sb.GraphicsDevice.Textures[0] = ModContent.Request<Texture2D>("OdeMod/Images/Effects/Night", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             sb.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone, effect);
             sb.Draw(ModContent.Request<Texture2D>("OdeMod/Images/Effects/Night", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value,
@@ -1145,13 +1146,13 @@ namespace OdeMod.NPCs.Boss.MiracleRecorder
             sb.End();
 
             float t = 180;
-            //2f是基础模糊因数，4f是由Main.time与t控制的模糊因素
-            float σ = 1f + Math.Abs(t / 2f - (float)Main.time % t) / t * 2f * 10f;
+            //1f是基础模糊因数，10f是由Main.time与t控制的模糊因素
+            ssd.BlurFactor = 1f + Math.Abs(t / 2f - (float)Main.time % t) / t * 2f * 10f;
 
             sb.GraphicsDevice.SetRenderTarget(OdeMod.RenderTarget2DPool.PoolOther(Main.ScreenSize, "MiracleRecorder:Night Swap"));
             sb.GraphicsDevice.Clear(Color.Transparent);
             effect = ModContent.Request<Effect>("OdeMod/Effects/PixelShaders/GaussianBlur", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
-            effect.Parameters["gauss"].SetValue(MathUtils.GaussValueV(11, σ));
+            effect.Parameters["gauss"].SetValue(MathUtils.GaussValueV(21, ssd.BlurFactor));
             effect.Parameters["uScaleFactor"].SetValue(new Vector2(1f / (float)Main.screenWidth, 1f / (float)Main.screenHeight));
             sb.GraphicsDevice.Textures[0] = OdeMod.RenderTarget2DPool.PoolOther(Main.ScreenSize, "MiracleRecorder:Night");
             sb.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone, effect);
@@ -1162,7 +1163,7 @@ namespace OdeMod.NPCs.Boss.MiracleRecorder
 
             sb.GraphicsDevice.SetRenderTarget(OdeMod.RenderTarget2DPool.PoolOther(Main.ScreenSize, "MiracleRecorder:Night"));
             sb.GraphicsDevice.Clear(Color.Transparent);
-            effect.Parameters["gauss"].SetValue(MathUtils.GaussValueH(11, σ));
+            effect.Parameters["gauss"].SetValue(MathUtils.GaussValueH(21, ssd.BlurFactor));
             effect.Parameters["uScaleFactor"].SetValue(new Vector2(1f / (float)Main.screenWidth, 1f / (float)Main.screenHeight));
             sb.GraphicsDevice.Textures[0] = OdeMod.RenderTarget2DPool.PoolOther(Main.ScreenSize, "MiracleRecorder:Night Swap");
             sb.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone, effect);

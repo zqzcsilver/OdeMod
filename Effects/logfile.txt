@@ -83,3 +83,6 @@ Message at 2022/12/19 15:59:46: Compiling SSD1.xnb
 Message at 2022/12/19 16:09:13: Importing SSD1.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
 Message at 2022/12/19 16:09:13: Processing SSD1.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
 Message at 2022/12/19 16:09:13: Compiling SSD1.xnb
+Message at 2022/12/19 16:55:41: Importing GaussianBlur.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/12/19 16:55:41: Processing GaussianBlur.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/12/19 16:55:41: Compiling GaussianBlur.xnb
