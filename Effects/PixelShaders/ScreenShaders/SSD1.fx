@@ -3,6 +3,7 @@ sampler uImage1 : register(s1);
 sampler uImage2 : register(s2);
 sampler uImage3 : register(s3);
 sampler uImage4 : register(s4);
+sampler uImage5 : register(s5);
 float3 uColor;
 float3 uSecondaryColor;
 float2 uScreenResolution;
@@ -21,19 +22,18 @@ float uSaturation;
 float4 uSourceRect;
 float2 uZoom;
 
-Texture2D SpriteTexture;
-
-sampler2D SpriteTextureSampler = sampler_state
-{
-    Texture = <SpriteTexture>;
-};
+float uAlpha;
+float uMaxDistance;
 
 float4 PixelShaderFunction(float2 coords : TEXCOORD0) : COLOR0
 {
     float4 color = tex2D(uImage0, coords);
-    float4 color2 = tex2D(uImage4, coords);
-    return color + color2;
+    float4 color4 = tex2D(uImage4, coords);
+    float4 color5 = tex2D(uImage5, coords);
+    float2 center = float2(0.5, 0.5);
+    float factor = min(1, pow(max(0, uMaxDistance - abs(length(center - coords))), 2) );
     
+    return color + (color4 + color5) * (1 - factor) * uAlpha;
 }
 
 technique Technique1 {

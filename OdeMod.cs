@@ -110,7 +110,7 @@ namespace OdeMod
 
             ScreenShaderDataManager.Register("OdeMod:MiracleRecorder", new BossSSD(
                     new Ref<Effect>(
-                        ModContent.Request<Effect>("OdeMod/Effects/PixelShaders/SSD1",
+                        ModContent.Request<Effect>("OdeMod/Effects/PixelShaders/ScreenShaders/SSD1",
                         ReLogic.Content.AssetRequestMode.ImmediateLoad).Value), "Rotate"), EffectPriority.Medium);
         }
 

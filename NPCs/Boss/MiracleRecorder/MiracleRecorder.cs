@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 
 using OdeMod.Players;
+using OdeMod.ShaderDatas.ScreenShaderDatas;
 using OdeMod.Utils;
 
 using System;
@@ -20,16 +21,16 @@ namespace OdeMod.NPCs.Boss.MiracleRecorder
     public class MiracleRecorder : ModNPC, IBoss
     {
         /*Boss设定详述：
-         
+
         开场：boss逐渐出现并看向玩家。一段时间后震屏并释放弹幕，此时boss无敌解除。
 
          一阶段：
         冲刺：boss按照三叶玫瑰线轨迹冲刺并释放弹幕。
 
         放球：boss围绕玩家释放阻止玩家走位并追踪玩家的球，一段时间后消失
-        
+
         激光：短暂蓄力后瞄准玩家释放瞬时激光，有引导线做提示。
-        
+
         聚集：boss静止并在周围形成反弹弹幕的力场，一段时间后力场爆炸（造成伤害）并释放尖刺。
         前两次聚集会使得第二阶段的僚机数量增加2，接下来的每一次聚集都会提升boss的攻击力。
 
@@ -43,11 +44,12 @@ namespace OdeMod.NPCs.Boss.MiracleRecorder
         放球：改为释放僚机，每次释放一个僚机，僚机将做冲刺运动，并朝玩家释放弹幕。
 
         激光：僚机按照圆弧排列，与boss本体同时释放激光。
-         
+
         聚集：改为回复生命值（但不超过一半生命值），僚机围绕boss做变速圆周运动同时发射激光。
 
         增加技能：次元斩：大型瞬时冲刺。
          */
+
         private enum NPCState
         {
             /// <summary>
@@ -124,7 +126,9 @@ namespace OdeMod.NPCs.Boss.MiracleRecorder
                 { NPCState.ChangeRank, changerank }
             };
         }
+
         private int rank = 1;
+
         public override void FindFrame(int frameHeight)
         {
             NPC.frameCounter++;
@@ -431,12 +435,10 @@ namespace OdeMod.NPCs.Boss.MiracleRecorder
                     }
                     else
                     {
-
                         state = NPCState.EmitLaser;
                         randomFactor = Main.rand.Next(1, 3);
                         extra = false;
                     }
-
 
                     count = 0;
                     ok = -1;
@@ -539,7 +541,6 @@ namespace OdeMod.NPCs.Boss.MiracleRecorder
                         state = NPCState.EmitLaser;
                         extra = true;
                         randomFactor = Main.rand.Next(1, 3);
-
                     }
 
                     ok2 = 0;
@@ -578,7 +579,6 @@ namespace OdeMod.NPCs.Boss.MiracleRecorder
             }
             if (timer >= 25 && timer < 38)
             {
-
             }
             if (timer == 38)
             {
@@ -620,7 +620,7 @@ namespace OdeMod.NPCs.Boss.MiracleRecorder
                     }
                     else
                     {
-                        if(!extra)
+                        if (!extra)
                         {
                             state = NPCState.Dash;
                             randomFactor = Main.rand.Next(4, 6);
@@ -692,7 +692,6 @@ namespace OdeMod.NPCs.Boss.MiracleRecorder
                     dust3.velocity = (NPC.Center - dustpos) / 20f;
                     dust3.noGravity = true;
                 }
-
             }
             if (timer == 180)
             {
@@ -718,7 +717,6 @@ namespace OdeMod.NPCs.Boss.MiracleRecorder
             }
             if (timer == 200)
             {
-
                 count2 = 0;
                 NPC.alpha = 0;
                 count = 0;
@@ -739,13 +737,14 @@ namespace OdeMod.NPCs.Boss.MiracleRecorder
                 }
                 else
                 {
-                        state = NPCState.Wandering;
-                        randomFactor = Main.rand.Next(4, 7);
+                    state = NPCState.Wandering;
+                    randomFactor = Main.rand.Next(4, 7);
                 }
-
             }
         }
-        float lerp = 0;
+
+        private float lerp = 0;
+
         private void changerank(Player player)
         {
             if (timer == 1)
@@ -757,7 +756,6 @@ namespace OdeMod.NPCs.Boss.MiracleRecorder
             }
             if (timer >= 1 && timer < 480)
             {
-
                 if (timer == 1)
                 {
                     Vector2 witness = new Vector2(0, -1f);
@@ -800,21 +798,18 @@ namespace OdeMod.NPCs.Boss.MiracleRecorder
                             NPC.Center + new Vector2((float)Math.Cos(rad2), (float)Math.Sin(rad2)) * 160f, Vector2.Zero, ModContent.ProjectileType<Projectiles.Series.Boss.MiracleRecorder.BlackMist>(), NPC.damage, 0, player.whoAmI);
                     }
                 }
-
-
             }
             if (timer == 480)
             {
                 rank = 2;
                 NPC.dontTakeDamage = false;
-                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, Vector2.Zero,
-ModContent.ProjectileType<Projectiles.Series.Boss.MiracleRecorder.GoldCircle1>(), 0, 0, player.whoAmI);
+                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.Series.Boss.MiracleRecorder.GoldCircle1>(), 0, 0, player.whoAmI);
             }
             if (timer == 500)
             {
                 count2 = 0;
                 NPC.alpha = 0;
-               
+
                 count = 0;
                 ok = -1;
                 ok2 = 0;
@@ -822,6 +817,7 @@ ModContent.ProjectileType<Projectiles.Series.Boss.MiracleRecorder.GoldCircle1>()
                 state = NPCState.Wandering;
             }
         }
+
         private void dead(Player player)
         {
             if (timer == 1)
@@ -842,12 +838,17 @@ ModContent.ProjectileType<Projectiles.Series.Boss.MiracleRecorder.GoldCircle1>()
 
             _npcLogic[state](player);
             timer++;
-            Main.NewText(NPC.damage);
+
             for (int i = 8; i > 0; i--)
             {
                 rot[i] = rot[i - 1];
             }
             rot[0] = NPC.rotation;
+
+            var ssd = (BossSSD)OdeMod.ScreenShaderDataManager["OdeMod:MiracleRecorder"];
+            ssd.LightRange.X = 0.9f - 0.04f * (1f - (float)NPC.life / (float)NPC.lifeMax);
+            ssd.MaxDistance = 1.4f - 0.1f * (1f - (float)NPC.life / (float)NPC.lifeMax);
+            ssd.Alpha = 1f + 2f * (1f - (float)NPC.life / (float)NPC.lifeMax);
         }
 
         public override void OnKill()
@@ -1125,11 +1126,59 @@ ModContent.ProjectileType<Projectiles.Series.Boss.MiracleRecorder.GoldCircle1>()
             //绘制本体
             Main.spriteBatch.Draw(texture, drawPos, new Rectangle(0, NPC.frame.Y, 134, 209), drawColor * ((255f - (float)NPC.alpha) / 255f), NPC.rotation, drawOrigin, 1f, SpriteEffects.None, 0f);
 
-            DrawUtils.SetDrawRenderTarget(Main.spriteBatch, (sb) =>
-            {
-                sb.Draw(ModContent.Request<Texture2D>("OdeMod/Images/Effects/Decrate", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value,
+            //以下是对屏幕滤镜做处理
+            sb.End();
+            sb.GraphicsDevice.SetRenderTarget(Main.screenTargetSwap);
+            sb.GraphicsDevice.Clear(Color.Transparent);
+            sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone);
+            sb.Draw(Main.screenTarget, Vector2.Zero, Color.White);
+            sb.End();
+
+            sb.GraphicsDevice.SetRenderTarget(OdeMod.RenderTarget2DPool.PoolOther(Main.ScreenSize, "MiracleRecorder:Night"));
+            sb.GraphicsDevice.Clear(Color.Transparent);
+            var effect = ModContent.Request<Effect>("OdeMod/Effects/PixelShaders/HighlightExtraction", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+            effect.Parameters["uLightRange"].SetValue(((BossSSD)OdeMod.ScreenShaderDataManager["OdeMod:MiracleRecorder"]).LightRange);
+            sb.GraphicsDevice.Textures[0] = ModContent.Request<Texture2D>("OdeMod/Images/Effects/Night", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+            sb.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone, effect);
+            sb.Draw(ModContent.Request<Texture2D>("OdeMod/Images/Effects/Night", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value,
                     new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), Color.White);
-            }, OdeMod.RenderTarget2DPool.PoolOther(Main.ScreenSize, "MiracleRecorder:Decrate"), Main.screenTarget, Main.screenTargetSwap);
+            sb.End();
+
+            float t = 180;
+            //2f是基础模糊因数，4f是由Main.time与t控制的模糊因素
+            float σ = 1f + Math.Abs(t / 2f - (float)Main.time % t) / t * 2f * 10f;
+
+            sb.GraphicsDevice.SetRenderTarget(OdeMod.RenderTarget2DPool.PoolOther(Main.ScreenSize, "MiracleRecorder:Night Swap"));
+            sb.GraphicsDevice.Clear(Color.Transparent);
+            effect = ModContent.Request<Effect>("OdeMod/Effects/PixelShaders/GaussianBlur", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+            effect.Parameters["gauss"].SetValue(MathUtils.GaussValueV(11, σ));
+            effect.Parameters["uScaleFactor"].SetValue(new Vector2(1f / (float)Main.screenWidth, 1f / (float)Main.screenHeight));
+            sb.GraphicsDevice.Textures[0] = OdeMod.RenderTarget2DPool.PoolOther(Main.ScreenSize, "MiracleRecorder:Night");
+            sb.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone, effect);
+            effect.CurrentTechnique.Passes["BlurV"].Apply();
+            sb.Draw(OdeMod.RenderTarget2DPool.PoolOther(Main.ScreenSize, "MiracleRecorder:Night"),
+                    new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), Color.White);
+            sb.End();
+
+            sb.GraphicsDevice.SetRenderTarget(OdeMod.RenderTarget2DPool.PoolOther(Main.ScreenSize, "MiracleRecorder:Night"));
+            sb.GraphicsDevice.Clear(Color.Transparent);
+            effect.Parameters["gauss"].SetValue(MathUtils.GaussValueH(11, σ));
+            effect.Parameters["uScaleFactor"].SetValue(new Vector2(1f / (float)Main.screenWidth, 1f / (float)Main.screenHeight));
+            sb.GraphicsDevice.Textures[0] = OdeMod.RenderTarget2DPool.PoolOther(Main.ScreenSize, "MiracleRecorder:Night Swap");
+            sb.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone, effect);
+            effect.CurrentTechnique.Passes["BlurH"].Apply();
+            sb.Draw(OdeMod.RenderTarget2DPool.PoolOther(Main.ScreenSize, "MiracleRecorder:Night Swap"), new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), Color.White);
+            sb.End();
+
+            sb.GraphicsDevice.SetRenderTarget(Main.screenTarget);
+            sb.GraphicsDevice.Clear(Color.Transparent);
+            sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone);
+            sb.Draw(Main.screenTargetSwap, Vector2.Zero, Color.White);
+            sb.End();
+
+            sb.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.LinearClamp,
+                DepthStencilState.Default, RasterizerState.CullNone, null, Main.Transform);
+
             return false;
         }
     }

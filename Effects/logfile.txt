@@ -36,3 +36,50 @@ Message at 2022/12/15 11:22:00: Compiling Trail.xnb
 Message at 2022/12/15 11:22:18: Importing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
 Message at 2022/12/15 11:22:18: Processing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
 Message at 2022/12/15 11:22:18: Compiling Trail.xnb
+Message at 2022/12/19 13:54:20: Importing GaussianBlur.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/12/19 13:54:20: Processing GaussianBlur.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/12/19 13:54:20: Compiling GaussianBlur.xnb
+Message at 2022/12/19 13:54:20: Rebuilding all content because build settings have changed
+Message at 2022/12/19 13:54:20: Importing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/12/19 13:54:20: Processing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/12/19 13:54:20: Compiling Trail.xnb
+Message at 2022/12/19 14:01:35: Importing GaussianBlur.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/12/19 14:01:35: Processing GaussianBlur.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/12/19 14:01:35: Compiling GaussianBlur.xnb
+Message at 2022/12/19 14:01:35: Importing Mapping.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/12/19 14:01:35: Processing Mapping.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/12/19 14:01:35: Compiling Mapping.xnb
+Message at 2022/12/19 14:30:06: Importing HighlightExtraction.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/12/19 14:30:07: Processing HighlightExtraction.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/12/19 14:30:07: Compiling HighlightExtraction.xnb
+Message at 2022/12/19 14:30:07: Rebuilding all content because build settings have changed
+Message at 2022/12/19 14:30:07: Importing SSD1.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/12/19 14:30:07: Processing SSD1.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/12/19 14:30:07: Compiling SSD1.xnb
+Message at 2022/12/19 15:30:17: Importing GaussianBlur.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/12/19 15:30:17: Processing GaussianBlur.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/12/19 15:30:17: Compiling GaussianBlur.xnb
+Message at 2022/12/19 15:43:02: Importing SSD1.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/12/19 15:43:02: Processing SSD1.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/12/19 15:43:02: Compiling SSD1.xnb
+Message at 2022/12/19 15:45:08: Importing SSD1.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/12/19 15:45:08: Processing SSD1.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/12/19 15:45:08: Compiling SSD1.xnb
+Message at 2022/12/19 15:46:03: Importing SSD1.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/12/19 15:46:03: Processing SSD1.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/12/19 15:46:03: Compiling SSD1.xnb
+Message at 2022/12/19 15:49:39: Importing SSD1.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/12/19 15:49:39: Processing SSD1.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/12/19 15:49:39: Compiling SSD1.xnb
+Message at 2022/12/19 15:53:29: Importing SSD1.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/12/19 15:53:29: Processing SSD1.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/12/19 15:53:29: Compiling SSD1.xnb
+Message at 2022/12/19 15:57:14: Importing SSD1.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/12/19 15:57:14: Processing SSD1.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/12/19 15:57:14: Compiling SSD1.xnb
+Message at 2022/12/19 15:59:46: Importing SSD1.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/12/19 15:59:46: Processing SSD1.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/12/19 15:59:46: Compiling SSD1.xnb
+Message at 2022/12/19 16:09:13: Importing SSD1.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2022/12/19 16:09:13: Processing SSD1.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2022/12/19 16:09:13: Compiling SSD1.xnb

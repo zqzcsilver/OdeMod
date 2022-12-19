@@ -62,7 +62,9 @@ namespace OdeMod.Projectiles.Series.Boss.MiracleRecorder
         {
             return new Color(255 - Projectile.alpha, 255 - Projectile.alpha, 255 - Projectile.alpha, 255 - Projectile.alpha);
         }
+
         private float scaleDraw = 1f;
+
         public override bool PreDraw(ref Color lightColor)
         {
             Main.spriteBatch.End();
@@ -82,12 +84,9 @@ namespace OdeMod.Projectiles.Series.Boss.MiracleRecorder
             Vector2 drawOrigin = new Vector2(23, 23);
             for (int k = 0; k < Projectile.oldPos.Length; k++)
             {
-
-
                 Vector2 drawPos = Projectile.oldPos[k] - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
                 Color color = Projectile.GetAlpha(lightColor) * ((float)(Projectile.oldPos.Length - (int)((k + 5) * 1.5)) / (float)Projectile.oldPos.Length);
                 Main.spriteBatch.Draw(texture, drawPos, new Rectangle(0, 46 * Projectile.frame, 46, 46), color, Projectile.rotation, drawOrigin, (float)range, SpriteEffects.None, 0f);
-
             }
             Vector2 drawPos2 = Projectile.position - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
             Color color2 = Projectile.GetAlpha(lightColor) * (1f - 0.4f * scaleDraw);
@@ -97,6 +96,7 @@ namespace OdeMod.Projectiles.Series.Boss.MiracleRecorder
             Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
             return true;
         }
+
         public override void PostDraw(Color lightColor)
         {
             List<CustomVertexInfo> bars = new();

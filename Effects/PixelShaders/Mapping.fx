@@ -1,14 +1,5 @@
-﻿Texture2D SpriteTexture;
-sampler2D SpriteTextureSampler = sampler_state
-{
-    Texture = <SpriteTexture>;
-};
-
-Texture2D MappingSpriteTexture;
-sampler2D MappingSpriteTextureSampler = sampler_state
-{
-    Texture = <MappingSpriteTexture>;
-};
+﻿sampler SpriteTextureSampler : register(s0);
+sampler MappingSpriteTextureSampler : register(s1);
 
 struct VertexShaderOutput
 {
