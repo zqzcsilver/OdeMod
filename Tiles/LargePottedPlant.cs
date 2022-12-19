@@ -18,9 +18,7 @@ namespace OdeMod.Tiles
             //5x5
             TileObjectData.newTile.CopyFrom(TileObjectData.Style5x4);
             TileObjectData.addTile(Type);
-            ModTranslation name = CreateMapEntryName();
-            name.SetDefault("大型盆栽");
-            AddMapEntry(new Color(120, 85, 60), name);
+            AddMapEntry(new Color(120, 85, 60));
             DustType = 7;
         }
 

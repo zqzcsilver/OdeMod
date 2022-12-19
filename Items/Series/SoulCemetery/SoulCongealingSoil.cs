@@ -9,8 +9,6 @@ namespace OdeMod.Items.Series.SoulCemetery
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("凝魂土");
-            Tooltip.SetDefault("哀嚎");
         }
         public override void SetDefaults()
         {

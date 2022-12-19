@@ -13,9 +13,7 @@ namespace OdeMod.Tiles.RiftValley
             Main.tileMergeDirt[Type] = true;
             Main.tileBlockLight[Type] = true;
             ItemDrop = ModContent.ItemType<Items.Series.RiftValley.DarkBlueMantraStone>();
-            ModTranslation name = CreateMapEntryName();
-            name.SetDefault("DarkBlueMantraStone");
-            AddMapEntry(new Color(68, 58, 134),name);
+            AddMapEntry(new Color(68, 58, 134));
         }
 
         public override void NumDust(int i, int j, bool fail, ref int num)

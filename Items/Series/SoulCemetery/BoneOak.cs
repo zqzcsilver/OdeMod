@@ -9,8 +9,6 @@ namespace OdeMod.Items.Series.SoulCemetery
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("骨橡木");
-            Tooltip.SetDefault("阴森");
         }
         public override void SetDefaults()
         {

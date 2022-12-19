@@ -9,7 +9,6 @@ namespace OdeMod.Items.Series.RiftValley
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            Tooltip.SetDefault("现在是 幻想时刻！");
         }
         public override void SetDefaults()
         {

@@ -9,8 +9,6 @@ namespace OdeMod.Items.Series.RiftValley
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("灾咒银矿石");
-            Tooltip.SetDefault("灾祸");
         }
         public override void SetDefaults()
         {

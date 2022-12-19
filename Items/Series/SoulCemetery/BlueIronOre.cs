@@ -9,8 +9,6 @@ namespace OdeMod.Items.Series.SoulCemetery
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("蓝铁矿");
-            Tooltip.SetDefault("蓝色铁");
         }
         public override void SetDefaults()
         {

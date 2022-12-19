@@ -13,9 +13,7 @@ namespace OdeMod.Tiles.RiftValley
             Main.tileMergeDirt[Type] = true;
             Main.tileBlockLight[Type] = true;
             ItemDrop = ModContent.ItemType<Items.Series.RiftValley.RottenMeatcs>();
-            ModTranslation name = CreateMapEntryName();
-            name.SetDefault("RottenMeatcs");
-            AddMapEntry(new Color(158, 32, 63),name);
+            AddMapEntry(new Color(158, 32, 63));
         }
 
         public override void NumDust(int i, int j, bool fail, ref int num)

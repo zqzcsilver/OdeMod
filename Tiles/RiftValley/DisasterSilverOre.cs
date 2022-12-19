@@ -18,10 +18,7 @@ namespace OdeMod.Tiles.RiftValley
             Main.tileMergeDirt[Type] = true;
             Main.tileSolid[Type] = true;
             Main.tileBlockLight[Type] = true;
-
-            ModTranslation name = CreateMapEntryName();
-            name.SetDefault("DisasterSilverOre");
-            AddMapEntry(new Color(207, 207, 207), name);
+            AddMapEntry(new Color(207, 207, 207));
 
             DustType = 84;
             ItemDrop = ModContent.ItemType<Items.Series.RiftValley.DisasterSilverOre>();

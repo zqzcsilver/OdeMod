@@ -9,8 +9,6 @@ namespace OdeMod.Items.Series.RiftValley
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("破碎血肉块");
-            Tooltip.SetDefault("血肉");
         }
         public override void SetDefaults()
         {

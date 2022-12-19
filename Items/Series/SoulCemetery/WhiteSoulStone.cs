@@ -9,7 +9,6 @@ namespace OdeMod.Items.Series.SoulCemetery
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            Tooltip.SetDefault("白色的石头");
         }
         public override void SetDefaults()
         {
