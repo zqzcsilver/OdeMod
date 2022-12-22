@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace OdeMod.CardMode.PublicComponents
 {
-    internal class LogicInfo
+    internal class HookInfo
     {
         /// <summary>
         /// 是否允许执行同一委托池内下一委托
@@ -29,20 +29,20 @@ namespace OdeMod.CardMode.PublicComponents
         }
 
         public List<LogicComponentBase> CallOrder { get; private set; }
-        private Dictionary<(HookType, LogicComponentBase), Action<Entity, bool, LogicInfo>> Hooks;
+        private Dictionary<(HookType, LogicComponentBase), Action<Entity, bool, HookInfo>> Hooks;
 
         public LogicComponent()
         {
             CallOrder = new List<LogicComponentBase>();
 
-            Hooks = new Dictionary<(HookType, LogicComponentBase), Action<Entity, bool, LogicInfo>>();
+            Hooks = new Dictionary<(HookType, LogicComponentBase), Action<Entity, bool, HookInfo>>();
         }
 
         public void Play(Entity entity)
         {
             bool isMe = entity == Entity;
             (HookType, LogicComponentBase) key;
-            LogicInfo info = new LogicInfo();
+            HookInfo info = new HookInfo();
             foreach (var c in CallOrder)
             {
                 key = (HookType.PrePlay, c);
@@ -54,7 +54,7 @@ namespace OdeMod.CardMode.PublicComponents
 
             if (!info.CanRunNextFunction)
                 return;
-            info = new LogicInfo();
+            info = new HookInfo();
             foreach (var c in CallOrder)
             {
                 key = (HookType.OnPlayer, c);
@@ -66,7 +66,7 @@ namespace OdeMod.CardMode.PublicComponents
 
             if (!info.CanRunNextFunction)
                 return;
-            info = new LogicInfo();
+            info = new HookInfo();
             foreach (var c in CallOrder)
             {
                 key = (HookType.PostPlayer, c);
@@ -81,7 +81,7 @@ namespace OdeMod.CardMode.PublicComponents
         {
             bool isMe = entity == Entity;
             (HookType, LogicComponentBase) key;
-            LogicInfo info = new LogicInfo();
+            HookInfo info = new HookInfo();
             foreach (var c in CallOrder)
             {
                 key = (HookType.PreTurnBegin, c);
@@ -93,7 +93,7 @@ namespace OdeMod.CardMode.PublicComponents
 
             if (!info.CanRunNextFunction)
                 return;
-            info = new LogicInfo();
+            info = new HookInfo();
             foreach (var c in CallOrder)
             {
                 key = (HookType.OnTurnBegin, c);
@@ -105,7 +105,7 @@ namespace OdeMod.CardMode.PublicComponents
 
             if (!info.CanRunNextFunction)
                 return;
-            info = new LogicInfo();
+            info = new HookInfo();
             foreach (var c in CallOrder)
             {
                 key = (HookType.PostTurnBegin, c);
@@ -120,7 +120,7 @@ namespace OdeMod.CardMode.PublicComponents
         {
             bool isMe = entity == Entity;
             (HookType, LogicComponentBase) key;
-            LogicInfo info = new LogicInfo();
+            HookInfo info = new HookInfo();
             foreach (var c in CallOrder)
             {
                 key = (HookType.PreTurnEnd, c);
@@ -132,7 +132,7 @@ namespace OdeMod.CardMode.PublicComponents
 
             if (!info.CanRunNextFunction)
                 return;
-            info = new LogicInfo();
+            info = new HookInfo();
             foreach (var c in CallOrder)
             {
                 key = (HookType.OnTurnEnd, c);
@@ -144,7 +144,7 @@ namespace OdeMod.CardMode.PublicComponents
 
             if (!info.CanRunNextFunction)
                 return;
-            info = new LogicInfo();
+            info = new HookInfo();
             foreach (var c in CallOrder)
             {
                 key = (HookType.PostTurnEnd, c);
@@ -159,7 +159,7 @@ namespace OdeMod.CardMode.PublicComponents
         {
             bool isMe = entity == Entity;
             (HookType, LogicComponentBase) key;
-            LogicInfo info = new LogicInfo();
+            HookInfo info = new HookInfo();
             foreach (var c in CallOrder)
             {
                 key = (HookType.PreFightBgein, c);
@@ -171,7 +171,7 @@ namespace OdeMod.CardMode.PublicComponents
 
             if (!info.CanRunNextFunction)
                 return;
-            info = new LogicInfo();
+            info = new HookInfo();
             foreach (var c in CallOrder)
             {
                 key = (HookType.OnFightBegin, c);
@@ -183,7 +183,7 @@ namespace OdeMod.CardMode.PublicComponents
 
             if (!info.CanRunNextFunction)
                 return;
-            info = new LogicInfo();
+            info = new HookInfo();
             foreach (var c in CallOrder)
             {
                 key = (HookType.PostFightBegin, c);
@@ -198,7 +198,7 @@ namespace OdeMod.CardMode.PublicComponents
         {
             bool isMe = entity == Entity;
             (HookType, LogicComponentBase) key;
-            LogicInfo info = new LogicInfo();
+            HookInfo info = new HookInfo();
             foreach (var c in CallOrder)
             {
                 key = (HookType.PreFightEnd, c);
@@ -210,7 +210,7 @@ namespace OdeMod.CardMode.PublicComponents
 
             if (!info.CanRunNextFunction)
                 return;
-            info = new LogicInfo();
+            info = new HookInfo();
             foreach (var c in CallOrder)
             {
                 key = (HookType.OnFightEnd, c);
@@ -222,7 +222,7 @@ namespace OdeMod.CardMode.PublicComponents
 
             if (!info.CanRunNextFunction)
                 return;
-            info = new LogicInfo();
+            info = new HookInfo();
             foreach (var c in CallOrder)
             {
                 key = (HookType.PostFightEnd, c);
@@ -252,7 +252,7 @@ namespace OdeMod.CardMode.PublicComponents
             CallOrder.Remove(source);
         }
 
-        public void RegisterHook(HookType hookType, LogicComponentBase source, Action<Entity, bool, LogicInfo> hook)
+        public void RegisterHook(HookType hookType, LogicComponentBase source, Action<Entity, bool, HookInfo> hook)
         {
             var s = (hookType, source);
             if (Hooks.ContainsKey(s))
@@ -295,6 +295,31 @@ namespace OdeMod.CardMode.PublicComponents
         public override IComponent Clone(Entity cloneEntity)
         {
             var op = new LogicComponent();
+            op.CallOrder = new List<LogicComponentBase>();
+            CallOrder.ForEach(x => op.CallOrder.Add(x.Clone(this)));
+            foreach (var c in op.CallOrder)
+                op.AddComponent(c);
+            return op;
+        }
+
+        public override IComponent PrimitiveClone(Entity cloneEntity)
+        {
+            var op = new LogicComponent();
+            op.CallOrder = new List<LogicComponentBase>();
+            CallOrder.ForEach(x => op.CallOrder.Add(x.PrimitiveClone(this)));
+            foreach (var c in op.CallOrder)
+                op.AddComponent(c);
+            return op;
+        }
+
+        public override IComponent TotallyClone(Entity cloneEntity)
+        {
+            var op = new LogicComponent();
+
+            op.CallOrder = new List<LogicComponentBase>();
+            CallOrder.ForEach(x => op.CallOrder.Add(x.TotallyClone(this)));
+            foreach (var c in op.CallOrder)
+                op.AddComponent(c);
             return op;
         }
     }

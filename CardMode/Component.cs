@@ -62,6 +62,31 @@ namespace OdeMod.CardMode
                 throw new Exception($"现有组件与组件{GetType().FullName}产生了组件冲突！");
         }
 
+        /// <summary>
+        /// 克隆该组件
+        /// </summary>
+        /// <param name="cloneEntity"></param>
+        /// <returns></returns>
         public abstract IComponent Clone(Entity cloneEntity);
+
+        /// <summary>
+        /// 简单克隆该组件。默认会使用反射调用 <see cref="Component()"/> 获取结果，如果构造函数有参数请务必重写该方法
+        /// </summary>
+        /// <param name="cloneEntity">被克隆的实体</param>
+        /// <returns>克隆体</returns>
+        public virtual IComponent PrimitiveClone(Entity cloneEntity)
+        {
+            return (IComponent)Activator.CreateInstance(GetType());
+        }
+
+        /// <summary>
+        /// 完全克隆该组件，包括标识符。默认调用 <see cref="Clone(Entity)"/> 获取结果
+        /// </summary>
+        /// <param name="cloneEntity">被克隆的实体</param>
+        /// <returns>克隆体</returns>
+        public virtual IComponent TotallyClone(Entity cloneEntity)
+        {
+            return Clone(cloneEntity);
+        }
     }
 }
