@@ -30,10 +30,6 @@ namespace OdeMod.Players
         public int Hallow = 0;
         public int Rolling = 0;
 
-        public int MiracleRecorderShader = 0;
-        public int MiracleLogic = 0;//辉煌记录者二阶段逻辑
-        public Vector2 MiraclePosFounded = Vector2.Zero;//实时更新辉煌记录者的位置
-        public int ServantCount = 0;//同步数量
         public int MiracleX = 0;
 
         public bool MagicBoneShield = false;//魔法骨盾
