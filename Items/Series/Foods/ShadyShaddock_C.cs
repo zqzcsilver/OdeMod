@@ -3,7 +3,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
-
+using Terraria.Audio;
 namespace OdeMod.Items.Series.Foods
 {
     /// <summary>
@@ -27,13 +27,12 @@ namespace OdeMod.Items.Series.Foods
             Item.consumable = true;
             Item.maxStack = 99;
         }
-        public int pip = 0;
         public override bool? UseItem(Player player)
         {
-            pip++;
-            Rectangle rectangle = new Rectangle((int)player.Center.X-75, (int)player.Center.Y + 32, 150, 50);
-            
-            switch (pip)
+            var pls = player.GetModPlayer<Players.OdeAddPlayer>();
+            pls.FoodPutrefaction += 1;
+            Rectangle rectangle = new Rectangle((int)player.Center.X - 75, (int)player.Center.Y + 32, 150, 50);
+            switch (pls.FoodPutrefaction)
             {
                 case 1:
                     CombatText.NewText(rectangle, Color.Red, "有股怪怪的味道...");
@@ -43,6 +42,11 @@ namespace OdeMod.Items.Series.Foods
                     break;
                 case 3:
                     CombatText.NewText(rectangle, Color.Red, "啊！忍不住啦！");
+
+                    break;
+                default:
+                    SoundEngine.PlaySound(SoundID.Item16, player.Center);
+                    pls.FoodPutrefaction -= 1;
                     break;
             }
             return true;

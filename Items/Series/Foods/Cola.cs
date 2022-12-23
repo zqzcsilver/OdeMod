@@ -32,7 +32,7 @@ namespace OdeMod.Items.Series.Foods
         }
         public override bool? UseItem(Player player)
         {
-            player.GetModPlayer<OdeFoodPlayer>().Food_Variety_Test(Item);
+            player.GetModPlayer<OdeAddPlayer>().Food_Variety_Test(Item);
             player.AddBuff(ModContent.BuffType<Happy>(), 6000);
             return true;
         }
