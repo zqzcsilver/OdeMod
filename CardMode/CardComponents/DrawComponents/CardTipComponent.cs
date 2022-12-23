@@ -32,7 +32,7 @@ namespace OdeMod.CardMode.CardComponents.DrawComponents
                 (int)(drawsize.Y - size.Y - 4 * infoComponent.Scale), size.X, size.Y), Color.White);
 
             int i;
-            float scale = infoComponent.Scale * 0.24f;
+            float scale = infoComponent.Scale * 0.22f;
             var sw = StringUtil.WordWrap1(info.CardTip, info.Font, size.X - 2 * infoComponent.Scale, scale);
             Vector2[] fontsSize = new Vector2[sw.Count];
             float centerY = 0f, y = 0f;

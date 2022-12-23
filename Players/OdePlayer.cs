@@ -97,8 +97,8 @@ namespace OdeMod.Players
 
                 cardInfoComponent.CardID = "XXX";
                 cardInfoComponent.CardName = "星辰天使";
-                cardInfoComponent.CardTip = "它的任务仅仅是带你去见上帝";
-                cardInfoComponent.CardCost = 2;
+                cardInfoComponent.CardTip = "代偿：鲜血(8) 或 灵魂(5)\n战吼：选择一个敌人，休眠8回合\n亡语：消灭选择的敌人";
+                cardInfoComponent.CardCost = 3;
                 entity.AddComponent(cardInfoComponent);
 
                 DrawComponent drawComponent = new DrawComponent();

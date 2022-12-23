@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework.Graphics;
 
 using OdeMod.CardMode.CardComponents.BaseComponents;
 using OdeMod.CardMode.PublicComponents;
-using OdeMod.CardMode.PublicComponents.DrawComponents;
 
 using Terraria;
 using Terraria.UI.Chat;
@@ -28,7 +27,7 @@ namespace OdeMod.CardMode.CardComponents.DrawComponents
 
             string cost = info.CardCost.ToString();
             ChatManager.DrawColorCodedStringWithShadow(sb, info.Font, cost,
-                dcs.ToVector2() / 2f - info.Font.MeasureString(cost) / 2f * scale + new Vector2(0f, infoComponent.Scale),
+                dcs.ToVector2() / 2f - info.Font.MeasureString(cost) + new Vector2(-1f, 0f) * infoComponent.Scale,
                 Color.White, Color.Black, 0f, Vector2.Zero, new Vector2(scale));
         }
     }

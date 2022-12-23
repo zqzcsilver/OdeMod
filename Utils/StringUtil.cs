@@ -1,5 +1,6 @@
 ﻿using ReLogic.Graphics;
 
+using System;
 using System.Collections.Generic;
 
 namespace OdeMod.Utils
@@ -42,7 +43,15 @@ namespace OdeMod.Utils
         /// <returns></returns>
         public static List<string> WordWrap1(string text, DynamicSpriteFont font, float width, float scale = 1.0f)
         {
+            if (string.IsNullOrEmpty(text))
+                return null;
             List<string> output = new List<string>();
+            if (text.Contains('\n'))
+            {
+                var x = text.Split('\n');
+                Array.ForEach(x, x => output.AddRange(WordWrap1(x, font, width, scale)));
+                return output;
+            }
 
             int last = 0, l, r, m;
             while (last < text.Length)
@@ -71,12 +80,12 @@ namespace OdeMod.Utils
             }
             return output;
         }
+
         /// <summary>
         /// 判断输入字符是否为字母
         /// </summary>
         /// <param name="c">输入的字符</param>
         /// <returns></returns>
         private static bool isValid(char c) => (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z');
-
     }
 }
