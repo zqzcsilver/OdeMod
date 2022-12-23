@@ -34,14 +34,6 @@ namespace OdeMod.CardMode.CardComponents.BaseComponents
             CardGraveyard,
         }
 
-        public Texture2D CardBodyTexture,
-            CardCostTexture,
-            CardNameTexture,
-            CardTipTexture,
-            CardIllustrationTexture,
-            CardFrameworkTexture;
-
-        public Texture2D CardIllustration;
         public CardState State;
         public Entity CardOwner;
         public string CardID;
@@ -72,7 +64,6 @@ namespace OdeMod.CardMode.CardComponents.BaseComponents
         public override IComponent Clone(Entity cloneEntity)
         {
             CardInfoComponent component = new CardInfoComponent();
-            component.CardBodyTexture = CardBodyTexture;
             component.State = State;
             return component;
         }

@@ -8,6 +8,14 @@ namespace OdeMod.CardMode.PublicComponents
         public float Scale;
         public float Rotation;
         public Rectangle HitBox;
+        public int UUID;
+        private static int UUIDSwap = 0;
+
+        public BaseInfoComponent()
+        {
+            UUID = UUIDSwap;
+            UUIDSwap++;
+        }
 
         public override IComponent Clone(Entity cloneEntity)
         {
@@ -17,6 +25,13 @@ namespace OdeMod.CardMode.PublicComponents
             op.Rotation = Rotation;
             op.HitBox = HitBox;
             return op;
+        }
+
+        public override IComponent TotallyClone(Entity cloneEntity)
+        {
+            var c = (BaseInfoComponent)Clone(cloneEntity);
+            c.UUID = UUID;
+            return c;
         }
     }
 }

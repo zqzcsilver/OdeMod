@@ -38,6 +38,7 @@ namespace OdeMod.Players
 
         public bool MagicBoneShield = false;//Ä§·¨¹Ç¶Ü
         public bool HolyFlameCrown = false;
+
         public override void SaveData(TagCompound tag)
         {
             tag.Add("Carapace", Carapace);
@@ -91,19 +92,12 @@ namespace OdeMod.Players
                 BaseInfoComponent baseInfoComponent = new BaseInfoComponent();
                 baseInfoComponent.Scale = 4f;
                 baseInfoComponent.Rotation = 0f;
-                baseInfoComponent.HitBox = new Rectangle(0, 0, bodyTex.Width * 4, bodyTex.Height * 4);
+                baseInfoComponent.HitBox = new Rectangle(0, 0,
+                    (int)(bodyTex.Width * baseInfoComponent.Scale), (int)(bodyTex.Height * baseInfoComponent.Scale));
                 baseInfoComponent.Center = Main.ScreenSize.ToVector2() / 4f;
                 entity.AddComponent(baseInfoComponent);
 
                 CardInfoComponent cardInfoComponent = new CardInfoComponent();
-                cardInfoComponent.CardBodyTexture = bodyTex;
-                cardInfoComponent.CardNameTexture = ModContent.Request<Texture2D>("OdeMod/Images/Card/Original/Rare/CardName", AssetRequestMode.ImmediateLoad).Value;
-                cardInfoComponent.CardFrameworkTexture = ModContent.Request<Texture2D>("OdeMod/Images/Card/Original/Rare/CardFramework", AssetRequestMode.ImmediateLoad).Value;
-                cardInfoComponent.CardCostTexture = ModContent.Request<Texture2D>("OdeMod/Images/Card/Original/Summoner/CardCost", AssetRequestMode.ImmediateLoad).Value;
-                cardInfoComponent.CardTipTexture = ModContent.Request<Texture2D>("OdeMod/Images/Card/Original/Summoner/CardTip", AssetRequestMode.ImmediateLoad).Value;
-                cardInfoComponent.CardIllustrationTexture = ModContent.Request<Texture2D>("OdeMod/Images/Card/Original/Summoner/CardIllustration", AssetRequestMode.ImmediateLoad).Value;
-
-                cardInfoComponent.CardIllustration = ModContent.Request<Texture2D>("OdeMod/Items/Series/Recharge/StarAngel", AssetRequestMode.ImmediateLoad).Value;
 
                 cardInfoComponent.CardID = "XXX";
                 cardInfoComponent.CardName = "ÐÇ³½ÌìÊ¹";
@@ -112,15 +106,17 @@ namespace OdeMod.Players
                 entity.AddComponent(cardInfoComponent);
 
                 DrawComponent drawComponent = new DrawComponent();
-                drawComponent.DrawSize = new Point(bodyTex.Width * 4, bodyTex.Height * 4);
+                drawComponent.DrawSize = new Point((int)(bodyTex.Width * baseInfoComponent.Scale), (int)(bodyTex.Height * baseInfoComponent.Scale));
                 entity.AddComponent(drawComponent);
 
-                entity.AddComponent<CardBodyComponent>();
-                entity.AddComponent<CardCostComponent>();
-                entity.AddComponent(new CardIllustrationComponent());
-                entity.AddComponent<CardTipComponent>();
-                entity.AddComponent<CardFrameworkComponent>();
-                entity.AddComponent<CardNameComponent>();
+                drawComponent.AddComponent(new CardBodyComponent(bodyTex));
+                drawComponent.AddComponent(new CardCostComponent(ModContent.Request<Texture2D>("OdeMod/Images/Card/Original/Summoner/CardCost", AssetRequestMode.ImmediateLoad).Value));
+                drawComponent.AddComponent(new CardIllustrationComponent(ModContent.Request<Texture2D>("OdeMod/Images/Card/Original/Summoner/CardIllustration", AssetRequestMode.ImmediateLoad).Value,
+                    ModContent.Request<Texture2D>("OdeMod/Items/Series/Recharge/StarAngel", AssetRequestMode.ImmediateLoad).Value));
+                drawComponent.AddComponent(new CardTipComponent(ModContent.Request<Texture2D>("OdeMod/Images/Card/Original/Summoner/CardTip", AssetRequestMode.ImmediateLoad).Value));
+                drawComponent.AddComponent(new CardTipFrameworkComponent(ModContent.Request<Texture2D>("OdeMod/Images/Card/Original/Rare/CardTipRare", AssetRequestMode.ImmediateLoad).Value));
+                drawComponent.AddComponent(new CardNameComponent(ModContent.Request<Texture2D>("OdeMod/Images/Card/Original/Summoner/CardName", AssetRequestMode.ImmediateLoad).Value));
+                drawComponent.AddComponent(new CardNameFrameworkComponent(ModContent.Request<Texture2D>("OdeMod/Images/Card/Original/Rare/CardNameRare", AssetRequestMode.ImmediateLoad).Value));
 
                 DragComponent dragComponent = new DragComponent();
                 dragComponent.OriginalPos = Main.ScreenSize.ToVector2() / 4f;
@@ -231,6 +227,7 @@ namespace OdeMod.Players
                 Player.noFallDmg = true;
             }
         }
+
         public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
             if (HolyFlameCrown && proj.type != ModContent.ProjectileType<Projectiles.Misc.HolyFlame>() && Main.rand.NextBool(10))
@@ -240,6 +237,7 @@ namespace OdeMod.Players
             }
             base.ModifyHitNPCWithProj(proj, target, ref damage, ref knockback, ref crit, ref hitDirection);
         }
+
         public override void ModifyHitNPC(Item item, NPC target, ref int damage, ref float knockback, ref bool crit)
         {
             if (HolyFlameCrown && Main.rand.NextBool(10))
@@ -249,6 +247,7 @@ namespace OdeMod.Players
             }
             base.ModifyHitNPC(item, target, ref damage, ref knockback, ref crit);
         }
+
         public override void ModifyHitByProjectile(Projectile proj, ref int damage, ref bool crit)
         {
             base.ModifyHitByProjectile(proj, ref damage, ref crit);

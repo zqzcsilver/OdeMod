@@ -3,68 +3,60 @@ using Microsoft.Xna.Framework.Graphics;
 
 using OdeMod.CardMode.CardComponents.BaseComponents;
 using OdeMod.CardMode.PublicComponents;
+using OdeMod.CardMode.PublicComponents.DrawComponents;
 
 using Terraria;
 using Terraria.ModLoader;
 
 namespace OdeMod.CardMode.CardComponents.DrawComponents
 {
-    internal delegate void DrawIllustration(SpriteBatch sb, RenderTarget2D render, Point renderSize);
+    internal delegate void DrawIllustration(SpriteBatch sb, Entity entity, CardIllustrationComponent cardIllustrationComponent
+        , RenderTarget2D render, Point renderSize);
 
-    internal class CardIllustrationComponent : DrawComponentBase
+    internal class CardIllustrationComponent : CardDrawComponentBase
     {
         public DrawIllustration OnDrawIllustration;
+        public Texture2D Illustration;
 
-        public RenderTarget2D Render
+        public CardIllustrationComponent(Texture2D texture, Texture2D illustration, bool useDefaultDrawStyle = true) : base(texture)
         {
-            get
-            {
-                var info = Entity.GetComponent<CardInfoComponent>();
-                var infoComponent = Entity.GetComponent<BaseInfoComponent>();
-                var size = new Point((int)(info.CardIllustrationTexture.Width * infoComponent.Scale),
-                    (int)(info.CardIllustrationTexture.Height * infoComponent.Scale));
-                return OdeMod.RenderTarget2DPool.Pool(size);
-            }
-        }
-
-        public CardIllustrationComponent(bool useDefaultDrawStyle = true)
-        {
+            Illustration = illustration;
             if (useDefaultDrawStyle)
             {
-                OnDrawIllustration += (sb, render, renderSize) =>
+                OnDrawIllustration += (sb, entity, cardIllustrationComponent, render, renderSize) =>
                 {
-                    CardInfoComponent infoComponent = Entity.GetComponent<CardInfoComponent>();
-                    Vector2 texSize = new Vector2(infoComponent.CardIllustration.Width, infoComponent.CardIllustration.Height);
+                    CardInfoComponent infoComponent = entity.GetComponent<CardInfoComponent>();
+                    Vector2 texSize = new Vector2(Illustration.Width, Illustration.Height);
                     float scale = MathHelper.Max((float)renderSize.X / texSize.X, (float)renderSize.Y / texSize.Y) * 0.7f;
-                    sb.Draw(infoComponent.CardIllustration, renderSize.ToVector2() / 2f - texSize / 2f * scale, null,
+                    sb.Draw(Illustration, renderSize.ToVector2() / 2f - texSize / 2f * scale + new Vector2(0f, 2f) * scale, null,
                         Color.White, 0f, Vector2.Zero, scale, 0, 0);
                 };
             }
         }
 
-        protected override void OnCardDraw(Entity entity, BaseInfoComponent infoComponent, SpriteBatch sb)
+        public override void OnCardDraw(Entity entity, BaseInfoComponent infoComponent, SpriteBatch sb, HookInfo hookInfo)
         {
-            base.OnCardDraw(entity, infoComponent, sb);
-
+            base.OnCardDraw(entity, infoComponent, sb, hookInfo);
             var info = entity.GetComponent<CardInfoComponent>();
 
-            var size = new Point((int)(info.CardIllustrationTexture.Width * infoComponent.Scale),
-                (int)(info.CardIllustrationTexture.Height * infoComponent.Scale));
-            var drawsize = DrawComponent.DrawSize;
+            var size = new Point((int)(Texture.Width * infoComponent.Scale),
+                (int)(Texture.Height * infoComponent.Scale));
+            var drawComponent = entity.GetComponent<DrawComponent>();
+            var drawsize = drawComponent.DrawSize;
 
             Utils.DrawUtils.SetDrawRenderTarget(sb, (spriteBatch) =>
             {
-                OnDrawIllustration?.Invoke(spriteBatch, OdeMod.RenderTarget2DPool.Pool(size), size);
-            }, OdeMod.RenderTarget2DPool.Pool(size), DrawComponent.Render, DrawComponent.RenderSwap);
+                OnDrawIllustration?.Invoke(spriteBatch, entity, this, OdeMod.RenderTarget2DPool.PoolOther(size, "Card Illustration"), size);
+            }, OdeMod.RenderTarget2DPool.PoolOther(size, "Card Illustration"), drawComponent.Render, drawComponent.RenderSwap);
 
             sb.End();
             var effect = ModContent.Request<Effect>("OdeMod/Effects/PixelShaders/Mapping", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
-            sb.GraphicsDevice.Textures[0] = info.CardIllustrationTexture;
-            sb.GraphicsDevice.Textures[1] = OdeMod.RenderTarget2DPool.Pool(size);
+            sb.GraphicsDevice.Textures[0] = Texture;
+            sb.GraphicsDevice.Textures[1] = OdeMod.RenderTarget2DPool.PoolOther(size, "Card Illustration");
             sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointWrap,
                 DepthStencilState.Default, RasterizerState.CullNone, effect);
 
-            sb.Draw(info.CardIllustrationTexture,
+            sb.Draw(Texture,
                 new Rectangle((int)(drawsize.X / 2 - size.X / 2 + infoComponent.Scale),
                 (int)(5 * infoComponent.Scale), size.X, size.Y), Color.White);
 
@@ -73,9 +65,11 @@ namespace OdeMod.CardMode.CardComponents.DrawComponents
                 DepthStencilState.Default, RasterizerState.CullNone, null, Matrix.Invert(Main.GameViewMatrix.EffectMatrix));
         }
 
-        public override IComponent Clone(Entity cloneEntity)
+        public override DrawComponentBase PrimitiveClone(DrawComponent drawComponent)
         {
-            return new CardIllustrationComponent();
+            var op = new CardIllustrationComponent(Texture, Illustration, false);
+            op.OnDrawIllustration = OnDrawIllustration;
+            return op;
         }
     }
 }
