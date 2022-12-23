@@ -29,8 +29,12 @@ namespace OdeMod.Players
         public bool HollowKnightMovement = false;
         public int Hallow = 0;
         public int Rolling = 0;
+
         public int MiracleRecorderShader = 0;
-        public int MiracleLogic = 0;
+        public int MiracleLogic = 0;//辉煌记录者二阶段逻辑
+        public Vector2 MiraclePosFounded = Vector2.Zero;//实时更新辉煌记录者的位置
+        public int ServantCount = 0;//同步数量
+        public int MiracleX = 0;
 
         public bool MagicBoneShield = false;//魔法骨盾
         public bool HolyFlameCrown = false;
@@ -123,7 +127,7 @@ namespace OdeMod.Players
                 dragComponent.TargetPos = Main.ScreenSize.ToVector2() / 2f;
                 entity.AddComponent(dragComponent);
             }
-            entity.Draw(Main.spriteBatch);
+            //entity.Draw(Main.spriteBatch);
             entity.GetComponent<DragComponent>().Dragging = Main.mouseLeft;
             entity.GetComponent<DragComponent>().TargetPos = Main.MouseScreen;
         }

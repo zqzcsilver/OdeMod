@@ -25,7 +25,7 @@ namespace OdeMod.Projectiles.Series.Boss.MiracleRecorder
             Projectile.alpha = 0;
             Projectile.penetrate = 1;
             Projectile.scale = 1f;
-            Projectile.extraUpdates = 6;
+            Projectile.extraUpdates = 5;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 10;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
         }
