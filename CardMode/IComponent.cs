@@ -53,7 +53,19 @@ namespace OdeMod.CardMode
         /// <summary>
         /// 当Entity被克隆时组件一起跟着被克隆
         /// </summary>
-        /// <returns></returns>
+        /// <returns>克隆体</returns>
         public IComponent Clone(Entity cloneEntity);
+
+        /// <summary>
+        /// 获得该组件的一个原始复制
+        /// </summary>
+        /// <returns>克隆体</returns>
+        public IComponent PrimitiveClone(Entity cloneEntity);
+
+        /// <summary>
+        /// 获得该组件的一个几乎一模一样的复制
+        /// </summary>
+        /// <returns>克隆体</returns>
+        public IComponent TotallyClone(Entity cloneEntity);
     }
 }

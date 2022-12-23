@@ -21,7 +21,7 @@ namespace OdeMod.Projectiles.Series.Boss.MiracleRecorder
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.ignoreWater = true;
             Projectile.tileCollide = true;
-            Projectile.timeLeft = 360;
+            Projectile.timeLeft = 160;
             Projectile.alpha = 255;
             Projectile.penetrate = 1;
             Projectile.scale = 1f;
@@ -31,9 +31,13 @@ namespace OdeMod.Projectiles.Series.Boss.MiracleRecorder
         float scale = 0f;
         public override void AI()
         {
-            if(Projectile.timeLeft>320)
+            if(Projectile.timeLeft>120)
             {
                 scale += 0.025f;
+            }
+            if (Projectile.timeLeft < 40)
+            {
+                scale -= 0.025f;
             }
             m += 0.1f;
             Projectile.rotation += 0.1f;
@@ -51,18 +55,18 @@ namespace OdeMod.Projectiles.Series.Boss.MiracleRecorder
         {
             target.AddBuff(BuffID.OnFire, damage);
         }
-        public override void Kill(int timeLeft)
-        {
-            Player player = Main.player[Projectile.owner];
+       // public override void Kill(int timeLeft)
+       // {
+       //     Player player = Main.player[Projectile.owner];
 
             
-            for (int i = 0; i < 40; i++)
-            {
-                int num = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, ModContent.DustType<Dusts.Dream>(), 0f, 0f, 0, Color.White, 1.5f);
-                Main.dust[num].velocity = 5 * Main.rand.NextVector2Unit();
-                Main.dust[num].noGravity = true;
-            }
-        }
+       //     for (int i = 0; i < 40; i++)
+       //     {
+       //         int num = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, ModContent.DustType<Dusts.Dream>(), 0f, 0f, 0, Color.White, 1.5f);
+       //         Main.dust[num].velocity = 5 * Main.rand.NextVector2Unit();
+       //         Main.dust[num].noGravity = true;
+       //     }
+       // }
         public override Color? GetAlpha(Color lightColor)
         {
             return new Color(255 - Projectile.alpha, 255 - Projectile.alpha, 255 - Projectile.alpha, 255 - Projectile.alpha);

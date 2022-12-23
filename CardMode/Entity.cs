@@ -6,6 +6,7 @@ using OdeMod.Utils.Expends;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using Terraria.DataStructures;
 
 namespace OdeMod.CardMode
@@ -153,9 +154,9 @@ namespace OdeMod.CardMode
         /// </summary>
         /// <typeparam name="T">被装载组件的类型</typeparam>
         /// <returns></returns>
-        public bool AddComponent<T>() where T : IComponent
+        public bool AddComponent<T>(params object[] args) where T : IComponent
         {
-            T t = (T)Activator.CreateInstance(typeof(T));
+            T t = (T)Activator.CreateInstance(typeof(T), args);
             return AddComponent(t);
         }
 
@@ -275,23 +276,54 @@ namespace OdeMod.CardMode
         /// 克隆该Entity与其已装载的组件
         /// </summary>
         /// <returns>克隆体</returns>
-        public Entity Clone()
+        public Entity Clone(object source)
         {
-            Entity card = new Entity(this);
-            card.components = new Dictionary<Type, IComponent>();
+            Entity entity = new Entity(source);
+            entity.components = new Dictionary<Type, IComponent>();
             IComponent compon;
             foreach (var component in components)
             {
-                compon = component.Value.Clone(card);
-                compon.Entity = card;
+                compon = component.Value.Clone(entity);
+                compon.Entity = entity;
                 components.Add(component.Key, compon);
             }
-            return card;
+            return entity;
         }
 
-        internal IEntitySource GetSource_OnHit()
+        /// <summary>
+        /// 获得该实体的一个原始复制
+        /// </summary>
+        /// <returns>克隆体</returns>
+        public Entity PrimitiveClone(object source)
         {
-            throw new NotImplementedException();
+            Entity entity = new Entity(source);
+            entity.components = new Dictionary<Type, IComponent>();
+            IComponent compon;
+            foreach (var component in components)
+            {
+                compon = component.Value.PrimitiveClone(entity);
+                compon.Entity = entity;
+                components.Add(component.Key, compon);
+            }
+            return entity;
+        }
+
+        /// <summary>
+        /// 获得该实体的一个几乎一模一样的复制
+        /// </summary>
+        /// <returns>克隆体</returns>
+        public Entity TotallyClone(object source)
+        {
+            Entity entity = new Entity(source);
+            entity.components = new Dictionary<Type, IComponent>();
+            IComponent compon;
+            foreach (var component in components)
+            {
+                compon = component.Value.TotallyClone(entity);
+                compon.Entity = entity;
+                components.Add(component.Key, compon);
+            }
+            return entity;
         }
     }
 }
