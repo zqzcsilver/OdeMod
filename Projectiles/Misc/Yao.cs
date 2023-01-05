@@ -21,13 +21,18 @@ namespace OdeMod.Projectiles.Misc
             Projectile.penetrate = 1;
             Projectile.timeLeft = 120;
         }
+        public int num = 0;
+        Vector2 tVec = Vector2.Zero;
         public override void AI()
         {
-            Projectile.ai[1]++;
-            if (Projectile.ai[1] <= 2f)
+            Player player = Main.player[Projectile.owner];
+            if(tVec == Vector2.Zero)
             {
+                tVec = Vector2.Normalize(Main.MouseWorld - player.Center) * 10;
+                Main.NewText(player.name, Color.Red);
             }
-            else if (Projectile.ai[1] <= 10f)
+            num++;
+            if (num <= 10f)
             {
                 for (int i = 0; i < 20; i++)
                 {
@@ -38,6 +43,7 @@ namespace OdeMod.Projectiles.Misc
             }
             else
             {
+                Projectile.velocity = tVec;
                 for (int i = 0; i < 30; i++)
                 {
                     Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.WitherLightning, 0f, 0f, 100, default(Color), 1f);

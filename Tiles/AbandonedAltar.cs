@@ -20,12 +20,17 @@ namespace OdeMod.Tiles
             AddMapEntry(new Color(247, 199, 224));
             DustType = 7;
         }
-        public override void KillTile(int i, int j, ref bool fail, ref bool effectOnly, ref bool noItem)
+        //我是傻逼 一开始写killtile里了 敲一次召唤一次
+        public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
             Player pls = Main.LocalPlayer;
             int bosstype = ModContent.NPCType<NPCs.Boss.MiracleRecorder.MiracleRecorder>();
             NPC.SpawnOnPlayer(pls.whoAmI, bosstype);
-            base.KillTile(i, j, ref fail, ref effectOnly, ref noItem);
+            base.KillMultiTile(i, j, frameX, frameY);
+        }
+        public override bool CanKillTile(int i, int j, ref bool blockDamaged)
+        {
+            return false;
         }
     }
 }

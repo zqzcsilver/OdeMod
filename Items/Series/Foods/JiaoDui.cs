@@ -39,7 +39,6 @@ namespace OdeMod.Items.Series.Foods
     }
     internal class JiaoDui : ModItem, IFoods
     {
-
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
