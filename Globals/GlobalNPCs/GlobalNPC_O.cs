@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -42,19 +43,37 @@ namespace OdeMod.Globals.GlobalNPCs
         public override void SetupShop(int type, Chest shop, ref int nextSlot)
         {
             base.SetupShop(type, shop, ref nextSlot);
-            
+            foreach (Player player in Main.player)
+            {
+                if (player.talkNPC != -1 &&Main.npc[player.talkNPC].type ==  NPCID.GoblinTinkerer && type == NPCID.GoblinTinkerer && player.HasItem(ItemID.PulseBow))
+                {
+                    shop.item[nextSlot++].SetDefaults(ModContent.ItemType<Items.Misc.Weapons.FlickeringPhantom>());
+                }
+            }
             if (type == NPCID.ArmsDealer)
             {
-                if (WorldGen.shadowOrbCount >= 1 || WorldGen.heartCount >=1)
+                if (WorldGen.shadowOrbCount >= 1 || WorldGen.heartCount >= 1)
                 {
                     shop.item[nextSlot++].SetDefaults(ModContent.ItemType<Items.Misc.SuicideRevolver>());
                 }
             }
-            if(type == NPCID.TravellingMerchant)
+            if (type == NPCID.TravellingMerchant)
             {
-                shop.item[nextSlot++].SetDefaults(ModContent.ItemType<Items.Series.Foods.GlacierMineralWater > ());
+                shop.item[nextSlot++].SetDefaults(ModContent.ItemType<Items.Series.Foods.GlacierMineralWater>());
                 //GlacierMineralSpringWater
             }
+        }
+        public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
+        {
+            if(npc.type == NPCID.Vampire)
+            {
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Misc.Redmoon>(), 200, 1, 1));//赤红幼月
+            }
+            if(npc.type == NPCID.Harpy||npc.type == NPCID.WyvernHead)//设定上是天空怪物，但是火星探测器也算，但...有点怪 所以没加
+            {
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Misc.Weapons.ChillyMoonStaff>(), 20, 1, 1));//清月法杖
+            }
+            base.ModifyNPCLoot(npc, npcLoot);
         }
     }
 }

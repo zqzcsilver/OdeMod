@@ -8,7 +8,7 @@ namespace OdeMod.Projectiles.Series.Items.Frosted
 {
     internal class ProFrostedThorn : ModProjectile, IFrostedProjectile
     {
-        protected int lastThorn = -1;
+        protected int LastThorn = -1;
         internal float Longer = 0;
         internal Vector2 startCenter;
         public override void SetDefaults()

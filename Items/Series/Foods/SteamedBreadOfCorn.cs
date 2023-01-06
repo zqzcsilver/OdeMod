@@ -3,6 +3,8 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework;
+
 namespace OdeMod.Items.Series.Foods
 {
     /// <summary>
@@ -15,6 +17,13 @@ namespace OdeMod.Items.Series.Foods
         {
             base.SetStaticDefaults();
             Tooltip.SetDefault("窝窝头，窝窝头，一块钱两个（");
+            Main.RegisterItemAnimation(Type, new DrawAnimationVertical(int.MaxValue, 3));
+            ItemID.Sets.FoodParticleColors[Item.type] = new Color[3] {
+                new Color(248,248,255),
+                new Color(253,245,230),
+                new Color(255,248,220)
+            };
+            ItemID.Sets.IsFood[Type] = true;
         }
         public override void SetDefaults()
         {

@@ -9,7 +9,7 @@ namespace OdeMod.Items.Series.Foods
     /// <summary>
     /// 需三次才能完全吃下 无法堆叠
     /// </summary>
-    internal class GuoKui : ModItem,IFoods
+    internal class GuoKui : ModItem, IFoods
     {
         public override void SetStaticDefaults()
         {
@@ -35,7 +35,7 @@ namespace OdeMod.Items.Series.Foods
         }
         public override bool CanUseItem(Player player)
         {
-            if(Num >= 2)
+            if (Num >= 2)
             {
                 Item.consumable = true;
             }
@@ -45,7 +45,7 @@ namespace OdeMod.Items.Series.Foods
         {
             Rectangle rectangle = new Rectangle((int)player.Center.X - 25, (int)player.Center.Y + 32, 50, 50);
             Num++;
-            if(Num >= 3)
+            if (Num >= 3)
             {
                 CombatText.NewText(rectangle, Color.White, "嗝~");
             }
@@ -57,3 +57,4 @@ namespace OdeMod.Items.Series.Foods
         }
     }
 }
+

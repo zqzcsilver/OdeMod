@@ -32,5 +32,25 @@ namespace OdeMod.Items.Misc
         {
             return new Vector2(-12f, -4f);
         }
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        {
+            Vector2 oldvec = velocity;
+            Vector2 tVec = Vector2.Normalize(Main.MouseWorld - player.Center) * Item.shootSpeed;
+            for (int i = -2; i <= 2; i++)
+            {
+                Vector2 tVecl = tVec + new Vector2(-tVec.Y * 0.12f, tVec.X * 0.12f) * i;
+                tVecl.RotatedBy(i * 0.03);
+                Projectile.NewProjectile(source, player.Center, tVecl, ModContent.ProjectileType<Projectiles.Misc.Yao>(), damage, knockback, player.whoAmI);
+            }
+            return false;
+        }
+        public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
+        {
+            Vector2 muzzleOffset = Vector2.Normalize(velocity) * 25f;
+            if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
+            {
+                position += muzzleOffset;
+            }
+        }
     }
 }

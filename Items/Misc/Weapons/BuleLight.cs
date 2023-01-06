@@ -22,7 +22,7 @@ namespace OdeMod.Items.Misc.Weapons
             Item.damage = 40;
             Item.crit = 5;
             Item.shoot = ModContent.ProjectileType<Projectiles.Misc.BlueLightPro>();
-            Item.shootSpeed = 10f;
+            Item.shootSpeed = 20f;
             Item.useAnimation = 10;
             Item.useTime = 10;
         }
@@ -30,6 +30,16 @@ namespace OdeMod.Items.Misc.Weapons
         {
             target.AddBuff(ModContent.BuffType<Buffs.NaturalPower>(), 120);
             base.OnHitNPC(player, target, damage, knockBack, crit);
+        }
+        public override void AddRecipes()
+        {
+            base.AddRecipes();
+            CreateRecipe()
+                .AddIngredient(ItemID.JungleGrassSeeds,10)
+                .AddIngredient(ItemID.MushroomGrassSeeds,10)
+                .AddIngredient(ItemID.RedPressurePlate,15)
+                .AddTile(TileID.CrystalBall)
+                .Register();
         }
     }
 }

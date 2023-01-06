@@ -5,6 +5,7 @@ using Terraria.ModLoader;
 using OdeMod.Buffs.Foods;
 using OdeMod.Players;
 using OdeMod.Globals.GlobalItems;
+using Microsoft.Xna.Framework;
 
 namespace OdeMod.Items.Series.Foods
 {
@@ -18,6 +19,13 @@ namespace OdeMod.Items.Series.Foods
         {
             base.SetStaticDefaults();
             Tooltip.SetDefault("别喝太多");
+            Main.RegisterItemAnimation(Type, new DrawAnimationVertical(int.MaxValue, 3));
+            ItemID.Sets.FoodParticleColors[Item.type] = new Color[3] {
+                new Color(248,248,255),
+                new Color(253,245,230),
+                new Color(255,248,220)
+            };
+            ItemID.Sets.IsFood[Type] = true;
         }
         public override void SetDefaults()
         {
@@ -32,7 +40,7 @@ namespace OdeMod.Items.Series.Foods
         }
         public override bool? UseItem(Player player)
         {
-            player.GetModPlayer<OdeFoodPlayer>().Food_Variety_Test(Item);
+            player.GetModPlayer<OdeAddPlayer>().Food_Variety_Test(Item);
             player.AddBuff(ModContent.BuffType<Happy>(), 6000);
             return true;
         }

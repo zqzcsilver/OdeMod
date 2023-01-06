@@ -12,14 +12,27 @@ namespace OdeMod.Tiles
     {
         public override void SetStaticDefaults()
         {
-            Main.tileFrameImportant[Type] = true;
-            Main.tileLavaDeath[Type] = true;
-            TileID.Sets.FramesOnKillWall[Type] = false;
+            Main.tileSolid[Type] = true;//非实体
+            Main.tileSolidTop[Type] = true;//无法站
+            Main.tileLavaDeath[Type] = true;//岩浆
+            Main.tileFrameImportant[Type] = true;//帧
+            MineResist = 3f;
+            MinPick = 10;
+
+            DustType = DustID.GreenMoss;
+            ItemDrop = ModContent.ItemType<Items.Misc.LargePottedPlant>();
             //5x5
-            TileObjectData.newTile.CopyFrom(TileObjectData.Style5x4);
+            TileObjectData.newTile.CopyFrom(TileObjectData.StyleDye);
+            TileObjectData.newTile.Width = 5;
+            TileObjectData.newTile.Height = 5;
+            TileObjectData.newTile.CoordinateWidth = 16;
+            TileObjectData.newTile.CoordinatePadding = 2;
+            TileObjectData.newTile.CoordinateHeights = new int[] { 16, 16, 16, 16, 16 };
+            TileObjectData.newTile.DrawYOffset = 2;
+            TileObjectData.newTile.Origin = new Point16(0, 4);
+            //TileObjectData.newTile.UsesCustomCanPlace = false;
             TileObjectData.addTile(Type);
             AddMapEntry(new Color(120, 85, 60));
-            DustType = 7;
         }
 
         public override void KillMultiTile(int i, int j, int frameX, int frameY)

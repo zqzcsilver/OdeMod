@@ -51,6 +51,15 @@
 			ShadeCloak : 暗影披风
 			ShadeSoul : 暗影之魂
 			VengefulSpirit : 复仇之魂
+			MiracleRecorderBossBag : 
+			BrilliantPearl :辉煌宝珠
+			CrystalSpur :晶刺
+			HolyElement : 圣洁元素
+			HolySpiritCurse : 圣灵的诅咒
+			HolySpiritArrow :圣灵箭
+			ShiningSpirit : 耀灵
+			HolySpiritBullet : 圣灵弹
+			Glory : 荣光
 
 			//充能系列
 			ElectrifiedBlasterCannon : 带电爆破炮
@@ -104,8 +113,26 @@
 			HolyFlameCrown : 圣火冠
 			LightningAmulet : 闪电护符
 			MagicBoneShield : 魔法骨盾
+			//杂项武器
 			BrilliantDragon : 煌龙
 			BuleLight : 碧蓝之光
+			BigTorch :大火炬
+			ChaosBow :混乱之弓
+			ChillyMoonStaff :清月法杖
+			Dusk : 昏暮
+			EnchantingStaff :附魔杖
+			FantasyNightSky : 幻想夜空
+			FineRed : 精红
+			FlickeringPhantom :闪烁幻影
+			HolyFireOfHeaven : 天堂圣火
+			MuddyWater : 浑水
+			NaturalGift :自然的馈赠
+			PhantomTorch : 幻影火炬
+			PurpleSteelStaff : 紫钢法杖
+			Silk : 蚕丝
+			SilkWand : 蚕丝魔杖
+			SpecularWater : 镜水
+			StarLock : 星锁
 
 			//裂谷系列
 			DarkBlueMantraStone : 暗蓝咒石
@@ -324,7 +351,7 @@
 			Light : 赤红幼月
 			Redarrow : 赤红幼月
 			Suicide : 自尽左轮
-			Yao : 日曜
+			Yao : 曜
 		}
 		#生物名字
 		NPCName:
@@ -354,6 +381,7 @@
 			//杂项
 			NaturalPower : 自然力量
 			Vitality : 元气
+			HolySpiritCurse : 圣灵的诅咒
 		}
 		#状态介绍
 		BuffDescription:
@@ -412,6 +440,7 @@
 			SoulCemetery : 灵魂墓园系列
 			RiftValley : 裂谷系列
 			Foods : 食物系列
+			Miracle : 辉煌系列
 		}
 	}
 }
