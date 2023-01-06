@@ -94,10 +94,9 @@ namespace OdeMod.Players
                 entity.AddComponent(baseInfoComponent);
 
                 CardInfoComponent cardInfoComponent = new CardInfoComponent();
-
                 cardInfoComponent.CardID = "XXX";
                 cardInfoComponent.CardName = "星辰天使";
-                cardInfoComponent.CardTip = "代偿：鲜血(8) 或 灵魂(5)\n战吼：选择一个敌人，休眠8回合\n亡语：消灭选择的敌人";
+                cardInfoComponent.CardTip = "代偿：鲜血(8) 或 灵魂(5)\n战吼：选择一个敌人。休眠8回合\n亡语：消灭选择的敌人";
                 cardInfoComponent.CardCost = 3;
                 entity.AddComponent(cardInfoComponent);
 
@@ -119,7 +118,7 @@ namespace OdeMod.Players
                 dragComponent.TargetPos = Main.ScreenSize.ToVector2() / 2f;
                 entity.AddComponent(dragComponent);
             }
-            //entity.Draw(Main.spriteBatch);
+            entity.Draw(Main.spriteBatch);
             entity.GetComponent<DragComponent>().Dragging = Main.mouseLeft;
             entity.GetComponent<DragComponent>().TargetPos = Main.MouseScreen;
         }

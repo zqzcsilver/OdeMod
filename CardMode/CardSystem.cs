@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 
-using OdeMod.CardMode.FightScenes;
+using OdeMod.CardMode.Scenes;
 using OdeMod.Systems;
 
 using Terraria.ModLoader;

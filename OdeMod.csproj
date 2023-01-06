@@ -22,4 +22,7 @@
   <ItemGroup>
     <None Include="C:\Users\Silver\Documents\My Games\Terraria\tModLoader\ModSources\OdeMod\.editorconfig" />
   </ItemGroup>
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="call &quot;$(ProjectDir)PreBuild.bat&quot;" />
+  </Target>
 </Project>
