@@ -10,7 +10,7 @@ using Terraria.ModLoader;
 
 namespace OdeMod.Projectiles.Series.Boss.MiracleRecorder
 {
-    internal class DamageCircle : ModProjectile, IMiracleRecorderProj
+    internal class DamageCircle3 : ModProjectile, IMiracleRecorderProj
     {
         public override void SetDefaults()
         {
@@ -23,7 +23,7 @@ namespace OdeMod.Projectiles.Series.Boss.MiracleRecorder
             Projectile.ignoreWater = true;
             Projectile.tileCollide = false;
             Projectile.alpha = 255;
-            Projectile.timeLeft = 180;
+            Projectile.timeLeft = 30;
             Projectile.penetrate = 1;
             Projectile.scale = 1f;
         }
@@ -34,31 +34,21 @@ namespace OdeMod.Projectiles.Series.Boss.MiracleRecorder
 
         public override void AI()
         {
-            foreach (Projectile proj in Main.projectile)
-            {
-                if (proj.friendly && Vector2.Distance(proj.Center, Projectile.Center) < 160)
-                {
-                    proj.velocity *= -1f;
-                }
-            }
-            Projectile.velocity *= 0;
-            if (Projectile.timeLeft > 160)
-            {
-                a += 0.04f;
-            }
             if (Projectile.timeLeft < 30 && Projectile.timeLeft > 20)
             {
-                factor += 0.07f;
+                factor += 0.1f;
+                a += 0.1f;
             }
-            if (Projectile.timeLeft < 15)
+            if (Projectile.timeLeft < 10)
             {
-                factor -= 0.05f;
+                factor -= 0.1f;
+                a -= 0.1f;
             }
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
             var result = Math.Sqrt((projHitbox.X - targetHitbox.X) * (projHitbox.X - targetHitbox.X) + (projHitbox.Y - targetHitbox.Y) * (projHitbox.Y - targetHitbox.Y));
-            if (result < 160 && Projectile.timeLeft < 30) return true;
+            if (result < 160) return true;
             else return false;
         }
         public override bool PreDraw(ref Color lightColor)
@@ -71,7 +61,7 @@ namespace OdeMod.Projectiles.Series.Boss.MiracleRecorder
             Vector2 drawPos = Projectile.position - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY);
             var color = lightColor * factor;
 
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 8; i++)
             {
 
                 Main.spriteBatch.Draw(texture, drawPos, null, color, Projectile.rotation, drawOrigin, range, SpriteEffects.None, 0f);
@@ -88,16 +78,14 @@ namespace OdeMod.Projectiles.Series.Boss.MiracleRecorder
             List<CustomVertexInfo> bars = new();
             var factor = 1;
             var color = Color.Lerp(Color.White, Color.Red, factor);
-            if (Projectile.timeLeft >= 30)
-                width = 20f;
-            else
-             if (Projectile.timeLeft > 20)
+
+            if (Projectile.timeLeft > 15)
             {
                 width = 20f + (30 - Projectile.timeLeft) * 2;
             }
-            if (Projectile.timeLeft < 15)
+            if (Projectile.timeLeft < 10)
             {
-                width = Projectile.timeLeft;
+                width = Projectile.timeLeft*5;
             }
             for (float i = 1; i <= 60; i++)
             {

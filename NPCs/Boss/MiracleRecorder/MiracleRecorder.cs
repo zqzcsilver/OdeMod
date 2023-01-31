@@ -18,6 +18,7 @@ using static Terraria.Utils;
 
 namespace OdeMod.NPCs.Boss.MiracleRecorder
 {
+    [AutoloadBossHead]
     public class MiracleRecorder : ModNPC, IBoss
     {
         /*Boss设定详述：
@@ -43,14 +44,12 @@ namespace OdeMod.NPCs.Boss.MiracleRecorder
 
         放球：改为释放僚机，每次释放一个僚机，僚机将做冲刺运动，并朝玩家释放弹幕。
 
-        激光：僚机按照圆弧排列，与boss本体同时释放激光。
+        激光1：僚机按照圆弧排列，与boss本体同时释放激光。
 
         聚集：改为回复生命值（但不超过一半生命值），僚机围绕boss做变速圆周运动同时发射激光。
-
-        增加技能：次元斩：大型瞬时冲刺。
          */
 
-        private enum NPCState
+        internal enum NPCState
         {
             /// <summary>
             /// 出场
@@ -90,11 +89,28 @@ namespace OdeMod.NPCs.Boss.MiracleRecorder
             /// <summary>
             /// 二阶段游荡
             /// </summary>
-            Wandering2
+            Wandering2,
+
+            /// <summary>
+            /// 二阶段设激光
+            /// </summary>
+            EmitLaser2,
+
+            /// <summary>
+            /// 二阶段放球
+            /// </summary>
+            Dash2,
+
+            Focus2
         }
 
-        private Dictionary<NPCState, Action<Player>> _npcLogic;
+        internal Dictionary<NPCState, Action<Player>> _npcLogic;
 
+        public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)
+        {
+
+            return true;
+        }
         public override void SetStaticDefaults()
         {
             Main.npcFrameCount[NPC.type] = 4;
@@ -104,12 +120,13 @@ namespace OdeMod.NPCs.Boss.MiracleRecorder
         {
             NPC.lifeMax = 30000;
             NPC.damage = 60;
-            NPC.defense = 24;
+            NPC.defense = 20;
             NPC.knockBackResist = 0f;
             NPC.width = 134;
             NPC.height = 134;
             NPC.aiStyle = -1;
             NPC.boss = true;
+
             NPC.alpha = 255;
             NPC.noGravity = true;
             NPC.HitSound = SoundID.NPCHit1;
@@ -120,6 +137,8 @@ namespace OdeMod.NPCs.Boss.MiracleRecorder
             NPCID.Sets.TrailingMode[NPC.type] = 0;
             NPCID.Sets.TrailCacheLength[NPC.type] = 8;
 
+            //NPC.hide = true;
+
             _npcLogic = new Dictionary<NPCState, Action<Player>>
             {
                 { NPCState.Entrance, entrance },
@@ -129,7 +148,10 @@ namespace OdeMod.NPCs.Boss.MiracleRecorder
                 { NPCState.Focus, focus },
                 { NPCState.Dead, dead },
                 { NPCState.ChangeRank, changerank },
-                { NPCState.Wandering2, wandering2 }
+                { NPCState.Wandering2, wandering2 },
+                { NPCState.EmitLaser2, emitLaser2 },
+                { NPCState.Dash2, dash2 },
+                { NPCState.Focus2, focus2 }
             };
             servantIndex = new List<int>();
         }
@@ -170,13 +192,19 @@ namespace OdeMod.NPCs.Boss.MiracleRecorder
             }
             //Main.NewText(NPC.frame.Y / frameHeight + 1);
         }
-
-        private NPCState state = NPCState.Entrance;
+        //全局性变量
+        internal NPCState state = NPCState.Entrance;
         public int ServantCount = 2;
         private List<int> servantIndex;
         public int MiracleLogic = 0;
+        public int CountSort = 0;
         private int randomFactor = 0;
-
+        //动画
+        private int ghostMode = 0;
+        private float ghostalpha = 0;
+        private int changeScreen = 0;
+        private float screenTimer = 0;
+        //AI用变量
         private float[] rads = new float[3] { 0.5236f, 2.618f, 4.7116f };//冲刺用的角度数组
         private float[] rot = new float[10];
         private int act = 0;//控制不同行为的draw
@@ -186,6 +214,7 @@ namespace OdeMod.NPCs.Boss.MiracleRecorder
         private float distance = 0;//玩家距离
         private int ok = -1;//冲刺用1
         private float ok2 = 0;//冲刺用2
+        private int ok4 = Main.rand.Next(0, 3);//冲刺用3 之所以是ok4是因为3被用过了
         private Vector2 noticeVec = Vector2.Zero;
         private int count = 0;//冲刺次数
         private int count2 = 0;//召唤球球数量
@@ -193,25 +222,80 @@ namespace OdeMod.NPCs.Boss.MiracleRecorder
         private Vector2 dir = Vector2.Zero;
         private bool extra = false;
         private float SSDtimer = 0;
-
+        private int checkDead = 0;
+        //记录用变量
         private float oldrotate = 0;
         private float newrotate = 0;
         private int times = 0;
+        private bool deathTruely = false;
+        private bool deathrattle = false;
+        private bool defaults = false;
+        private int battlecry = 30;
+        private int battlecryMinus = 28;
         /// <summary>
         /// 出场
         /// </summary>
         /// <param name="player"></param>
+        /// 
+
+        public override bool CheckDead()
+        {
+            NPC.life = 2;
+            NPC.dontTakeDamage = true;
+            deathrattle = true;
+            return deathTruely;
+        }
         private void entrance(Player player)
         {
+            if (deathrattle)
+            {
+                state = NPCState.Dead;
+                timer = 0;
+                act = 0;
+            }
+            if (timer == battlecry && timer <= 260)
+            {
+                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, Vector2.Zero,
+                        ModContent.ProjectileType<Projectiles.Series.Boss.MiracleRecorder.Circle0>(), 0, 0, player.whoAmI);
+                battlecry += battlecryMinus;
+                battlecryMinus -= 2;
+            }
             if (timer == 1)
             {
+
+
+                OdeMod.ScreenShaderDataManager["OdeMod:MiracleRecorder"].Visible = true;
                 NPC.dontTakeDamage = true;
                 NPC.velocity *= 0f;
                 NPC.dontTakeDamage = true;
             }
-            if (timer > 120 && timer < 250)
+            if (timer == 100)
+            {
+                ghostMode = 1;
+            }
+            if (timer >= 100 && timer < 150)
+            {
+                ghostalpha += 0.02f;
+            }
+            if (timer >= 150 && timer < 200)
+            {
+                for (int i = 0; i < 2; i++)
+                {
+                    var dust = Dust.NewDustDirect(NPC.position, NPC.width, NPC.height,
+                            DustID.PinkTorch, 0, 0, 0, Color.White, 2f);
+                    dust.velocity.X *= 0.2f;
+                    dust.scale = (float)Main.rand.Next(15, 26) * 0.1f;
+                    dust.velocity.Y *= (float)Main.rand.Next(10, 36) * 0.1f;
+                    dust.velocity.Y -= 4f;
+                    dust.noGravity = true;
+
+                }
+                ghostalpha -= 0.02f;
+            }
+            if (timer > 150 && timer < 250)
             {
                 NPC.alpha -= 4;
+
                 if (NPC.alpha < 0) NPC.alpha = 0;
             }
             if (timer > 1 && timer < 250)
@@ -242,11 +326,7 @@ namespace OdeMod.NPCs.Boss.MiracleRecorder
                         dust3.noGravity = true;
                     }
                 }
-                if (timer % 20 == 0)
-                {
-                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, Vector2.Zero,
-                        ModContent.ProjectileType<Projectiles.Series.Boss.MiracleRecorder.Circle0>(), 0, 0, player.whoAmI);
-                }
+
             }
             if (timer > 100)
             {
@@ -283,9 +363,29 @@ namespace OdeMod.NPCs.Boss.MiracleRecorder
                     Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center,
                         new Vector2((float)Math.Cos(rad2), (float)Math.Sin(rad2)) * 15f,
                         ModContent.ProjectileType<Projectiles.Series.Boss.MiracleRecorder.Holyproj>(),
-                        NPC.damage, 0, player.whoAmI);
+                        NPC.damage / 2, 0, player.whoAmI);
                 }
-                OdeMod.ScreenShaderDataManager["OdeMod:MiracleRecorder"].Visible = true;
+
+            }
+            if (timer >= 280 && timer < 300)
+            {
+                for (float i = 0; i < 6; i++)
+                {
+                    int num = Dust.NewDust(player.Center, 1, 1, ModContent.DustType<Dusts.Dream>(), 0, 0, 120,
+                        Color.White, 0f + ((timer - 272) / 12f));
+
+                    float rad = new Vector2((float)Math.Cos(i * 6.28 / 6) * 80f, (float)Math.Sin(i * 6.28 / 6) * 80f).ToRotation();
+
+                    Main.dust[num].position = player.Center + new Vector2((float)Math.Cos(rads[ok4]), (float)Math.Sin(rads[ok4])) * 400 +
+                        new Vector2(
+
+                            (float)(Math.Cos(i * 6.28 / 6) * 80 + Math.Cos(rad + ((float)(timer - 272) / 30f * 3.14f)) * 80),
+
+                            (float)(Math.Sin(i * 6.28 / 6) * 80 + Math.Sin(rad + ((float)(timer - 272) / 30f * 3.14f)) * 80));
+
+                    Main.dust[num].velocity *= 0.1f;
+                    Main.dust[num].noGravity = true;
+                }
             }
             if (timer >= 300)
             {
@@ -311,12 +411,22 @@ namespace OdeMod.NPCs.Boss.MiracleRecorder
         /// <param name="player"></param>
         private void wandering(Player player)
         {
+            if (deathrattle)
+            {
+                state = NPCState.Dead;
+                timer = 0;
+                act = 0;
+            }
             ParticleOrchestraSettings settings;
             if (timer == 1)
             {
                 NPC.alpha = 255;
-                ok++;
                 ok2 = 0;
+                ok++;
+                if (count == 0)
+                {
+                    ok = ok4;
+                }
                 act = 0;
                 plrCenter = player.Center;
                 distance = 400f;
@@ -341,7 +451,7 @@ namespace OdeMod.NPCs.Boss.MiracleRecorder
                 for (int i = 1; i <= 6; i++)
                 {
                     float rad2 = 1.0472f * i + (player.Center - NPC.Center).ToRotation();
-                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, new Vector2((float)Math.Cos(rad2), (float)Math.Sin(rad2)) * 12f, ModContent.ProjectileType<Projectiles.Series.Boss.MiracleRecorder.Holyproj>(), NPC.damage, 0, player.whoAmI);
+                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, new Vector2((float)Math.Cos(rad2), (float)Math.Sin(rad2)) * 12f, ModContent.ProjectileType<Projectiles.Series.Boss.MiracleRecorder.Holyproj>(), NPC.damage / 2, 0, player.whoAmI);
                 }
                 Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, Vector2.Zero,
                     ModContent.ProjectileType<Projectiles.Series.Boss.MiracleRecorder.Circle2>(), 0, 0, player.whoAmI);
@@ -463,6 +573,12 @@ namespace OdeMod.NPCs.Boss.MiracleRecorder
         /// <param name="player"></param>
         private void dash(Player player)
         {
+            if (deathrattle)
+            {
+                state = NPCState.Dead;
+                timer = 0;
+                act = 0;
+            }
             ParticleOrchestraSettings settings;
             if (timer == 1)
             {
@@ -536,7 +652,7 @@ namespace OdeMod.NPCs.Boss.MiracleRecorder
                     };
                     ParticleOrchestrator.RequestParticleSpawn(clientOnly: true, ParticleOrchestraType.PrincessWeapon, settings, 255);
                 }
-                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.Series.Boss.MiracleRecorder.Spark>(), 0, 0, player.whoAmI, count2, times);
+                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.Series.Boss.MiracleRecorder.Spark>(), NPC.damage / 2, 0, player.whoAmI, count2, times);
                 timer = 0;
                 if (count2 >= randomFactor)
                 {
@@ -566,6 +682,12 @@ namespace OdeMod.NPCs.Boss.MiracleRecorder
         /// <param name="player"></param>
         private void emitLaser(Player player)
         {
+            if (deathrattle)
+            {
+                state = NPCState.Dead;
+                timer = 0;
+                act = 0;
+            }
             if (timer == 1)
             {
                 line = 1;
@@ -581,8 +703,9 @@ namespace OdeMod.NPCs.Boss.MiracleRecorder
 
                 while (lerp < -3.14159f)
                     lerp += 6.28318f;
+                NPC.velocity += new Vector2((float)Math.Cos(NPC.rotation + 1.57f), (float)Math.Sin(NPC.rotation + 1.57f)) * 0.5f;
                 NPC.velocity *= 0.85f;
-                NPC.velocity += new Vector2((float)Math.Cos(NPC.rotation + 1.57f), (float)Math.Sin(NPC.rotation + 1.57f)) * 0.2f;
+
                 if (Math.Abs(lerp) < 0.01f) lerp = 0;
                 NPC.rotation += lerp * (timer / 60f);
             }
@@ -608,7 +731,7 @@ namespace OdeMod.NPCs.Boss.MiracleRecorder
                 NPC.velocity += new Vector2((float)Math.Cos(NPC.rotation + 1.57f), (float)Math.Sin(NPC.rotation + 1.57f)) * -10f;
                 float demo = 1 + Vector2.DistanceSquared(Main.player[Main.myPlayer].Center, player.Center) / 420000;
                 player.GetModPlayer<OdePlayer>().ShakeInt = Math.Max(player.GetModPlayer<OdePlayer>().ShakeInt, (int)(30 / demo));
-                Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2((float)Math.Cos(NPC.rotation + 1.57f), (float)Math.Sin(NPC.rotation + 1.57f)) * 45 + NPC.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.Series.Boss.MiracleRecorder.Laser01>(), 0, 0, player.whoAmI, NPC.rotation);
+                Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2((float)Math.Cos(NPC.rotation + 1.57f), (float)Math.Sin(NPC.rotation + 1.57f)) * 45 + NPC.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.Series.Boss.MiracleRecorder.Laser01>(), NPC.damage / 2, 0, player.whoAmI, NPC.rotation);
                 distance = Vector2.Distance(NPC.Center, player.Center);
             }
             if (timer > 38 && timer < 58)
@@ -657,7 +780,7 @@ namespace OdeMod.NPCs.Boss.MiracleRecorder
                 while (lerp < -3.14159f)
                     lerp += 6.28318f;
                 if (Math.Abs(lerp) < 0.01f) lerp = 0;
-                NPC.rotation += lerp * (timer / 80f);
+                NPC.rotation += lerp * (timer / 800f);
                 NPC.velocity = new Vector2(-(float)Math.Sin(NPC.rotation + 1.57f), (float)Math.Cos(NPC.rotation + 1.57f)) * (18f - Math.Abs(timer - 77)) * 1.5f;
                 NPC.velocity += new Vector2((float)Math.Cos(NPC.rotation + 1.57f), (float)Math.Sin(NPC.rotation + 1.57f));
             }
@@ -674,12 +797,18 @@ namespace OdeMod.NPCs.Boss.MiracleRecorder
         /// <param name="player"></param>
         private void focus(Player player)
         {
+            if (deathrattle)
+            {
+                state = NPCState.Dead;
+                timer = 0;
+                act = 0;
+            }
             if (timer >= 1 && timer < 20)
             {
-                NPC.velocity *= 0f;
+                NPC.velocity *= 0.93f;
                 act = 4;
                 if (timer == 1)
-                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.Series.Boss.MiracleRecorder.DamageCircle>(), NPC.damage, 0, player.whoAmI);
+                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.Series.Boss.MiracleRecorder.DamageCircle>(), NPC.damage / 2, 0, player.whoAmI);
             }
             if (timer >= 20 && timer < 200)
             {
@@ -702,8 +831,10 @@ namespace OdeMod.NPCs.Boss.MiracleRecorder
                     dust3.noGravity = true;
                 }
             }
+
             if (timer == 180)
             {
+                ok4 = Main.rand.Next(0, 3);
                 for (int i = 0; i < 40; i++)
                 {
                     var dust2 = Dust.NewDustDirect(NPC.Center, 1, 1, DustID.PinkTorch, 0, 0, 0, Color.White, 2.5f);
@@ -721,7 +852,27 @@ namespace OdeMod.NPCs.Boss.MiracleRecorder
                 {
                     float rad2 = 1.0472f * i + (player.Center - NPC.Center).ToRotation();
                     Projectile.NewProjectile(NPC.GetSource_FromAI(),
-                        NPC.Center + new Vector2((float)Math.Cos(rad2), (float)Math.Sin(rad2)) * 100f, new Vector2((float)Math.Cos(rad2), (float)Math.Sin(rad2)) * 6f, ModContent.ProjectileType<Projectiles.Series.Boss.MiracleRecorder.Pin>(), NPC.damage, 0, player.whoAmI);
+                        NPC.Center + new Vector2((float)Math.Cos(rad2), (float)Math.Sin(rad2)) * 100f, new Vector2((float)Math.Cos(rad2), (float)Math.Sin(rad2)) * 6f, ModContent.ProjectileType<Projectiles.Series.Boss.MiracleRecorder.Pin>(), NPC.damage / 2, 0, player.whoAmI);
+                }
+            }
+            if (timer >= 180 && timer < 200)
+            {
+                for (float i = 0; i < 6; i++)
+                {
+                    int num = Dust.NewDust(player.Center, 1, 1, ModContent.DustType<Dusts.Dream>(), 0, 0, 120,
+                        Color.White, 0f + ((timer - 172) / 12f));
+
+                    float rad = new Vector2((float)Math.Cos(i * 6.28 / 6) * 80f, (float)Math.Sin(i * 6.28 / 6) * 80f).ToRotation();
+
+                    Main.dust[num].position = player.Center + new Vector2((float)Math.Cos(rads[ok4]), (float)Math.Sin(rads[ok4])) * 400 +
+                        new Vector2(
+
+                            (float)(Math.Cos(i * 6.28 / 6) * 80 + Math.Cos(rad + ((float)(timer - 172) / 30f * 3.14f)) * 80),
+
+                            (float)(Math.Sin(i * 6.28 / 6) * 80 + Math.Sin(rad + ((float)(timer - 172) / 30f * 3.14f)) * 80));
+
+                    Main.dust[num].velocity *= 0.1f;
+                    Main.dust[num].noGravity = true;
                 }
             }
             if (timer == 200)
@@ -756,6 +907,12 @@ namespace OdeMod.NPCs.Boss.MiracleRecorder
 
         private void changerank(Player player)
         {
+            if (deathrattle)
+            {
+                state = NPCState.Dead;
+                timer = 0;
+                act = 0;
+            }
             if (timer == 1)
             {
                 act = 5;
@@ -791,7 +948,7 @@ namespace OdeMod.NPCs.Boss.MiracleRecorder
                 {
                     float ceilingX = Main.rand.Next(0, Main.screenWidth);
                     Projectile.NewProjectile(NPC.GetSource_FromAI(), Main.screenPosition + new Vector2(ceilingX, -200), new Vector2(0, 5),
-                       ModContent.ProjectileType<Projectiles.Series.Boss.MiracleRecorder.Star>(), NPC.damage, 0, player.whoAmI);
+                       ModContent.ProjectileType<Projectiles.Series.Boss.MiracleRecorder.Star>(), NPC.damage / 2, 0, player.whoAmI);
                 }
                 if (timer % 5 == 0)
                 {
@@ -804,8 +961,8 @@ namespace OdeMod.NPCs.Boss.MiracleRecorder
                     {
                         float rad2 = (6.2832f / ServantCount) * i;
                         Projectile.NewProjectile(NPC.GetSource_FromAI(),
-                            NPC.Center + new Vector2((float)Math.Cos(rad2), (float)Math.Sin(rad2)) * (120f + ServantCount * 15f), 
-                            Vector2.Zero, ModContent.ProjectileType<Projectiles.Series.Boss.MiracleRecorder.BlackMist>(), NPC.damage, 0, 
+                            NPC.Center + new Vector2((float)Math.Cos(rad2), (float)Math.Sin(rad2)) * (120f + ServantCount * 15f),
+                            Vector2.Zero, ModContent.ProjectileType<Projectiles.Series.Boss.MiracleRecorder.BlackMist>(), NPC.damage / 2, 0,
                             player.whoAmI); ;
                     }
                 }
@@ -817,22 +974,27 @@ namespace OdeMod.NPCs.Boss.MiracleRecorder
                         servantIndex.Add(Projectile.NewProjectile(NPC.GetSource_FromAI(),
                             NPC.Center + new Vector2((float)Math.Cos(rad2), (float)Math.Sin(rad2)) * (120f + ServantCount * 15f),
                             Vector2.Zero, ModContent.ProjectileType<Projectiles.Series.Boss.MiracleRecorder.Servants>(),
-                            NPC.damage, 0, player.whoAmI, i, NPC.whoAmI));
+                            NPC.damage / 2, 0, player.whoAmI, i, NPC.whoAmI));
                     }
                     MiracleLogic = 0;
                 }
             }
-            if (timer == 480)
+            if (timer == 420)
+            {
+                changeScreen = 1;
+                screenTimer = 0;
+            }
+            if (timer == 450)
             {
                 rank = 2;
                 NPC.dontTakeDamage = false;
-                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.Series.Boss.MiracleRecorder.GoldCircle1>(), 0, 0, player.whoAmI);
+                //Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.Series.Boss.MiracleRecorder.GoldCircle1>(), 0, 0, player.whoAmI);
             }
             if (timer == 500)
             {
                 count2 = 0;
                 NPC.alpha = 0;
-
+                times = 0;
                 count = 0;
                 ok = -1;
                 ok2 = 0;
@@ -844,18 +1006,29 @@ namespace OdeMod.NPCs.Boss.MiracleRecorder
 
         private void wandering2(Player player)
         {
+            if (deathrattle)
+            {
+                state = NPCState.Dead;
+                timer = 0;
+                act = 0;
+            }
             ParticleOrchestraSettings settings;
             if (timer == 1)
             {
                 MiracleLogic = 1;
                 NPC.alpha = 255;
-                ok++;
                 ok2 = 0;
+                ok++;
+                if (count == 0)
+                {
+                    ok = ok4;
+                }
+
                 act = 0;
                 plrCenter = player.Center;
                 distance = 500f;
                 //
-                NPC.Center = plrCenter + new Vector2((float)Math.Cos(rads[ok]), (float)Math.Sin(rads[ok])) * distance;
+                NPC.Center = plrCenter + new Vector2((float)(Math.Sin(3 * (rads[ok])) * Math.Cos(rads[ok])), (float)(Math.Sin(3 * (rads[ok])) * Math.Sin(rads[ok]))) * distance;
                 player.GetModPlayer<OdePlayer>().MiracleX = 1;
                 //
                 for (int i = 1; i < 40; i++)
@@ -875,40 +1048,49 @@ namespace OdeMod.NPCs.Boss.MiracleRecorder
                     };
                     ParticleOrchestrator.RequestParticleSpawn(clientOnly: true, ParticleOrchestraType.PrincessWeapon, settings, 255);
                 }
-                for (int i = 1; i <= 6; i++)
-                {
-                    float rad2 = 1.0472f * i + (player.Center - NPC.Center).ToRotation();
-                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, new Vector2((float)Math.Cos(rad2), (float)Math.Sin(rad2)) * 12f, ModContent.ProjectileType<Projectiles.Series.Boss.MiracleRecorder.Holyproj>(), NPC.damage, 0, player.whoAmI);
-                }
+                /*  for (int i = 1; i <= 6; i++)
+                  {
+                      float rad2 = 1.0472f * i + (player.Center - NPC.Center).ToRotation();
+                      Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, new Vector2((float)Math.Cos(rad2), (float)Math.Sin(rad2)) * 12f, ModContent.ProjectileType<Projectiles.Series.Boss.MiracleRecorder.Holyproj>(), NPC.damage, 0, player.whoAmI);
+                  }*/
+
                 Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, Vector2.Zero,
-                    ModContent.ProjectileType<Projectiles.Series.Boss.MiracleRecorder.Circle2>(), 0, 0, player.whoAmI);
+                    ModContent.ProjectileType<Projectiles.Series.Boss.MiracleRecorder.GoldCircle2>(), 0, 0, player.whoAmI);
                 noticeVec = NPC.Center;
             }
             if (timer > 1) player.GetModPlayer<OdePlayer>().MiracleX = 0;
-            if (timer >= 1 && timer <= 3)
+            if (timer > 1 && timer <= 3)
             {
                 act = 0;
-                ok2 += 0.024f * (float)Math.Sin(1 / 60 * Math.PI);
-                NPC.Center = plrCenter + new Vector2((float)(Math.Sin(3 * (rads[ok] + ok2)) * Math.Cos(rads[ok] + ok2)), (float)(Math.Sin(3 * (rads[ok] + ok2)) * Math.Sin(rads[ok] + ok2))) * distance;
-                NPC.rotation = (NPC.Center - noticeVec).ToRotation() - 1.57f;
-            }
-            if (timer > 2 && timer < 30)
-            {
-                NPC.alpha -= 15;
-                NPC.Center = NPC.Center = plrCenter + new Vector2((float)(Math.Sin(3 * (rads[ok] + ok2)) * Math.Cos(rads[ok] + ok2)), (float)(Math.Sin(3 * (rads[ok] + ok2)) * Math.Sin(rads[ok] + ok2))) * distance;
-            }
-
-            if (timer > 30 && timer < 90)
-            {
-                ok2 += 0.024f * (float)Math.Sin((timer - 30) / 60 * Math.PI);
+                ok2 += 0.027f * (float)Math.Sin(timer / 60 * Math.PI);
                 NPC.Center = plrCenter + new Vector2((float)(Math.Sin(3 * (rads[ok] + ok2)) * Math.Cos(rads[ok] + ok2)), (float)(Math.Sin(3 * (rads[ok] + ok2)) * Math.Sin(rads[ok] + ok2))) * distance;
                 NPC.rotation = (NPC.Center - noticeVec).ToRotation() - 1.57f;
                 noticeVec = NPC.Center;
-                NPC.alpha -= 20;
+            }
+            if (timer > 3 && timer <= 30)
+            {
+                NPC.alpha -= 10;
+                NPC.Center = plrCenter + new Vector2((float)(Math.Sin(3 * (rads[ok] + ok2)) * Math.Cos(rads[ok] + ok2)), (float)(Math.Sin(3 * (rads[ok] + ok2)) * Math.Sin(rads[ok] + ok2))) * distance;
+            }
+
+            if (timer > 30 && timer <= 80)
+            {
+                if (timer % 10 == 0)
+                {
+                    times++;
+                    //count是轮次，times是每次召唤球的序号
+                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.Series.Boss.MiracleRecorder.LightDot>(), NPC.damage / 2, 0, player.whoAmI, times, count);
+                }
+                ok2 += 0.027f * (float)Math.Sin((timer - 30) / 60 * Math.PI);
+                NPC.Center = plrCenter + new Vector2((float)(Math.Sin(3 * (rads[ok] + ok2)) * Math.Cos(rads[ok] + ok2)), (float)(Math.Sin(3 * (rads[ok] + ok2)) * Math.Sin(rads[ok] + ok2))) * distance;
+                NPC.rotation = (NPC.Center - noticeVec).ToRotation() - 1.57f;
+                noticeVec = NPC.Center;
+                NPC.alpha -= 5;
                 if (NPC.alpha <= 0) NPC.alpha = 0;
             }
 
-            if (timer > 40 && timer < 90)
+
+            if (timer > 40 && timer <= 80)
             {
                 if (timer % 2 == 0)
                 {
@@ -921,38 +1103,38 @@ namespace OdeMod.NPCs.Boss.MiracleRecorder
                     ParticleOrchestrator.RequestParticleSpawn(clientOnly: true, ParticleOrchestraType.StellarTune, settings, 255);
                 }
             }
-            if (timer > 45 && timer < 90)
+            if (timer > 45 && timer <= 80)
             {
                 act = 1;
             }
-            if (timer >= 90 && timer < 110)
+            if (timer > 80 && timer < 100)
             {
                 act = 0;
 
                 if (count <= randomFactor - 2)
                 {
                     int ok3;
-                    NPC.velocity = new Vector2((float)Math.Cos(NPC.rotation + 1.57f), (float)Math.Sin(NPC.rotation + 1.57f)) * (80 - timer) * -0.1f;
+                    NPC.velocity = new Vector2((float)Math.Cos(NPC.rotation + 1.57f), (float)Math.Sin(NPC.rotation + 1.57f)) * (100 - timer) * 0.15f;
                     NPC.alpha += 8;
                     if (ok == 0 || ok == 1) ok3 = ok + 1;
                     else ok3 = 0;
-                    /* for (float i = 0; i < 6; i++)
-                     {
-                         int num = Dust.NewDust(player.Center, 1, 1, ModContent.DustType<Dusts.Dream>(), 0, 0, 120,
-                             Color.White, 0f + ((timer - 52) / 12f));
+                    for (float i = 0; i < 6; i++)
+                    {
+                        int num = Dust.NewDust(player.Center, 1, 1, ModContent.DustType<Dusts.Dream>(), 0, 0, 120,
+                            Color.White, 0f + ((timer - 72) / 12f));
 
-                         float rad = new Vector2((float)Math.Cos(i * 6.28 / 6) * 80f, (float)Math.Sin(i * 6.28 / 6) * 80f).ToRotation();
+                        float rad = new Vector2((float)Math.Cos(i * 6.28 / 6) * 80f, (float)Math.Sin(i * 6.28 / 6) * 80f).ToRotation();
 
-                         Main.dust[num].position = player.Center + new Vector2((float)Math.Cos(rads[ok3]), (float)Math.Sin(rads[ok3])) * distance +
-                             new Vector2(
+                        Main.dust[num].position = player.Center + new Vector2((float)Math.Cos(rads[ok3]), (float)Math.Sin(rads[ok3])) * distance +
+                            new Vector2(
 
-                                 (float)(Math.Cos(i * 6.28 / 6) * 80 + Math.Cos(rad + ((float)(timer - 52) / 30f * 3.14f)) * 80),
+                                (float)(Math.Cos(i * 6.28 / 6) * 80 + Math.Cos(rad + ((float)(timer - 72) / 30f * 3.14f)) * 80),
 
-                                 (float)(Math.Sin(i * 6.28 / 6) * 80 + Math.Sin(rad + ((float)(timer - 52) / 30f * 3.14f)) * 80));
+                                (float)(Math.Sin(i * 6.28 / 6) * 80 + Math.Sin(rad + ((float)(timer - 72) / 30f * 3.14f)) * 80));
 
-                         Main.dust[num].velocity *= 0.1f;
-                         Main.dust[num].noGravity = true;
-                     }*/
+                        Main.dust[num].velocity *= 0.1f;
+                        Main.dust[num].noGravity = true;
+                    }
                     for (int i = 0; i < 3; i++)
                     {
                         Vector2 dustpos = NPC.Center + 80 * Main.rand.NextVector2Unit();
@@ -963,10 +1145,10 @@ namespace OdeMod.NPCs.Boss.MiracleRecorder
                 }
                 else
                 {
-                    timer = 110;
+                    timer = 100;
                 }
             }
-            if (timer == 110)
+            if (timer == 100)
             {
                 NPC.alpha = 255;
                 for (int i = 1; i < 40; i++)
@@ -988,15 +1170,14 @@ namespace OdeMod.NPCs.Boss.MiracleRecorder
                 }
                 count++;
                 timer = 0;
-
                 if (ok == 2)
                 {
                     ok = -1;
                 }
                 if (count == randomFactor)
                 {
-                    state = NPCState.Wandering2;
-                    randomFactor = Main.rand.Next(4, 7);
+                    state = NPCState.EmitLaser2;
+                    randomFactor = 1;
 
                     count = 0;
                     ok = -1;
@@ -1005,41 +1186,486 @@ namespace OdeMod.NPCs.Boss.MiracleRecorder
                 }
             }
         }
-
-        private void dead(Player player)
+        private void emitLaser2(Player player)
         {
+            if (deathrattle)
+            {
+                state = NPCState.Dead;
+                timer = 0;
+                act = 0;
+            }
             if (timer == 1)
             {
-                NPC.velocity = new Vector2((float)Math.Cos(NPC.rotation + 1.57f), (float)Math.Sin(NPC.rotation + 1.57f)) * 32f;
+
+                player.GetModPlayer<OdePlayer>().MiracleX = 1;
+                NPC.alpha = 0;
+                line = 1;
+                act = 1;
+                if (count2 == 1)
+                    MiracleLogic = 2;
+                else
+                    MiracleLogic = 3;
             }
-            if (timer > 1 && timer < 40)
+            if (timer > 1 && timer < 25)
             {
-                NPC.velocity *= 0.95f;
+                player.GetModPlayer<OdePlayer>().MiracleX = 0;
+                Vector2 witness = new Vector2(player.Center.X - NPC.Center.X, player.Center.Y - NPC.Center.Y);
+                witness.Normalize();
+                float lerp = (witness.ToRotation() - NPC.rotation - 1.57f);
+                while (lerp > 3.14159f)
+                    lerp -= 6.28318f;
+
+                while (lerp < -3.14159f)
+                    lerp += 6.28318f;
+                NPC.velocity += new Vector2((float)Math.Cos(NPC.rotation + 1.57f), (float)Math.Sin(NPC.rotation + 1.57f)) * 0.5f;
+                NPC.velocity *= 0.85f;
+
+                if (Math.Abs(lerp) < 0.01f) lerp = 0;
+                NPC.rotation += lerp * (timer / 60f);
             }
+            if (timer >= 25 && timer < 38)
+            {
+            }
+            if (timer == 38)
+            {
+                var r = NPC.rotation + 1.57f;
+                for (int i = 1; i <= 60; i++)
+                {
+                    float r2 = r + (Main.rand.Next(-10, 11) * 0.05f);
+                    Vector2 shootVel = r2.ToRotationVector2() * Main.rand.Next(40, 200) * 0.2f;
+                    int num = Dust.NewDust(new Vector2((float)Math.Cos(NPC.rotation + 1.57f), (float)Math.Sin(NPC.rotation + 1.57f)) * 45 + NPC.Center, 1, 1, DustID.GoldFlame, 0, 0, 100, default, 1.5f);
+
+                    Main.dust[num].velocity = shootVel;
+
+                    Main.dust[num].noGravity = true;
+                    Main.dust[num].scale = Main.rand.Next(15, 25) * 0.1f;
+                }
+                line = 0;
+                Vector2 tor = player.Center - NPC.Center;
+                NPC.velocity += new Vector2((float)Math.Cos(NPC.rotation + 1.57f), (float)Math.Sin(NPC.rotation + 1.57f)) * -10f;
+                float demo = 1 + Vector2.DistanceSquared(Main.player[Main.myPlayer].Center, player.Center) / 420000;
+                player.GetModPlayer<OdePlayer>().ShakeInt = Math.Max(player.GetModPlayer<OdePlayer>().ShakeInt, (int)(30 / demo));
+                Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2((float)Math.Cos(NPC.rotation + 1.57f), (float)Math.Sin(NPC.rotation + 1.57f)) * 45 + NPC.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.Series.Boss.MiracleRecorder.Laser03>(), NPC.damage / 2, 0, player.whoAmI, NPC.rotation);
+                distance = Vector2.Distance(NPC.Center, player.Center);
+            }
+            if (timer > 38 && timer < 58)
+            {
+                NPC.velocity *= 0.8f;
+            }
+            /*if (timer == 58)
+            {
+                if (count2 == randomFactor)
+                {
+                    count2 = 0;
+                    NPC.alpha = 0;
+                    NPC.velocity *= 0f;
+
+
+                    state = NPCState.Dash2;
+                    randomFactor = ServantCount;
+
+
+                    count = 0;
+                    ok = -1;
+                    ok2 = 0;
+                    timer = 0;
+                }
+            }*/
+            if (timer >= 58 && timer < 82)
+            {
+                if (count2 < randomFactor)
+                {
+                    Vector2 witness = new Vector2(player.Center.X - NPC.Center.X, player.Center.Y - NPC.Center.Y);
+                    witness.Normalize();
+                    float lerp = (witness.ToRotation() - NPC.rotation - 1.57f);
+                    while (lerp > 3.14159f)
+                        lerp -= 6.28318f;
+
+                    while (lerp < -3.14159f)
+                        lerp += 6.28318f;
+                    if (Math.Abs(lerp) < 0.01f) lerp = 0;
+                    NPC.rotation += lerp * (timer / 800f);
+                    NPC.velocity = new Vector2(-(float)Math.Sin(NPC.rotation + 1.57f), (float)Math.Cos(NPC.rotation + 1.57f)) * (18f - Math.Abs(timer - 77)) * 1.5f;
+                    NPC.velocity += new Vector2((float)Math.Cos(NPC.rotation + 1.57f), (float)Math.Sin(NPC.rotation + 1.57f));
+                }
+                else
+                {
+                    if (timer == 58)
+                        NPC.velocity = new Vector2((float)Math.Cos(NPC.rotation + 1.57f), (float)Math.Sin(NPC.rotation + 1.57f)) * NPC.velocity.Length();
+                    else
+                        NPC.velocity *= 0.93f;
+                }
+            }
+            if (timer >= 82)
+            {
+                count2++;
+                timer = 0;
+                if (count2 > randomFactor)
+                {
+                    count2 = 0;
+                    NPC.alpha = 0;
+                    NPC.velocity *= 0f;
+
+
+                    state = NPCState.Dash2;
+                    randomFactor = ServantCount;
+
+
+                    count = 0;
+                    ok = -1;
+                    ok2 = 0;
+                    timer = 0;
+                }
+            }
+        }
+        private void dash2(Player player)
+        {
+            if (deathrattle)
+            {
+                state = NPCState.Dead;
+                timer = 0;
+                act = 0;
+            }
+            ParticleOrchestraSettings settings;
+            if (timer == 1)
+            {
+                MiracleLogic = 4;
+                noticeVec = NPC.Center;
+
+                rando = 0.6f;
+
+                plrCenter = player.Center;
+                dir = player.Center - NPC.Center;
+                dir.Normalize();
+                if (count2 == 0)
+                {
+                    dir = new Vector2((float)Math.Cos(NPC.rotation + 1.57f), (float)Math.Sin(NPC.rotation + 1.57f));
+                }
+                else
+                {
+                    dir = new Vector2((float)Math.Cos(dir.ToRotation() - rando), (float)Math.Sin(dir.ToRotation() - rando));
+                }
+
+                newrotate = dir.ToRotation() - 1.57f;
+                oldrotate = NPC.rotation;
+                noticeVec = NPC.Center;
+            }
+            if (timer > 1 && timer < 30)
+            {
+                /*if (oldrotate <= 0 && newrotate >= 0)
+                {
+                    oldrotate += 6.28318f;
+                }*/
+                float minus = newrotate - oldrotate;
+                while (minus > 3.14159f)
+                    minus -= 6.28318f;
+
+                while (minus < -3.14159f)
+                    minus += 6.28318f;
+                NPC.rotation += minus * 0.05f;
+                NPC.velocity = new Vector2((float)Math.Cos(NPC.rotation + 1.57f), (float)Math.Sin(NPC.rotation + 1.57f)) * NPC.velocity.Length();
+                NPC.velocity *= 0.97f;
+                noticeVec = NPC.Center;
+            }
+            if (timer == 30)
+            {
+                act = 1;
+                NPC.velocity = dir * 24f;
+                NPC.rotation = newrotate;
+                for (int i = -1; i <= 1; i++)
+                {
+                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center + new Vector2(-(float)Math.Sin(NPC.rotation + 1.57f), (float)Math.Cos(NPC.rotation + 1.57f)) * 40 * i, new Vector2((float)Math.Cos(NPC.rotation + 1.57f + (float)i * 0.5f), (float)Math.Sin(NPC.rotation + 1.57f + (float)i * 0.5f)) * 5f, ModContent.ProjectileType<Projectiles.Series.Boss.MiracleRecorder.Star2>(), NPC.damage / 2, 0, player.whoAmI);
+                }
+                CountSort++;
+            }
+            if (timer >= 30 && timer <= 50)
+            {
+                act = 3;
+                NPC.velocity *= 0.97f;
+                NPC.velocity -= new Vector2(NPC.velocity.Y, -NPC.velocity.X) * 0.02f;
+                NPC.rotation = (NPC.Center - noticeVec).ToRotation() - 1.57f;
+                noticeVec = NPC.Center;
+            }
+            if (timer > 50)
+            {
+                count2++;
+                for (int i = 1; i < 40; i++)
+                {
+                    var dust2 = Dust.NewDustDirect(NPC.Center, 1, 1, DustID.PinkTorch, 0, 0, 0, Color.White, 2.5f);
+                    dust2.velocity = 4 * Main.rand.NextVector2Unit();
+                    dust2.noGravity = true;
+                }
+                for (int i = 1; i < 10; i++)
+                {
+                    Vector2 value = Vector2.UnitX.RotatedBy(Main.rand.NextFloat() * ((float)Math.PI * 2f) + (float)Math.PI / 2f) * 13;
+                    Vector2 posin = NPC.position + new Vector2(0f, -80f) + new Vector2(67, 147) + value;
+                    settings = new ParticleOrchestraSettings
+                    {
+                        PositionInWorld = posin,//位置
+                        MovementVector = 4 * Main.rand.NextVector2Unit()
+                    };
+                    ParticleOrchestrator.RequestParticleSpawn(clientOnly: true, ParticleOrchestraType.PrincessWeapon, settings, 255);
+                }
+                //Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.Series.Boss.MiracleRecorder.Spark>(), 0, 0, player.whoAmI, count2, times);
+                timer = 0;
+                if (count2 >= randomFactor)
+                {
+                    randomFactor = Main.rand.Next(4, 7);
+                    state = NPCState.Focus2;
+                    ok2 = 0;
+                    count2 = 0;
+                    rando = 0;
+                    times++;
+                }
+            }
+        }
+        private void focus2(Player player)
+        {
+            if (deathrattle)
+            {
+                state = NPCState.Dead;
+                timer = 0;
+                act = 0;
+            }
+            if (timer == 1)
+            {
+                MiracleLogic = 5;
+                NPC.alpha = 0;
+                act = 4;
+                if (timer == 1)
+                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.Series.Boss.MiracleRecorder.GoldDamageCircle0>(), NPC.damage, 0, player.whoAmI, NPC.whoAmI);
+                for (int j = 0; j < 60; j++)
+                {
+                    int randomDis = 400;
+                    Vector2 dustpos = NPC.Center + randomDis * Main.rand.NextVector2Unit();
+                    var dust2 = Dust.NewDustDirect(dustpos, 1, 1,
+                        DustID.GoldFlame, 0, 0, 0, Color.White, 2.5f);
+                    dust2.velocity = (NPC.Center - dustpos) / 20f;
+                    dust2.noGravity = true;
+                }
+            }
+            if (timer > 1 && timer < 20)
+            {
+
+                NPC.velocity *= 0.85f;
+            }
+            if (timer >= 20 && timer < 240)
+            {
+                NPC.velocity *= 0f;
+                act = 1;
+                int randomDis = Main.rand.Next(260, 400);
+                if (timer % 2 == 0)
+                {
+                    Vector2 dustpos = NPC.Center + randomDis * Main.rand.NextVector2Unit();
+                    var dust2 = Dust.NewDustDirect(dustpos, 1, 1,
+                        DustID.GoldFlame, 0, 0, 0, Color.White, 2.5f);
+                    dust2.velocity = (NPC.Center - dustpos) / 20f;
+                    dust2.noGravity = true;
+
+                    dustpos = NPC.Center + randomDis * Main.rand.NextVector2Unit();
+
+                    var dust3 = Dust.NewDustDirect(dustpos, 1, 1,
+                        ModContent.DustType<Dusts.Dream>(), 0, 0, 0, Color.White, 1f);
+                    dust3.velocity = (NPC.Center - dustpos) / 20f;
+                    dust3.noGravity = true;
+                }
+
+            }
+
+
+            if (timer == 220)
+            {
+                ok4 = Main.rand.Next(0, 3);
+                for (int i = 0; i < 40; i++)
+                {
+                    var dust2 = Dust.NewDustDirect(NPC.Center, 1, 1, DustID.PinkTorch, 0, 0, 0, Color.White, 2.5f);
+                    dust2.position = NPC.Center + 240 * Main.rand.NextVector2Unit();
+                    dust2.velocity *= 2f;
+                    dust2.noGravity = true;
+
+                    var dust3 = Dust.NewDustDirect(NPC.Center, 1, 1,
+                        ModContent.DustType<Dusts.Dream>(), 0, 0, 0, Color.White, 1f);
+                    dust3.position = NPC.Center + 240 * Main.rand.NextVector2Unit();
+
+                    dust3.noGravity = true;
+                }
+
+            }
+            if (timer >= 220 && timer < 240)
+            {
+                for (float i = 0; i < 6; i++)
+                {
+                    int num = Dust.NewDust(player.Center, 1, 1, ModContent.DustType<Dusts.Dream>(), 0, 0, 120,
+                        Color.White, 0f + ((timer - 212) / 12f));
+
+                    float rad = new Vector2((float)Math.Cos(i * 6.28 / 6) * 80f, (float)Math.Sin(i * 6.28 / 6) * 80f).ToRotation();
+
+                    Main.dust[num].position = player.Center + new Vector2((float)Math.Cos(rads[ok4]), (float)Math.Sin(rads[ok4])) * 500 +
+                        new Vector2(
+
+                            (float)(Math.Cos(i * 6.28 / 6) * 80 + Math.Cos(rad + ((float)(timer - 212) / 30f * 3.14f)) * 80),
+
+                            (float)(Math.Sin(i * 6.28 / 6) * 80 + Math.Sin(rad + ((float)(timer - 212) / 30f * 3.14f)) * 80));
+
+                    Main.dust[num].velocity *= 0.1f;
+                    Main.dust[num].noGravity = true;
+                }
+            }
+            if (timer == 240)
+            {
+                CountSort = 0;
+                count2 = 0;
+                NPC.alpha = 0;
+                count = 0;
+                ok = -1;
+                ok2 = 0;
+                if (ServantCount < 6)
+                {
+                    ServantCount += 2;
+                }
+                else
+                {
+                    NPC.damage += 10;
+                }
+                timer = 0;
+
+
+                state = NPCState.Wandering2;
+                randomFactor = Main.rand.Next(4, 7);
+
+            }
+        }
+        private void dead(Player player)
+        {
+            MiracleLogic = 114514;
+            if (timer == 1)
+            {
+                deathTruely = true;
+                Vector2 witness = new Vector2(0, -1f);
+                witness.Normalize();
+                lerp = (witness.ToRotation() - NPC.rotation - 1.57f);
+                while (lerp > 3.14159f)
+                    lerp -= 6.28318f;
+
+                while (lerp < -3.14159f)
+                    lerp += 6.28318f;
+
+                if (Math.Abs(lerp) < 0.01f) lerp = 0;
+            }
+
+            NPC.rotation += lerp * 0.003f;
+
+            if (timer > 1 && timer < 30)
+            {
+                NPC.velocity *= 0.9f;
+            }
+            if (timer == 30)
+            {
+                NPC.velocity.X = 0;
+                ghostMode = 1;
+                NPC.velocity.Y = -1f;
+            }
+            if (timer > 30f && timer <= 130f)
+            {
+                NPC.alpha += 3;
+                ghostalpha += 0.01f;
+            }
+            if (timer == 80) changeScreen = 2;
+            if (timer >= 90)
+            {
+
+                var dust = Dust.NewDustDirect(NPC.position, NPC.width, NPC.height,
+                        DustID.PinkTorch, 0, 0, 0, Color.White, 2f);
+                dust.velocity.X *= 0.2f;
+                dust.scale = (float)Main.rand.Next(15, 26) * 0.1f;
+                dust.velocity.Y *= (float)Main.rand.Next(10, 36) * 0.1f;
+                dust.velocity.Y += 4f;
+                dust.noGravity = true;
+
+            }
+            if (timer >= 170f && timer < 220f)
+            {
+                ghostalpha -= 0.02f;
+            }
+
+            if (timer == 220)
+            {
+                NPC.life = -114514;
+                NPC.checkDead();
+            }
+
         }
 
         public override void AI()
         {
+            var ssd = (BossSSD)OdeMod.ScreenShaderDataManager["OdeMod:MiracleRecorder"];
+            if (!defaults)
+            {
+                defaults = true;
+                ssd.MaxDistance = 1.8f;
+                ssd.Alpha = 0f;
+            }
+
+
             Lighting.AddLight(NPC.Center, 0.9647f, 0.635f, 1);
             NPC.TargetClosest(true);
             Player player = Main.player[NPC.target];
 
+            if (player.dead)
+            {
+                checkDead = 1;
+            }
+            if (!player.dead && checkDead == 1)
+            {
+                checkDead = 0;
+                NPC.active = false;
+                OdeMod.ScreenShaderDataManager["OdeMod:MiracleRecorder"].Visible = false;
+                servantIndex.ForEach(x => Main.projectile[x].Kill());
+                servantIndex.Clear();
+            }
             _npcLogic[state](player);
             timer++;
             SSDtimer++;
+            //记录old角度
             for (int i = 8; i > 0; i--)
             {
                 rot[i] = rot[i - 1];
             }
             rot[0] = NPC.rotation;
             //控制屏幕滤镜
-            var ssd = (BossSSD)OdeMod.ScreenShaderDataManager["OdeMod:MiracleRecorder"];
-            ssd.LightRange.X = 0.9f + 0.1f * (float)Math.Cos(SSDtimer / 30f);
-            //ssd.MaxDistance = 1.35f + (float)Math.Sin(SSDtimer / 19.1f)*0.05f;
-            ssd.MaxDistance = 1.4f;
-            ssd.BlurFactor = (float)Math.Cos(SSDtimer / 30f) * 2f;
-            //ssd.Alpha = 1f + 2f * (1f - (float)NPC.life / (float)NPC.lifeMax);
+
+            ssd.LightRange.X = 0.95f + 0.05f * (float)Math.Cos(SSDtimer / 30f);
+            if (!deathrattle)
+            {
+                if (ssd.MaxDistance > 1.4f)
+                {
+                    ssd.MaxDistance -= 0.002f;
+                    ssd.Alpha += 0.005f;
+                }
+                else
+                {
+                    ssd.MaxDistance = 1.4f;
+                    ssd.Alpha = 1f;
+                }
+            }
+            else
+            {
+                ssd.MaxDistance += 0.005f;
+                ssd.Alpha -= 0.008f;
+            }
+
+
+
+            ssd.BlurFactor = (float)Math.Cos(SSDtimer / 30f) * 10f + 10f;
+            ssd.Alpha = (float)Math.Sin(SSDtimer / 30f) * 0.2f + 1.2f;
+
+            if (changeScreen == 1 || changeScreen == 2)
+            {
+                screenTimer++;
+            }
+
         }
+
 
         public override void OnKill()
         {
@@ -1052,6 +1678,8 @@ namespace OdeMod.NPCs.Boss.MiracleRecorder
         {
             Texture2D texture = TextureAssets.Npc[NPC.type].Value;
             Texture2D texture2 = ModContent.Request<Texture2D>("OdeMod/NPCs/Boss/MiracleRecorder/MiracleRecorderDrawer").Value;
+            Texture2D texture3 = ModContent.Request<Texture2D>("OdeMod/NPCs/Boss/MiracleRecorder/MiracleRecorderGhost").Value;
+            Texture2D texture4 = ModContent.Request<Texture2D>("OdeMod/NPCs/Boss/MiracleRecorder/MiracleRecorderGlow").Value;
             Vector2 drawOrigin = new Vector2(134 * 0.5f, 209 * 0.703f);
             Vector2 drawPos = NPC.position - Main.screenPosition + drawOrigin + new Vector2(0f, -80f);
 
@@ -1322,6 +1950,17 @@ namespace OdeMod.NPCs.Boss.MiracleRecorder
                 Color color1 = new Color(255, 0, 241, 0f);
                 Color color2 = new Color(255, 0, 241, 0.4f);
                 Color color4;
+                if (rank == 1)
+                {
+                    color1 = new Color(255, 0, 241, 0f);
+                    color2 = new Color(255, 0, 241, 0.4f);
+                }
+                else
+                {
+                    color1 = new Color(255, 253, 0, 0f);
+                    color2 = new Color(255, 253, 0, 0.4f);
+                }
+
                 if (timer < 30f)
                     color4 = Color.Lerp(color1, color2, timer / 30f);
                 else
@@ -1330,10 +1969,25 @@ namespace OdeMod.NPCs.Boss.MiracleRecorder
                 Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.Default, RasterizerState.CullNone, null, Main.Transform);
                 DrawLine(Main.spriteBatch, NPC.Center, new Vector2((float)Math.Cos(NPC.rotation + 1.57f), (float)Math.Sin(NPC.rotation + 1.57f)) * 5000 + NPC.Center, color4, color4, 3f);
             }
+
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.Default, RasterizerState.CullNone, null, Main.Transform);
             //绘制本体
             Main.spriteBatch.Draw(texture, drawPos, new Rectangle(0, NPC.frame.Y, 134, 209), drawColor * ((255f - (float)NPC.alpha) / 255f), NPC.rotation, drawOrigin, 1f, SpriteEffects.None, 0f);
+            //绘制光效
+            Main.spriteBatch.End();
+            Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.Default, RasterizerState.CullNone, null, Main.Transform);
+            Main.spriteBatch.Draw(texture4, drawPos, new Rectangle(0, NPC.frame.Y, 134, 209), drawColor * ((255f - (float)NPC.alpha) / 255f), NPC.rotation, drawOrigin, 1f, SpriteEffects.None, 0f);
+            Main.spriteBatch.End();
+            Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.Default, RasterizerState.CullNone, null, Main.Transform);
+            if (ghostMode == 1)
+            {
+                Main.spriteBatch.End();
+                Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.Default, RasterizerState.CullNone, null, Main.Transform);
+                Main.spriteBatch.Draw(texture3, drawPos, new Rectangle(0, NPC.frame.Y, 134, 209), drawColor * ghostalpha, NPC.rotation, drawOrigin, 1f, SpriteEffects.None, 0f);
+                Main.spriteBatch.End();
+                Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.Default, RasterizerState.CullNone, null, Main.Transform);
+            }
 
             var ssd = (BossSSD)OdeMod.ScreenShaderDataManager["OdeMod:MiracleRecorder"];
             //以下是对屏幕滤镜做处理
@@ -1391,7 +2045,75 @@ namespace OdeMod.NPCs.Boss.MiracleRecorder
 
             return false;
         }
+        /*public override void DrawBehind(int index)
+        {
+            Main.instance.DrawCacheNPCsOverPlayers.Add(index);
+        }*/
+        public override void PostDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
+        {
 
+            if (changeScreen == 1)
+            {
+                Texture2D texture = ModContent.Request<Texture2D>("OdeMod/Projectiles/Series/Boss/MiracleRecorder/RankRound").Value;
+                Vector2 drawPos = NPC.Center - Main.screenPosition;
+                Vector2 drawOrigin = new Vector2(130, 130);
+                Color color1 = new Color(255, 102, 237, 1f);
+                Color color2 = new Color(255, 220, 0, 1f);
+                Color color3 = Color.Lerp(color1, color2, screenTimer / 70f);
+                float alpha = 0f;
+                float sc = screenTimer * 0.2f + 1f;
+
+                if (screenTimer <= 20)
+                {
+                    alpha = screenTimer * 0.05f;
+                }
+                if (screenTimer > 20 && screenTimer <= 30) alpha = 1f;
+                if (screenTimer > 30 && screenTimer <= 70)
+                {
+                    alpha = (70 - screenTimer) * 0.025f;
+                }
+                if (screenTimer > 70)
+                {
+                    changeScreen = 0;
+                    screenTimer = 0;
+                }
+                Main.spriteBatch.End();
+                Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.Default, RasterizerState.CullNone, null, Main.Transform);
+                Main.spriteBatch.Draw(texture, drawPos, null, color3 * alpha, NPC.rotation, drawOrigin, sc, SpriteEffects.None, 0f);
+                Main.spriteBatch.End();
+                Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.Default, RasterizerState.CullNone, null, Main.Transform);
+            }
+            if (changeScreen == 2)
+            {
+                Texture2D texture = ModContent.Request<Texture2D>("OdeMod/Projectiles/Series/Boss/MiracleRecorder/RankRound").Value;
+                Vector2 drawPos = NPC.Center - Main.screenPosition;
+                Vector2 drawOrigin = new Vector2(130, 130);
+                Color color3 = new Color(255, 102, 237, 1f);
+
+                float alpha = 0f;
+                float sc = screenTimer * 0.4f + 2f;
+
+                if (screenTimer <= 25)
+                {
+                    alpha = screenTimer * 0.04f;
+                }
+                if (screenTimer > 25 && screenTimer <= 70) alpha = 1f;
+                if (screenTimer > 70 && screenTimer <= 120)
+                {
+                    alpha = (120 - screenTimer) * 0.02f;
+                }
+                if (screenTimer > 120)
+                {
+                    changeScreen = 0;
+                    screenTimer = 0;
+                }
+                Main.spriteBatch.End();
+                Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.Default, RasterizerState.CullNone, null, Main.Transform);
+                Main.spriteBatch.Draw(texture, drawPos, null, color3 * alpha, NPC.rotation, drawOrigin, sc, SpriteEffects.None, 0f);
+                Main.spriteBatch.End();
+                Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.Default, RasterizerState.CullNone, null, Main.Transform);
+            }
+        }
         public override Color? GetAlpha(Color lightColor)
         {
             return new Color(255 - NPC.alpha, 255 - NPC.alpha, 255 - NPC.alpha, 255 - NPC.alpha);

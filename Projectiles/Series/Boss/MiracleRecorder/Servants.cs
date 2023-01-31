@@ -10,17 +10,21 @@ using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-
 using static Terraria.Utils;
 
 namespace OdeMod.Projectiles.Series.Boss.MiracleRecorder
 {
+
     internal class Servants : ModProjectile, IMiracleRecorderProj
     {
+        private float easyLerp(float from, float to, float range)
+        {
+            return (to * range + from * (1f - range));
+        }
         public override void SetDefaults()
         {
             Projectile.width = 42;
-            Projectile.height = 56;
+            Projectile.height = 42;
             Projectile.aiStyle = -1;
             Projectile.friendly = false;
             Projectile.hostile = true;
@@ -40,8 +44,19 @@ namespace OdeMod.Projectiles.Series.Boss.MiracleRecorder
         private float newrotate = 0;
         private int line = 0;
         private bool shadow = false;
+        private bool repeat = false;
         private float rad2 = 0;
+        private float rad3 = 0;
+        private float stop = 0;
+        private float lerp = 2;
+        private float scale0 = 0;
+        private float distance0 = 0;
+        private float rotation0 = 0;
         private Vector2 cent = Vector2.Zero;
+        private Vector2 note = Vector2.Zero;
+
+        Vector2 roundCenter = Vector2.Zero;
+        Vector2 destination = Vector2.Zero;
 
         private int oldlogic = -1;
         private int newlogic = -1;
@@ -69,6 +84,7 @@ namespace OdeMod.Projectiles.Series.Boss.MiracleRecorder
             }
             oldlogic = miracleRecorder.MiracleLogic;
 
+            //转阶段机制
             timer++;
             if (timer % 8 == 0)
             {
@@ -77,7 +93,6 @@ namespace OdeMod.Projectiles.Series.Boss.MiracleRecorder
                 else
                     Projectile.frame = 0;
             }
-            Projectile.velocity *= 0f;
 
             if (miracleRecorder.MiracleLogic == 0)
             {
@@ -88,18 +103,23 @@ namespace OdeMod.Projectiles.Series.Boss.MiracleRecorder
                 }
 
                 if (Projectile.alpha > 0) Projectile.alpha -= 10;
-                if (timer > 1 && timer < 190)
+                if (timer > 1 && timer < 60)
+                {
+                    int num = Dust.NewDust(Projectile.position, 42, 42, ModContent.DustType<Dusts.Dream>(), 0, 0, 100, default, (60 - timer) * 0.03f);
+                    Main.dust[num].noGravity = true;
+                }
+                if (timer > 1 && timer < 180)
                 {
                     rad2 += (float)Math.Sin(timer / 55f) * 0.08f;
                     Projectile.Center = owner.Center + new Vector2((float)Math.Cos(rad2), (float)Math.Sin(rad2)) * (120f + miracleRecorder.ServantCount * 15f);
                     Projectile.rotation = rad2;
                 }
-                if (timer == 190)
+                if (timer == 180)
                 {
                     oldrotate = Projectile.rotation;
                     newrotate = (Projectile.Center - bossPos).ToRotation() - 1.57f;
                 }
-                if (timer >= 190 && timer < 210)
+                if (timer >= 180 && timer < 210)
                 {
                     float minus = newrotate - oldrotate;
                     while (minus > 3.14159f)
@@ -108,13 +128,13 @@ namespace OdeMod.Projectiles.Series.Boss.MiracleRecorder
                     while (minus < -3.14159f)
                         minus += 6.28318f;
                     Projectile.rotation += minus * 0.05f;
-                    line = 1;
+                    //line = 1;
                 }
                 if (timer == 215)
                 {
-                    line = 0;
+                    //line = 0;
                     cent = owner.Center;
-                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), new Vector2((float)Math.Cos(Projectile.rotation + 1.57f), (float)Math.Sin(Projectile.rotation + 1.57f)) * 16 + Projectile.Center, Vector2.Zero, ModContent.ProjectileType<Laser02>(), 0, 0, player.whoAmI, Projectile.rotation);
+                    //Projectile.NewProjectile(Projectile.GetSource_FromAI(), new Vector2((float)Math.Cos(Projectile.rotation + 1.57f), (float)Math.Sin(Projectile.rotation + 1.57f)) * 16 + Projectile.Center, Vector2.Zero, ModContent.ProjectileType<Laser02>(), 0, 0, player.whoAmI, Projectile.rotation);
                 }
             }
             if (miracleRecorder.MiracleLogic == 1)
@@ -125,7 +145,12 @@ namespace OdeMod.Projectiles.Series.Boss.MiracleRecorder
                 }
                 if (timer == 1)
                 {
-                    shadow = false;
+                    if (repeat)
+                    {
+                        rad2 = (6.2832f / miracleRecorder.ServantCount) * Projectile.ai[0];
+                        repeat = false;
+                    }
+                    shadow = true;
                 }
                 if (timer > 1 && timer < 30)
                 {
@@ -133,7 +158,13 @@ namespace OdeMod.Projectiles.Series.Boss.MiracleRecorder
                     var lerPos = Vector2.Lerp(cent, owner.Center, (float)(0.5f * Math.Tanh((double)(timer - 15) / 7.5f) + 0.5f));
                     Projectile.Center = lerPos + new Vector2((float)Math.Cos(rad2), (float)Math.Sin(rad2)) * (120f + miracleRecorder.ServantCount * 15f);
                     Projectile.rotation = rad2;
+
                 }
+                //废案
+                /*if (timer == 40 + Projectile.ai[0] * 6)
+                {
+                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), /*new Vector2((float)Math.Cos(Projectile.rotation + 1.57f), (float)Math.Sin(Projectile.rotation + 1.57f)) * 8 + Projectile.Center, Vector2.Normalize(player.Center - Projectile.Center) * 4f, ModContent.ProjectileType<Sparkle>(), 0, 0, player.whoAmI, Projectile.rotation);
+                }*/
                 if (timer > 30f && timer < 110)
                 {
                     shadow = true;
@@ -146,11 +177,248 @@ namespace OdeMod.Projectiles.Series.Boss.MiracleRecorder
                     cent = owner.Center;
                 }
             }
-        }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
-        {
-            target.AddBuff(BuffID.OnFire, damage);
+            if (miracleRecorder.MiracleLogic == 2)
+            {
+                if (player.GetModPlayer<OdePlayer>().MiracleX == 1)
+                {
+                    timer = 1;
+                }
+                if (timer >= 1 && timer < 18)
+                {
+                    shadow = true;
+                    rad2 += 0.08f;
+                    Projectile.Center = owner.Center + new Vector2((float)Math.Cos(rad2), (float)Math.Sin(rad2)) * (120f + miracleRecorder.ServantCount * 15f);
+                    Projectile.rotation = rad2;
+                }
+                if (timer == 18)
+                {
+                    note = Projectile.Center;
+                    line = 1;
+
+                }
+                if (timer >= 18 && timer < 38)
+                {
+                    var rad4 = owner.rotation + 1.57f;
+                    roundCenter = owner.Center + new Vector2((float)Math.Cos(rad4), (float)Math.Sin(rad4)) * (100 + miracleRecorder.ServantCount * 16f);
+                    rad3 = (roundCenter - bossPos).ToRotation();
+                    if (Projectile.ai[0] <= miracleRecorder.ServantCount / 2)
+                    {
+                        rad3 -= 0.25f;
+                        rad3 += (float)Math.PI;
+                        rad3 -= Projectile.ai[0] * 0.25f;
+                    }
+                    else
+                    {
+                        rad3 += 0.25f;
+                        rad3 += (float)Math.PI;
+                        rad3 += (miracleRecorder.ServantCount - Projectile.ai[0] + 1) * 0.25f;
+                    }
+                    destination = roundCenter + new Vector2((float)Math.Cos(rad3), (float)Math.Sin(rad3)) * (200 + miracleRecorder.ServantCount * 32f);
+                    Projectile.Center = Vector2.Lerp(note, destination, (float)(0.5f * Math.Tanh((double)(timer - 28) / 5f) + 0.5f));
+                    Projectile.rotation = (owner.Center + new Vector2((float)Math.Cos((roundCenter - owner.Center).ToRotation()), (float)Math.Sin((roundCenter - owner.Center).ToRotation())) * Vector2.Distance(player.Center, owner.Center) - Projectile.Center).ToRotation() - 1.57f;
+                }
+                if (timer == 38)
+                {
+                    line = 0;
+                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), new Vector2((float)Math.Cos(Projectile.rotation + 1.57f), (float)Math.Sin(Projectile.rotation + 1.57f)) * 16 + Projectile.Center, Vector2.Zero, ModContent.ProjectileType<Laser02>(), Projectile.damage, 0, player.whoAmI, Projectile.rotation);
+                }
+                if (timer >= 38 && timer < 58)
+                {
+                    var rad4 = owner.rotation + 1.57f;
+                    roundCenter = owner.Center + new Vector2((float)Math.Cos(rad4), (float)Math.Sin(rad4)) * (100 + miracleRecorder.ServantCount * 16f);
+                    rad3 = (roundCenter - bossPos).ToRotation();
+                    if (Projectile.ai[0] <= miracleRecorder.ServantCount / 2)
+                    {
+                        rad3 -= 0.25f;
+                        rad3 += 3.1415926f;
+                        rad3 -= Projectile.ai[0] * 0.25f;
+                    }
+                    else
+                    {
+                        rad3 += 0.25f;
+                        rad3 += 3.1415926f;
+                        rad3 += (miracleRecorder.ServantCount - Projectile.ai[0] + 1) * 0.25f;
+                    }
+                    destination = roundCenter + new Vector2((float)Math.Cos(rad3), (float)Math.Sin(rad3)) * (200 + miracleRecorder.ServantCount * 32f);
+                    Projectile.Center = destination;
+                }
+                if (timer == 58)
+                {
+                    note = Projectile.Center;
+                }
+                if (timer > 58 && timer < 78)
+                {
+                    rad2 += 0.08f;
+                    Vector2 destination = owner.Center + new Vector2((float)Math.Cos(rad2), (float)Math.Sin(rad2)) * (120f + miracleRecorder.ServantCount * 15f);
+                    Projectile.Center = Vector2.Lerp(note, destination, (float)(0.5f * Math.Tanh((double)(timer - 68) / 5f) + 0.5f));
+                }
+                if (timer >= 78)
+                {
+
+                    rad2 += 0.08f;
+                    Projectile.Center = owner.Center + new Vector2((float)Math.Cos(rad2), (float)Math.Sin(rad2)) * (120f + miracleRecorder.ServantCount * 15f);
+                    Projectile.rotation = rad2;
+                }
+            }
+            if (miracleRecorder.MiracleLogic == 3)
+            {
+                if (player.GetModPlayer<OdePlayer>().MiracleX == 1)
+                {
+                    cent = player.Center;
+                    note = Projectile.Center;
+                    oldrotate = Projectile.rotation;
+                    timer = 1;
+                }
+                if (timer == 1)
+                {
+                    oldrotate = Projectile.rotation;
+                    newrotate = (player.Center - Projectile.Center).ToRotation() - 1.5708f;
+                    note = Projectile.Center;
+                }
+                if (timer > 1 && timer <= 20)
+                {
+                    rad2 += 0.08f;
+                    line = 1;
+                    destination = player.Center + new Vector2((float)Math.Cos(rad2), (float)Math.Sin(rad2)) * (200f + miracleRecorder.ServantCount * 15f);
+                    Projectile.Center = Vector2.Lerp(note, destination, (float)(0.5f * Math.Tanh((double)(timer - 14) / 5f) + 0.5f));
+                    newrotate = rad2 + 1.5708f;
+                    if (timer == 20)
+                    {
+                        Projectile.Center = destination;
+                        Projectile.rotation = newrotate;
+                    }
+
+                    Projectile.rotation = oldrotate * ((20 - timer) / 20f) + newrotate * (timer / 20f);
+                }
+
+                if (timer == 38)
+                {
+                    line = 0;
+                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), new Vector2((float)Math.Cos(Projectile.rotation + 1.5708f), (float)Math.Sin(Projectile.rotation + 1.5708f)) * 16 + Projectile.Center, Vector2.Zero, ModContent.ProjectileType<Laser02>(), Projectile.damage, 0, player.whoAmI, Projectile.rotation);
+                }
+                if (timer == 58)
+                {
+                    note = Projectile.Center;
+                    oldrotate = Projectile.rotation;
+                }
+                if (timer > 58 && timer < 78)
+                {
+                    newrotate = rad2;
+                    rad2 += 0.08f;
+                    Vector2 destination = owner.Center + new Vector2((float)Math.Cos(rad2), (float)Math.Sin(rad2)) * (120f + miracleRecorder.ServantCount * 15f);
+                    Projectile.Center = Vector2.Lerp(note, destination, (float)(0.5f * Math.Tanh((double)(timer - 68) / 5f) + 0.5f));
+                    Projectile.rotation = oldrotate * ((77 - timer) / 19f) + newrotate * (timer / 19f);
+                }
+                if (timer >= 78)
+                {
+                    rad2 += 0.08f;
+                    Projectile.Center = owner.Center + new Vector2((float)Math.Cos(rad2), (float)Math.Sin(rad2)) * (120f + miracleRecorder.ServantCount * 15f);
+                    Projectile.rotation = rad2;
+                }
+                miracleRecorder.CountSort = 0;
+            }
+            if (miracleRecorder.MiracleLogic == 4)
+            {
+                if (timer == 1)
+                {
+                    oldrotate = Projectile.rotation;
+                    newrotate = (float)(Main.rand.Next(127, 188)) * 0.01f - 1.57f;
+                    note = Projectile.Center;
+                    destination = new Vector2((float)Main.screenWidth / (miracleRecorder.ServantCount + 1) * (Projectile.ai[0] + 1) + Main.screenPosition.X + Main.rand.Next(-25, 26), player.Center.Y - (450f + Main.rand.Next(-50, 51)));
+                }
+                if (timer > 1 && timer <= 30)
+                {
+                    Projectile.Center = Vector2.Lerp(note, destination, (float)(0.5f * Math.Tanh((double)(timer - 15) / 5f) + 0.5f));
+                    Projectile.rotation = oldrotate * ((30 - timer) / 30f) + newrotate * (timer / 30f);
+                }
+                if (timer == 30) line = 1;
+                if (timer == 50)
+                {
+                    line = 0;
+                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), new Vector2((float)Math.Cos(Projectile.rotation + 1.5708f), (float)Math.Sin(Projectile.rotation + 1.5708f)) * 16 + Projectile.Center, Vector2.Zero, ModContent.ProjectileType<Laser02>(), Projectile.damage, 0, player.whoAmI, Projectile.rotation);
+                }
+                if (timer > 70) timer = 0;
+            }
+            if (miracleRecorder.MiracleLogic == 5)
+            {
+                if (timer == 1)
+                {
+                    note = Projectile.Center;
+
+                }
+                if (timer > 1 && timer <= 60)
+                {
+                    rad2 += 0.08f;
+                    destination = owner.Center + new Vector2((float)Math.Cos(rad2), (float)Math.Sin(rad2)) * (120f + miracleRecorder.ServantCount * 15f);
+                    Projectile.Center = Vector2.Lerp(note, destination, (float)(0.5f * Math.Tanh((double)(timer - 30) / 10f) + 0.5f));
+                }
+                if (timer > 60 && timer <= 80)
+                {
+                    Projectile.rotation = rad2;
+                    rad2 += 0.08f;
+                    Projectile.Center = bossPos + new Vector2((float)Math.Cos(rad2), (float)Math.Sin(rad2)) * (120f + miracleRecorder.ServantCount * 15f);
+                }
+
+                if (timer > 80 && timer <= 180)
+                {
+                    rad2 += 0.08f;
+                    Projectile.rotation = rad2;
+                    Projectile.Center = bossPos + new Vector2((float)Math.Cos(rad2), (float)Math.Sin(rad2)) * ((120f + miracleRecorder.ServantCount * 15f) + (float)Math.Sin((timer - 80) / 100f * 3.1416f) * 320f);
+                }
+                if (timer > 180 && timer <= 190)
+                {
+                    rad2 += 0.08f - (timer - 180) / 10f * 0.08f;
+                    Projectile.rotation = rad2;
+                    Projectile.Center = bossPos + new Vector2((float)Math.Cos(rad2), (float)Math.Sin(rad2)) * ((120f + miracleRecorder.ServantCount * 15f));
+                }
+
+                if (timer == 200)
+                {
+                    for (int j = 0; j < 60; j++)
+                    {
+                        int randomDis = 300;
+                        Vector2 dustpos = Projectile.Center + randomDis * Main.rand.NextVector2Unit();
+                        var dust2 = Dust.NewDustDirect(dustpos, 1, 1,
+                            DustID.PinkTorch, 0, 0, 0, Color.White, 2f);
+                        dust2.velocity = (Projectile.Center - dustpos) / 40f;
+                        dust2.noGravity = true;
+                    }
+                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.Series.Boss.MiracleRecorder.DamageCircle3>(), Projectile.damage, 0, player.whoAmI);
+                }
+                cent = owner.Center;
+            }
+            if (miracleRecorder.MiracleLogic == 114514)
+            {
+                if (timer == 1)
+                {
+                    Projectile.velocity *= 0f;
+                }
+                if (timer > 40 && timer <= 80)
+                {
+                    scale0 += 0.025f;
+                }
+                if(timer>120&&timer<=160)
+                {
+                    scale0 -= 0.025f;
+                }
+                if (timer > 30) Projectile.alpha += 5;
+
+                    int num = Dust.NewDust(Projectile.position + new Vector2(10, 30), 20, 20, ModContent.DustType<Dusts.Dream>(), 0f, 0f, 0, Color.White, scale0);
+                Main.dust[num].noGravity = true;
+                Main.dust[num].velocity.Y -= 4f;
+                Main.dust[num].velocity.X *= 0.6f;
+                if(timer==120)
+                {
+                    for (int i = 1; i < 40; i++)
+                    {
+                        var dust2 = Dust.NewDustDirect(Projectile.Center, 1, 1, DustID.PinkTorch, 0, 0, 0, Color.White, 2.5f);
+                        dust2.velocity = 8 * Main.rand.NextVector2Unit();
+                        dust2.noGravity = true;
+                    }
+                    Projectile.Kill();
+                }
+            }
         }
 
         public override Color? GetAlpha(Color lightColor)
@@ -179,16 +447,14 @@ namespace OdeMod.Projectiles.Series.Boss.MiracleRecorder
                 List<CustomVertexInfo> bars = new();
 
                 int width = 18;
-                //Main.spriteBatch.Draw(TextureAssets.MagicPixel.Value, Projectile.Center + normalDir2 * width - Main.screenPosition, new Rectangle(0, 0, 10, 10), Color.White, 0f, new Vector2(0.5f, 0.5f), 5f, SpriteEffects.None, 0f);
-                //Main.NewText(1);
-                //Main.spriteBatch.Draw(TextureAssets.MagicPixel.Value, Projectile.Center + normalDir2 * -width - Main.screenPosition, new Rectangle(0, 0, 10, 10), Color.White, 0f, new Vector2(0.5f, 0.5f), 5f, SpriteEffects.None, 0f);
-                var normalDir = Projectile.oldPos[1] - Projectile.Center;
+                var normalDir = Projectile.position - Projectile.oldPos[1];
                 normalDir = Vector2.Normalize(new Vector2(-normalDir.Y, normalDir.X));
                 var factor = 0.1f / (float)Projectile.oldPos.Length;
                 var color = Color.Lerp(Color.White, Color.Red, factor);
                 var w = MathHelper.Lerp(1f, 0f, factor);
                 bars.Add(new CustomVertexInfo(Projectile.position + 0.5f * new Vector2(Projectile.width, Projectile.height) + normalDir * width, color, new Vector3(factor, 1, w * (255 - Projectile.alpha) / 255f)));
                 bars.Add(new CustomVertexInfo(Projectile.position + 0.5f * new Vector2(Projectile.width, Projectile.height) + normalDir * -width, color, new Vector3(factor, 0, w * (255 - Projectile.alpha) / 255f)));
+
                 for (int i = 1; i < Projectile.oldPos.Length; ++i)
                 {
                     width -= 3;
@@ -206,11 +472,11 @@ namespace OdeMod.Projectiles.Series.Boss.MiracleRecorder
                 //count用于返回bars里面的元素数量（即顶点数量）
                 if (bars.Count > 2)
                 {
-                    triangleList.Add(bars[0]);
+                    /*triangleList.Add(bars[0]);
                     var vertex = new CustomVertexInfo((bars[0].Position + bars[1].Position) * 0.5f + Vector2.Normalize(Projectile.velocity) * 30, Color.White,
                         new Vector3(0, 0.5f, 1));
                     triangleList.Add(bars[1]);
-                    triangleList.Add(vertex);//用于绘制最前面的三角形，是个等腰三角形
+                    triangleList.Add(vertex);//用于绘制最前面的三角形，是个等腰三角形*/
 
                     for (int i = 0; i < bars.Count - 2; i += 2)
                     {

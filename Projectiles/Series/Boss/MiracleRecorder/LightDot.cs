@@ -12,12 +12,12 @@ using Terraria.ModLoader;
 
 namespace OdeMod.Projectiles.Series.Boss.MiracleRecorder
 {
-    internal class Spark : ModProjectile, IMiracleRecorderProj
+    internal class LightDot : ModProjectile, IMiracleRecorderProj
     {
         public override void SetDefaults()
         {
-            Projectile.width = 38;
-            Projectile.height = 38;
+            Projectile.width = 25;
+            Projectile.height = 25;
             Projectile.aiStyle = -1;
             Projectile.friendly = false;
             Projectile.hostile = true;
@@ -25,11 +25,9 @@ namespace OdeMod.Projectiles.Series.Boss.MiracleRecorder
             Projectile.ignoreWater = true;
             Projectile.tileCollide = false;
             Projectile.alpha = 255;
-            Projectile.timeLeft = 400;
+            Projectile.timeLeft = 120;
             Projectile.penetrate = 1;
             Projectile.scale = 1f;
-
-            Main.projFrames[Projectile.type] = 4;
             ProjectileID.Sets.TrailCacheLength[base.Projectile.type] = 12;
             ProjectileID.Sets.TrailingMode[base.Projectile.type] = 0;
         }
@@ -41,20 +39,13 @@ namespace OdeMod.Projectiles.Series.Boss.MiracleRecorder
         {
             Projectile.velocity *= 0;
             Player player = Main.player[Projectile.owner];
-            if (Projectile.timeLeft < 100) a -= 0.025f;
-            if (Projectile.timeLeft > 360) a += 0.025f;
-            if (Projectile.timeLeft < 40) Projectile.alpha += 7;
-            if (Projectile.timeLeft > 360) Projectile.alpha -= 7;
+            if (Projectile.timeLeft < 80) a -= 0.01f;
+            if (Projectile.timeLeft > 80) a += 0.02f;
+            if (Projectile.timeLeft < 48) Projectile.alpha += 5;
+            if (Projectile.timeLeft >= 96) Projectile.alpha -= 11;
 
-            if (Projectile.timeLeft % 5 == 0)
-            {
-                if (Projectile.frame < 3) Projectile.frame++;
-                else Projectile.frame = 0;
-            }
 
-            Projectile.velocity = player.Center - Projectile.Center;
-            Projectile.velocity.Normalize();
-            Projectile.velocity *= 0.012f * (400 - Projectile.timeLeft);
+
         }
 
         public override void Kill(int timeLeft)
@@ -67,41 +58,17 @@ namespace OdeMod.Projectiles.Series.Boss.MiracleRecorder
 
         public override bool PreDraw(ref Color lightColor)
         {
-            Main.spriteBatch.End();
-            Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-            double range = Projectile.scale * 1;
-            double range2 = Projectile.scale * 1;
-            if (scaleDraw <= 2f)
-            {
-                scaleDraw += 0.025f;
-            }
-            else
-            {
-                scaleDraw = 1f;
-            }
-            double range3 = Projectile.scale * scaleDraw;
             Texture2D texture = ModContent.Request<Texture2D>(Texture).Value;
-            Vector2 drawOrigin = new Vector2(19, 19);
-            for (int k = 0; k < Projectile.oldPos.Length; k++)
-            {
-                range *= 1.04;
-                range2 *= 0.96;
-                Vector2 drawPos = Projectile.position - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
-                Color color = Projectile.GetAlpha(lightColor) * ((float)(Projectile.oldPos.Length - (int)((k + 5) * 1.5)) / (float)Projectile.oldPos.Length);
-                Main.spriteBatch.Draw(texture, drawPos, new Rectangle(0, 38 * Projectile.frame, 38, 38), color, Projectile.rotation, drawOrigin, (float)range, SpriteEffects.None, 0f);
-                Main.spriteBatch.Draw(texture, drawPos, new Rectangle(0, 38 * Projectile.frame, 38, 38), color, Projectile.rotation, drawOrigin, (float)range2, SpriteEffects.None, 0f);
-            }
-            Vector2 drawPos2 = Projectile.position - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
-            Color color2 = Projectile.GetAlpha(lightColor) * (1f - 0.4f * scaleDraw);
-            Main.spriteBatch.Draw(texture, drawPos2, new Rectangle(0, 38 * Projectile.frame, 38, 38), color2, Projectile.rotation, drawOrigin, (float)range3, SpriteEffects.None, 0f);
+            Vector2 drawOrigin = new Vector2(12.5f, 12.5f);
+
 
             Main.spriteBatch.End();
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+            Main.spriteBatch.Draw(texture, Projectile.Center - Main.screenPosition, null, Color.White * ((255f - (float)Projectile.alpha) / 255f), Projectile.rotation, drawOrigin, 1f, SpriteEffects.None, 0f);
+            Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-            return true;
+            return false;
         }
-
-        private bool found = false;
-
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
             foreach (Projectile spawn in Main.projectile)
@@ -114,7 +81,7 @@ namespace OdeMod.Projectiles.Series.Boss.MiracleRecorder
                         a = projHitbox.Intersects(targetHitbox);
                     else
                         a = false;
-                    bool b = Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), Projectile.Center, spawn.Center, 10, ref point);
+                    bool b = Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), Projectile.Center, spawn.Center, 7, ref point);
                     bool c = a | b;
                     return c;
 
@@ -137,14 +104,14 @@ namespace OdeMod.Projectiles.Series.Boss.MiracleRecorder
 
                 foreach (Projectile spawn in Main.projectile)
                 {
-                    if (spawn.type == ModContent.ProjectileType<Projectiles.Series.Boss.MiracleRecorder.Spark>() && spawn.ai[0] - Projectile.ai[0] == -1 && spawn.ai[1] == Projectile.ai[1])
+                    if (spawn.type == ModContent.ProjectileType<Projectiles.Series.Boss.MiracleRecorder.LightDot>() && spawn.ai[0] - Projectile.ai[0] == -1 && spawn.ai[1] == Projectile.ai[1])
                     {
                         var normalDir = spawn.Center - Projectile.Center;//两帧之间的切线向量
                         normalDir = Vector2.Normalize(new Vector2(-normalDir.Y, normalDir.X));
-                        bars.Add(new CustomVertexInfo(Projectile.Center + normalDir * 10, color, new Vector3(factor, 1, a)));
-                        bars.Add(new CustomVertexInfo(Projectile.Center + normalDir * -10, color, new Vector3(factor, 0, a)));
-                        bars.Add(new CustomVertexInfo(spawn.Center + normalDir * 10, color, new Vector3(factor, 1, a)));
-                        bars.Add(new CustomVertexInfo(spawn.Center + normalDir * -10, color, new Vector3(factor, 0, a)));
+                        bars.Add(new CustomVertexInfo(Projectile.Center + normalDir * 6, color, new Vector3(factor, 1, a)));
+                        bars.Add(new CustomVertexInfo(Projectile.Center + normalDir * -6, color, new Vector3(factor, 0, a)));
+                        bars.Add(new CustomVertexInfo(spawn.Center + normalDir * 6, color, new Vector3(factor, 1, a)));
+                        bars.Add(new CustomVertexInfo(spawn.Center + normalDir * -6, color, new Vector3(factor, 0, a)));
                     }
                 }
                 List<CustomVertexInfo> triangleList = new List<CustomVertexInfo>();
@@ -169,7 +136,7 @@ namespace OdeMod.Projectiles.Series.Boss.MiracleRecorder
                 //启用即时加载加载Shader
                 var shader = ModContent.Request<Effect>("OdeMod/Effects/VertexShaders/Trail", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                 var MainColor = ModContent.Request<Texture2D>("OdeMod/Images/Effects/heatmap", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
-                var MaskColor = ModContent.Request<Texture2D>("OdeMod/Images/Effects/Extra_189", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+                var MaskColor = ModContent.Request<Texture2D>("OdeMod/Images/Effects/Flame0", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                 var MainShape = ModContent.Request<Texture2D>("OdeMod/Images/Effects/Extra_197", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                 // 把变换和所需信息丢给shader
                 shader.Parameters["uTransform"].SetValue(model * projection);//坐标变换，详见小裙子视频

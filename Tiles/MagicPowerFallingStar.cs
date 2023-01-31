@@ -14,7 +14,7 @@ namespace OdeMod.Tiles
             Main.tileSolid[Type] = true;
             Main.tileMergeDirt[Type] = true;
             Main.tileBlockLight[Type] = true;
-            ItemDrop = ModContent.ItemType<Items.Misc.MagicPowerFallingStar>();
+            //ItemDrop = ModContent.ItemType<Items.Misc.MagicPowerFallingStar>();
             Main.tileShine2[Type] = true;
             Main.tileShine[Type] = 975;
             AddMapEntry(new Color(255, 168, 183));
