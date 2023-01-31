@@ -67,60 +67,6 @@ namespace OdeMod.Players
                 }
             }
             base.PostUpdate();
-
-            entity?.Update(Main.gameTimeCache);
-        }
-
-        private CardMode.Entity entity;
-
-        public override void DrawEffects(PlayerDrawSet drawInfo, ref float r, ref float g, ref float b, ref float a, ref bool fullBright)
-        {
-            base.DrawEffects(drawInfo, ref r, ref g, ref b, ref a, ref fullBright);
-            if (Main.gameMenu)
-                return;
-
-            if (entity == null)
-            {
-                entity = new CardMode.Entity(null);
-                entity.AddComponent<CardComponent>();
-
-                var bodyTex = ModContent.Request<Texture2D>("OdeMod/Images/Card/Original/Summoner/CardBody", AssetRequestMode.ImmediateLoad).Value;
-                BaseInfoComponent baseInfoComponent = new BaseInfoComponent();
-                baseInfoComponent.Scale = 4f;
-                baseInfoComponent.Rotation = 0f;
-                baseInfoComponent.HitBox = new Rectangle(0, 0,
-                    (int)(bodyTex.Width * baseInfoComponent.Scale), (int)(bodyTex.Height * baseInfoComponent.Scale));
-                baseInfoComponent.Center = Main.ScreenSize.ToVector2() / 4f;
-                entity.AddComponent(baseInfoComponent);
-
-                CardInfoComponent cardInfoComponent = new CardInfoComponent();
-                cardInfoComponent.CardID = "XXX";
-                cardInfoComponent.CardName = "星辰天使";
-                cardInfoComponent.CardTip = "代偿：鲜血(8) 或 灵魂(5)\n战吼：选择一个敌人。休眠8回合\n亡语：消灭选择的敌人";
-                cardInfoComponent.CardCost = 3;
-                entity.AddComponent(cardInfoComponent);
-
-                DrawComponent drawComponent = new DrawComponent();
-                drawComponent.DrawSize = new Point((int)(bodyTex.Width * baseInfoComponent.Scale), (int)(bodyTex.Height * baseInfoComponent.Scale));
-                entity.AddComponent(drawComponent);
-
-                drawComponent.AddComponent(new CardBodyComponent(bodyTex));
-                drawComponent.AddComponent(new CardCostComponent(ModContent.Request<Texture2D>("OdeMod/Images/Card/Original/Summoner/CardCost", AssetRequestMode.ImmediateLoad).Value));
-                drawComponent.AddComponent(new CardIllustrationComponent(ModContent.Request<Texture2D>("OdeMod/Images/Card/Original/Summoner/CardIllustration", AssetRequestMode.ImmediateLoad).Value,
-                    ModContent.Request<Texture2D>("OdeMod/Items/Series/Recharge/StarAngel", AssetRequestMode.ImmediateLoad).Value));
-                drawComponent.AddComponent(new CardTipComponent(ModContent.Request<Texture2D>("OdeMod/Images/Card/Original/Summoner/CardTip", AssetRequestMode.ImmediateLoad).Value));
-                drawComponent.AddComponent(new CardTipFrameworkComponent(ModContent.Request<Texture2D>("OdeMod/Images/Card/Original/Rare/CardTipRare", AssetRequestMode.ImmediateLoad).Value));
-                drawComponent.AddComponent(new CardNameComponent(ModContent.Request<Texture2D>("OdeMod/Images/Card/Original/Summoner/CardName", AssetRequestMode.ImmediateLoad).Value));
-                drawComponent.AddComponent(new CardNameFrameworkComponent(ModContent.Request<Texture2D>("OdeMod/Images/Card/Original/Rare/CardNameRare", AssetRequestMode.ImmediateLoad).Value));
-
-                DragComponent dragComponent = new DragComponent();
-                dragComponent.OriginalPos = Main.ScreenSize.ToVector2() / 4f;
-                dragComponent.TargetPos = Main.ScreenSize.ToVector2() / 2f;
-                entity.AddComponent(dragComponent);
-            }
-            entity.Draw(Main.spriteBatch);
-            entity.GetComponent<DragComponent>().Dragging = Main.mouseLeft;
-            entity.GetComponent<DragComponent>().TargetPos = Main.MouseScreen;
         }
 
         public override void ModifyScreenPosition()

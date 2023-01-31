@@ -1,3 +1,4 @@
+using Microsoft.CodeAnalysis;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -7,7 +8,10 @@ using OdeMod.UI.OdeUISystem;
 using OdeMod.Utils;
 
 using System;
+using System.Diagnostics.Metrics;
+using System.IO;
 using System.Reflection;
+using System.Runtime.InteropServices;
 
 using Terraria;
 using Terraria.Graphics.Effects;
