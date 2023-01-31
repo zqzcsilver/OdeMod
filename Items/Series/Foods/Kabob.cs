@@ -11,6 +11,7 @@ namespace OdeMod.Items.Series.Foods
     /// </summary>
     internal class Kabob : ModItem,IFoods
     {
+
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();

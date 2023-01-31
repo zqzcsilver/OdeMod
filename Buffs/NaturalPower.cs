@@ -19,6 +19,7 @@ namespace OdeMod.Buffs
         public int Inc_Life = 0;
         public override void Update(NPC npc, ref int buffIndex)
         {
+            //这块数值之后需要平衡
             if (NPC.downedSlimeKing)
             {
                 Inc_Life = 100;

@@ -9,7 +9,7 @@ namespace OdeMod.Items.Misc
 {
     internal class Wan : ModItem, IMiscItem
     {
-        //BUG居多 在修
+        //BUG少了点
         public override void SetDefaults()
         {
             base.SetDefaults();

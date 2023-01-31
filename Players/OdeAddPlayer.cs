@@ -5,6 +5,7 @@ using Terraria.ModLoader.IO;
 using Microsoft.Xna.Framework;
 using OdeMod.Buffs.Foods;
 using Terraria.ID;
+using Terraria.Audio;
 
 namespace OdeMod.Players
 {
@@ -110,7 +111,7 @@ namespace OdeMod.Players
         /// </summary>
         /// <param name="level">灵异事件的等级</param>
         /// <param name="strangeStyle">指定具体的灵异事件</param>
-        public void StrangeEvent(int level, int strangeStyle)
+        public void StrangeEvent(int level, int strangeStyle,Player player)
         {
             switch (strangeStyle)
             {
@@ -118,6 +119,7 @@ namespace OdeMod.Players
                     Main.NewText("Error");
                     break;
                 case 1:
+                    SoundEngine.PlaySound(SoundID.Zombie101, player.Center);
                     Main.NewText("Test");
                     break;
                 default:
@@ -128,5 +130,10 @@ namespace OdeMod.Players
         {
 
         }
+        public void SaveSound(Player player)
+        {
+            SoundEngine.PlaySound(SoundID.Zombie101, player.Center);
+        }
+        
     }
 }

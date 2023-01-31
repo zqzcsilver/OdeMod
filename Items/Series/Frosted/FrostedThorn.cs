@@ -48,7 +48,7 @@ namespace OdeMod.Items.Series.Frosted
         {
             var proj = (ProFrostedThorn)Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback).ModProjectile;
             proj.startCenter = proj.Projectile.Center;
-            proj.Longer = 1000;
+            proj.Longer = 120;
             proj.PutNextPro();
             return false;
         }

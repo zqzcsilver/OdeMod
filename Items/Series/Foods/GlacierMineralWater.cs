@@ -46,7 +46,6 @@ namespace OdeMod.Items.Series.Foods
         };
         public override bool? UseItem(Player player)
         {
-            GlobalFoodItem.SetInappetence(Item);
             int num = Main.rand.Next(3, 6);
             for (int i = 0; i < num; i++)
             {

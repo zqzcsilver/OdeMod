@@ -1,0 +1,3 @@
+Message at 2023/1/5 23:41:40: Importing TriangleDraw.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2023/1/5 23:41:40: Processing TriangleDraw.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2023/1/5 23:41:40: Compiling TriangleDraw.xnb
