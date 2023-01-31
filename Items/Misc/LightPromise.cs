@@ -46,6 +46,10 @@ namespace OdeMod.Items.Misc
 
             return false;
         }
+        public override Color? GetAlpha(Color lightColor)
+        {
+            return new Color(255 - Item.alpha, 255 - Item.alpha, 255 - Item.alpha, 255 - Item.alpha);
+        }
         public override void AddRecipes()
         {
             base.AddRecipes();

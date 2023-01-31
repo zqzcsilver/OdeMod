@@ -12,7 +12,7 @@ using Terraria.ModLoader;
 
 namespace OdeMod.Projectiles.Series.Boss.MiracleRecorder
 {
-    internal class Laser01 : ModProjectile, IMiracleRecorderProj
+    internal class Laser03 : ModProjectile, IMiracleRecorderProj
     {
         public override void SetDefaults()
         {
@@ -20,7 +20,7 @@ namespace OdeMod.Projectiles.Series.Boss.MiracleRecorder
             Projectile.height = 1;
             Projectile.aiStyle = -1;
             Projectile.friendly = false;
-            Projectile.hostile= true;
+            Projectile.hostile = true;
             Projectile.DamageType = DamageClass.Melee;
             Projectile.ignoreWater = true;
             Projectile.tileCollide = false;
@@ -53,7 +53,7 @@ namespace OdeMod.Projectiles.Series.Boss.MiracleRecorder
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
             float point = 0f;
-            return Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), Projectile.Center ,Projectile.Center + 5000 * new Vector2((float)Math.Cos(Projectile.ai[0] + 1.57f), (float)Math.Sin(Projectile.ai[0] + 1.57f)), 41, ref point);
+            return Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), Projectile.Center, Projectile.Center + 5000 * new Vector2((float)Math.Cos(Projectile.ai[0] + 1.57f), (float)Math.Sin(Projectile.ai[0] + 1.57f)), 41, ref point);
         }
         public override void PostDraw(Color lightColor)
         {
@@ -117,7 +117,7 @@ namespace OdeMod.Projectiles.Series.Boss.MiracleRecorder
 
             //启用即时加载加载Shader
             var shader = ModContent.Request<Effect>("OdeMod/Effects/VertexShaders/Trail", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
-            var MainColor = ModContent.Request<Texture2D>("OdeMod/Images/Effects/heatmap", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+            var MainColor = ModContent.Request<Texture2D>("OdeMod/Images/Effects/heatmap4", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             var MaskColor = ModContent.Request<Texture2D>("OdeMod/Images/Effects/Flame0", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             var MainShape = ModContent.Request<Texture2D>("OdeMod/Images/Effects/Extra_197", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             // 把变换和所需信息丢给shader

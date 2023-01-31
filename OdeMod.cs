@@ -108,8 +108,7 @@ namespace OdeMod
                 On.Terraria.Main.Draw += Main_Draw;
             }
 
-            ScreenShaderDataManager.Register("OdeMod:MiracleRecorder", new BossSSD(
-                    new Ref<Effect>(
+            ScreenShaderDataManager.Register("OdeMod:MiracleRecorder", new BossSSD(new Ref<Effect>(
                         ModContent.Request<Effect>("OdeMod/Effects/PixelShaders/ScreenShaders/SSD1",
                         ReLogic.Content.AssetRequestMode.ImmediateLoad).Value), "Rotate"), EffectPriority.Medium);
         }

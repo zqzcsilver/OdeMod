@@ -8,7 +8,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 namespace OdeMod.Projectiles.Series.Boss.MiracleRecorder
 {
-    internal class Star : ModProjectile, IMiracleRecorderProj
+    internal class Star2 : ModProjectile, IMiracleRecorderProj
     {
         private float m;
         public override void SetDefaults()
@@ -20,7 +20,7 @@ namespace OdeMod.Projectiles.Series.Boss.MiracleRecorder
             Projectile.hostile = true;
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.ignoreWater = true;
-            Projectile.tileCollide = true;
+            Projectile.tileCollide =false;
             Projectile.timeLeft = 1200;
             Projectile.alpha = 0;
             Projectile.penetrate = 1;
@@ -29,17 +29,27 @@ namespace OdeMod.Projectiles.Series.Boss.MiracleRecorder
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 10;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
         }
+        Vector2 oldvec = Vector2.Zero;
+        Vector2 destination= Vector2.Zero;
         public override void AI()
         {
             m += 0.1f;
-            Projectile.rotation += 0.01f;
-            int num = Dust.NewDust(Projectile.Center + new Vector2(-3, -1) + 8 * (float)Math.Cos(m) * new Vector2(-(float)Math.Sin(Projectile.velocity.ToRotation()), (float)Math.Cos(Projectile.velocity.ToRotation())), 1, 1, DustID.PinkTorch, 0f, 0f, 0, Color.White, 1f);
+            Player player = Main.player[Projectile.owner];
+
+            destination = player.Center - Projectile.Center;
+            destination.Normalize();
+            Projectile.velocity += destination*0.04f;
+            Projectile.velocity.Normalize();
+            Projectile.velocity *= 5f;
+            Projectile.rotation += 0.02f;
+            int num = Dust.NewDust(Projectile.Center + new Vector2(-3, -1) + 8 * (float)Math.Cos(m) * new Vector2(-(float)Math.Sin(Projectile.velocity.ToRotation()), (float)Math.Cos(Projectile.velocity.ToRotation())), 1, 1, DustID.GoldFlame, 0f, 0f, 0, Color.White, 1.2f);
             Main.dust[num].noGravity = true;
             Main.dust[num].velocity *= 0.1f;
 
-            int num2 = Dust.NewDust(Projectile.Center + new Vector2(-3, -1) - 8 * (float)Math.Cos(m) * new Vector2(-(float)Math.Sin(Projectile.velocity.ToRotation()), (float)Math.Cos(Projectile.velocity.ToRotation())), 1, 1, DustID.PinkTorch, 0f, 0f, 0, Color.White, 1.5f);
+            int num2 = Dust.NewDust(Projectile.Center + new Vector2(-3, -1) - 8 * (float)Math.Cos(m) * new Vector2(-(float)Math.Sin(Projectile.velocity.ToRotation()), (float)Math.Cos(Projectile.velocity.ToRotation())), 1, 1, DustID.GoldFlame, 0f, 0f, 0, Color.White, 1.7f);
             Main.dust[num2].noGravity = true;
             Main.dust[num2].velocity *= 0.1f;
+
 
         }
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)

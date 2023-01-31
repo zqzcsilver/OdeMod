@@ -19,13 +19,14 @@ namespace OdeMod.Projectiles.Series.Boss.MiracleRecorder
             Projectile.width = 1;
             Projectile.height = 1;
             Projectile.aiStyle = -1;
-            Projectile.friendly = true;
+            Projectile.friendly = false;
+            Projectile.hostile = true;
             Projectile.DamageType = DamageClass.Melee;
             Projectile.ignoreWater = true;
             Projectile.tileCollide = false;
             Projectile.alpha = 255;
             Projectile.timeLeft = 30;
-            Projectile.penetrate = 1;
+            Projectile.penetrate = -1;
             Projectile.scale = 1f;
             ProjectileID.Sets.DrawScreenCheckFluff[Type] = 6000;
         }
@@ -49,7 +50,11 @@ namespace OdeMod.Projectiles.Series.Boss.MiracleRecorder
                 a -= 0.1f;
             }
         }
-
+        public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
+        {
+            float point = 0f;
+            return Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), Projectile.Center, Projectile.Center + 5000 * new Vector2((float)Math.Cos(Projectile.ai[0] + 1.57f), (float)Math.Sin(Projectile.ai[0] + 1.57f)), 27, ref point);
+        }
         public override void PostDraw(Color lightColor)
         {
             List<CustomVertexInfo> bars = new();

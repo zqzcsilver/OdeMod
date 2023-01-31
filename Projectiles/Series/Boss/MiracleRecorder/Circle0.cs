@@ -46,7 +46,7 @@ namespace OdeMod.Projectiles.Series.Boss.MiracleRecorder
             List<CustomVertexInfo> bars = new();
             var factor = 1;
             var color = Color.Lerp(Color.White, Color.Red, factor);
-            width = ((float)Projectile.timeLeft + 15) * 1.5f;
+            width = ((float)Projectile.timeLeft + 10) * 3f;
             for (float i = 1; i <= 60; i++)
             {
                 var normalDir = new Vector2((float)Math.Cos(i / 60f * 6.28318f), (float)Math.Sin(i / 60f * 6.28318f));
