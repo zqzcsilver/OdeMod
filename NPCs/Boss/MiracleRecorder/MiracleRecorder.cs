@@ -1308,7 +1308,7 @@ namespace OdeMod.NPCs.Boss.MiracleRecorder
 
 
                     state = NPCState.Dash2;
-                    randomFactor = ServantCount;
+                    randomFactor = 6;
 
 
                     count = 0;
