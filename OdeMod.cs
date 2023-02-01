@@ -126,7 +126,7 @@ namespace OdeMod
                 Main.graphics.GraphicsDevice.Clear(Color.Transparent);
                 Main.spriteBatch.Begin();
 
-                CardSystem.Instance.Draw(Main.spriteBatch);
+               // CardSystem.Instance.Draw(Main.spriteBatch);
 
                 Main.spriteBatch.End();
                 Main.graphics.GraphicsDevice.SetRenderTarget(null);

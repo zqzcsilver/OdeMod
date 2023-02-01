@@ -15,7 +15,7 @@ namespace OdeMod.CardMode
 
         public void Draw(SpriteBatch sb)
         {
-            FightScene?.Draw(sb);
+            //FightScene?.Draw(sb);
         }
     }
 }
