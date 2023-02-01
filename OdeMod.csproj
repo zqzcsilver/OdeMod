@@ -30,6 +30,11 @@
   <ItemGroup>
     <None Include="C:\Users\Silver\Documents\My Games\Terraria\tModLoader\ModSources\OdeMod\.editorconfig" />
   </ItemGroup>
+  <ItemGroup>
+    <Reference Include="FontStashSharp.FNA">
+      <HintPath>lib\FontStashSharp.FNA.dll</HintPath>
+    </Reference>
+  </ItemGroup>
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
     <Exec Command="call &quot;$(ProjectDir)PreBuild.bat&quot;" />
   </Target>

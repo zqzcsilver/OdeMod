@@ -1,3 +1,5 @@
+using FontStashSharp;
+
 using Microsoft.CodeAnalysis;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -17,8 +19,6 @@ using Terraria;
 using Terraria.Graphics.Effects;
 using Terraria.ID;
 using Terraria.ModLoader;
-
-//using Candlight.Professions;
 
 namespace OdeMod
 {
@@ -83,6 +83,22 @@ namespace OdeMod
 
         private OdeScreenShaderDataManager _screenShaderDataManager;
 
+        internal static FontManager FontManager
+        {
+            get
+            {
+                if (Instance._fontManager == null)
+                    Instance._fontManager = new FontManager();
+                return Instance._fontManager;
+            }
+        }
+
+        private FontManager _fontManager;
+
+        public const float DEFAULT_FONT_SIZE = 40f;
+        public static FontSystem DefaultFontSystem => FontManager["Fonts/SourceHanSansHWSC-VF.ttf"];
+        public static DynamicSpriteFont DefaultFont = DefaultFontSystem.GetFont(DEFAULT_FONT_SIZE);
+
         public override void Load()
         {
             base.Load();
@@ -126,7 +142,7 @@ namespace OdeMod
                 Main.graphics.GraphicsDevice.Clear(Color.Transparent);
                 Main.spriteBatch.Begin();
 
-               // CardSystem.Instance.Draw(Main.spriteBatch);
+                // CardSystem.Instance.Draw(Main.spriteBatch);
 
                 Main.spriteBatch.End();
                 Main.graphics.GraphicsDevice.SetRenderTarget(null);

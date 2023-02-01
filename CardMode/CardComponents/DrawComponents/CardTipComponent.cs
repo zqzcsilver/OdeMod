@@ -1,13 +1,13 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Collections.Generic;
+
+using FontStashSharp;
+
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using OdeMod.CardMode.CardComponents.BaseComponents;
 using OdeMod.CardMode.PublicComponents;
 using OdeMod.Utils;
-
-using System.Collections.Generic;
-
-using Terraria.UI.Chat;
 
 namespace OdeMod.CardMode.CardComponents.DrawComponents
 {
@@ -43,24 +43,27 @@ namespace OdeMod.CardMode.CardComponents.DrawComponents
             if (Scale < 0)
             {
                 float maxY;
-                Scale = 0.25f;
-                while (Scale > 0.17f)
+                Scale = 1f;
+                DynamicSpriteFont font;
+                while (Scale > 0.09f)
                 {
                     maxY = 0f;
                     centerY = 0f;
                     scale = infoComponent.Scale * Scale;
-                    tooltips = StringUtil.WordWrap1(info.CardTip, info.Font, size.X - 2 * infoComponent.Scale, scale);
+                    font = info.FontSystem.GetFont(scale * info.FontSize);
+                    tooltips = StringUtil.WordWrap2(info.CardTip, font,
+                        size.X - 2 * infoComponent.Scale);
                     if (tooltipLinesSize == null || tooltipLinesSize.Length != tooltips.Count)
                         tooltipLinesSize = new Vector2[tooltips.Count];
                     for (i = 0; i < tooltips.Count; i++)
                     {
-                        tooltipLinesSize[i] = info.Font.MeasureString(tooltips[i]) * scale;
+                        tooltipLinesSize[i] = font.MeasureString(tooltips[i]);
                         centerY += tooltipLinesSize[i].Y / 2f;
                         maxY += tooltipLinesSize[i].Y;
                         if (maxY > size.Y)
                             break;
                     }
-                    if (maxY > size.Y)
+                    if (maxY > (size.Y - 4 * infoComponent.Scale))
                         Scale -= 0.001f;
                     else
                         break;
@@ -72,10 +75,11 @@ namespace OdeMod.CardMode.CardComponents.DrawComponents
             float y = 0f;
             for (i = 0; i < tooltipLinesSize.Length; i++)
             {
-                ChatManager.DrawColorCodedStringWithShadow(sb, info.Font, tooltips[i],
-                new Vector2(drawsize.X / 2f + 2 * infoComponent.Scale - tooltipLinesSize[i].X / 2f,
-                drawsize.Y - size.Y / 2f - 4f * infoComponent.Scale - centerY + y + 1 * infoComponent.Scale),
-                Color.White, Color.Black, 0f, Vector2.Zero, new Vector2(scale));
+                sb.DrawString(info.FontSystem.GetFont(scale * info.FontSize), tooltips[i],
+                    new Vector2(drawsize.X / 2f + 2 * infoComponent.Scale - tooltipLinesSize[i].X / 2f,
+                drawsize.Y - size.Y / 2f - 4f * infoComponent.Scale - centerY + y + 1 * infoComponent.Scale), Color.White,
+                null, 0f, default, 0f, 0f, 0f,
+                TextStyle.None, FontSystemEffect.Stroked, 1);
                 y += tooltipLinesSize[i].Y;
             }
         }

@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FontStashSharp;
+
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using OdeMod.CardMode.CardComponents.BaseComponents;
@@ -20,15 +22,16 @@ namespace OdeMod.CardMode.CardComponents.DrawComponents
             base.OnCardDraw(entity, infoComponent, sb, hookInfo);
             var info = entity.GetComponent<CardInfoComponent>();
 
-            float scale = infoComponent.Scale * 0.6f;
+            float scale = infoComponent.Scale * 0.4f;
             var dcs = new Point((int)(Texture.Width * infoComponent.Scale),
                 (int)(Texture.Height * infoComponent.Scale));
             sb.Draw(Texture, new Rectangle(0, 0, dcs.X, dcs.Y), Color.White);
 
             string cost = info.CardCost.ToString();
-            ChatManager.DrawColorCodedStringWithShadow(sb, info.Font, cost,
-                dcs.ToVector2() / 2f - info.Font.MeasureString(cost) + new Vector2(-1f, 0f) * infoComponent.Scale,
-                Color.White, Color.Black, 0f, Vector2.Zero, new Vector2(scale));
+            sb.DrawString(info.FontSystem.GetFont(info.FontSize * scale), cost,
+                dcs.ToVector2() / 2f - info.Font.MeasureString(cost) + new Vector2(0f, -1f) * infoComponent.Scale,
+                Color.White, null, 0f, default, 0f, 0f, 0f, 
+                TextStyle.None, FontSystemEffect.Stroked,4);
         }
     }
 }

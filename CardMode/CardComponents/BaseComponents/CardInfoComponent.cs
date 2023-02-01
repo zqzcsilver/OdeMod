@@ -1,8 +1,8 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using FontStashSharp;
+
+using Microsoft.Xna.Framework.Graphics;
 
 using OdeMod.CardMode.PublicComponents;
-
-using ReLogic.Graphics;
 
 using System;
 using System.Collections.Generic;
@@ -39,7 +39,9 @@ namespace OdeMod.CardMode.CardComponents.BaseComponents
         public string CardID;
         public string CardTip;
         public string CardName;
-        public DynamicSpriteFont Font;
+        public DynamicSpriteFont Font => FontSystem.GetFont(FontSize);
+        public FontSystem FontSystem;
+        public float FontSize;
         public int CardCost;
         private static int DefaultIDCount;
         public BaseInfoComponent BaseInfoComponent => Entity.GetComponent<BaseInfoComponent>();
@@ -48,7 +50,8 @@ namespace OdeMod.CardMode.CardComponents.BaseComponents
         {
             State = CardState.CardPile;
             CardCost = 0;
-            Font = FontAssets.MouseText.Value;
+            FontSystem = OdeMod.DefaultFontSystem;
+            FontSize = OdeMod.DEFAULT_FONT_SIZE;
             CardName = "Default Card";
             CardTip = "This is a default card";
 

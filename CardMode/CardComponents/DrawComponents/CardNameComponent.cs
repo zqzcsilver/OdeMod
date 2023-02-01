@@ -1,12 +1,13 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+
+using FontStashSharp;
+
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using OdeMod.CardMode.CardComponents.BaseComponents;
 using OdeMod.CardMode.PublicComponents;
-
-using System;
-
-using Terraria.UI.Chat;
+using OdeMod.Utils.Expends;
 
 namespace OdeMod.CardMode.CardComponents.DrawComponents
 {
@@ -37,13 +38,13 @@ namespace OdeMod.CardMode.CardComponents.DrawComponents
             float scale = infoComponent.Scale * Scale;
             if (Scale < 0)
             {
-                Scale = 0.35f;
-                float maxX = 40f * infoComponent.Scale;
-                while (Scale > 0.24f)
+                Scale = 1f;
+                float maxX = 30f * infoComponent.Scale;
+                while (Scale > 0.12f)
                 {
                     scale = infoComponent.Scale * Scale;
 
-                    if (info.Font.MeasureString(info.CardName).X * scale > maxX)
+                    if (info.FontSystem.GetFont(scale * info.FontSize).MeasureString(info.CardName).X > maxX)
                         Scale -= 0.001f;
                     else
                         break;
@@ -51,21 +52,41 @@ namespace OdeMod.CardMode.CardComponents.DrawComponents
             }
             else
                 scale = infoComponent.Scale * Scale;
-            var fontSize = info.Font.MeasureString(info.CardName) * scale;
 
-            float startX = drawsize.X / 2f + 2 * infoComponent.Scale - fontSize.X / 2f, jX = 0f;
+            var font = info.FontSystem.GetFont(scale * info.FontSize);
+            var fontSize = Vector2.Zero /*font.MeasureString(info.CardName)*/;
+            foreach (var c in info.CardName)
+            {
+                var s = c.ToString();
+                var cs = font.GetGlyphs(info.CardName, Vector2.Zero, default, null,
+                0, 0, FontSystemEffect.Stroked, 2)[0].Bounds.GetSize();
+                fontSize.X += cs.X;
+                fontSize.Y = Math.Max(fontSize.Y, cs.Y);
+            }
+                //font.GetGlyphs(info.CardName, Vector2.Zero, default, null,
+                //0, 0, FontSystemEffect.Stroked, 2).
+                //ForEach(x =>
+                //{
+                //    fontSize.X += x.Bounds.Width;
+                //    fontSize.Y = Math.Max(fontSize.Y, x.Bounds.Height);
+                //});
+
+            float startX = drawsize.X / 2f + 5 * infoComponent.Scale - fontSize.X / 2f, jX = 0f;
             Vector2 charSize;
             float x;
             foreach (var c in info.CardName)
             {
                 var s = c.ToString();
-                charSize = info.Font.MeasureString(s) * scale;
+                charSize = font.GetGlyphs(info.CardName, Vector2.Zero, default, null,
+                0, 0, FontSystemEffect.Stroked, 2)[0].Bounds.GetSize();
                 x = jX + charSize.X / 2f - fontSize.X / 2f - 2 * infoComponent.Scale;
-                ChatManager.DrawColorCodedStringWithShadow(sb, info.Font, s,
-                new Vector2(startX + jX,
+
+                sb.DrawString(font, s,
+                    new Vector2(startX + jX,
                     (drawsize.Y + size.Y - fontSize.Y) / 2f - 3 * infoComponent.Scale +
-                    (float)(Math.Pow(x, 2f) / 600f)),
-                Color.White, Color.Black, (float)Math.Atan(x / 300f), Vector2.Zero, new Vector2(scale));
+                    (float)(Math.Pow(x, 2f) / 600f)), Color.White,
+                null, (float)Math.Atan(x / 300f), font.MeasureString(s) / 2f, 0f, 0f, 0f,
+                TextStyle.None, FontSystemEffect.Stroked, 2);
                 jX += charSize.X;
             }
         }

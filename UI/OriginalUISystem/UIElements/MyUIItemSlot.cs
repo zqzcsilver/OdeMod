@@ -15,6 +15,7 @@ namespace OdeMod.UI.OriginalUISystem.UIElements
     /// <param name="mouseItem">鼠标上的物品</param>
     /// <returns></returns>
     public delegate bool CheckPutSlotCondition(Item mouseItem);
+
     /// <summary>
     /// 更改物品的委托类别
     /// </summary>
@@ -27,50 +28,62 @@ namespace OdeMod.UI.OriginalUISystem.UIElements
         /// 框贴图
         /// </summary>
         public Texture2D SlotBackTexture { get; set; }
+
         /// <summary>
         /// 是否可以放置物品
         /// </summary>
         public CheckPutSlotCondition CanPutInSlot { get; set; }
+
         /// <summary>
         /// 是否可以拿去物品
         /// </summary>
         public CheckPutSlotCondition CanTakeOutSlot { get; set; }
+
         /// <summary>
         /// 框内物品
         /// </summary>
         public Item ContainedItem { get; set; }
+
         /// <summary>
         /// 框的绘制的拐角尺寸
         /// </summary>
         public Vector2 CornerSize { get; set; }
+
         /// <summary>
         /// 绘制颜色
         /// </summary>
         public Color DrawColor { get; set; }
+
         /// <summary>
         /// 介绍
         /// </summary>
         public string Tooltip { get; set; }
+
         /// <summary>
         /// 更改物品时调用
         /// </summary>
         public event ExchangeItemHandler PostExchangeItem;
+
         /// <summary>
         /// 玩家拿取物品时调用
         /// </summary>
         public event ExchangeItemHandler OnPickItem;
+
         /// <summary>
         /// 玩家放入物品时调用
         /// </summary>
         public event ExchangeItemHandler OnPutItem;
+
         /// <summary>
         /// 在部件更新时调用
         /// </summary>
         public event ExchangeItemHandler PostUpdate;
+
         /// <summary>
         /// 透明度
         /// </summary>
         public float Opacity { get; set; }
+
         public MyUIItemSlot(Texture2D texture = default(Texture2D)) : base()
         {
             Opacity = 1f;
@@ -83,11 +96,13 @@ namespace OdeMod.UI.OriginalUISystem.UIElements
             Width.Set(50, 0);
             Height.Set(50, 0);
         }
+
         public override void Update(GameTime gameTime)
         {
             PostUpdate?.Invoke(this);
             base.Update(gameTime);
         }
+
         public override void Click(UIMouseEvent evt)
         {
             base.Click(evt);
@@ -183,6 +198,7 @@ namespace OdeMod.UI.OriginalUISystem.UIElements
             //调用委托
             PostExchangeItem?.Invoke(this);
         }
+
         protected override void DrawSelf(SpriteBatch sb)
         {
             base.DrawSelf(sb);
@@ -223,6 +239,7 @@ namespace OdeMod.UI.OriginalUISystem.UIElements
                 }
             }
         }
+
         /// <summary>
         /// 绘制物品框
         /// </summary>
