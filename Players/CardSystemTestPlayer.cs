@@ -5,6 +5,7 @@ using OdeMod.CardMode.CardComponents.AnimationComponents;
 using OdeMod.CardMode.CardComponents.BaseComponents;
 using OdeMod.CardMode.CardComponents.DrawComponents;
 using OdeMod.CardMode.PublicComponents;
+using OdeMod.Configs;
 
 using ReLogic.Content;
 
@@ -29,8 +30,9 @@ namespace OdeMod.Players
         {
             base.DrawEffects(drawInfo, ref r, ref g, ref b, ref a, ref fullBright);
 
-            if (Main.gameMenu)
+            if (!ModContent.GetInstance<CardSystemTestConfig>().EnableDrawTest || Main.gameMenu)
                 return;
+
             if (entity == null)
             {
                 entity = new CardMode.Entity(null);
