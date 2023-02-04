@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FontStashSharp;
+
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -15,6 +17,7 @@ namespace OdeMod.UI.OdeUISystem.UIElements
     {
         private const string cursorSym = "|";
         public string Text { get => _text; set => _text = value; }
+
         public int Cursor
         {
             get
@@ -49,8 +52,10 @@ namespace OdeMod.UI.OdeUISystem.UIElements
                 _cursorPosition.X = l;
             }
         }
+
         private readonly float symOffsetX;
         private string _text;
+
         public Point CursorPosition
         {
             get
@@ -90,6 +95,7 @@ namespace OdeMod.UI.OdeUISystem.UIElements
                 _cursorPosition = v;
             }
         }
+
         private Point _cursorPosition;
         private Color _color;
         private int timer;
@@ -97,6 +103,7 @@ namespace OdeMod.UI.OdeUISystem.UIElements
         private Vector2 offset;
         private bool isEnableIME = false;
         private Utils.KeyCooldown up, down, left, right, enter;
+
         public UIInputBox(string text = "", Point cursorPosition = default(Point), Color color = default(Color), Vector2 symSizeOffice = default)
         {
             _text = text;
@@ -105,11 +112,12 @@ namespace OdeMod.UI.OdeUISystem.UIElements
             _cursorPosition = Point.Zero;
             offset = Vector2.Zero;
             symHitBox = Rectangle.Empty;
-            var c = OdeMod.DynamicSpriteFontInfoManager.GetCharacterSize(FontAssets.MouseText.Value, cursorSym[0]) + symSizeOffice;
+            var c = OdeMod.DefaultFont.MeasureString(cursorSym[0].ToString()) + symSizeOffice;
             symHitBox.Width = (int)c.X;
             symHitBox.Height = (int)c.Y;
             symOffsetX = c.X / 2f;
         }
+
         public override void OnInitialization()
         {
             base.OnInitialization();
@@ -125,6 +133,7 @@ namespace OdeMod.UI.OdeUISystem.UIElements
 
             timer = 14;
         }
+
         public override void LoadEvents()
         {
             base.LoadEvents();
@@ -133,6 +142,7 @@ namespace OdeMod.UI.OdeUISystem.UIElements
                 isEnableIME = true;
             };
         }
+
         public override void Update(GameTime gt)
         {
             if (Main.mouseLeft && !ContainsPoint(Main.MouseScreen) && isEnableIME)
@@ -149,6 +159,7 @@ namespace OdeMod.UI.OdeUISystem.UIElements
             else
                 timer = 14;
         }
+
         protected override void DrawChildren(SpriteBatch sb)
         {
             var texts = Text.Split('\n');
@@ -177,9 +188,9 @@ namespace OdeMod.UI.OdeUISystem.UIElements
                         if (symHitBox.Y < Info.HitBox.Y)
                             offset.Y += Info.HitBox.Y - symHitBox.Y;
                     }
-                    sb.DrawString(FontAssets.MouseText.Value, cursorSym, Info.Location + new Vector2(x - symOffsetX, offsetY) + offset, _color);
+                    sb.DrawString(OdeMod.DefaultFont, cursorSym, Info.Location + new Vector2(x - symOffsetX, offsetY) + offset, _color);
                 }
-                sb.DrawString(FontAssets.MouseText.Value, text, Info.Location + new Vector2(0f, offsetY) + offset, _color);
+                sb.DrawString(OdeMod.DefaultFont, text, Info.Location + new Vector2(0f, offsetY) + offset, _color);
                 offsetY += OdeMod.DynamicSpriteFontInfoManager.GetCharacterSize(FontAssets.MouseText.Value, '啊').Y;
             }
 

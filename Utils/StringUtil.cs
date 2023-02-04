@@ -82,6 +82,55 @@ namespace OdeMod.Utils
         }
 
         /// <summary>
+        /// 不会截断单词的自动换行,by RZIN
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="font"></param>
+        /// <param name="width"></param>
+        /// <param name="scale"></param>
+        /// <returns></returns>
+        public static List<string> WordWrap2(string text, FontStashSharp.DynamicSpriteFont font, float width, float scale = 1.0f)
+        {
+            if (string.IsNullOrEmpty(text))
+                return null;
+            List<string> output = new List<string>();
+            if (text.Contains('\n'))
+            {
+                var x = text.Split('\n');
+                Array.ForEach(x, x => output.AddRange(WordWrap2(x, font, width, scale)));
+                return output;
+            }
+
+            int last = 0, l, r, m;
+            while (last < text.Length)
+            {
+                l = 0;
+                r = text.Length - last;
+                while (l <= r)
+                {
+                    m = l + (r - l) / 2;
+                    //如果行没有超限
+                    if (font.MeasureString(text.Substring(last, m)).X * scale < width)
+                        l = m + 1;
+                    else
+                        r = m - 1;
+                }
+                if (last + r < text.Length && isValid(text[last + r]) && isValid(text[last + r - 1]))
+                {
+                    int t = r;
+                    r--;
+                    while (r > 0 && isValid(text[last + r - 1]))
+                        r--;
+                    if (r == 0)
+                        r = t;
+                }
+                output.Add(text.Substring(last, r));
+                last += r;
+            }
+            return output;
+        }
+
+        /// <summary>
         /// 判断输入字符是否为字母
         /// </summary>
         /// <param name="c">输入的字符</param>

@@ -8,6 +8,7 @@ namespace OdeMod.UI.OdeUISystem.UIElements
     internal class UIText : BaseElement
     {
         private string text;
+
         public string Text
         {
             get { return text; }
@@ -17,22 +18,27 @@ namespace OdeMod.UI.OdeUISystem.UIElements
                 Calculation();
             }
         }
+
         private DynamicSpriteFont font;
         public Color Color;
+
         /// <summary>
         /// 绘制大小，不改变部件碰撞箱，不改变绘制中心
         /// </summary>
         public float Scale;
+
         public bool CalculateSize = true;
         public PositionStyle? CenterX;
         public PositionStyle? CenterY;
-        public UIText(string t, DynamicSpriteFont spriteFont, float scale = 1f)
+
+        public UIText(string t, DynamicSpriteFont spriteFont, float scale = 40f)
         {
             text = t;
             font = spriteFont;
             Scale = scale;
             Color = Color.White;
         }
+
         public UIText(string t, DynamicSpriteFont spriteFont, Color textColor, float scale = 1f)
         {
             text = t;
@@ -40,6 +46,7 @@ namespace OdeMod.UI.OdeUISystem.UIElements
             Scale = scale;
             Color = textColor;
         }
+
         public override void Calculation()
         {
             if (CalculateSize)
@@ -62,6 +69,7 @@ namespace OdeMod.UI.OdeUISystem.UIElements
             }
             base.Calculation();
         }
+
         protected override void DrawSelf(SpriteBatch sb)
         {
             base.DrawSelf(sb);

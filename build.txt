@@ -1,4 +1,4 @@
 displayName = 颂歌
-author = 幽银&永耀&Wan&银烛
+author = Ode Team
 version = 0.0.0.4
-dllReferences = 
+dllReferences = FontStashSharp.FNA,FontStashSharp.Base,StbImageSharp,FontStashSharp.Rasterizers.StbTrueTypeSharp,System.Numerics.Vectors,Cyotek.Drawing.BitmapFont,StbTrueTypeSharp
