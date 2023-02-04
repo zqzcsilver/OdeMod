@@ -117,8 +117,8 @@ namespace OdeMod.NPCs.Boss.MiracleRecorder
         }
         public int Life()
         {
-            if (Main.masterMode) return 50000;
-            else if (Main.expertMode) return 42000;
+            if (Main.masterMode) return 20000;
+            else if (Main.expertMode) return 24000;
             else return 30000;
         }
 
@@ -147,11 +147,12 @@ namespace OdeMod.NPCs.Boss.MiracleRecorder
             NPC.noGravity = true;
             NPC.HitSound = SoundID.NPCHit1;
             Main.npcFrameCount[NPC.type] = 8;
-            NPC.DeathSound = SoundID.NPCDeath6;
+            NPC.DeathSound = SoundID.Item163;
             NPC.value = Item.buyPrice(0, 15, 0, 0);
             NPC.noTileCollide = true;
             NPCID.Sets.TrailingMode[NPC.type] = 0;
-            NPCID.Sets.TrailCacheLength[NPC.type] = 8;
+            NPCID.Sets.TrailCacheLength[NPC.type] = 8; 
+            Music = MusicLoader.GetMusicSlot("OdeMod/Assets/Music/GloriousCarol");
 
             //NPC.hide = true;
 
@@ -278,7 +279,10 @@ namespace OdeMod.NPCs.Boss.MiracleRecorder
             }
             if (timer == 1)
             {
-
+                if(player.direction== 1) 
+                NPC.Center = player.Center+new Vector2(400,0);
+                else
+                    NPC.Center = player.Center + new Vector2(-400, 0);
 
                 OdeMod.ScreenShaderDataManager["OdeMod:MiracleRecorder"].Visible = true;
                 NPC.dontTakeDamage = true;
