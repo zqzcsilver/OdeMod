@@ -1,14 +1,17 @@
-﻿using Terraria.DataStructures;
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Mono.Cecil;
+using OdeMod.Utils;
 using System;
+using System.Collections.Generic;
+using Terraria;
+using Terraria.DataStructures;
+using Terraria.ModLoader;
 
 namespace OdeMod.Buffs
 {
     /// <summary>
-    /// 星锁 没做好效果，银烛用绘制救救吧（
+    /// 星锁
     /// </summary>
     internal class Locked : ModBuff
     {
@@ -22,26 +25,27 @@ namespace OdeMod.Buffs
             Main.buffNoSave[Type] = true;
         }
         public float Num = 0;
+
         public override void Update(NPC npc, ref int buffIndex)
         {
             
-            //虽然增加buff时检测过了但是不放心在检测一边
             if (!npc.boss)
             {
-                for(int i = 0; i < 4; i++)
-                {
-                    Num += 0.1f;
-                    int num = Dust.NewDust(npc.Center + 30 * new Vector2((float)Math.Cos(Num) * 2, (float)Math.Sin(Num)).RotatedBy(0.75f), 1, 1, DustID.BlueCrystalShard, 0, 0, 0, default, 0.8f);
-                    Main.dust[num].noGravity = true;
-                    Main.dust[num].velocity *= 0.5f;
-                    int num2 = Dust.NewDust(npc.Center - 30 * new Vector2((float)Math.Cos(Num) * 2, (float)Math.Sin(Num)).RotatedBy(-0.75f), 1, 1, DustID.Torch, 0, 0, 0, default, 0.9f);
-                    Main.dust[num2].noGravity = true;
-                    Main.dust[num2].velocity *= 0.5f;
-                }
                 npc.velocity = Vector2.Zero;
-                
+            }
+            if (npc.buffTime[buffIndex] % 60 == 0) 
+            {
+                Vector2 pVEC = new Vector2(npc.Center.X, Main.screenPosition.Y - Main.rand.Next(50, 100)) +
+                   new Vector2(Main.rand.Next(-60, 60), Main.rand.Next(-60, 60));
+                Vector2 tVEC = Vector2.Normalize(npc.Center - pVEC) * 3f;
+                Projectile.NewProjectile(Entity.GetSource_None(), pVEC, tVEC, ModContent.ProjectileType<Projectiles.Misc.FriendlyStar>(), 15, 0, Main.LocalPlayer.whoAmI);
             }
             base.Update(npc, ref buffIndex);
+        }
+        public override bool ReApply(NPC npc, int time, int buffIndex)
+        {
+            npc.buffTime[buffIndex] = time;
+            return true;
         }
     }
 }

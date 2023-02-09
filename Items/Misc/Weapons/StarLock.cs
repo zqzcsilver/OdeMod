@@ -26,20 +26,21 @@ namespace OdeMod.Items.Misc.Weapons
             Item.shootSpeed = 10f;
             Item.useAnimation = 15;
             Item.useTime = 15;
+            Item.rare = 3;
             Item.value = Item.sellPrice(0, 0, 50, 0);
         }
-        public int dusttype=71;
+        //public int dusttype=71;
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            dusttype++;
-            Main.NewText(dusttype);
-            for (int i = 0; i < 10; i++)
-            {
-                Dust dust = Dust.NewDustDirect(player.position, player.width, player.height, dusttype, 0f, 0f, 100, default(Color), 2f);
-                dust.noGravity = true;
-                dust.velocity *= 2.5f;
+            //dusttype++;
+            //Main.NewText(dusttype);
+            //for (int i = 0; i < 10; i++)
+            //{
+            //    Dust dust = Dust.NewDustDirect(player.position, player.width, player.height, dusttype, 0f, 0f, 100, default(Color), 2f);
+            //    dust.noGravity = true;
+            //    dust.velocity *= 2.5f;
 
-            }
+            //}
             Projectile.NewProjectile(source, player.Center, velocity, ModContent.ProjectileType<Projectiles.Misc.StarLock>(), damage, knockback, player.whoAmI,1);
             Projectile.NewProjectile(source, player.Center, velocity, ModContent.ProjectileType<Projectiles.Misc.StarLock>(), damage, knockback, player.whoAmI,2);
             //for (int i = 0; i <= Main.rand.Next(3, 5); i++)
