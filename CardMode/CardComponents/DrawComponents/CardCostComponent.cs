@@ -22,7 +22,7 @@ namespace OdeMod.CardMode.CardComponents.DrawComponents
             base.OnCardDraw(entity, infoComponent, sb, hookInfo);
             var info = entity.GetComponent<CardInfoComponent>();
 
-            float scale = infoComponent.Scale * 0.4f;
+            float scale = infoComponent.Scale * 1.6f;
             var dcs = new Point((int)(Texture.Width * infoComponent.Scale),
                 (int)(Texture.Height * infoComponent.Scale));
             sb.Draw(Texture, new Rectangle(0, 0, dcs.X, dcs.Y), Color.White);

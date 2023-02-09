@@ -57,8 +57,8 @@ namespace OdeMod.CardMode.CardComponents.DrawComponents
                 DepthStencilState.Default, RasterizerState.CullNone, effect);
 
             sb.Draw(Texture,
-                new Rectangle((int)(drawsize.X / 2 - size.X / 2 + infoComponent.Scale),
-                (int)(5 * infoComponent.Scale), size.X, size.Y), Color.White);
+                new Rectangle((int)(drawsize.X / 2 - size.X / 2 + 4f * infoComponent.Scale),
+                (int)(5 * 4 * infoComponent.Scale), size.X, size.Y), Color.White);
 
             sb.End();
             sb.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.LinearClamp,
