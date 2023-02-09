@@ -70,7 +70,8 @@ namespace OdeMod.CardMode
         public abstract IComponent Clone(Entity cloneEntity);
 
         /// <summary>
-        /// 简单克隆该组件。默认会使用反射调用 <see cref="Component()"/> 获取结果，如果构造函数有参数请务必重写该方法
+        /// 简单克隆该组件。默认会使用反射调用 <see cref="Component()"/> 获取结果。
+        /// <br>[!]如果构造函数有参数请务必重写该方法。</br>
         /// </summary>
         /// <param name="cloneEntity">被克隆的实体</param>
         /// <returns>克隆体</returns>

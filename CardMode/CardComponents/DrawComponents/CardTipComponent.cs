@@ -35,8 +35,8 @@ namespace OdeMod.CardMode.CardComponents.DrawComponents
                 (int)(Texture.Height * infoComponent.Scale));
             var drawsize = entity.GetComponent<DrawComponent>().DrawSize;
             sb.Draw(Texture,
-                new Rectangle((int)(drawsize.X / 2 - size.X / 2 + 2 * infoComponent.Scale),
-                (int)(drawsize.Y - size.Y - 4 * infoComponent.Scale), size.X, size.Y), Color.White);
+                new Rectangle((int)(drawsize.X / 2 - size.X / 2 + 2 * 4 * infoComponent.Scale),
+                (int)(drawsize.Y - size.Y - 4 * 4 * infoComponent.Scale), size.X, size.Y), Color.White);
             int i;
             float scale = 0f;
             //min:0.18,max:0.25
@@ -52,7 +52,7 @@ namespace OdeMod.CardMode.CardComponents.DrawComponents
                     scale = infoComponent.Scale * Scale;
                     font = info.FontSystem.GetFont(scale * info.FontSize);
                     tooltips = StringUtil.WordWrap2(info.CardTip, font,
-                        size.X - 2 * infoComponent.Scale);
+                        size.X - 2 * 4 * infoComponent.Scale);
                     if (tooltipLinesSize == null || tooltipLinesSize.Length != tooltips.Count)
                         tooltipLinesSize = new Vector2[tooltips.Count];
                     for (i = 0; i < tooltips.Count; i++)
@@ -63,7 +63,7 @@ namespace OdeMod.CardMode.CardComponents.DrawComponents
                         if (maxY > size.Y)
                             break;
                     }
-                    if (maxY > (size.Y - 4 * infoComponent.Scale))
+                    if (maxY > (size.Y - 4 * 4 * infoComponent.Scale))
                         Scale -= 0.001f;
                     else
                         break;
@@ -76,8 +76,8 @@ namespace OdeMod.CardMode.CardComponents.DrawComponents
             for (i = 0; i < tooltipLinesSize.Length; i++)
             {
                 sb.DrawString(info.FontSystem.GetFont(scale * info.FontSize), tooltips[i],
-                    new Vector2(drawsize.X / 2f + 2 * infoComponent.Scale - tooltipLinesSize[i].X / 2f,
-                drawsize.Y - size.Y / 2f - 4f * infoComponent.Scale - centerY + y + 1 * infoComponent.Scale), Color.White,
+                    new Vector2(drawsize.X / 2f + 2 * 4 * infoComponent.Scale - tooltipLinesSize[i].X / 2f,
+                drawsize.Y - size.Y / 2f - 4f * 4f * infoComponent.Scale - centerY + y + 1 * infoComponent.Scale), Color.White,
                 null, 0f, default, 0f, 0f, 0f,
                 TextStyle.None, FontSystemEffect.Stroked, 1);
                 y += tooltipLinesSize[i].Y;

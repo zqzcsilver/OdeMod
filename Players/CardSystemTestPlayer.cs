@@ -40,7 +40,7 @@ namespace OdeMod.Players
 
                 var bodyTex = ModContent.Request<Texture2D>("OdeMod/Images/Card/Original/Summoner/CardBody", AssetRequestMode.ImmediateLoad).Value;
                 BaseInfoComponent baseInfoComponent = new BaseInfoComponent();
-                baseInfoComponent.Scale = 4f;
+                baseInfoComponent.Scale = 1f;
                 baseInfoComponent.Rotation = 0f;
                 baseInfoComponent.HitBox = new Rectangle(0, 0,
                     (int)(bodyTex.Width * baseInfoComponent.Scale), (int)(bodyTex.Height * baseInfoComponent.Scale));
@@ -50,7 +50,7 @@ namespace OdeMod.Players
                 CardInfoComponent cardInfoComponent = new CardInfoComponent();
                 cardInfoComponent.CardID = "XXX";
                 cardInfoComponent.CardName = "星辰天使";
-                cardInfoComponent.CardTip = "代偿：鲜血(8) 或 灵魂(5)\n战吼：选择一个敌人。休眠8回合\n亡语：消灭选择的敌人";
+                cardInfoComponent.CardTip = "代偿：鲜血(8) 或 灵魂\n(5)！\n战吼：选择一个敌人！休眠8回合！\n亡语：消灭选择的敌人！";
                 cardInfoComponent.CardCost = 3;
                 entity.AddComponent(cardInfoComponent);
 
@@ -59,9 +59,9 @@ namespace OdeMod.Players
                 entity.AddComponent(drawComponent);
 
                 drawComponent.AddComponent(new CardBodyComponent(bodyTex));
-                drawComponent.AddComponent(new CardCostComponent(ModContent.Request<Texture2D>("OdeMod/Images/Card/Original/Summoner/CardCost", AssetRequestMode.ImmediateLoad).Value));
                 drawComponent.AddComponent(new CardIllustrationComponent(ModContent.Request<Texture2D>("OdeMod/Images/Card/Original/Summoner/CardIllustration", AssetRequestMode.ImmediateLoad).Value,
                     ModContent.Request<Texture2D>("OdeMod/Items/Series/Recharge/StarAngel", AssetRequestMode.ImmediateLoad).Value));
+                drawComponent.AddComponent(new CardCostComponent(ModContent.Request<Texture2D>("OdeMod/Images/Card/Original/Summoner/CardCost", AssetRequestMode.ImmediateLoad).Value));
                 drawComponent.AddComponent(new CardTipComponent(ModContent.Request<Texture2D>("OdeMod/Images/Card/Original/Summoner/CardTip", AssetRequestMode.ImmediateLoad).Value));
                 drawComponent.AddComponent(new CardTipFrameworkComponent(ModContent.Request<Texture2D>("OdeMod/Images/Card/Original/Rare/CardTipRare", AssetRequestMode.ImmediateLoad).Value));
                 drawComponent.AddComponent(new CardNameComponent(ModContent.Request<Texture2D>("OdeMod/Images/Card/Original/Summoner/CardName", AssetRequestMode.ImmediateLoad).Value));

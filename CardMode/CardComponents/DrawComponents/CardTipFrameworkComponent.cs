@@ -19,8 +19,8 @@ namespace OdeMod.CardMode.CardComponents.DrawComponents
                 (int)(Texture.Height * infoComponent.Scale));
             var drawsize = entity.GetComponent<DrawComponent>().DrawSize;
             sb.Draw(Texture,
-                new Rectangle((int)(drawsize.X / 2 - size.X / 2 + 2 * infoComponent.Scale),
-                (int)(drawsize.Y - size.Y - 2 * infoComponent.Scale), size.X, size.Y), Color.White);
+                new Rectangle((int)(drawsize.X / 2 - size.X / 2 + 2 * 4 * infoComponent.Scale),
+                (int)(drawsize.Y - size.Y - 3 * 4 * infoComponent.Scale), size.X, size.Y), Color.White);
         }
     }
 }
