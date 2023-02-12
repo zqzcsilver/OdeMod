@@ -19,15 +19,17 @@ namespace OdeMod.Items.Misc.Weapons
             Item.width = 36;
             Item.height = 40;
             Item.DamageType = DamageClass.Magic;
-            Item.useStyle = ItemUseStyleID.Swing;
-            Item.damage = 15;
+            Item.useStyle = ItemUseStyleID.Shoot;
+            Item.damage = 22;
             Item.crit = 4;
             Item.shoot = ModContent.ProjectileType<Projectiles.Misc.StarLock>();
             Item.shootSpeed = 10f;
-            Item.useAnimation = 15;
-            Item.useTime = 15;
+            Item.useAnimation = 40;
+            Item.useTime = 40;
             Item.rare = 3;
+            Item.mana = 25;
             Item.value = Item.sellPrice(0, 0, 50, 0);
+            Item.staff[Item.type] = true;
         }
         //public int dusttype=71;
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

@@ -19,8 +19,10 @@ namespace OdeMod.Items.Misc.Weapons
             Item.crit = 1;
             Item.shoot = ModContent.ProjectileType<Projectiles.Misc.EnchantingPro>();
             Item.shootSpeed = 10f;
-            Item.useAnimation = 15;
-            Item.useTime = 15;
+            Item.rare = 2;
+            Item.useAnimation = 30;
+            Item.useTime = 30;
+            Item.mana = 12;
             Item.staff[Item.type] = true;
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
@@ -29,7 +31,7 @@ namespace OdeMod.Items.Misc.Weapons
             {
                 Vector2 vector2 = new Vector2(-velocity.Y, velocity.X) * i;
                 vector2.RotatedBy(velocity.ToRotation());
-                Projectile.NewProjectile(source, player.Center + vector2 * 2, velocity, ModContent.ProjectileType<Projectiles.Misc.EnchantingPro>(), damage, knockback, player.whoAmI, 1);
+                Projectile.NewProjectile(source, player.Center + vector2 * 2, velocity, ModContent.ProjectileType<Projectiles.Misc.EnchantingPro>(), damage, knockback, player.whoAmI, i);
             }
             return false;
         }

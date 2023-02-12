@@ -17,26 +17,39 @@ namespace OdeMod.Projectiles.Series.Items.RiftValley
             Projectile.tileCollide = true;
             Projectile.aiStyle = -1;
             Projectile.alpha = 0;
-            Projectile.penetrate = 1;
-            Projectile.timeLeft = 180;
+            Projectile.penetrate = -1;
+            Projectile.timeLeft = 300;
         }
-        Vector2 temp;
         public override void AI()
         {
+            if (Projectile.timeLeft == 300)
+                Main.NewText(2);
             Lighting.AddLight(Projectile.position, 0.0f, 0.5f, 0.0f);
-            for (int i = 0; i < 10; i++)
-            {
-                Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.BubbleBurst_Green, 0f, 0f, 100, default(Color), 1f);
-                dust.noGravity = true;
-                dust.velocity *= 0.2f;
-            }
-            Projectile.ai[0]++;
-            if (Projectile.ai[0] > 60)
-            {
-                Projectile.velocity.Y += 1f;
-            }
-            base.AI();
-        }
 
+            Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.GemEmerald, 0f, 0f, 100, default(Color), 1f);
+            dust.noGravity = true;
+            dust.velocity *= 0.2f;
+
+            if (Projectile.velocity.Y <= 12f)
+                Projectile.velocity.Y += 0.4f;
+        }
+        private int hitnum = 0;//撞击次数
+        public override bool OnTileCollide(Vector2 oldVelocity)
+        {
+            if (++hitnum >= 3)
+            {
+                Projectile.Kill();
+            }
+
+            if (Projectile.velocity.X != oldVelocity.X)
+            {
+                Projectile.velocity.X = -oldVelocity.X * 0.6f;
+            }
+            if (Projectile.velocity.Y != oldVelocity.Y)
+            {
+                Projectile.velocity.Y = -oldVelocity.Y * 0.6f;
+            }
+            return false;
+        }
     }
 }

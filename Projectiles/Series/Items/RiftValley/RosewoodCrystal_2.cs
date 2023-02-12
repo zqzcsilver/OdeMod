@@ -18,19 +18,20 @@ namespace OdeMod.Projectiles.Series.Items.RiftValley
             Projectile.aiStyle = -1;
             Projectile.alpha = 0;
             Projectile.penetrate = 1;
-            Projectile.timeLeft = 120;
+            Projectile.timeLeft = 300;
         }
         public override void AI()
         {
+            if (Projectile.timeLeft == 300)
+                Main.NewText(1);
             Lighting.AddLight(Projectile.position, 0.5f, 0.0f, 0.0f);
-            for (int i = 0; i < 10; i++)
-            {
-                Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.VampireHeal, 0f, 0f, 100, default(Color), 1f);
-                dust.noGravity = true;
-                dust.velocity *= 0.2f;
-            }
+
+            Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.LifeDrain, 0f, 0f, 100, default(Color), 1f);
+            dust.noGravity = true;
+            dust.velocity *= 0.2f;
+
             NPC target = null;
-            float dismax = 320;
+            float dismax = 600;
             foreach (NPC npc in Main.npc)
             {
                 if (npc.active && !npc.friendly)
@@ -50,17 +51,6 @@ namespace OdeMod.Projectiles.Series.Items.RiftValley
                 targetVec *= 20f;
                 Projectile.velocity = (Projectile.velocity * 30f + targetVec) / 31f;
             }
-            base.AI();
-        }
-        public override void Kill(int timeLeft)
-        {
-            for (int i = 0; i < 30; i++)
-            {
-                Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.VampireHeal, 0f, 0f, 100, default(Color), 2f);
-                dust.noGravity = true;
-                dust.velocity *= 1.5f;
-            }
-            base.Kill(timeLeft);
         }
     }
 }
