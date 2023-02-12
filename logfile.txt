@@ -27,3 +27,6 @@ Message at 2023/1/31 21:29:48: Compiling TriangleDraw.xnb
 Message at 2023/2/8 3:11:07: Importing DrawInTriangle.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
 Message at 2023/2/8 3:11:07: Processing DrawInTriangle.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
 Message at 2023/2/8 3:11:07: Compiling DrawInTriangle.xnb
+Message at 2023/2/10 20:26:20: Importing DrawInTriangle.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2023/2/10 20:26:20: Processing DrawInTriangle.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2023/2/10 20:26:20: Compiling DrawInTriangle.xnb

@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Audio;
-using Terraria.GameContent.Drawing;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -11,8 +11,8 @@ namespace OdeMod.Projectiles.Misc
     {
         public override void SetDefaults()
         {
-            Projectile.width = 32;
-            Projectile.height = 32;
+            Projectile.width = 34;
+            Projectile.height = 34;
             Projectile.aiStyle = -1;
             Projectile.friendly = true;
             Projectile.DamageType = DamageClass.Melee;
@@ -41,10 +41,10 @@ namespace OdeMod.Projectiles.Misc
             target.AddBuff(ModContent.BuffType<Buffs.NaturalPower>(), 120);
             base.OnHitNPC(target, damage, knockback, crit);
         }
-        public int hitnum = 0;//撞击次数
+        private int hitnum = 0;//撞击次数
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-            if(++hitnum >= 3)
+            if (++hitnum >= 3)
             {
                 Projectile.Kill();
             }
@@ -68,6 +68,24 @@ namespace OdeMod.Projectiles.Misc
                 Projectile.velocity.Y = -oldVelocity.Y;
             }
             return false;
+        }
+        public override bool PreDraw(ref Color lightColor)
+        {
+            float size1 = 1f;
+
+            var texture = ModContent.Request<Texture2D>(Texture, ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+
+            Vector2 drawOrigin = new Vector2(Projectile.width * 0.5f, Projectile.height * 0.5f);
+            Main.spriteBatch.End();
+            Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+            Vector2 drawPos = Projectile.position - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
+            Color color = lightColor;
+            Main.spriteBatch.Draw(texture, drawPos, new Rectangle(0, 34 * Projectile.frame, 34, 34), color, Projectile.rotation, drawOrigin, size1, SpriteEffects.None, 0f);
+
+            Main.spriteBatch.End();
+            Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+            return false;
+
         }
         public override void Kill(int timeLeft)
         {
