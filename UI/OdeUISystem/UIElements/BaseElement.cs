@@ -16,26 +16,32 @@ namespace OdeMod.UI.OdeUISystem.UIElements
         internal struct PositionStyle
         {
             public static readonly PositionStyle Empty = new PositionStyle();
+
             /// <summary>
             /// 绝对距离，单位为像素
             /// </summary>
             public float Pixel = 0f;
+
             /// <summary>
             /// 相对距离
             /// </summary>
             public float Percent = 0f;
+
             public PositionStyle()
             {
             }
+
             public PositionStyle(float pixel)
             {
                 Pixel = pixel;
             }
+
             public PositionStyle(float pixel, float percent)
             {
                 Pixel = pixel;
                 Percent = percent;
             }
+
             /// <summary>
             /// 获取基于输入参数的精确坐标
             /// </summary>
@@ -45,11 +51,19 @@ namespace OdeMod.UI.OdeUISystem.UIElements
             {
                 return Percent * pixel + Pixel;
             }
+
+            public void SetValue(PositionStyle style)
+            {
+                Pixel = style.Pixel;
+                Percent = style.Percent;
+            }
+
             public void SetValue(float pixel, float percent)
             {
                 Pixel = pixel;
                 Percent = percent;
             }
+
             public static PositionStyle operator +(PositionStyle ps1, PositionStyle ps2)
             {
                 var output = ps1;
@@ -57,6 +71,7 @@ namespace OdeMod.UI.OdeUISystem.UIElements
                 output.Percent += ps2.Percent;
                 return output;
             }
+
             public static PositionStyle operator -(PositionStyle ps1, PositionStyle ps2)
             {
                 var output = ps1;
@@ -64,6 +79,7 @@ namespace OdeMod.UI.OdeUISystem.UIElements
                 output.Percent -= ps2.Percent;
                 return output;
             }
+
             public static PositionStyle operator *(PositionStyle ps1, float ps2)
             {
                 var output = ps1;
@@ -71,6 +87,7 @@ namespace OdeMod.UI.OdeUISystem.UIElements
                 output.Percent *= ps2;
                 return output;
             }
+
             public static PositionStyle operator /(PositionStyle ps1, float ps2)
             {
                 var output = ps1;
@@ -78,11 +95,13 @@ namespace OdeMod.UI.OdeUISystem.UIElements
                 output.Percent /= ps2;
                 return output;
             }
+
             public override string ToString()
             {
                 return $"Pixel:{Pixel} Percent:{Percent}";
             }
         }
+
         /// <summary>
         /// 储存位置、大小等信息
         /// </summary>
@@ -92,85 +111,106 @@ namespace OdeMod.UI.OdeUISystem.UIElements
             /// 左坐标
             /// </summary>
             public PositionStyle Left = PositionStyle.Empty;
+
             /// <summary>
             /// 上坐标
             /// </summary>
             public PositionStyle Top = PositionStyle.Empty;
+
             /// <summary>
             /// 宽度
             /// </summary>
             public PositionStyle Width = PositionStyle.Empty;
+
             /// <summary>
             /// 高度
             /// </summary>
             public PositionStyle Height = PositionStyle.Empty;
+
             /// <summary>
             /// 左边距
             /// </summary>
             public PositionStyle LeftMargin = PositionStyle.Empty;
+
             /// <summary>
             /// 右边距
             /// </summary>
             public PositionStyle RightMargin = PositionStyle.Empty;
+
             /// <summary>
             /// 上边距
             /// </summary>
             public PositionStyle TopMargin = PositionStyle.Empty;
+
             /// <summary>
             /// 下边距
             /// </summary>
             public PositionStyle ButtomMargin = PositionStyle.Empty;
+
             /// <summary>
             /// 是否隐藏溢出
             /// </summary>
             public bool HiddenOverflow = false;
+
             /// <summary>
             /// UI部件是否激活
             /// </summary>
             public bool IsVisible = true;
+
             /// <summary>
             /// UI部件是否隐藏（不调用 DrawSelf 方法）
             /// </summary>
             public bool IsHidden = false;
+
             /// <summary>
             /// 是否敏感（触发子元素事件时同时触发此元素事件）
             /// </summary>
             public bool IsSensitive = false;
+
             /// <summary>
             /// 是否可以被交互
             /// </summary>
             public bool CanBeInteract = true;
+
             /// <summary>
             /// 指示实际坐标与实际大小是否已经经过计算
             /// </summary>
             public bool InitDone = false;
+
             /// <summary>
             /// 实际坐标（被内边距裁切过）
             /// </summary>
             public Vector2 Location = Vector2.Zero;
+
             /// <summary>
             /// 实际大小（被内边距裁切过）
             /// </summary>
             public Vector2 Size = Vector2.Zero;
+
             /// <summary>
             /// 实际坐标（无内边距裁切）
             /// </summary>
             public Vector2 TotalLocation = Vector2.Zero;
+
             /// <summary>
             /// 实际大小（无内边距裁切）
             /// </summary>
             public Vector2 TotalSize = Vector2.Zero;
+
             /// <summary>
             /// 碰撞箱（被内边距裁切过）
             /// </summary>
             public Rectangle HitBox = Rectangle.Empty;
+
             /// <summary>
             /// 完整碰撞箱（无内边距裁切）
             /// </summary>
             public Rectangle TotalHitBox = Rectangle.Empty;
+
             public ElementInfo()
             {
             }
+
             /// <summary>
             /// 设置内边距
             /// </summary>
@@ -183,6 +223,7 @@ namespace OdeMod.UI.OdeUISystem.UIElements
                 ButtomMargin.Pixel = pixel;
             }
         }
+
         /// <summary>
         /// 储存事件
         /// </summary>
@@ -192,77 +233,103 @@ namespace OdeMod.UI.OdeUISystem.UIElements
             /// 被鼠标点击的委托
             /// </summary>
             public delegate void UIMouseEvent(BaseElement baseElement);
+
             /// <summary>
             /// 左键点击UI的事件（按下时触发）
             /// </summary>
             public event UIMouseEvent OnLeftClick;
+
             /// <summary>
             /// 右键点击UI的事件（按下时触发）
             /// </summary>
             public event UIMouseEvent OnRightClick;
+
             /// <summary>
             /// 左键双击UI的事件
             /// </summary>
             public event UIMouseEvent OnLeftDoubleClick;
+
             /// <summary>
             /// 右键双击UI的事件
             /// </summary>
             public event UIMouseEvent OnRightDoubleClick;
+
             /// <summary>
             /// 鼠标左键按下的事件
             /// </summary>
             public event UIMouseEvent OnLeftDown;
+
             /// <summary>
             /// 鼠标左键抬起的事件
             /// </summary>
             public event UIMouseEvent OnLeftUp;
+
             /// <summary>
             /// 鼠标右键按下的事件
             /// </summary>
             public event UIMouseEvent OnRightDown;
+
             /// <summary>
             /// 鼠标右键抬起的事件
             /// </summary>
             public event UIMouseEvent OnRightUp;
+
             /// <summary>
             /// 鼠标进入UI时的事件
             /// </summary>
             public event UIMouseEvent OnMouseOver;
+
             /// <summary>
             /// 鼠标离开UI时的事件
             /// </summary>
             public event UIMouseEvent OnMouseOut;
+
             public void LeftClick(BaseElement element) => OnLeftClick?.Invoke(element);
+
             public void RightClick(BaseElement element) => OnRightClick?.Invoke(element);
+
             public void LeftDoubleClick(BaseElement element) => OnLeftDoubleClick?.Invoke(element);
+
             public void RightDoubleClick(BaseElement element) => OnRightDoubleClick?.Invoke(element);
+
             public void LeftDown(BaseElement element) => OnLeftDown?.Invoke(element);
+
             public void LeftUp(BaseElement element) => OnLeftUp?.Invoke(element);
+
             public void RightDown(BaseElement element) => OnRightDown?.Invoke(element);
+
             public void RightUp(BaseElement element) => OnRightUp?.Invoke(element);
+
             public void MouseOver(BaseElement element) => OnMouseOver?.Invoke(element);
+
             public void MouseOut(BaseElement element) => OnMouseOut?.Invoke(element);
         }
+
         /// <summary>
         /// 事件管理
         /// </summary>
         private ElementEvents events;
+
         /// <summary>
         /// UI信息
         /// </summary>
         public ElementInfo Info;
+
         /// <summary>
         /// 上一级UI部件
         /// </summary>
         public BaseElement ParentElement { get; private set; }
+
         /// <summary>
         /// 下一级UI部件
         /// </summary>
         public List<BaseElement> ChildrenElements { get; private set; }
+
         /// <summary>
         /// 指示此UI部件是否激活
         /// </summary>
         public virtual bool IsVisible { get => Info.IsVisible; }
+
         /// <summary>
         /// 溢出隐藏的裁切矩形
         /// </summary>
@@ -281,24 +348,28 @@ namespace OdeMod.UI.OdeUISystem.UIElements
                 return rectangle;
             }
         }
+
         /// <summary>
         /// 事件管理器
         /// </summary>
         public virtual ElementEvents Events { get => events; }
+
         public virtual Rectangle HitBox { get => Info.TotalHitBox; }
+
         public BaseElement()
         {
             events = new ElementEvents();
             Info = new ElementInfo();
             ChildrenElements = new List<BaseElement>();
         }
+
         /// <summary>
         /// 加载事件
         /// </summary>
         public virtual void LoadEvents()
         {
-
         }
+
         /// <summary>
         /// 初始化UI部件
         /// </summary>
@@ -307,6 +378,7 @@ namespace OdeMod.UI.OdeUISystem.UIElements
             //ChildrenElements.ForEach(child => child.OnInitialization());
             LoadEvents();
         }
+
         /// <summary>
         /// 用于执行逻辑的更新方法（不受IsVisible限制）
         /// </summary>
@@ -315,6 +387,7 @@ namespace OdeMod.UI.OdeUISystem.UIElements
         {
             ChildrenElements.ForEach(child => { child?.PreUpdate(gt); });
         }
+
         /// <summary>
         /// 用于执行逻辑的更新方法（受IsVisible限制）
         /// </summary>
@@ -323,13 +396,13 @@ namespace OdeMod.UI.OdeUISystem.UIElements
         {
             ChildrenElements.ForEach(child => { if (child != null && child.IsVisible) child.Update(gt); });
         }
+
         /// <summary>
         /// 绘制
         /// </summary>
         /// <param name="sb">画笔</param>
         public virtual void Draw(SpriteBatch sb)
         {
-
             //声明光栅化状态，剔除状态为不剔除，开启剪切测试
             var overflowHiddenRasterizerState = new RasterizerState
             {
@@ -354,7 +427,6 @@ namespace OdeMod.UI.OdeUISystem.UIElements
             //如果启用溢出隐藏
             if (Info.HiddenOverflow)
             {
-
                 //关闭画笔以便修改绘制参数
                 sb.End();
                 //修改光栅化状态
@@ -380,6 +452,7 @@ namespace OdeMod.UI.OdeUISystem.UIElements
                 sb.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, DepthStencilState.None, overflowHiddenRasterizerState, null, Main.UIScaleMatrix);
             }
         }
+
         /// <summary>
         /// 绘制自己
         /// </summary>
@@ -387,6 +460,7 @@ namespace OdeMod.UI.OdeUISystem.UIElements
         protected virtual void DrawSelf(SpriteBatch sb)
         {
         }
+
         /// <summary>
         /// 绘制子元素
         /// </summary>
@@ -395,6 +469,7 @@ namespace OdeMod.UI.OdeUISystem.UIElements
         {
             ChildrenElements.ForEach(child => { if (child != null && child.IsVisible) child.Draw(sb); });
         }
+
         /// <summary>
         /// 添加子元素
         /// </summary>
@@ -409,6 +484,7 @@ namespace OdeMod.UI.OdeUISystem.UIElements
             ChildrenElements.Add(element);
             return true;
         }
+
         /// <summary>
         /// 移除子元素
         /// </summary>
@@ -421,6 +497,7 @@ namespace OdeMod.UI.OdeUISystem.UIElements
             ChildrenElements.Remove(element);
             return true;
         }
+
         /// <summary>
         /// 移除所有子元素
         /// </summary>
@@ -429,6 +506,7 @@ namespace OdeMod.UI.OdeUISystem.UIElements
             ChildrenElements.ForEach(child => child.ParentElement = null);
             ChildrenElements.Clear();
         }
+
         /// <summary>
         /// 将相对坐标计算为具体坐标
         /// </summary>
@@ -469,6 +547,7 @@ namespace OdeMod.UI.OdeUISystem.UIElements
             Info.InitDone = true;
             ChildrenElements.ForEach(child => { child?.Calculation(); });
         }
+
         /// <summary>
         /// 此UI部件是否包含点
         /// </summary>
@@ -476,12 +555,14 @@ namespace OdeMod.UI.OdeUISystem.UIElements
         /// <returns>如果包含返回true，否则返回false</returns>
         public virtual bool ContainsPoint(Point point) =>
             (GetParentElementIsHiddenOverflow() ? GetCanHitBox() : Info.TotalHitBox).Contains(point);
+
         /// <summary>
         /// 此UI部件是否包含点
         /// </summary>
         /// <param name="point">输入的点</param>
         /// <returns>如果包含返回true，否则返回false</returns>
         public virtual bool ContainsPoint(Vector2 point) => ContainsPoint(point.ToPoint());
+
         /// <summary>
         /// 获取在点上的UI部件及上级敏感部件
         /// </summary>
@@ -507,6 +588,7 @@ namespace OdeMod.UI.OdeUISystem.UIElements
                 elements.Add(this);
             return elements;
         }
+
         /// <summary>
         /// 使此UI部件包括其所有UI部件执行输入的方法
         /// </summary>
@@ -516,6 +598,7 @@ namespace OdeMod.UI.OdeUISystem.UIElements
             action(this);
             ChildrenElements.ForEach(child => action(child));
         }
+
         /// <summary>
         /// 获取被父部件裁切过的碰撞箱
         /// </summary>
@@ -526,6 +609,7 @@ namespace OdeMod.UI.OdeUISystem.UIElements
                 return Rectangle.Intersect(new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), HitBox);
             return Rectangle.Intersect(Rectangle.Intersect(HitBox, ParentElement.HiddenOverflowRectangle), ParentElement.GetCanHitBox());
         }
+
         /// <summary>
         /// 获取此元素与父元素是否开启溢出隐藏
         /// </summary>

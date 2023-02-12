@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using OdeMod.CardMode.CardComponents.BaseComponents;
 using OdeMod.CardMode.PublicComponents;
 using OdeMod.CardMode.PublicComponents.DrawComponents;
+using OdeMod.Utils;
 
 using Terraria;
 using Terraria.ModLoader;
@@ -44,7 +45,7 @@ namespace OdeMod.CardMode.CardComponents.DrawComponents
             var drawComponent = entity.GetComponent<DrawComponent>();
             var drawsize = drawComponent.DrawSize;
 
-            Utils.DrawUtils.SetDrawRenderTarget(sb, (spriteBatch) =>
+            DrawUtils.SetDrawRenderTarget(sb, (spriteBatch) =>
             {
                 OnDrawIllustration?.Invoke(spriteBatch, entity, this, OdeMod.RenderTarget2DPool.PoolOther(size, "Card Illustration"), size);
             }, OdeMod.RenderTarget2DPool.PoolOther(size, "Card Illustration"), drawComponent.Render, drawComponent.RenderSwap);

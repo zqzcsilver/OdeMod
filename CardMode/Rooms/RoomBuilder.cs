@@ -13,10 +13,12 @@ namespace OdeMod.CardMode.Rooms
     internal class RoomBuilder
     {
         private List<RoomBase> buildRoomPool;
+        public Map Map { get; private set; }
 
-        public RoomBuilder()
+        public RoomBuilder(Map map)
         {
             buildRoomPool = new List<RoomBase>();
+            Map = map;
         }
 
         public void Load()
@@ -32,7 +34,9 @@ namespace OdeMod.CardMode.Rooms
             });
             foreach (var t in types)
             {
-                buildRoomPool.Add((RoomBase)Activator.CreateInstance(t));
+                var x = (RoomBase)Activator.CreateInstance(t);
+                x.Map = Map;
+                buildRoomPool.Add(x);
             }
         }
 
@@ -65,7 +69,7 @@ namespace OdeMod.CardMode.Rooms
                 roomWeightMap.Add((room, maxRoomWeight));
             }
 
-            if(roomWeightMap.Count == 0)
+            if (roomWeightMap.Count == 0)
                 return null;
             if (roomWeightMap.Count == 1)
                 return roomWeightMap[0].Item1;

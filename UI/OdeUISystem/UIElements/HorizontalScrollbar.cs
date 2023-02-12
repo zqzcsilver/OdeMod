@@ -17,13 +17,19 @@ namespace OdeMod.UI.OdeUISystem.UIElements
         private int whell = 0;
         private bool isMouseDown = false;
         private float alpha = 0f;
+        private float waitToWheelValue = 0f;
+        public bool UseScrollWheel = false;
         public float WheelValue
         {
             get { return wheelValue; }
             set
             {
-                if (value <= 1f && value >= 0f)
-                    wheelValue = value;
+                if (value > 1f)
+                    waitToWheelValue = 1f;
+                else if (value < 0f)
+                    waitToWheelValue = 0f;
+                else
+                    waitToWheelValue = value;
             }
         }
         public HorizontalScrollbar(float wheelValue = 0f)
@@ -45,7 +51,6 @@ namespace OdeMod.UI.OdeUISystem.UIElements
             {
                 if (!isMouseDown)
                 {
-                    mouseX = Main.mouseX;
                     isMouseDown = true;
                 }
             };
@@ -67,8 +72,6 @@ namespace OdeMod.UI.OdeUISystem.UIElements
             if (ParentElement == null)
                 return;
 
-            bool needCalculation = false;
-
             bool isMouseHover = ParentElement.GetCanHitBox().Contains(Main.MouseScreen.ToPoint());
             if ((isMouseHover || isMouseDown) && alpha < 1f)
                 alpha += 0.01f;
@@ -82,30 +85,21 @@ namespace OdeMod.UI.OdeUISystem.UIElements
             if (!isMouseHover)
                 whell = state.ScrollWheelValue;
 
-            //if (isMouseHover && whell != state.ScrollWheelValue)
-            //{
-            //    inner.Info.Left.Pixel -= (float)(state.ScrollWheelValue - whell) / 10f;
-            //    if (inner.Info.Left.Pixel > width)
-            //        inner.Info.Left.Pixel = width;
-            //    else if (inner.Info.Left.Pixel < 0)
-            //        inner.Info.Top.Pixel = 0;
-            //    whell = state.ScrollWheelValue;
-            //    WheelValue = inner.Info.Left.Pixel / width;
-            //    needCalculation = true;
-            //}
+            if (UseScrollWheel && isMouseHover && whell != state.ScrollWheelValue)
+            {
+                WheelValue -= (float)(state.ScrollWheelValue - whell) / 10f / width;
+                whell = state.ScrollWheelValue;
+            }
             if (isMouseDown && mouseX != Main.mouseX)
             {
-                inner.Info.Left.Pixel += (float)Main.mouseX - (float)mouseX;
-                if (inner.Info.Left.Pixel > width)
-                    inner.Info.Left.Pixel = width;
-                else if (inner.Info.Left.Pixel < 0)
-                    inner.Info.Left.Pixel = 0;
-                WheelValue = inner.Info.Left.Pixel / width;
+                WheelValue = ((float)Main.mouseX - Info.Location.X - 13f) / width;
                 mouseX = Main.mouseX;
-                needCalculation = true;
             }
 
-            if (needCalculation)
+            inner.Info.Left.Pixel = width * WheelValue;
+            wheelValue += (waitToWheelValue - wheelValue) / 6f;
+
+            if (waitToWheelValue != wheelValue)
                 Calculation();
         }
         protected override void DrawSelf(SpriteBatch sb)

@@ -19,10 +19,12 @@ namespace OdeMod.UI.OdeUISystem.Containers.Recharge
     internal class RechargeContainer : ContainerElement, IOriginalUIState
     {
         public RechargeItem[] RechargeItems;
+
         public RechargeContainer()
         {
             RechargeItems = new RechargeItem[3];
         }
+
         public override void OnInitialization()
         {
             base.OnInitialization();
@@ -34,6 +36,7 @@ namespace OdeMod.UI.OdeUISystem.Containers.Recharge
             panel.Info.Left.SetValue(-Info.Width.Pixel / 2f, 0.5f);
             panel.Info.Top.SetValue(-Info.Height.Pixel / 2f, 0.5f);
             panel.Info.SetMargin(11f);
+            panel.CanDrag = true;
             Register(panel);
 
             UIImage closeButton = new UIImage(ModContent.Request<Texture2D>("OdeMod/UI/OdeUISystem/Containers/Recharge/Images/CloseButtonUp",
@@ -70,6 +73,7 @@ namespace OdeMod.UI.OdeUISystem.Containers.Recharge
             RechargeItems[2].Info.Top.Pixel = 97f;
             panel.Register(RechargeItems[2]);
         }
+
         public override void PreUpdate(GameTime gt)
         {
             base.PreUpdate(gt);
@@ -118,6 +122,7 @@ namespace OdeMod.UI.OdeUISystem.Containers.Recharge
                 w[i] = rechargeableWeapons[i];
             SetRechargeWeapons(w);
         }
+
         public void SetRechargeWeapons(IRechargeableWeapon[] rechargeItems)
         {
             for (int i = 0; i < RechargeItems.Length; i++)

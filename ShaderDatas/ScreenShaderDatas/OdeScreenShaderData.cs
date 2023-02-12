@@ -7,7 +7,7 @@ namespace OdeMod.ShaderDatas.ScreenShaderDatas
 {
     internal class OdeScreenShaderData : ScreenShaderData, IScreenShaderData
     {
-        public bool Visible
+        public virtual bool Visible
         {
             get => _visible;
             set
@@ -21,7 +21,7 @@ namespace OdeMod.ShaderDatas.ScreenShaderDatas
             }
         }
 
-        private bool _visible = false;
+        protected bool _visible = false;
 
         public OdeScreenShaderData(Ref<Effect> shader, string passName) : base(shader, passName)
         {

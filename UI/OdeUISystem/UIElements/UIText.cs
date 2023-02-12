@@ -1,7 +1,7 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+﻿using FontStashSharp;
 
-using ReLogic.Graphics;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace OdeMod.UI.OdeUISystem.UIElements
 {
@@ -22,36 +22,43 @@ namespace OdeMod.UI.OdeUISystem.UIElements
         private DynamicSpriteFont font;
         public Color Color;
 
-        /// <summary>
-        /// 绘制大小，不改变部件碰撞箱，不改变绘制中心
-        /// </summary>
-        public float Scale;
-
         public bool CalculateSize = true;
         public PositionStyle? CenterX;
         public PositionStyle? CenterY;
 
-        public UIText(string t, DynamicSpriteFont spriteFont, float scale = 40f)
+        public UIText(string t, DynamicSpriteFont spriteFont)
         {
             text = t;
             font = spriteFont;
-            Scale = scale;
             Color = Color.White;
+
+            Vector2 size = font.MeasureString(text);
+            Info.Width.Pixel = size.X;
+            Info.Height.Pixel = size.Y;
         }
 
-        public UIText(string t, DynamicSpriteFont spriteFont, Color textColor, float scale = 1f)
+        public UIText(string t, DynamicSpriteFont spriteFont, Color textColor)
         {
             text = t;
             font = spriteFont;
-            Scale = scale;
             Color = textColor;
+
+            Vector2 size = font.MeasureString(text);
+            Info.Width.Pixel = size.X;
+            Info.Height.Pixel = size.Y;
+        }
+
+        public void ChangeFont(DynamicSpriteFont spriteFont)
+        {
+            font = spriteFont;
+            Calculation();
         }
 
         public override void Calculation()
         {
             if (CalculateSize)
             {
-                Vector2 size = OdeMod.DynamicSpriteFontInfoManager.GetStringSize(font, text) * Scale;
+                Vector2 size = font.MeasureString(text);
                 Info.Width.Pixel = size.X;
                 Info.Height.Pixel = size.Y;
                 Info.Width.Percent = 0f;
@@ -73,7 +80,7 @@ namespace OdeMod.UI.OdeUISystem.UIElements
         protected override void DrawSelf(SpriteBatch sb)
         {
             base.DrawSelf(sb);
-            sb.DrawString(font, text, Info.Location, Color, 0f, Vector2.Zero, Scale, SpriteEffects.None, 0f);
+            sb.DrawString(font, text, Info.Location, Color);
         }
     }
 }

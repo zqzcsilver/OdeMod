@@ -1,28 +1,38 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-
-using OdeMod.UI.OdeUISystem.UIElements;
-using OdeMod.Utils;
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+
+using OdeMod.UI.OdeUISystem;
+using OdeMod.UI.OdeUISystem.UIElements;
+
 using Terraria;
 
-namespace OdeMod.UI.OdeUISystem
+namespace OdeMod.CardMode.UI
 {
-    internal class OdeUISystem : IOdeUISystem
+    internal class CardModeUISystem : IOdeUISystem
     {
         /// <summary>
-        /// 存放着所有<see cref="ContainerElement"/>实例的字典
+        /// 存放着所有<see cref="CardUIContainerElement"/>实例的字典
         /// </summary>
-        public Dictionary<string, ContainerElement> Elements { get; private set; }
+        public Dictionary<string, CardUIContainerElement> Elements { get; private set; }
 
         /// <summary>
         /// 访问顺序
         /// </summary>
         public List<string> CallOrder { get; private set; }
+
+        /// <summary>
+        /// 缓存鼠标左键状态
+        /// </summary>
+        private bool mouseLeftDown = false;
+
+        /// <summary>
+        /// 缓存鼠标右键状态
+        /// </summary>
+        private bool mouseRightDown = false;
 
         /// <summary>
         /// 交互部件缓存
@@ -39,41 +49,13 @@ namespace OdeMod.UI.OdeUISystem
         /// </summary>
         private List<BaseElement> needCallMouseRightUpElements;
 
-        /// <summary>
-        /// 缓存鼠标左键状态
-        /// </summary>
-        private bool mouseLeftDown = false;
-
-        /// <summary>
-        /// 缓存鼠标右键状态
-        /// </summary>
-        private bool mouseRightDown = false;
-
-        /// <summary>
-        /// 鼠标右键冷却
-        /// </summary>
-        private KeyCooldown mouseLeftCooldown;
-
-        /// <summary>
-        /// 鼠标左键冷却
-        /// </summary>
-        private KeyCooldown mouseRightCooldown;
-
-        public OdeUISystem()
+        public CardModeUISystem()
         {
-            Elements = new Dictionary<string, ContainerElement>();
+            Elements = new Dictionary<string, CardUIContainerElement>();
             CallOrder = new List<string>();
             interactContainerElementsBuffer = new List<BaseElement>();
             needCallMouseLeftUpElements = new List<BaseElement>();
             needCallMouseRightUpElements = new List<BaseElement>();
-            mouseLeftCooldown = new KeyCooldown(() =>
-            {
-                return Main.mouseLeft;
-            });
-            mouseRightCooldown = new KeyCooldown(() =>
-            {
-                return Main.mouseRight;
-            });
         }
 
         /// <summary>
@@ -82,12 +64,12 @@ namespace OdeMod.UI.OdeUISystem
         public void Load()
         {
             var containers = from c in GetType().Assembly.GetTypes()
-                             where !c.IsAbstract && c.IsSubclassOf(typeof(ContainerElement))
+                             where !c.IsAbstract && c.IsSubclassOf(typeof(CardUIContainerElement))
                              select c;
-            ContainerElement element;
+            CardUIContainerElement element;
             foreach (var c in containers)
             {
-                element = (ContainerElement)Activator.CreateInstance(c);
+                element = (CardUIContainerElement)Activator.CreateInstance(c);
                 if (element.AutoLoad)
                     Register(element);
             }
@@ -104,7 +86,7 @@ namespace OdeMod.UI.OdeUISystem
 
             List<BaseElement> interact = new List<BaseElement>();
             ContainerElement child;
-            Point mousePos = Main.MouseScreen.ToPoint();
+            Point mousePos = CardSystem.Instance.MouseInfo.MousePosition.ToPoint();
             foreach (var key in CallOrder)
             {
                 child = Elements[key];
@@ -129,59 +111,51 @@ namespace OdeMod.UI.OdeUISystem
                     ce.Events.MouseOut(ce);
             interactContainerElementsBuffer = interact;
 
-            if (mouseLeftDown != Main.mouseLeft)
+            if (mouseLeftDown != CardSystem.Instance.MouseInfo.MouseLeftDown)
             {
-                if (Main.mouseLeft)
+                if (CardSystem.Instance.MouseInfo.MouseLeftDown)
                 {
                     interact.ForEach(x => x.Events.LeftDown(x));
                     needCallMouseLeftUpElements.AddRange(interact);
                 }
                 else
                 {
-                    if (mouseLeftCooldown.IsCoolDown())
-                    {
-                        interact.ForEach(x => x.Events.LeftClick(x));
-                        mouseLeftCooldown.ResetCoolDown();
-                    }
-                    else
-                    {
-                        interact.ForEach(x => x.Events.LeftDoubleClick(x));
-                        mouseLeftCooldown.CoolDown();
-                    }
                     needCallMouseLeftUpElements.ForEach(x => x.Events.LeftUp(x));
                     needCallMouseLeftUpElements.Clear();
                 }
-
-                mouseLeftDown = Main.mouseLeft;
+                mouseLeftDown = CardSystem.Instance.MouseInfo.MouseLeftDown;
+            }
+            if (CardSystem.Instance.MouseInfo.MouseLeftClick)
+            {
+                interact.ForEach(x => x.Events.LeftClick(x));
+            }
+            else if (CardSystem.Instance.MouseInfo.MouseLeftDoubleClick)
+            {
+                interact.ForEach(x => x.Events.LeftDoubleClick(x));
             }
 
-            if (mouseRightDown != Main.mouseRight)
+            if (mouseRightDown != CardSystem.Instance.MouseInfo.MouseRightDown)
             {
-                if (Main.mouseRight)
+                if (CardSystem.Instance.MouseInfo.MouseRightDown)
                 {
                     interact.ForEach(x => x.Events.RightDown(x));
                     needCallMouseRightUpElements.AddRange(interact);
                 }
                 else
                 {
-                    if (mouseRightCooldown.IsCoolDown())
-                    {
-                        interact.ForEach(x => x.Events.RightClick(x));
-                        mouseRightCooldown.ResetCoolDown();
-                    }
-                    else
-                    {
-                        interact.ForEach(x => x.Events.RightDoubleClick(x));
-                        mouseRightCooldown.CoolDown();
-                    }
                     needCallMouseRightUpElements.ForEach(x => x.Events.RightUp(x));
                     needCallMouseRightUpElements.Clear();
                 }
-                mouseRightDown = Main.mouseRight;
+                mouseRightDown = CardSystem.Instance.MouseInfo.MouseRightDown;
             }
-
-            mouseLeftCooldown.Update();
-            mouseRightCooldown.Update();
+            if (CardSystem.Instance.MouseInfo.MouseRightClick)
+            {
+                interact.ForEach(x => x.Events.RightClick(x));
+            }
+            else if (CardSystem.Instance.MouseInfo.MouseRightDoubleClick)
+            {
+                interact.ForEach(x => x.Events.RightDoubleClick(x));
+            }
         }
 
         /// <summary>
@@ -205,7 +179,7 @@ namespace OdeMod.UI.OdeUISystem
         /// </summary>
         /// <param name="element">需要添加的子元素</param>
         /// <returns>成功时返回true，否则返回false</returns>
-        public bool Register(ContainerElement element)
+        public bool Register(CardUIContainerElement element)
         {
             return Register(element.Name, element);
         }
@@ -216,7 +190,7 @@ namespace OdeMod.UI.OdeUISystem
         /// <param name="name">需要添加的子元素的Name</param>
         /// <param name="element">需要添加的子元素</param>
         /// <returns>成功时返回true，否则返回false</returns>
-        public bool Register(string name, ContainerElement element)
+        public bool Register(string name, CardUIContainerElement element)
         {
             if (element == null || Elements.ContainsKey(name) || CallOrder.Contains(name)) return false;
             Elements.Add(name, element);

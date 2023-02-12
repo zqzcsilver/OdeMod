@@ -11,15 +11,30 @@ namespace OdeMod.CardMode.Rooms
     [Autoload(true)]
     internal abstract class RoomBase
     {
+        public Map Map;
         public Point Position;
         public bool IsBegin;
         public bool IsEnd;
         public bool IsSilu;
         public Vector2 InMapCenter;
+        public float InMapScale = 1f;
+        public int NumberOfEntries = 0;
+        public bool CanTakeIn = false;
         public virtual float BuildWeight => 1f;
+        public virtual bool NeedAlwaysUpdate => false;
+        public virtual Color MapColor => NumberOfEntries > 0 ? Color.White * 0.6f : (CanTakeIn ? Color.Yellow : Color.White);
 
         public virtual Texture2D Icon => ModContent.Request<Texture2D>("OdeMod/Images/Card/Original/Room/EyeballIcon",
             ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+
+        public virtual Rectangle InMapHitBox
+        {
+            get
+            {
+                Vector2 size = Icon.Size() * InMapScale;
+                return new Rectangle((int)(InMapCenter.X - size.X / 2f), (int)(InMapCenter.Y - size.Y / 2f), (int)size.X, (int)size.Y);
+            }
+        }
 
         public virtual bool PreBuild()
         {
@@ -41,6 +56,7 @@ namespace OdeMod.CardMode.Rooms
 
         public virtual void TakeIn()
         {
+            Map.TakeIn(this);
         }
 
         public virtual bool PreTakeOut()
@@ -50,6 +66,7 @@ namespace OdeMod.CardMode.Rooms
 
         public virtual void TakeOut()
         {
+            Map.TakeOut(this);
         }
 
         public virtual void Update(GameTime gt)
@@ -60,10 +77,10 @@ namespace OdeMod.CardMode.Rooms
         {
         }
 
-        public virtual void DrawInMap(SpriteBatch sb)
+        public virtual void DrawInMap(SpriteBatch sb, Vector2 drawOffset)
         {
-            sb.Draw(Icon, InMapCenter, null, Color.White, 0f, Icon.Size() / 2f,
-                1f, SpriteEffects.None, 0f);
+            sb.Draw(Icon, InMapCenter + drawOffset, null, MapColor, 0f, Icon.Size() / 2f,
+                InMapScale, SpriteEffects.None, 0f);
         }
 
         /// <summary>
@@ -80,6 +97,9 @@ namespace OdeMod.CardMode.Rooms
             op.IsEnd = IsEnd;
             op.IsSilu = IsSilu;
             op.InMapCenter = InMapCenter;
+            op.InMapScale = InMapScale;
+            op.NumberOfEntries = NumberOfEntries;
+            op.Map = Map;
             return op;
         }
     }

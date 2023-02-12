@@ -96,6 +96,9 @@ csharp_style_expression_bodied_lambdas = true:silent
 csharp_style_expression_bodied_local_functions = false:silent
 csharp_style_conditional_delegate_call = true:suggestion
 
+# IDE0090: 使用 "new(...)"
+dotnet_diagnostic.IDE0090.severity = none
+
 [*.vb]
 #### 命名样式 ####
 
@@ -148,3 +151,6 @@ dotnet_naming_style.帕斯卡拼写法.capitalization = pascal_case
 end_of_line = crlf
 dotnet_style_qualification_for_field = false:silent
 dotnet_style_qualification_for_property = false:silent
+
+# IDE0017: 简化对象初始化
+dotnet_diagnostic.IDE0017.severity = none

@@ -157,9 +157,7 @@ namespace OdeMod.NPCs.Boss.MiracleRecorder
             NPC.value = Item.buyPrice(0, 15, 0, 0);
             NPC.noTileCollide = true;
             NPCID.Sets.TrailingMode[NPC.type] = 0;
-            NPCID.Sets.TrailCacheLength[NPC.type] = 8; 
-            Music = MusicLoader.GetMusicSlot("OdeMod/Assets/Music/GloriousCarol");
-
+            NPCID.Sets.TrailCacheLength[NPC.type] = 8;
             Music = MusicLoader.GetMusicSlot(Mod, "Sounds/Music/Boss/Glorious Carol");
 
             _npcLogic = new Dictionary<NPCState, Action<Player>>
@@ -290,8 +288,8 @@ namespace OdeMod.NPCs.Boss.MiracleRecorder
             }
             if (timer == 1)
             {
-                if(player.direction== 1) 
-                NPC.Center = player.Center+new Vector2(400,0);
+                if (player.direction == 1)
+                    NPC.Center = player.Center + new Vector2(400, 0);
                 else
                     NPC.Center = player.Center + new Vector2(-400, 0);
 
@@ -1609,8 +1607,8 @@ namespace OdeMod.NPCs.Boss.MiracleRecorder
             if (!defaults)
             {
                 defaults = true;
-                ssd.MaxDistance = 1.8f;
-                ssd.Alpha = 0f;
+                ssd.WaitToMaxDistance = 1.5f;
+                ssd.WaitToAlpha = 0f;
             }
 
             Lighting.AddLight(NPC.Center, 0.9647f, 0.635f, 1);
@@ -1641,27 +1639,29 @@ namespace OdeMod.NPCs.Boss.MiracleRecorder
             //控制屏幕滤镜
 
             ssd.LightRange.X = 0.95f + 0.05f * (float)Math.Cos(SSDtimer / 30f);
+            float bossLifeFactor = (1f - ((float)NPC.life) / (float)NPC.lifeMax);
+            float distance = 1.4f - 0.2f * bossLifeFactor;
             if (!deathrattle)
             {
-                if (ssd.MaxDistance > 1.4f)
+                if (ssd.WaitToMaxDistance > distance)
                 {
-                    ssd.MaxDistance -= 0.002f;
-                    ssd.Alpha += 0.005f;
+                    ssd.WaitToMaxDistance -= 0.002f;
+                    ssd.WaitToAlpha += 0.005f;
                 }
                 else
                 {
-                    ssd.MaxDistance = 1.4f;
-                    ssd.Alpha = 1f;
+                    ssd.WaitToMaxDistance = distance;
+                    ssd.WaitToAlpha = 1f;
                 }
             }
             else
             {
-                ssd.MaxDistance += 0.005f;
-                ssd.Alpha -= 0.008f;
+                ssd.WaitToMaxDistance += 0.005f;
+                ssd.WaitToAlpha -= 0.008f;
             }
 
-            ssd.BlurFactor = (float)Math.Cos(SSDtimer / 30f) * 10f + 10f;
-            ssd.Alpha = (float)Math.Sin(SSDtimer / 30f) * 0.2f + 1.2f;
+            ssd.BlurFactor = (float)Math.Cos(SSDtimer / 30f) * (10f + 6f * bossLifeFactor) + 10f;
+            ssd.Alpha = (float)Math.Sin(SSDtimer / 30f) * (0.2f + 0.2f * bossLifeFactor) + 1.2f;
 
             if (changeScreen == 1 || changeScreen == 2)
             {
@@ -2008,9 +2008,9 @@ namespace OdeMod.NPCs.Boss.MiracleRecorder
                     new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), Color.White);
             sb.End();
 
-            float t = 180;
+            //float t = 180;
             //1f是基础模糊因数，10f是由Main.time与t控制的模糊因素
-            ssd.BlurFactor = 1f + Math.Abs(t / 2f - (float)Main.time % t) / t * 2f * 10f;
+            //ssd.BlurFactor = 1f + Math.Abs(t / 2f - (float)Main.time % t) / t * 2f * 10f;
 
             sb.GraphicsDevice.SetRenderTarget(OdeMod.RenderTarget2DPool.PoolOther(Main.ScreenSize, "MiracleRecorder:Night Swap"));
             sb.GraphicsDevice.Clear(Color.Transparent);

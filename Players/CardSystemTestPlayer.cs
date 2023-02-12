@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using OdeMod.CardMode;
 using OdeMod.CardMode.CardComponents.AnimationComponents;
 using OdeMod.CardMode.CardComponents.BaseComponents;
 using OdeMod.CardMode.CardComponents.DrawComponents;
@@ -24,6 +25,13 @@ namespace OdeMod.Players
         {
             base.PostUpdate();
             entity?.Update(Main.gameTimeCache);
+        }
+
+        public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit)
+        {
+            base.OnHitNPC(item, target, damage, knockback, crit);
+            if (ModContent.GetInstance<CardSystemTestConfig>().EnableDrawTest)
+                CardSystem.Instance.CardModeVisible = true;
         }
 
         public override void DrawEffects(PlayerDrawSet drawInfo, ref float r, ref float g, ref float b, ref float a, ref bool fullBright)
@@ -81,7 +89,7 @@ namespace OdeMod.Players
                 map = new CardMode.Map(100, 100);
                 map.Build();
             }
-            map.Draw(Main.spriteBatch);
+            map.Draw(Main.spriteBatch, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight));
         }
     }
 }

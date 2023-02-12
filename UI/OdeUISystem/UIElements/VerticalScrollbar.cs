@@ -17,15 +17,23 @@ namespace OdeMod.UI.OdeUISystem.UIElements
         private int whell = 0;
         private bool isMouseDown = false;
         private float alpha = 0f;
+        private float waitToWheelValue = 0f;
+        public bool UseScrollWheel = false;
+
         public float WheelValue
         {
             get { return wheelValue; }
             set
             {
-                if (value <= 1f && value >= 0f)
-                    wheelValue = value;
+                if (value > 1f)
+                    waitToWheelValue = 1f;
+                else if (value < 0f)
+                    waitToWheelValue = 0f;
+                else
+                    waitToWheelValue = value;
             }
         }
+
         public VerticalScrollbar(float wheelValue = 0f)
         {
             Info.Width = new PositionStyle(20f, 0f);
@@ -38,6 +46,7 @@ namespace OdeMod.UI.OdeUISystem.UIElements
             uiScrollbarTexture = OdeMod.Instance.Assets.Request<Texture2D>("Images/UI/VerticalScrollbar", AssetRequestMode.ImmediateLoad).Value;
             WheelValue = wheelValue;
         }
+
         public override void LoadEvents()
         {
             base.LoadEvents();
@@ -45,7 +54,10 @@ namespace OdeMod.UI.OdeUISystem.UIElements
             {
                 if (!isMouseDown)
                 {
-                    mouseY = Main.mouseY;
+                    //float height = Info.Size.Y - 26f;
+                    //WheelValue = ((float)Main.mouseY - Info.Location.Y - 13f) / height;
+                    //mouseY = Main.mouseY;
+
                     isMouseDown = true;
                 }
             };
@@ -54,6 +66,7 @@ namespace OdeMod.UI.OdeUISystem.UIElements
                 isMouseDown = false;
             };
         }
+
         public override void OnInitialization()
         {
             base.OnInitialization();
@@ -61,13 +74,12 @@ namespace OdeMod.UI.OdeUISystem.UIElements
             inner.Info.Left.Pixel = -(inner.Info.Width.Pixel - Info.Width.Pixel) / 2f;
             Register(inner);
         }
+
         public override void Update(GameTime gt)
         {
             base.Update(gt);
             if (ParentElement == null)
                 return;
-
-            bool needCalculation = false;
 
             bool isMouseHover = ParentElement.GetCanHitBox().Contains(Main.MouseScreen.ToPoint());
             if ((isMouseHover || isMouseDown) && alpha < 1f)
@@ -82,32 +94,24 @@ namespace OdeMod.UI.OdeUISystem.UIElements
             if (!isMouseHover)
                 whell = state.ScrollWheelValue;
 
-            //if (isMouseHover && whell != state.ScrollWheelValue)
-            //{
-            //    inner.Info.Top.Pixel -= (float)(state.ScrollWheelValue - whell) / 10f;
-            //    if (inner.Info.Top.Pixel > height)
-            //        inner.Info.Top.Pixel = height;
-            //    else if (inner.Info.Top.Pixel < 0)
-            //        inner.Info.Top.Pixel = 0;
-            //    whell = state.ScrollWheelValue;
-            //    WheelValue = inner.Info.Top.Pixel / height;
-            //    needCalculation = true;
-            //}
+            if (UseScrollWheel && isMouseHover && whell != state.ScrollWheelValue)
+            {
+                WheelValue -= (float)(state.ScrollWheelValue - whell) / 6f / height;
+                whell = state.ScrollWheelValue;
+            }
             if (isMouseDown && mouseY != Main.mouseY)
             {
-                inner.Info.Top.Pixel += (float)Main.mouseY - (float)mouseY;
-                if (inner.Info.Top.Pixel > height)
-                    inner.Info.Top.Pixel = height;
-                else if (inner.Info.Top.Pixel < 0)
-                    inner.Info.Top.Pixel = 0;
-                WheelValue = inner.Info.Top.Pixel / height;
+                WheelValue = ((float)Main.mouseY - Info.Location.Y - 13f) / height;
                 mouseY = Main.mouseY;
-                needCalculation = true;
             }
 
-            if (needCalculation)
+            inner.Info.Top.Pixel = WheelValue * height;
+            wheelValue += (waitToWheelValue - wheelValue) / 6f;
+
+            if (waitToWheelValue != wheelValue)
                 Calculation();
         }
+
         protected override void DrawSelf(SpriteBatch sb)
         {
             sb.Draw(uiScrollbarTexture, new Rectangle(Info.HitBox.X + (Info.HitBox.Width - uiScrollbarTexture.Width) / 2,

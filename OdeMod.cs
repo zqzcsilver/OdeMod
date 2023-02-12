@@ -126,6 +126,7 @@ namespace OdeMod
                 //detour.Apply();
 
                 On.Terraria.Main.Draw += Main_Draw;
+                On.Terraria.Main.Update += Main_Update;
             }
 
             ScreenShaderDataManager.Register("OdeMod:MiracleRecorder", new BossSSD(new Ref<Effect>(
@@ -133,16 +134,28 @@ namespace OdeMod
                         ReLogic.Content.AssetRequestMode.ImmediateLoad).Value), "Rotate"), EffectPriority.Medium);
         }
 
+        private void Main_Update(On.Terraria.Main.orig_Update orig, Main self, GameTime gameTime)
+        {
+            if (CardSystem.Instance.CardModeVisible)
+            {
+                Main.gamePaused = true;
+
+                CardSystem.Instance.Update(gameTime);
+            }
+            else
+                orig(self, gameTime);
+        }
+
         private void Main_Draw(On.Terraria.Main.orig_Draw orig, Main self, GameTime gameTime)
         {
-            if (CardSystem.Instance.OpenCardMode)
+            if (CardSystem.Instance.CardModeVisible)
             {
                 Main.gamePaused = true;
                 Main.graphics.GraphicsDevice.SetRenderTarget(Main.screenTarget);
                 Main.graphics.GraphicsDevice.Clear(Color.Transparent);
                 Main.spriteBatch.Begin();
 
-                // CardSystem.Instance.Draw(Main.spriteBatch);
+                CardSystem.Instance.Draw(Main.spriteBatch);
 
                 Main.spriteBatch.End();
                 Main.graphics.GraphicsDevice.SetRenderTarget(null);
