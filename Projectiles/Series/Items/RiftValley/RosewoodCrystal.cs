@@ -49,7 +49,7 @@ namespace OdeMod.Projectiles.Series.Items.RiftValley
         private Vector2 finalVec4 = new Vector2((float)Math.Cos(3.44f), (float)Math.Sin(3.44f)) * 6;
         public override void Kill(int timeLeft)
         {
-            
+            Player player = Main.player[Projectile.owner];
             for (int i = 0; i < 30; i++)
             {
                 if (Projectile.ai[0] == 0)
@@ -67,17 +67,17 @@ namespace OdeMod.Projectiles.Series.Items.RiftValley
             if (Projectile.ai[0] == 0)
             {
      
-                Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center, finalVec1, ModContent.ProjectileType<RosewoodCrystal_2>(), Projectile.damage, 0f, Projectile.whoAmI);
-                Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center, finalVec2, ModContent.ProjectileType<RosewoodCrystal_2>(), Projectile.damage, 0f, Projectile.whoAmI);
-                Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center, finalVec3, ModContent.ProjectileType<RosewoodCrystal_2>(), Projectile.damage, 0f, Projectile.whoAmI);
-                Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center, finalVec4, ModContent.ProjectileType<RosewoodCrystal_2>(), Projectile.damage, 0f, Projectile.whoAmI);
+                Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center, finalVec1, ModContent.ProjectileType<RosewoodCrystal2>(), Projectile.damage, 0f, player.whoAmI);
+                Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center, finalVec2, ModContent.ProjectileType<RosewoodCrystal2>(), Projectile.damage, 0f, player.whoAmI);
+                Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center, finalVec3, ModContent.ProjectileType<RosewoodCrystal2>(), Projectile.damage, 0f, player.whoAmI);
+                Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center, finalVec4, ModContent.ProjectileType<RosewoodCrystal2>(), Projectile.damage, 0f, player.whoAmI);
             }
             else
             {
-                Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center, finalVec1, ModContent.ProjectileType<RosewoodCrystal_3>(), Projectile.damage, 0f, Projectile.whoAmI);
-                Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center, finalVec2, ModContent.ProjectileType<RosewoodCrystal_3>(), Projectile.damage, 0f, Projectile.whoAmI);
-                Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center, finalVec3, ModContent.ProjectileType<RosewoodCrystal_3>(), Projectile.damage, 0f, Projectile.whoAmI);
-                Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center, finalVec4, ModContent.ProjectileType<RosewoodCrystal_3>(), Projectile.damage, 0f, Projectile.whoAmI);
+                Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center, finalVec1, ModContent.ProjectileType<RosewoodCrystal3>(), Projectile.damage, 0f, player.whoAmI);
+                Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center, finalVec2, ModContent.ProjectileType<RosewoodCrystal3>(), Projectile.damage, 0f, player.whoAmI);
+                Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center, finalVec3, ModContent.ProjectileType<RosewoodCrystal3>(), Projectile.damage, 0f, player.whoAmI);
+                Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center, finalVec4, ModContent.ProjectileType<RosewoodCrystal3>(), Projectile.damage, 0f, player.whoAmI);
             }
         }
         public override void PostDraw(Color lightColor)
