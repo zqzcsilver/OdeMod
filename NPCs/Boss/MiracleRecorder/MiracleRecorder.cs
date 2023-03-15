@@ -1006,11 +1006,13 @@ namespace OdeMod.NPCs.Boss.MiracleRecorder
                 changeScreen = 1;
                 screenTimer = 0;
             }
-            if (timer == 450)
+            if (timer == 440)
             {
                 rank = 2;
+            }
+            if (timer == 460)
+            {
                 NPC.dontTakeDamage = false;
-                //Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.Series.Boss.MiracleRecorder.GoldCircle1>(), 0, 0, player.whoAmI);
             }
             if (timer == 500)
             {
@@ -1906,7 +1908,6 @@ namespace OdeMod.NPCs.Boss.MiracleRecorder
                     shader3.CurrentTechnique.Passes[0].Apply();
 
                     Main.graphics.GraphicsDevice.DrawUserPrimitives(PrimitiveType.TriangleList, triangleList.ToArray(), 0, triangleList.Count / 3);
-                    //连三角形，其中那个0是偏移量
                     Main.graphics.GraphicsDevice.RasterizerState = originalState;
                     Main.spriteBatch.End();
                     Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.Default, RasterizerState.CullNone, null, Main.Transform);
@@ -2085,6 +2086,8 @@ namespace OdeMod.NPCs.Boss.MiracleRecorder
                 Vector2 drawPos = NPC.Center - Main.screenPosition;
                 Vector2 drawOrigin = new Vector2(130, 130);
                 Color color3 = new Color(255, 102, 237, 255);
+                Color color4=  new Color(255, 255, 255, 255);
+                Color color5 = Color.Lerp(color3, color4, 0.5f * (screenTimer / 120f) + 0.5f);
 
                 float alpha = 0f;
                 float sc = screenTimer * 0.4f + 2f;
@@ -2105,7 +2108,7 @@ namespace OdeMod.NPCs.Boss.MiracleRecorder
                 }
                 Main.spriteBatch.End();
                 Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.Default, RasterizerState.CullNone, null, Main.Transform);
-                Main.spriteBatch.Draw(texture, drawPos, null, color3 * alpha, NPC.rotation, drawOrigin, sc, SpriteEffects.None, 0f);
+                Main.spriteBatch.Draw(texture, drawPos, null, color5 * alpha, NPC.rotation, drawOrigin, sc, SpriteEffects.None, 0f);
                 Main.spriteBatch.End();
                 Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.Default, RasterizerState.CullNone, null, Main.Transform);
             }

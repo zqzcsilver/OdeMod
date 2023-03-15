@@ -28,14 +28,14 @@ namespace OdeMod.Projectiles.Series.Items.RiftValley
         public override void AI()
         {
             Lighting.AddLight(Projectile.position, 0.0f, 0.5f, 0.0f);
-            for(int i=0;i<=5;i++)
+            for (int i = 0; i <= 5; i++)
             {
                 Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.GemEmerald, 0f, 0f, 100, default(Color), 1f);
                 dust.noGravity = true;
                 dust.velocity *= 0.2f;
                 dust.scale = Main.rand.Next(10, 21) * 0.1f;
             }
-            
+
 
             if (Projectile.velocity.Y <= 12f)
                 Projectile.velocity.Y += 0.4f;

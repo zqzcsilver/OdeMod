@@ -78,20 +78,24 @@ namespace OdeMod.Projectiles.Series.Boss.MiracleRecorder
             }*/
             for (int i = 0; i < 25; i++)
             {
-                width = (float)i / 24f;
-                width = -(float)Math.Pow(2.71828, -width) + 1.37f;
-                width *= 30f;
+                width = (float)i / 6f;
+                width = -(float)Math.Pow(2.71828, 0.4f - width) + 1.5f;
+                width *= 28f;
                 width *= factor;
-                bars.Add(new CustomVertexInfo(new Vector2((float)Math.Cos(Projectile.ai[0] + 1.57f), (float)Math.Sin(Projectile.ai[0] + 1.57f)) * i * 2 + Projectile.Center + new Vector2((float)Math.Cos(Projectile.ai[0]), (float)Math.Sin(Projectile.ai[0])) * width, color, new Vector3(factor, 1, a * i / 24f)));
-                bars.Add(new CustomVertexInfo(new Vector2((float)Math.Cos(Projectile.ai[0] + 1.57f), (float)Math.Sin(Projectile.ai[0] + 1.57f)) * i * 2 + Projectile.Center - new Vector2((float)Math.Cos(Projectile.ai[0]), (float)Math.Sin(Projectile.ai[0])) * width, color, new Vector3(factor, 0, a * i / 24f)));
+                var m = (float)i / 24;
+                bars.Add(new CustomVertexInfo(new Vector2((float)Math.Cos(Projectile.ai[0] + 1.57f), (float)Math.Sin(Projectile.ai[0] + 1.57f)) * i * 4 + Projectile.Center + new Vector2((float)Math.Cos(Projectile.ai[0]), (float)Math.Sin(Projectile.ai[0])) * width, color, new Vector3(m, 1, a * m)));
+                bars.Add(new CustomVertexInfo(new Vector2((float)Math.Cos(Projectile.ai[0] + 1.57f), (float)Math.Sin(Projectile.ai[0] + 1.57f)) * i * 4 + Projectile.Center - new Vector2((float)Math.Cos(Projectile.ai[0]), (float)Math.Sin(Projectile.ai[0])) * width, color, new Vector3(m, 0, a * m)));
             }
-            width = 40.8f;
+            width = 42f;
             width *= factor;
+            for (int i = 2; i < 50; i++)
+            {
+                var m = 0;
+                if (i % 2 == 0) m = 0; else m = 1;
+                bars.Add(new CustomVertexInfo(new Vector2((float)Math.Cos(Projectile.ai[0] + 1.57f), (float)Math.Sin(Projectile.ai[0] + 1.57f)) * i * 100 + Projectile.Center + new Vector2((float)Math.Cos(Projectile.ai[0]), (float)Math.Sin(Projectile.ai[0])) * width, color, new Vector3(m, 1, a)));
+                bars.Add(new CustomVertexInfo(new Vector2((float)Math.Cos(Projectile.ai[0] + 1.57f), (float)Math.Sin(Projectile.ai[0] + 1.57f)) * i * 100 + Projectile.Center - new Vector2((float)Math.Cos(Projectile.ai[0]), (float)Math.Sin(Projectile.ai[0])) * width, color, new Vector3(m, 0, a)));
+            }
 
-                bars.Add(new CustomVertexInfo(new Vector2((float)Math.Cos(Projectile.ai[0] + 1.57f), (float)Math.Sin(Projectile.ai[0] + 1.57f)) * 5000 + Projectile.Center + new Vector2((float)Math.Cos(Projectile.ai[0]), (float)Math.Sin(Projectile.ai[0])) * width, color, new Vector3(factor, 1, a)));
-                bars.Add(new CustomVertexInfo(new Vector2((float)Math.Cos(Projectile.ai[0] + 1.57f), (float)Math.Sin(Projectile.ai[0] + 1.57f)) * 5000 + Projectile.Center - new Vector2((float)Math.Cos(Projectile.ai[0]), (float)Math.Sin(Projectile.ai[0])) * width, color, new Vector3(factor, 0, a)));
-            
-            
 
             List<CustomVertexInfo> triangleList = new List<CustomVertexInfo>();
             //count用于返回bars里面的元素数量（即顶点数量）
