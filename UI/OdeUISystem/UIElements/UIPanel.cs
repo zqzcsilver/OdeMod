@@ -6,65 +6,58 @@ using ReLogic.Content;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace OdeMod.UI.OdeUISystem.UIElements
-{
-    internal class UIPanel : BaseElement
-    {
+namespace OdeMod.UI.OdeUISystem.UIElements {
+
+    internal class UIPanel : BaseElement {
         public Color PanelColor = new Color(255, 255, 246);
         public bool CanDrag = false;
         private bool dragging = false;
         private Vector2 startPoint = Vector2.Zero;
-        public override void LoadEvents()
-        {
+
+        public override void LoadEvents() {
             base.LoadEvents();
-            Events.OnLeftDown += element =>
-            {
-                if (CanDrag && !dragging)
-                {
+            Events.OnLeftDown += element => {
+                if (CanDrag && !dragging) {
                     dragging = true;
                     startPoint = Main.MouseScreen;
                 }
             };
-            Events.OnLeftClick += element =>
-            {
+            Events.OnLeftClick += element => {
                 if (CanDrag)
                     dragging = false;
             };
         }
-        public override void OnInitialization()
-        {
+
+        public override void OnInitialization() {
             base.OnInitialization();
             Info.SetMargin(2f);
         }
-        public override void Calculation()
-        {
+
+        public override void Calculation() {
             base.Calculation();
-            if (Info.TotalSize.X < 28)
-            {
+            if (Info.TotalSize.X < 28) {
                 Info.TotalSize.X = 28;
                 Info.TotalHitBox.Width = (int)Info.TotalSize.X;
             }
-            if (Info.TotalSize.Y < 28)
-            {
+            if (Info.TotalSize.Y < 28) {
                 Info.TotalSize.Y = 28;
                 Info.TotalHitBox.Height = (int)Info.TotalSize.Y;
             }
         }
-        public override void Update(GameTime gt)
-        {
+
+        public override void Update(GameTime gt) {
             base.Update(gt);
-            if (CanDrag && startPoint != Main.MouseScreen && dragging)
-            {
-                var offestValue = Main.MouseScreen - startPoint;
-                Info.Left.Pixel += offestValue.X;
-                Info.Top.Pixel += offestValue.Y;
+            if (CanDrag && startPoint != Main.MouseScreen && dragging) {
+                var offsetValue = Main.MouseScreen - startPoint;
+                Info.Left.Pixel += offsetValue.X;
+                Info.Top.Pixel += offsetValue.Y;
                 startPoint = Main.MouseScreen;
 
                 Calculation();
             }
         }
-        protected override void DrawSelf(SpriteBatch sb)
-        {
+
+        protected override void DrawSelf(SpriteBatch sb) {
             base.DrawSelf(sb);
             Texture2D texture = ModContent.Request<Texture2D>("OdeMod/Images/UI/Panel", AssetRequestMode.ImmediateLoad).Value;
             Point textureSize = new Point(texture.Width, texture.Height);

@@ -85,7 +85,7 @@ namespace OdeMod.CardMode.UI
                 return;
 
             List<BaseElement> interact = new List<BaseElement>();
-            ContainerElement child;
+            UIContainerElement child;
             Point mousePos = CardSystem.Instance.MouseInfo.MousePosition.ToPoint();
             foreach (var key in CallOrder)
             {
@@ -166,7 +166,7 @@ namespace OdeMod.CardMode.UI
         {
             if (CallOrder.Count == 0 || Elements.Count == 0)
                 return;
-            ContainerElement child;
+            UIContainerElement child;
             for (int i = CallOrder.Count - 1; i >= 0; i--)
             {
                 child = Elements[CallOrder[i]];
@@ -266,6 +266,17 @@ namespace OdeMod.CardMode.UI
         public int FindTopContainer()
         {
             return CallOrder.FindIndex(x => Elements[x].IsVisible);
+        }
+
+        /// <summary>
+        /// 关闭所有容器
+        /// </summary>
+        public void CloseAllContainers()
+        {
+            foreach (var c in CallOrder)
+            {
+                Elements[c].Info.IsVisible = false;
+            }
         }
     }
 }

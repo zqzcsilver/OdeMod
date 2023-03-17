@@ -1,0 +1,284 @@
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Reflection;
+
+using OdeMod.CardMode.Scenes.ConfigScene.ConfigSystem.Attributes;
+using OdeMod.CardMode.Scenes.ConfigScene.ConfigSystem.Configs;
+using OdeMod.CardMode.Scenes.ConfigScene.UIElements;
+using OdeMod.UI.OdeUISystem.UIElements;
+
+namespace OdeMod.CardMode.Scenes.ConfigScene.ConfigSystem
+{
+    //做梦梦到的
+    internal abstract class ConfigBase
+    {
+        public ConfigBase()
+        { }
+
+        /// <summary>
+        /// 当前设置的储存路径
+        /// </summary>
+        public string SavePath { get => Path.Combine(ConfigManager.SavePath, $"{SaveName}.config"); }
+
+        /// <summary>
+        /// 设置名字
+        /// </summary>
+        public abstract string Name { get; }
+
+        public abstract string SaveName { get; }
+
+        /// <summary>
+        /// 设置的页面
+        /// </summary>
+        /// <returns></returns>
+        public virtual BaseElement GetPage()
+        {
+            var fields = Array.FindAll(GetType().GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance),
+                        field => field.GetCustomAttribute<FieldConfigAttribute>() != null);
+            BaseElement op = new BaseElement();
+            op.Info.Width.SetValue(0f, 1f);
+
+            UIText title = new UIText(Name, CardSystem.ConfigManager.GetConfig<InterfaceConfig>().Font.GetFont(100f));
+            title.Info.Left.SetValue(-title.Info.Width.Pixel / 2f, 0.5f);
+            title.Info.Top.SetValue(0f, 0f);
+            op.Register(title);
+            op.Info.Height = title.Info.Height + new BaseElement.PositionStyle(100f, 0f);
+
+            List<BaseElement> elements = new List<BaseElement>();
+            Array.ForEach(fields, field =>
+            {
+                var c = GetConfigStyle(field, this);
+                if (c != null)
+                    elements.Add(c);
+            });
+            if (elements.Count > 0)
+            {
+                op.Info.Height += new BaseElement.PositionStyle(5f, 0f);
+                for (int i = 0; i < elements.Count; i++)
+                {
+                    BaseElement element = elements[i];
+                    element.Info.Top = op.Info.Height;
+                    op.Register(element);
+                    op.Info.Height += element.Info.Height + new BaseElement.PositionStyle(10f, 0f);
+                }
+            }
+            //op.Info.Height -= elements[elements.Count - 1].Info.Height + new BaseElement.PositionStyle(5f, 0f);
+
+            return op;
+        }
+
+        protected virtual BaseElement GetConfigStyle(FieldInfo fieldInfo, object obj)
+        {
+            BaseElement baseElement = new BaseElement();
+            var t = fieldInfo.FieldType;
+            var info = fieldInfo.GetCustomAttribute<FieldConfigAttribute>();
+            if (info == null)
+                return null;
+            if (t == typeof(byte))
+            {
+                var attribute = fieldInfo.GetCustomAttribute<ConfigByteRangeAttribute>();
+                if (attribute != null)
+                {
+                    baseElement = new UIByteSeekBarConfig(info.Tip, info.Description, obj, fieldInfo, attribute.Max, attribute.Min);
+                }
+            }
+            else if (t == typeof(char))
+            {
+                var attribute = fieldInfo.GetCustomAttribute<ConfigCharRangeAttribute>();
+                if (attribute != null)
+                {
+                    baseElement = new UICharSeekBarConfig(info.Tip, info.Description, obj, fieldInfo, attribute.Max, attribute.Min);
+                }
+            }
+            else if (t == typeof(decimal))
+            {
+                var attribute = fieldInfo.GetCustomAttribute<ConfigDecimalRangeAttribute>();
+                if (attribute != null)
+                {
+                    baseElement = new UIDecimalSeekBarConfig(info.Tip, info.Description, obj, fieldInfo, attribute.Max, attribute.Min);
+                }
+            }
+            else if (t == typeof(double))
+            {
+                var attribute = fieldInfo.GetCustomAttribute<ConfigDoubleRangeAttribute>();
+                if (attribute != null)
+                {
+                    baseElement = new UIDoubleSeekBarConfig(info.Tip, info.Description, obj, fieldInfo, attribute.Max, attribute.Min);
+                }
+            }
+            else if (t == typeof(float))
+            {
+                var attribute = fieldInfo.GetCustomAttribute<ConfigFloatRangeAttribute>();
+                if (attribute != null)
+                {
+                    baseElement = new UIFloatSeekBarConfig(info.Tip, info.Description, obj, fieldInfo, attribute.Max, attribute.Min);
+                }
+            }
+            else if (t == typeof(int))
+            {
+                var attribute = fieldInfo.GetCustomAttribute<ConfigIntRangeAttribute>();
+                if (attribute != null)
+                {
+                    baseElement = new UIIntSeekBarConfig(info.Tip, info.Description, obj, fieldInfo, attribute.Max, attribute.Min);
+                }
+            }
+            else if (t == typeof(long))
+            {
+                var attribute = fieldInfo.GetCustomAttribute<ConfigLongRangeAttribute>();
+                if (attribute != null)
+                {
+                    baseElement = new UILongSeekBarConfig(info.Tip, info.Description, obj, fieldInfo, attribute.Max, attribute.Min);
+                }
+            }
+            else if (t == typeof(sbyte))
+            {
+                var attribute = fieldInfo.GetCustomAttribute<ConfigSbyteRangeAttribute>();
+                if (attribute != null)
+                {
+                    baseElement = new UISbyteSeekBarConfig(info.Tip, info.Description, obj, fieldInfo, attribute.Max, attribute.Min);
+                }
+            }
+            else if (t == typeof(short))
+            {
+                var attribute = fieldInfo.GetCustomAttribute<ConfigShortRangeAttribute>();
+                if (attribute != null)
+                {
+                    baseElement = new UIShortSeekBarConfig(info.Tip, info.Description, obj, fieldInfo, attribute.Max, attribute.Min);
+                }
+            }
+            else if (t == typeof(string))
+            {
+                var attribute = fieldInfo.GetCustomAttribute<ConfigStringRangeAttribute>();
+                if (attribute != null)
+                {
+                    baseElement = new UIStringSelectBarConfig(info.Tip, info.Description, obj, fieldInfo, attribute.Strings);
+                }
+            }
+            else if (t == typeof(uint))
+            {
+                var attribute = fieldInfo.GetCustomAttribute<ConfigUintRangeAttribute>();
+                if (attribute != null)
+                {
+                    baseElement = new UIUintSeekBarConfig(info.Tip, info.Description, obj, fieldInfo, attribute.Max, attribute.Min);
+                }
+            }
+            else if (t == typeof(ulong))
+            {
+                var attribute = fieldInfo.GetCustomAttribute<ConfigUlongRangeAttribute>();
+                if (attribute != null)
+                {
+                    baseElement = new UIUlongSeekBarConfig(info.Tip, info.Description, obj, fieldInfo, attribute.Max, attribute.Min);
+                }
+            }
+            else if (t == typeof(ushort))
+            {
+                var attribute = fieldInfo.GetCustomAttribute<ConfigUshortRangeAttribute>();
+                if (attribute != null)
+                {
+                    baseElement = new UIUshortSeekBarConfig(info.Tip, info.Description, obj, fieldInfo, attribute.Max, attribute.Min);
+                }
+            }
+            else
+            {
+                var o = fieldInfo.GetValue(obj);
+                var fields = Array.FindAll(o.GetType().GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance),
+                        field => field.GetCustomAttribute<FieldConfigAttribute>() != null);
+                List<BaseElement> elements = new List<BaseElement>();
+                Array.ForEach(fields, field =>
+                {
+                    elements.Add(GetConfigStyle(field, o));
+                });
+                if (elements.Count > 0)
+                {
+                    baseElement.Info.Height.SetValue(5f, 0f);
+                    for (int i = 0; i < elements.Count; i++)
+                    {
+                        BaseElement element = elements[i];
+                        element.Info.Top = baseElement.Info.Height;
+                        baseElement.Register(element);
+                        baseElement.Info.Height += element.Info.Height + new BaseElement.PositionStyle(10f, 0f);
+                    }
+                    //baseElement.Info.Height -= elements[elements.Count - 1].Info.Height + new BaseElement.PositionStyle(5f, 0f);
+                }
+            }
+            baseElement.Info.Width.SetValue(0f, 1f);
+            if (baseElement.Info.Height.Pixel == 0 && baseElement.Info.Height.Percent == 0)
+            {
+                baseElement.Info.Height.Pixel = 70f;
+            }
+
+            return baseElement;
+        }
+
+        public virtual void Init()
+        {
+        }
+
+        /// <summary>
+        /// 保存设置
+        /// </summary>
+        public virtual void SaveConfig()
+        {
+            using (var stream = new FileStream(SavePath, FileMode.Create))
+            {
+                using (BinaryWriter binaryWriter = new BinaryWriter(stream))
+                {
+                    var fields = Array.FindAll(GetType().GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance),
+                        field => field.GetCustomAttribute<FieldConfigAttribute>() != null);
+                    OdeMod.BinaryProcessed.Save(binaryWriter, typeof(int), fields.Length);
+
+                    foreach (var field in fields)
+                    {
+                        FieldSave(binaryWriter, field.GetValue(this), field);
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// 读取设置
+        /// </summary>
+        public virtual void LoadConfig()
+        {
+            if (!File.Exists(SavePath))
+                return;
+
+            using (var stream = new FileStream(SavePath, FileMode.Open))
+            {
+                using (BinaryReader binaryReader = new BinaryReader(stream))
+                {
+                    int length = (int)OdeMod.BinaryProcessed.Load(binaryReader);
+                    Dictionary<string, object> loaders = new Dictionary<string, object>();
+                    object o;
+                    for (int i = 0; i < length; i++)
+                    {
+                        o = FieldLoad(binaryReader, out string name);
+                        loaders.Add(name, o);
+                    }
+
+                    var fields = GetType().GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+                    foreach (var field in fields)
+                    {
+                        if (field.GetCustomAttribute<FieldConfigAttribute>() != null && loaders.ContainsKey(field.Name))
+                        {
+                            field.SetValue(this, loaders[field.Name]);
+                        }
+                    }
+                }
+            }
+        }
+
+        protected virtual void FieldSave(BinaryWriter binaryWriter, object o, FieldInfo field)
+        {
+            binaryWriter.Write(field.Name);
+            OdeMod.BinaryProcessed.SafeSave(binaryWriter, field.FieldType, o);
+        }
+
+        protected virtual object FieldLoad(BinaryReader binaryReader, out string name)
+        {
+            name = binaryReader.ReadString();
+            return OdeMod.BinaryProcessed.SafeLoad(binaryReader);
+        }
+    }
+}

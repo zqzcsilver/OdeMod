@@ -117,7 +117,7 @@ namespace OdeMod.CardMode.Rooms
             }
         }
 
-        private static bool CheckRoomCanAutoLoad(Type roomType)
+        public static bool CheckRoomCanAutoLoad(Type roomType)
         {
             var x = (AutoloadAttribute)roomType.GetCustomAttributes(typeof(AutoloadAttribute)).First();
             return !(x == null || x.Value == false);

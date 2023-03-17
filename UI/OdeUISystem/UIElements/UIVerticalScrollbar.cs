@@ -8,7 +8,7 @@ using Terraria;
 
 namespace OdeMod.UI.OdeUISystem.UIElements
 {
-    internal class VerticalScrollbar : BaseElement
+    internal class UIVerticalScrollbar : BaseElement
     {
         private Texture2D uiScrollbarTexture;
         private UIImage inner;
@@ -19,6 +19,7 @@ namespace OdeMod.UI.OdeUISystem.UIElements
         private float alpha = 0f;
         private float waitToWheelValue = 0f;
         public bool UseScrollWheel = false;
+        public bool AlwaysOnLight = false;
 
         public float WheelValue
         {
@@ -34,7 +35,7 @@ namespace OdeMod.UI.OdeUISystem.UIElements
             }
         }
 
-        public VerticalScrollbar(float wheelValue = 0f)
+        public UIVerticalScrollbar(float wheelValue = 0f)
         {
             Info.Width = new PositionStyle(20f, 0f);
             Info.Left = new PositionStyle(-20f, 1f);
@@ -82,10 +83,15 @@ namespace OdeMod.UI.OdeUISystem.UIElements
                 return;
 
             bool isMouseHover = ParentElement.GetCanHitBox().Contains(Main.MouseScreen.ToPoint());
-            if ((isMouseHover || isMouseDown) && alpha < 1f)
-                alpha += 0.01f;
-            if ((!(isMouseHover || isMouseDown)) && alpha > 0f)
-                alpha -= 0.01f;
+            if (AlwaysOnLight)
+                alpha = 1f;
+            else
+            {
+                if ((isMouseHover || isMouseDown) && alpha < 1f)
+                    alpha += 0.01f;
+                if ((!(isMouseHover || isMouseDown)) && alpha > 0f)
+                    alpha -= 0.01f;
+            }
 
             inner.ChangeColor(Color.White * alpha);
 

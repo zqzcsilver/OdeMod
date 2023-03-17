@@ -1,9 +1,13 @@
 ﻿using System.Collections.Generic;
-using System.Data;
+using System.IO;
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using OdeMod.CardMode.PublicComponents.LogicComponents;
+using OdeMod.CardMode.Scenes;
+using OdeMod.CardMode.Scenes.ConfigScene.ConfigSystem;
+using OdeMod.CardMode.Scenes.MenuScene;
 using OdeMod.CardMode.UI;
 using OdeMod.CardMode.Utils;
 using OdeMod.Systems;
@@ -18,6 +22,9 @@ namespace OdeMod.CardMode
 {
     internal class CardSystem : ModSystem, ICardMode, IOdeSystem
     {
+        public const string ENTITY_SOURCE_FROM_SYSTEM = "Ode Mod - Card System Mode";
+        public static readonly string SavePath = Path.Combine(Main.SavePath, "OdeMod", "CardMode");
+
         public bool CardModeVisible
         {
             get => _cardModeVisible;
@@ -25,28 +32,39 @@ namespace OdeMod.CardMode
             {
                 if (_cardModeVisible != value)
                 {
-                    _cardModeVisible = value;
-                    if (_cardModeVisible)
+                    if (value)
                         openCardMode();
                     else
                         closeCardMode();
+                    _cardModeVisible = value;
                 }
             }
         }
 
         private bool _cardModeVisible = false;
-        public static CardSystem Instance => ModContent.GetInstance<CardSystem>();
+        public static CardSystem Instance { get; private set; }
         public static MouseInfo GetMouseInfo => Instance.MouseInfo;
         public Map Map;
         private Point ScreenSize;
         public MouseInfo MouseInfo;
-        public CardModeUISystem CardModeUISystem;
+        private ConfigManager _configManager;
+        public static ConfigManager ConfigManager => Instance._configManager;
+        public CardModeUISystem CardModeUISystem { get; private set; }
+        public PlayerManager PlayerManager { get; private set; }
+
+        private SceneManager _sceneManager;
+        public static SceneManager SceneManager { get => Instance._sceneManager; }
 
         public CardSystem()
         {
+            Instance = this;
+
             Map = new Map();
             MouseInfo = new MouseInfo();
+            _configManager = new ConfigManager();
             CardModeUISystem = new CardModeUISystem();
+            PlayerManager = new PlayerManager();
+            _sceneManager = new SceneManager();
         }
 
         public override void Load()
@@ -54,11 +72,21 @@ namespace OdeMod.CardMode
             base.Load();
             Map.MapSize = new Point(200, 200);
             Map.Build();
+
+            _configManager.LoadConfigs();
             CardModeUISystem.Load();
+            _sceneManager.Init();
+
+            var p = PlayerManager.CreatePlayer();
+            Map.BindingMoveComponent = p.GetComponent<MoveComponent>();
+            PlayerManager.AddPlayer(p);
         }
 
         public void Draw(SpriteBatch sb)
         {
+            PlayerManager.Draw(sb);
+            _sceneManager.Draw(sb);
+            //Map.DrawBackground(sb);
             CardModeUISystem.Draw(sb);
 
             List<Triangle> triangles = new List<Triangle>()
@@ -107,15 +135,28 @@ namespace OdeMod.CardMode
                 CardModeUISystem.Calculation();
             }
             CardModeUISystem.Update(gt);
+
+            _sceneManager.Update(gt);
+
+            PlayerManager.Update(gt);
         }
 
         private void openCardMode()
         {
             Main.audioSystem.PauseAll();
+            loadAsset();
+            SceneManager.ChangeScene("OdeMod.CardMode.Scenes.MenuScene.MenuScene");
+        }
+
+        private void loadAsset()
+        {
+            ModContent.Request<Texture2D>("OdeMod/Images/Effects/Night", ReLogic.Content.AssetRequestMode.ImmediateLoad);
+            ModContent.Request<Effect>("OdeMod/Effects/PixelShaders/BrightnessGradient", ReLogic.Content.AssetRequestMode.ImmediateLoad);
         }
 
         private void closeCardMode()
         {
+            SceneManager.ChangeScene((SceneBase)null);
         }
     }
 }

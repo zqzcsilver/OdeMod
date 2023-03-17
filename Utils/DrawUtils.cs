@@ -513,6 +513,7 @@ namespace OdeMod.Utils
             sb.End();
             sb.Begin();
         }
+
         /// <summary>
         /// 绘制直线
         /// </summary>
@@ -602,6 +603,7 @@ namespace OdeMod.Utils
             sb.GraphicsDevice.SetRenderTarget(Main.screenTargetSwap);
             sb.GraphicsDevice.Clear(Color.Black);
             sb.Begin(SpriteSortMode.Immediate, BlendState.Opaque);
+            effect.CurrentTechnique.Passes[0].Apply();
             sb.Draw(Main.screenTarget, Vector2.Zero, Color.White);
             sb.End();
 

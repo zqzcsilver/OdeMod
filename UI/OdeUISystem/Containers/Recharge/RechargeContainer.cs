@@ -16,7 +16,7 @@ using Terraria.ModLoader;
 
 namespace OdeMod.UI.OdeUISystem.Containers.Recharge
 {
-    internal class RechargeContainer : ContainerElement, IOriginalUIState
+    internal class RechargeContainer : UIContainerElement, IOriginalUIState
     {
         public RechargeItem[] RechargeItems;
 
@@ -28,7 +28,6 @@ namespace OdeMod.UI.OdeUISystem.Containers.Recharge
         public override void OnInitialization()
         {
             base.OnInitialization();
-            Info.IsVisible = true;
 
             UIImagePanel panel = new UIImagePanel(ModContent.Request<Texture2D>("OdeMod/UI/OdeUISystem/Containers/Recharge/Images/Panel",
                 AssetRequestMode.ImmediateLoad).Value, Color.White);

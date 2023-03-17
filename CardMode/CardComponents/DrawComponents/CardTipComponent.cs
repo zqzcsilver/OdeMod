@@ -77,9 +77,9 @@ namespace OdeMod.CardMode.CardComponents.DrawComponents
             {
                 sb.DrawString(info.FontSystem.GetFont(scale * info.FontSize), tooltips[i],
                     new Vector2(drawsize.X / 2f + 2 * 4 * infoComponent.Scale - tooltipLinesSize[i].X / 2f,
-                drawsize.Y - size.Y / 2f - 4f * 4f * infoComponent.Scale - centerY + y + 1 * infoComponent.Scale), Color.White,
-                null, 0f, default, 0f, 0f, 0f,
-                TextStyle.None, FontSystemEffect.Stroked, 1);
+                    drawsize.Y - size.Y / 2f - 4f * 4f * infoComponent.Scale - centerY + y + 1 * infoComponent.Scale), Color.White,
+                    null, 0f, default, 0f, 0f, 0f,
+                    TextStyle.None, FontSystemEffect.Stroked, 1);
                 y += tooltipLinesSize[i].Y;
             }
         }

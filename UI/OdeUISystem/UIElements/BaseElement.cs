@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input.Touch;
 
 using System;
 using System.Collections.Generic;
@@ -234,6 +235,10 @@ namespace OdeMod.UI.OdeUISystem.UIElements
             /// </summary>
             public delegate void UIMouseEvent(BaseElement baseElement);
 
+            public delegate void UIUpdateEvent(BaseElement baseElement, GameTime gt);
+
+            public delegate void UIElementEvent(BaseElement baseElement);
+
             /// <summary>
             /// 左键点击UI的事件（按下时触发）
             /// </summary>
@@ -284,6 +289,21 @@ namespace OdeMod.UI.OdeUISystem.UIElements
             /// </summary>
             public event UIMouseEvent OnMouseOut;
 
+            /// <summary>
+            /// 鼠标在UI上时的事件
+            /// </summary>
+            public event UIMouseEvent OnMouseHover;
+
+            /// <summary>
+            /// 更新时的事件
+            /// </summary>
+            public event UIUpdateEvent OnUpdate;
+
+            /// <summary>
+            /// 计算部件具体信息的事件
+            /// </summary>
+            public event UIElementEvent OnCalculation;
+
             public void LeftClick(BaseElement element) => OnLeftClick?.Invoke(element);
 
             public void RightClick(BaseElement element) => OnRightClick?.Invoke(element);
@@ -303,6 +323,12 @@ namespace OdeMod.UI.OdeUISystem.UIElements
             public void MouseOver(BaseElement element) => OnMouseOver?.Invoke(element);
 
             public void MouseOut(BaseElement element) => OnMouseOut?.Invoke(element);
+
+            public void MouseHover(BaseElement element) => OnMouseHover?.Invoke(element);
+
+            public void Update(BaseElement element, GameTime gt) => OnUpdate?.Invoke(element, gt);
+
+            public void Calculation(BaseElement element) => OnCalculation?.Invoke(element);
         }
 
         /// <summary>
@@ -395,6 +421,9 @@ namespace OdeMod.UI.OdeUISystem.UIElements
         public virtual void Update(GameTime gt)
         {
             ChildrenElements.ForEach(child => { if (child != null && child.IsVisible) child.Update(gt); });
+
+            if (IsVisible)
+                Events.Update(this, gt);
         }
 
         /// <summary>
@@ -475,7 +504,7 @@ namespace OdeMod.UI.OdeUISystem.UIElements
         /// </summary>
         /// <param name="element">需要添加的子元素</param>
         /// <returns>成功时返回true，否则返回false</returns>
-        public bool Register(BaseElement element)
+        public virtual bool Register(BaseElement element)
         {
             if (element == null || ChildrenElements.Contains(element) || element.ParentElement != null) return false;
             element.ParentElement = this;
@@ -490,7 +519,7 @@ namespace OdeMod.UI.OdeUISystem.UIElements
         /// </summary>
         /// <param name="element">需要移除的子元素</param>
         /// <returns>成功时返回true，否则返回false</returns>
-        public bool Remove(BaseElement element)
+        public virtual bool Remove(BaseElement element)
         {
             if (element == null || !ChildrenElements.Contains(element) || element.ParentElement == null) return false;
             element.ParentElement = null;
@@ -501,7 +530,7 @@ namespace OdeMod.UI.OdeUISystem.UIElements
         /// <summary>
         /// 移除所有子元素
         /// </summary>
-        public void RemoveAll()
+        public virtual void RemoveAll()
         {
             ChildrenElements.ForEach(child => child.ParentElement = null);
             ChildrenElements.Clear();
@@ -546,6 +575,7 @@ namespace OdeMod.UI.OdeUISystem.UIElements
 
             Info.InitDone = true;
             ChildrenElements.ForEach(child => { child?.Calculation(); });
+            Events.Calculation(this);
         }
 
         /// <summary>

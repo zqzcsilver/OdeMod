@@ -36,7 +36,6 @@ namespace OdeMod.CardMode.UI.Map
         {
             base.Update(gt);
             
-            CardSystem.Instance.Map.DrawOffset = Info.Location;
             Calculation();
         }
 

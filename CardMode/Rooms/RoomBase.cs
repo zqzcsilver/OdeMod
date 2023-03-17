@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+
+using OdeMod.CardMode.PublicComponents.LogicComponents;
 
 using Terraria;
 using Terraria.ModLoader;
@@ -18,11 +21,13 @@ namespace OdeMod.CardMode.Rooms
         public bool IsSilu;
         public Vector2 InMapCenter;
         public float InMapScale = 1f;
-        public int NumberOfEntries = 0;
-        public bool CanTakeIn = false;
+        private Dictionary<MoveComponent, int> _numberOfEntries;
         public virtual float BuildWeight => 1f;
         public virtual bool NeedAlwaysUpdate => false;
-        public virtual Color MapColor => NumberOfEntries > 0 ? Color.White * 0.6f : (CanTakeIn ? Color.Yellow : Color.White);
+
+        public virtual Color MapColor =>
+            (Map.BindingMoveComponent == null || GetNumberOfEntries(Map.BindingMoveComponent) > 0) ? Color.White * 0.6f :
+            (CanTakeIn(Map.BindingMoveComponent) ? Color.Yellow : Color.White);
 
         public virtual Texture2D Icon => ModContent.Request<Texture2D>("OdeMod/Images/Card/Original/Room/EyeballIcon",
             ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
@@ -34,6 +39,18 @@ namespace OdeMod.CardMode.Rooms
                 Vector2 size = Icon.Size() * InMapScale;
                 return new Rectangle((int)(InMapCenter.X - size.X / 2f), (int)(InMapCenter.Y - size.Y / 2f), (int)size.X, (int)size.Y);
             }
+        }
+
+        public RoomBase()
+        {
+            _numberOfEntries = new Dictionary<MoveComponent, int>();
+        }
+
+        public int GetNumberOfEntries(MoveComponent moveComponent)
+        {
+            if (!_numberOfEntries.ContainsKey(moveComponent))
+                _numberOfEntries.Add(moveComponent, 0);
+            return _numberOfEntries[moveComponent];
         }
 
         public virtual bool PreBuild()
@@ -49,22 +66,28 @@ namespace OdeMod.CardMode.Rooms
         {
         }
 
-        public virtual bool PreTakeIn()
+        public bool CanTakeIn(MoveComponent moveComponent)
+        {
+            return moveComponent.CanTakeInRooms.Contains(this);
+        }
+
+        public virtual bool PreTakeIn(MoveComponent moveComponent)
         {
             return true;
         }
 
-        public virtual void TakeIn()
+        public virtual void TakeIn(MoveComponent moveComponent)
         {
             Map.TakeIn(this);
+            //CardSystem.Instance.CardModeUISystem.Elements[""]
         }
 
-        public virtual bool PreTakeOut()
+        public virtual bool PreTakeOut(MoveComponent moveComponent)
         {
             return true;
         }
 
-        public virtual void TakeOut()
+        public virtual void TakeOut(MoveComponent moveComponent)
         {
             Map.TakeOut(this);
         }
@@ -98,7 +121,7 @@ namespace OdeMod.CardMode.Rooms
             op.IsSilu = IsSilu;
             op.InMapCenter = InMapCenter;
             op.InMapScale = InMapScale;
-            op.NumberOfEntries = NumberOfEntries;
+            op._numberOfEntries = _numberOfEntries;
             op.Map = Map;
             return op;
         }

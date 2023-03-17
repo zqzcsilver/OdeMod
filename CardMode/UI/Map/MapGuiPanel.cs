@@ -10,7 +10,6 @@ namespace OdeMod.CardMode.UI.Map
 {
     internal class MapGuiPanel : CardUIContainerElement
     {
-        public override bool IsVisible => CardSystem.Instance.CardModeVisible;
         private UIText text;
         private MapElement map;
         private UIContainerPanel containerPanel;
@@ -30,7 +29,7 @@ namespace OdeMod.CardMode.UI.Map
             containerPanel.Info.Height.SetValue(0f, 1f);
             panel.Register(containerPanel);
 
-            VerticalScrollbar verticalScrollbar = new VerticalScrollbar();
+            UIVerticalScrollbar verticalScrollbar = new UIVerticalScrollbar();
             verticalScrollbar.Info.Height.SetValue(panel.Info.Height);
             verticalScrollbar.Info.Left.SetValue(panel.Info.Left + panel.Info.Width +
                 verticalScrollbar.Info.Width + new PositionStyle(10f, 0f));
@@ -39,7 +38,7 @@ namespace OdeMod.CardMode.UI.Map
             Register(verticalScrollbar);
             containerPanel.SetVerticalScrollbar(verticalScrollbar);
 
-            HorizontalScrollbar horizontalScrollbar = new HorizontalScrollbar();
+            UIHorizontalScrollbar horizontalScrollbar = new UIHorizontalScrollbar();
             horizontalScrollbar.Info.Width.SetValue(panel.Info.Width);
             horizontalScrollbar.Info.Left.SetValue(panel.Info.Left);
             horizontalScrollbar.Info.Top.SetValue(panel.Info.Top + panel.Info.Height +
@@ -100,10 +99,12 @@ namespace OdeMod.CardMode.UI.Map
             stringBuilder.AppendLine($"Map Size: {CardSystem.Instance.Map.MapSize}");
             stringBuilder.AppendLine($"Map Total Size: {CardSystem.Instance.Map.MaxSize}");
             stringBuilder.AppendLine($"Map Draw Offset: {CardSystem.Instance.Map.DrawOffset}");
+            stringBuilder.AppendLine($"Map Focus Room: {(CardSystem.Instance.Map.FocusRoom == null ? "null" : CardSystem.Instance.Map.FocusRoom.Position.ToString())}");
             stringBuilder.AppendLine();
 
             text.Text = stringBuilder.ToString();
 
+            CardSystem.Instance.Map.DrawOffset = map.Info.Location;
             map.UpdateMapDrawSize(containerPanel.Info.Size);
             map.UpdateMapDrawOffset(containerPanel.Info.Location - map.Info.Location);
 

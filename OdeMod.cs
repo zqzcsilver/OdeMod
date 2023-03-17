@@ -1,6 +1,5 @@
 using FontStashSharp;
 
-using Microsoft.CodeAnalysis;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -8,12 +7,6 @@ using OdeMod.CardMode;
 using OdeMod.ShaderDatas.ScreenShaderDatas;
 using OdeMod.UI.OdeUISystem;
 using OdeMod.Utils;
-
-using System;
-using System.Diagnostics.Metrics;
-using System.IO;
-using System.Reflection;
-using System.Runtime.InteropServices;
 
 using Terraria;
 using Terraria.Graphics.Effects;
@@ -94,6 +87,21 @@ namespace OdeMod
         }
 
         private FontManager _fontManager;
+
+        internal static BinaryProcessed BinaryProcessed
+        {
+            get
+            {
+                if (Instance._binaryProcessed == null)
+                {
+                    Instance._binaryProcessed = new BinaryProcessed();
+                    Instance._binaryProcessed.LoadProcessed();
+                }
+                return Instance._binaryProcessed;
+            }
+        }
+
+        private BinaryProcessed _binaryProcessed;
 
         public const float DEFAULT_FONT_SIZE = 40f;
         public static FontSystem DefaultFontSystem => FontManager["Fonts/SourceHanSansHWSC-VF.ttf"];

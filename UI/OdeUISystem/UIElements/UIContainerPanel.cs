@@ -15,8 +15,8 @@ namespace OdeMod.UI.OdeUISystem.UIElements
             }
         }
         private InnerPanel _innerPanel;
-        private VerticalScrollbar _verticalScrollbar;
-        private HorizontalScrollbar _horizontalScrollbar;
+        private UIVerticalScrollbar _verticalScrollbar;
+        private UIHorizontalScrollbar _horizontalScrollbar;
         private float verticalWhellValue;
         private float horizontalWhellValue;
         private Vector2 innerPanelMinLocation;
@@ -28,8 +28,8 @@ namespace OdeMod.UI.OdeUISystem.UIElements
             Info.Height.Percent = 1f;
             Info.SetMargin(4f);
         }
-        public void SetVerticalScrollbar(VerticalScrollbar scrollbar) => _verticalScrollbar = scrollbar;
-        public void SetHorizontalScrollbar(HorizontalScrollbar scrollbar) => _horizontalScrollbar = scrollbar;
+        public void SetVerticalScrollbar(UIVerticalScrollbar scrollbar) => _verticalScrollbar = scrollbar;
+        public void SetHorizontalScrollbar(UIHorizontalScrollbar scrollbar) => _horizontalScrollbar = scrollbar;
         public override void OnInitialization()
         {
             base.OnInitialization();
@@ -75,8 +75,7 @@ namespace OdeMod.UI.OdeUISystem.UIElements
         }
         public void ClearAllElements()
         {
-            foreach (var child in _innerPanel.ChildrenElements)
-                _innerPanel.Remove(child);
+            _innerPanel.RemoveAll();
             Calculation();
         }
         private void CalculationInnerPanelSize()

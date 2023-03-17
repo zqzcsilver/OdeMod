@@ -6,14 +6,18 @@
     <TargetFramework>net6.0</TargetFramework>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <LangVersion>latest</LangVersion>
+	<DocumentationFile></DocumentationFile>
+	<GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DebugType>embedded</DebugType>
     <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+    <Optimize>False</Optimize>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DebugType>embedded</DebugType>
     <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+    <Optimize>True</Optimize>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="System.Resources.ResourceManager" Version="4.3.0" />
@@ -22,7 +26,7 @@
   <ItemGroup>
     <Folder Include="Items\Misc\Armor\" />
     <Folder Include="Items\Misc\Placeable\" />
-    <Folder Include="Utils\CardMode\" />
+    <Folder Include="Documents\" />
   </ItemGroup>
   <ItemGroup>
     <EditorConfigFiles Remove="C:\Users\Silver\Documents\My Games\Terraria\tModLoader\ModSources\OdeMod\.editorconfig" />

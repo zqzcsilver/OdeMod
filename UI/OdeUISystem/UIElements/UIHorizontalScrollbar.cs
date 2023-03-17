@@ -8,7 +8,7 @@ using Terraria;
 
 namespace OdeMod.UI.OdeUISystem.UIElements
 {
-    internal class HorizontalScrollbar : BaseElement
+    internal class UIHorizontalScrollbar : BaseElement
     {
         private Texture2D uiScrollbarTexture;
         private UIImage inner;
@@ -19,6 +19,8 @@ namespace OdeMod.UI.OdeUISystem.UIElements
         private float alpha = 0f;
         private float waitToWheelValue = 0f;
         public bool UseScrollWheel = false;
+        public bool AlwaysOnLight = false;
+
         public float WheelValue
         {
             get { return wheelValue; }
@@ -32,7 +34,8 @@ namespace OdeMod.UI.OdeUISystem.UIElements
                     waitToWheelValue = value;
             }
         }
-        public HorizontalScrollbar(float wheelValue = 0f)
+
+        public UIHorizontalScrollbar(float wheelValue = 0f)
         {
             Info.Height = new PositionStyle(20f, 0f);
             Info.Top = new PositionStyle(-20f, 1f);
@@ -44,6 +47,7 @@ namespace OdeMod.UI.OdeUISystem.UIElements
             uiScrollbarTexture = OdeMod.Instance.Assets.Request<Texture2D>("Images/UI/HorizontalScrollbar", AssetRequestMode.ImmediateLoad).Value;
             WheelValue = wheelValue;
         }
+
         public override void LoadEvents()
         {
             base.LoadEvents();
@@ -59,6 +63,7 @@ namespace OdeMod.UI.OdeUISystem.UIElements
                 isMouseDown = false;
             };
         }
+
         public override void OnInitialization()
         {
             base.OnInitialization();
@@ -66,6 +71,7 @@ namespace OdeMod.UI.OdeUISystem.UIElements
             inner.Info.Top.Pixel = -(inner.Info.Height.Pixel - Info.Height.Pixel) / 2f;
             Register(inner);
         }
+
         public override void Update(GameTime gt)
         {
             base.Update(gt);
@@ -73,10 +79,15 @@ namespace OdeMod.UI.OdeUISystem.UIElements
                 return;
 
             bool isMouseHover = ParentElement.GetCanHitBox().Contains(Main.MouseScreen.ToPoint());
-            if ((isMouseHover || isMouseDown) && alpha < 1f)
-                alpha += 0.01f;
-            if ((!(isMouseHover || isMouseDown)) && alpha > 0f)
-                alpha -= 0.01f;
+            if (AlwaysOnLight)
+                alpha = 1f;
+            else
+            {
+                if ((isMouseHover || isMouseDown) && alpha < 1f)
+                    alpha += 0.01f;
+                if ((!(isMouseHover || isMouseDown)) && alpha > 0f)
+                    alpha -= 0.01f;
+            }
 
             inner.ChangeColor(Color.White * alpha);
 
@@ -102,6 +113,7 @@ namespace OdeMod.UI.OdeUISystem.UIElements
             if (waitToWheelValue != wheelValue)
                 Calculation();
         }
+
         protected override void DrawSelf(SpriteBatch sb)
         {
             sb.Draw(uiScrollbarTexture, new Rectangle(Info.HitBox.X - 12,

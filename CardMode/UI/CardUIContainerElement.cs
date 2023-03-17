@@ -2,7 +2,7 @@
 
 namespace OdeMod.CardMode.UI
 {
-    internal abstract class CardUIContainerElement : ContainerElement
+    internal abstract class CardUIContainerElement : UIContainerElement
     {
     }
 }

@@ -20,11 +20,13 @@ namespace OdeMod.UI.OdeUISystem.UIElements
         }
 
         private DynamicSpriteFont font;
+        public DynamicSpriteFont Font { get => font; set => font = value; }
         public Color Color;
 
         public bool CalculateSize = true;
         public PositionStyle? CenterX;
         public PositionStyle? CenterY;
+        public bool CalculationCenter = true;
 
         public UIText(string t, DynamicSpriteFont spriteFont)
         {
@@ -63,16 +65,15 @@ namespace OdeMod.UI.OdeUISystem.UIElements
                 Info.Height.Pixel = size.Y;
                 Info.Width.Percent = 0f;
                 Info.Height.Percent = 0f;
-
-                if (CenterX != null && CenterY != null)
-                {
-                    var x = CenterX.Value;
-                    var y = CenterY.Value;
-                    Info.Left.Percent = x.Percent;
-                    Info.Top.Percent = y.Percent;
-                    Info.Left.Pixel = x.Pixel - Info.Width.Pixel / 2f;
-                    Info.Top.Pixel = y.Pixel - Info.Height.Pixel / 2f;
-                }
+            }
+            if (CalculationCenter && CenterX != null && CenterY != null)
+            {
+                var x = CenterX.Value;
+                var y = CenterY.Value;
+                Info.Left.Percent = x.Percent;
+                Info.Top.Percent = y.Percent;
+                Info.Left.Pixel = x.Pixel - Info.Width.Pixel / 2f;
+                Info.Top.Pixel = y.Pixel - Info.Height.Pixel / 2f;
             }
             base.Calculation();
         }

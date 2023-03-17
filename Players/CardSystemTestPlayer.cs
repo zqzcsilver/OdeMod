@@ -84,12 +84,12 @@ namespace OdeMod.Players
             entity.GetComponent<DragComponent>().Dragging = Main.mouseLeft;
             entity.GetComponent<DragComponent>().TargetPos = Main.MouseScreen;
 
-            if (map == null)
-            {
-                map = new CardMode.Map(100, 100);
-                map.Build();
-            }
-            map.Draw(Main.spriteBatch, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight));
+            //if (map == null)
+            //{
+            //    map = new CardMode.Map(100, 100);
+            //    map.Build();
+            //}
+            //map.Draw(Main.spriteBatch, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight));
         }
     }
 }

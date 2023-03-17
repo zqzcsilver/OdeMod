@@ -16,11 +16,13 @@ namespace OdeMod.UI.OdeUISystem.Containers.Recharge
     {
         private UIItemSlot[] UIItemSlots;
         private IRechargeableWeapon RechargeableWeapon;
+
         public RechargeItem()
         {
             UIItemSlots = new UIItemSlot[2];
             Info.Height.Pixel = 46f;
         }
+
         public override void OnInitialization()
         {
             UIItemSlots[0] = new UIItemSlot(ModContent.Request<Texture2D>("OdeMod/UI/OdeUISystem/Containers/Recharge/Images/ItemSlot",
@@ -40,16 +42,24 @@ namespace OdeMod.UI.OdeUISystem.Containers.Recharge
             Register(UIItemSlots[1]);
             base.OnInitialization();
         }
+
         public override void LoadEvents()
         {
             base.LoadEvents();
-            UIItemSlots[0].CanPutInSlot += item => RechargeableWeapon != null && item.ModItem != null && item.ModItem is IRechargeAccessory;
-            UIItemSlots[0].OnPutItem += element => RechargeableWeapon.RechargeAccessories[0] = (IRechargeAccessory)UIItemSlots[0].ContainedItem.ModItem;
-            UIItemSlots[0].OnPickItem += element => RechargeableWeapon.RechargeAccessories[0] = null;
-            UIItemSlots[1].CanPutInSlot += item => RechargeableWeapon != null && item.ModItem != null && item.ModItem is IRechargeAccessory;
-            UIItemSlots[1].OnPutItem += element => RechargeableWeapon.RechargeAccessories[1] = (IRechargeAccessory)UIItemSlots[1].ContainedItem.ModItem;
-            UIItemSlots[1].OnPickItem += element => RechargeableWeapon.RechargeAccessories[1] = null;
+            UIItemSlots[0].CanPutInSlot += item => RechargeableWeapon != null &&
+                item.ModItem != null && item.ModItem is IRechargeAccessory;
+            UIItemSlots[0].OnPutItem += element =>
+                RechargeableWeapon.RechargeAccessories[0] = (IRechargeAccessory)UIItemSlots[0].ContainedItem.ModItem;
+            UIItemSlots[0].OnPickItem += element =>
+                RechargeableWeapon.RechargeAccessories[0] = null;
+            UIItemSlots[1].CanPutInSlot += item =>
+                RechargeableWeapon != null && item.ModItem != null && item.ModItem is IRechargeAccessory;
+            UIItemSlots[1].OnPutItem += element =>
+                RechargeableWeapon.RechargeAccessories[1] = (IRechargeAccessory)UIItemSlots[1].ContainedItem.ModItem;
+            UIItemSlots[1].OnPickItem += element =>
+                RechargeableWeapon.RechargeAccessories[1] = null;
         }
+
         public override void PreUpdate(GameTime gt)
         {
             base.PreUpdate(gt);
@@ -69,6 +79,7 @@ namespace OdeMod.UI.OdeUISystem.Containers.Recharge
             else
                 RechargeableWeapon.Energy = RechargeableWeapon.EnergyMax;
         }
+
         public void SetRechargeWeapon(IRechargeableWeapon rechargeableWeapon)
         {
             if (rechargeableWeapon == null)
@@ -84,6 +95,7 @@ namespace OdeMod.UI.OdeUISystem.Containers.Recharge
             if (RechargeableWeapon.RechargeAccessories[1] != null)
                 UIItemSlots[1].ContainedItem = ((ModItem)RechargeableWeapon.RechargeAccessories[1]).Item;
         }
+
         protected override void DrawChildren(SpriteBatch sb)
         {
             base.DrawChildren(sb);

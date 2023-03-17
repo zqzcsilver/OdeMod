@@ -41,17 +41,19 @@ namespace OdeMod.UI.OdeUISystem.UIElements
         public void ChangeColor(Color color) => _color = color;
         public override void Calculation()
         {
+            base.Calculation();
             if (Style == CalculationStyle.LockAspectRatioMainWidth)
             {
                 float aspectRatio = (float)_texture.Width / (float)_texture.Height;
-                Info.Height = Info.Width / aspectRatio;
+                Info.Height.Pixel = Info.Size.X / aspectRatio;
+                base.Calculation();
             }
             else if (Style == CalculationStyle.LockedAspectRatioMainHeight)
             {
                 float aspectRatio = (float)_texture.Width / (float)_texture.Height;
-                Info.Width = Info.Height * aspectRatio;
+                Info.Width.Pixel = Info.Size.Y * aspectRatio;
+                base.Calculation();
             }
-            base.Calculation();
         }
         public void ChangeImage(Texture2D texture) => _texture = texture;
         public Texture2D GetImage() => _texture;

@@ -15,9 +15,9 @@ namespace OdeMod.UI.OdeUISystem
     internal class OdeUISystem : IOdeUISystem
     {
         /// <summary>
-        /// 存放着所有<see cref="ContainerElement"/>实例的字典
+        /// 存放着所有<see cref="UIContainerElement"/>实例的字典
         /// </summary>
-        public Dictionary<string, ContainerElement> Elements { get; private set; }
+        public Dictionary<string, UIContainerElement> Elements { get; private set; }
 
         /// <summary>
         /// 访问顺序
@@ -61,7 +61,7 @@ namespace OdeMod.UI.OdeUISystem
 
         public OdeUISystem()
         {
-            Elements = new Dictionary<string, ContainerElement>();
+            Elements = new Dictionary<string, UIContainerElement>();
             CallOrder = new List<string>();
             interactContainerElementsBuffer = new List<BaseElement>();
             needCallMouseLeftUpElements = new List<BaseElement>();
@@ -82,12 +82,12 @@ namespace OdeMod.UI.OdeUISystem
         public void Load()
         {
             var containers = from c in GetType().Assembly.GetTypes()
-                             where !c.IsAbstract && c.IsSubclassOf(typeof(ContainerElement))
+                             where !c.IsAbstract && c.IsSubclassOf(typeof(UIContainerElement))
                              select c;
-            ContainerElement element;
+            UIContainerElement element;
             foreach (var c in containers)
             {
-                element = (ContainerElement)Activator.CreateInstance(c);
+                element = (UIContainerElement)Activator.CreateInstance(c);
                 if (element.AutoLoad)
                     Register(element);
             }
@@ -103,7 +103,7 @@ namespace OdeMod.UI.OdeUISystem
                 return;
 
             List<BaseElement> interact = new List<BaseElement>();
-            ContainerElement child;
+            UIContainerElement child;
             Point mousePos = Main.MouseScreen.ToPoint();
             foreach (var key in CallOrder)
             {
@@ -192,7 +192,7 @@ namespace OdeMod.UI.OdeUISystem
         {
             if (CallOrder.Count == 0 || Elements.Count == 0)
                 return;
-            ContainerElement child;
+            UIContainerElement child;
             for (int i = CallOrder.Count - 1; i >= 0; i--)
             {
                 child = Elements[CallOrder[i]];
@@ -205,7 +205,7 @@ namespace OdeMod.UI.OdeUISystem
         /// </summary>
         /// <param name="element">需要添加的子元素</param>
         /// <returns>成功时返回true，否则返回false</returns>
-        public bool Register(ContainerElement element)
+        public bool Register(UIContainerElement element)
         {
             return Register(element.Name, element);
         }
@@ -216,7 +216,7 @@ namespace OdeMod.UI.OdeUISystem
         /// <param name="name">需要添加的子元素的Name</param>
         /// <param name="element">需要添加的子元素</param>
         /// <returns>成功时返回true，否则返回false</returns>
-        public bool Register(string name, ContainerElement element)
+        public bool Register(string name, UIContainerElement element)
         {
             if (element == null || Elements.ContainsKey(name) || CallOrder.Contains(name)) return false;
             Elements.Add(name, element);
@@ -292,6 +292,17 @@ namespace OdeMod.UI.OdeUISystem
         public int FindTopContainer()
         {
             return CallOrder.FindIndex(x => Elements[x].IsVisible);
+        }
+
+        /// <summary>
+        /// 关闭所有容器
+        /// </summary>
+        public void CloseAllContainers()
+        {
+            foreach (var c in CallOrder)
+            {
+                Elements[c].Info.IsVisible = false;
+            }
         }
     }
 }

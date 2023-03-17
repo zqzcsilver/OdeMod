@@ -30,3 +30,6 @@ Message at 2023/2/8 3:11:07: Compiling DrawInTriangle.xnb
 Message at 2023/2/10 20:26:20: Importing DrawInTriangle.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
 Message at 2023/2/10 20:26:20: Processing DrawInTriangle.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
 Message at 2023/2/10 20:26:20: Compiling DrawInTriangle.xnb
+Message at 2023/3/15 0:38:11: Importing BrightnessGradient.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2023/3/15 0:38:11: Processing BrightnessGradient.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2023/3/15 0:38:11: Compiling BrightnessGradient.xnb
