@@ -78,20 +78,24 @@ namespace OdeMod.Projectiles.Series.Boss.MiracleRecorder
             }*/
             for (int i = 0; i < 25; i++)
             {
-                width = (float)i / 24f;
-                width = -(float)Math.Pow(2.71828, -width) + 1.37f;
-                width *= 20f;
+                width = (float)i / 6f;
+                width = -(float)Math.Pow(2.71828, 0.4f - width) + 1.5f;
+                width *= 18f;
                 width *= factor;
-                bars.Add(new CustomVertexInfo(new Vector2((float)Math.Cos(Projectile.ai[0] + 1.57f), (float)Math.Sin(Projectile.ai[0] + 1.57f)) * i * 2 + Projectile.Center + new Vector2((float)Math.Cos(Projectile.ai[0]), (float)Math.Sin(Projectile.ai[0])) * width, color, new Vector3(factor, 1, a * i / 24f)));
-                bars.Add(new CustomVertexInfo(new Vector2((float)Math.Cos(Projectile.ai[0] + 1.57f), (float)Math.Sin(Projectile.ai[0] + 1.57f)) * i * 2 + Projectile.Center - new Vector2((float)Math.Cos(Projectile.ai[0]), (float)Math.Sin(Projectile.ai[0])) * width, color, new Vector3(factor, 0, a * i / 24f)));
+                var m = (float)i / 24;
+                bars.Add(new CustomVertexInfo(new Vector2((float)Math.Cos(Projectile.ai[0] + 1.57f), (float)Math.Sin(Projectile.ai[0] + 1.57f)) * i * 4 + Projectile.Center + new Vector2((float)Math.Cos(Projectile.ai[0]), (float)Math.Sin(Projectile.ai[0])) * width, color, new Vector3(m, 1, a * m)));
+                bars.Add(new CustomVertexInfo(new Vector2((float)Math.Cos(Projectile.ai[0] + 1.57f), (float)Math.Sin(Projectile.ai[0] + 1.57f)) * i * 4 + Projectile.Center - new Vector2((float)Math.Cos(Projectile.ai[0]), (float)Math.Sin(Projectile.ai[0])) * width, color, new Vector3(m, 0, a * m)));
             }
-            width = 27.2f;
+            width = 27f;
             width *= factor;
+            for (int i = 2; i < 50; i++)
+            {
+                var m = 0;
+                if (i % 2 == 0) m = 0; else m = 1;
+                bars.Add(new CustomVertexInfo(new Vector2((float)Math.Cos(Projectile.ai[0] + 1.57f), (float)Math.Sin(Projectile.ai[0] + 1.57f)) * i * 100 + Projectile.Center + new Vector2((float)Math.Cos(Projectile.ai[0]), (float)Math.Sin(Projectile.ai[0])) * width, color, new Vector3(m, 1, a)));
+                bars.Add(new CustomVertexInfo(new Vector2((float)Math.Cos(Projectile.ai[0] + 1.57f), (float)Math.Sin(Projectile.ai[0] + 1.57f)) * i * 100 + Projectile.Center - new Vector2((float)Math.Cos(Projectile.ai[0]), (float)Math.Sin(Projectile.ai[0])) * width, color, new Vector3(m, 0, a)));
+            }
 
-                bars.Add(new CustomVertexInfo(new Vector2((float)Math.Cos(Projectile.ai[0] + 1.57f), (float)Math.Sin(Projectile.ai[0] + 1.57f)) * 5000 + Projectile.Center + new Vector2((float)Math.Cos(Projectile.ai[0]), (float)Math.Sin(Projectile.ai[0])) * width, color, new Vector3(factor, 1, a)));
-                bars.Add(new CustomVertexInfo(new Vector2((float)Math.Cos(Projectile.ai[0] + 1.57f), (float)Math.Sin(Projectile.ai[0] + 1.57f)) * 5000 + Projectile.Center - new Vector2((float)Math.Cos(Projectile.ai[0]), (float)Math.Sin(Projectile.ai[0])) * width, color, new Vector3(factor, 0, a)));
-            
-            
 
             List<CustomVertexInfo> triangleList = new List<CustomVertexInfo>();
             //count用于返回bars里面的元素数量（即顶点数量）
@@ -117,12 +121,12 @@ namespace OdeMod.Projectiles.Series.Boss.MiracleRecorder
 
             //启用即时加载加载Shader
             var shader = ModContent.Request<Effect>("OdeMod/Effects/VertexShaders/Trail", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
-            var MainColor = ModContent.Request<Texture2D>("OdeMod/Images/Effects/heatmap", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
-            var MaskColor = ModContent.Request<Texture2D>("OdeMod/Images/Effects/Flame0", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+            var MainColor = ModContent.Request<Texture2D>("OdeMod/Images/Effects/heatmap3", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+            var MaskColor = ModContent.Request<Texture2D>("OdeMod/Images/Effects/LaserFx", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             var MainShape = ModContent.Request<Texture2D>("OdeMod/Images/Effects/Extra_197", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             // 把变换和所需信息丢给shader
             shader.Parameters["uTransform"].SetValue(model * projection);//坐标变换，详见小裙子视频
-            shader.Parameters["uTime"].SetValue(-(float)Main.time * 0.05f);//使纹理随时间变化
+            shader.Parameters["uTime"].SetValue(-(float)Main.time * 0.03f);//使纹理随时间变化
 
             Main.graphics.GraphicsDevice.Textures[0] = MainColor;
             Main.graphics.GraphicsDevice.Textures[1] = MainShape;

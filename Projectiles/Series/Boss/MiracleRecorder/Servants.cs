@@ -37,6 +37,7 @@ namespace OdeMod.Projectiles.Series.Boss.MiracleRecorder
             Projectile.scale = 1f;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
+            Projectile.hide = true;
         }
 
         private float timer = 0;
@@ -61,6 +62,10 @@ namespace OdeMod.Projectiles.Series.Boss.MiracleRecorder
         private int oldlogic = -1;
         private int newlogic = -1;
 
+        public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
+        {
+            behindNPCs.Add(index);
+        }
         public override void AI()
         {
             Projectile.timeLeft = 2;
@@ -325,11 +330,11 @@ namespace OdeMod.Projectiles.Series.Boss.MiracleRecorder
                     oldrotate = Projectile.rotation;
                     newrotate = (float)(Main.rand.Next(127, 188)) * 0.01f - 1.57f;
                     note = Projectile.Center;
-                    destination = new Vector2((float)Main.screenWidth / (miracleRecorder.ServantCount + 1) * (Projectile.ai[0] + 1) + Main.screenPosition.X + Main.rand.Next(-25, 26), player.Center.Y - (450f + Main.rand.Next(-50, 51)));
+                    destination = new Vector2((float)Main.screenWidth / (miracleRecorder.ServantCount + 1) * (Projectile.ai[0]) + Main.screenPosition.X + Main.rand.Next(-25, 26), player.Center.Y - (450f + Main.rand.Next(-50, 51)));
                 }
                 if (timer > 1 && timer <= 30)
                 {
-                    Projectile.Center = Vector2.Lerp(note, destination, (float)(0.5f * Math.Tanh((double)(timer - 15) / 5f) + 0.5f));
+                    Projectile.Center = Vector2.Lerp(note, destination, (float)(0.5f * Math.Tanh((double)(timer - 15) / 3f) + 0.5f));
                     Projectile.rotation = oldrotate * ((30 - timer) / 30f) + newrotate * (timer / 30f);
                 }
                 if (timer == 30) line = 1;
