@@ -16,6 +16,7 @@ namespace OdeMod.Items.Series.Foods
     /// </summary>
     internal class GlacierMineralWater : ModItem, IFoods
     {
+        public override string Texture => "OdeMod/Items/Series/Foods/GlacierWater";
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
@@ -70,6 +71,8 @@ namespace OdeMod.Items.Series.Foods
     /// </summary>
     internal class GlacierWater : ModItem, IFoods
     {
+        public override string Texture => "OdeMod/Items/Series/Foods/GlacierWater";
+
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
@@ -105,6 +108,8 @@ namespace OdeMod.Items.Series.Foods
     /// </summary>
     internal class GlacierMineralSpringWater : ModItem, IFoods
     {
+        public override string Texture => "OdeMod/Items/Series/Foods/GlacierWater";
+
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();

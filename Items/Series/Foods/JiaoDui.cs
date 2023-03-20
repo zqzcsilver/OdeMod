@@ -8,6 +8,7 @@ namespace OdeMod.Items.Series.Foods
 {
     internal class CandiedFruit : ModItem, IFoods
     {
+        public override string Texture => "OdeMod/Items/Series/Foods/JiaoDui";
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
@@ -24,17 +25,21 @@ namespace OdeMod.Items.Series.Foods
         public override void SetDefaults()
         {
             base.SetDefaults();
-            Item.width = 30;
-            Item.height = 30;
-            Item.useStyle = ItemUseStyleID.DrinkLiquid;
+            Item.DefaultToFood(30, 30, BuffID.WellFed2, 36000);
             Item.useAnimation = 15;
             Item.useTime = 15;
             Item.consumable = true;
             Item.maxStack = 99;
+            Item.value = Item.buyPrice(0, 0, 10, 0);
         }
         public override bool CanUseItem(Player player)
         {
             return base.CanUseItem(player);
+        }
+        public override bool? UseItem(Player player)
+        {
+            player.AddBuff(BuffID.WellFed2, 36000);
+            return true;
         }
     }
     internal class JiaoDui : ModItem, IFoods
@@ -47,8 +52,8 @@ namespace OdeMod.Items.Series.Foods
             Main.RegisterItemAnimation(Type, new DrawAnimationVertical(int.MaxValue, 3));
             ItemID.Sets.FoodParticleColors[Item.type] = new Color[3] {
                 new Color(248,248,255),
-                new Color(253,245,230),
-                new Color(255,248,220)
+                Color.Green,
+                Color.Red
             };
             ItemID.Sets.IsFood[Type] = true;
         }
@@ -57,15 +62,29 @@ namespace OdeMod.Items.Series.Foods
             base.SetDefaults();
             Item.width = 30;
             Item.height = 30;
+            Item.UseSound = SoundID.Item2;
             Item.useStyle = ItemUseStyleID.DrinkLiquid;
-            Item.useAnimation = 15;
-            Item.useTime = 15;
+            Item.useAnimation = 20;
+            Item.useTime = 20;
             Item.consumable = true;
-            Item.maxStack = 99;
+            Item.maxStack = 30;
+            Item.value = Item.buyPrice(0, 1, 0, 0);
         }
         public override bool? UseItem(Player player)
         {
-            return base.UseItem(player);
+            Rectangle rectangle = new Rectangle((int)player.Center.X - 75, (int)player.Center.Y - 5, 150, 50);
+            var pls = player.GetModPlayer<Players.OdeAddPlayer>();
+            if (Main.rand.NextBool(100 - pls.FoodPutrefaction))//这个判定之后会移动到Player里
+            {
+                player.AddBuff(ModContent.BuffType<Buffs.Foods.Vomit>(), 600);
+                CombatText.NewText(rectangle, Color.Green, "肚子好难受...");
+            }
+            else
+            {
+                CombatText.NewText(rectangle, Color.Green, "感觉这个已经完全坏掉了...");
+                pls.Satiety++;
+            }
+            return true;
         }
     }
 }

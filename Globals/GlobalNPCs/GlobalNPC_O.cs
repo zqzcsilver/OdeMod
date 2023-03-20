@@ -43,7 +43,7 @@ namespace OdeMod.Globals.GlobalNPCs
         public override void SetupShop(int type, Chest shop, ref int nextSlot)
         {
             base.SetupShop(type, shop, ref nextSlot);
-            foreach (Player player in Main.player)
+            foreach (Player player in Main.player)//我原本想的是只有玩家背包里才会在购买页面出现 多人联机有的那个人能够买 但是这里好像写成了任意玩家有就出现
             {
                 if (player.talkNPC != -1 &&Main.npc[player.talkNPC].type ==  NPCID.GoblinTinkerer && type == NPCID.GoblinTinkerer && player.HasItem(ItemID.PulseBow))
                 {
@@ -61,6 +61,14 @@ namespace OdeMod.Globals.GlobalNPCs
             {
                 shop.item[nextSlot++].SetDefaults(ModContent.ItemType<Items.Series.Foods.GlacierMineralWater>());
                 //GlacierMineralSpringWater
+            }
+            if(type == NPCID.SkeletonMerchant)
+            {
+                shop.item[nextSlot++].SetDefaults(ModContent.ItemType<Items.Series.Foods.JiaoDui>());
+            }
+            if(type == NPCID.Merchant)
+            {
+                shop.item[nextSlot++].SetDefaults(ModContent.ItemType<Items.Series.Foods.CandiedFruit>());
             }
         }
         public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)

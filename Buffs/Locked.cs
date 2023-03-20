@@ -28,7 +28,6 @@ namespace OdeMod.Buffs
 
         public override void Update(NPC npc, ref int buffIndex)
         {
-            
             if (!npc.boss)
             {
                 npc.velocity = Vector2.Zero;
@@ -41,6 +40,14 @@ namespace OdeMod.Buffs
                 Projectile.NewProjectile(Entity.GetSource_None(), pVEC, tVEC, ModContent.ProjectileType<Projectiles.Misc.FriendlyStar>(), 15, 0, Main.LocalPlayer.whoAmI);
             }
             base.Update(npc, ref buffIndex);
+        }
+        public override void Update(Player player, ref int buffIndex)
+        {
+            if(player.statLife > 100)
+            {
+                //player.moveSpeed += 0.1f;
+            }
+            base.Update(player, ref buffIndex);
         }
         public override bool ReApply(NPC npc, int time, int buffIndex)
         {

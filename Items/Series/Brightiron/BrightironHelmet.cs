@@ -13,7 +13,7 @@ namespace OdeMod.Items.Series.Brightiron
         {
             Tooltip.SetDefault("Kick");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-			ArmorIDs.Head.Sets.DrawHatHair[Item.headSlot] = true;
+			ArmorIDs.Head.Sets.DrawHatHair[Item.headSlot] = false;
 		}
 		public override void SetDefaults()
 		{
