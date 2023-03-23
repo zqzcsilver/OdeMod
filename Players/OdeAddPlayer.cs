@@ -84,7 +84,7 @@ namespace OdeMod.Players
         {
             if (Satiety >= 100 || !Player.HasBuff(BuffID.WellFed))
             {
-                Player.AddBuff(BuffID.WellFed, 1800);
+                //Player.AddBuff(BuffID.WellFed, 1800);
             }
             base.UpdateLifeRegen();
             if (Main.dayTime)

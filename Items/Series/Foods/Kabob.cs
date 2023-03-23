@@ -26,7 +26,7 @@ namespace OdeMod.Items.Series.Foods
         public override void SetDefaults()
         {
             base.SetDefaults();
-            Item.DefaultToFood(34, 34, BuffID.WellFed3, 3600, false);
+            //Item.DefaultToFood(34, 34, BuffID.WellFed3, 3600, false);
             Item.useStyle = ItemUseStyleID.DrinkLiquid;
             Item.useAnimation = 20;
             Item.useTime = 20;
@@ -37,6 +37,11 @@ namespace OdeMod.Items.Series.Foods
         public override bool CanUseItem(Player player)
         {
             return base.CanUseItem(player);
+        }
+        public override bool? UseItem(Player player)
+        {
+            player.AddBuff(BuffID.Starving,60000);
+            return true;
         }
     }
 }

@@ -6,7 +6,7 @@ using OdeMod.Buffs;
 
 namespace OdeMod.Items.Misc
 {
-    internal class ChenAi : ModItem,IMiscItem
+    internal class ChenAi : ModItem, IMiscItem
     {
         public override void SetStaticDefaults()
         {

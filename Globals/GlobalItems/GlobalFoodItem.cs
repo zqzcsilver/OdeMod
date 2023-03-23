@@ -4,6 +4,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using OdeMod.Players;
 using System.Collections.Generic;
+using OdeMod.Items.Series.Foods;
 
 namespace OdeMod.Globals.GlobalItems
 {
@@ -13,7 +14,6 @@ namespace OdeMod.Globals.GlobalItems
         public static int a = 0;
         public override bool CanUseItem(Item item, Player player)
         {
-            
             if (InappetenceItem_Type != 0)
             {
                 if (item.type == InappetenceItem_Type)
