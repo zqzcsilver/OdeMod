@@ -3,6 +3,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using OdeMod.CardMode.ScreenEffectSystem.ScreenEffects;
 using OdeMod.Utils;
 
 using Terraria.ModLoader;
@@ -28,6 +29,7 @@ namespace OdeMod.CardMode.Scenes.ChangeSceneStyles
             base.OnBegin();
             lastTimer = 0f;
             nextTimer = 0f;
+            CardSystem.ScreenEffectManager.GetFinallyScreenEffect("FadeScreenEffect").Activation();
         }
 
         public override bool Draw(SpriteBatch sb)
@@ -39,12 +41,11 @@ namespace OdeMod.CardMode.Scenes.ChangeSceneStyles
             else
                 LastScene?.Draw(sb);
 
-            Effect effect = ModContent.Request<Effect>("OdeMod/Effects/PixelShaders/BrightnessGradient").Value;
             float distance = isNext ? nextTimer / nextTimerMax * nextLight :
                (lastTimerMax - lastTimer) / lastTimerMax * lastLight;
-            effect.Parameters["uAlpha"].SetValue(distance);
-            effect.Parameters["uMaxDistance"].SetValue(MathHelper.Lerp(0f, (float)Math.Sqrt(0.5), distance));
-            DrawUtils.SetEffectToScreen(sb, effect);
+            var fse = (FadeScreenEffect)CardSystem.ScreenEffectManager.GetFinallyScreenEffect("FadeScreenEffect");
+            fse.Alpha = distance;
+            fse.Distance = MathHelper.Lerp(0f, (float)Math.Sqrt(0.5), distance);
 
             return false;
         }
@@ -57,7 +58,10 @@ namespace OdeMod.CardMode.Scenes.ChangeSceneStyles
                 lastTimer += 1f;
                 LastScene?.Update(gt);
                 if (lastTimer >= lastTimerMax)
+                {
+                    LastScene?.Changing();
                     NextScene?.ChangeBegin();
+                }
             }
             else if (nextTimer < nextTimerMax)
             {
@@ -67,6 +71,7 @@ namespace OdeMod.CardMode.Scenes.ChangeSceneStyles
             else
             {
                 NextScene?.ChangeEnd();
+                CardSystem.ScreenEffectManager.GetFinallyScreenEffect("FadeScreenEffect").Deactivation();
                 isFinish = true;
             }
         }

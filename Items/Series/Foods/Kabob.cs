@@ -7,15 +7,13 @@ using Microsoft.Xna.Framework;
 namespace OdeMod.Items.Series.Foods
 {
     /// <summary>
-    /// 烤羊肉串 
+    /// 烤羊肉串
     /// </summary>
-    internal class Kabob : ModItem,IFoods
+    internal class Kabob : ModItem, IFoods
     {
-
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            Tooltip.SetDefault("色泽鲜美");
             Main.RegisterItemAnimation(Type, new DrawAnimationVertical(int.MaxValue, 3));
             ItemID.Sets.FoodParticleColors[Item.type] = new Color[3] {
                 new Color(248,248,255),
@@ -24,6 +22,7 @@ namespace OdeMod.Items.Series.Foods
             };
             ItemID.Sets.IsFood[Type] = true;
         }
+
         public override void SetDefaults()
         {
             base.SetDefaults();
@@ -34,6 +33,7 @@ namespace OdeMod.Items.Series.Foods
             Item.consumable = true;
             Item.maxStack = 99;
         }
+
         public override bool CanUseItem(Player player)
         {
             return base.CanUseItem(player);

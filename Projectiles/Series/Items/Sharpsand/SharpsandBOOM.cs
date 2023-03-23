@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+
 namespace OdeMod.Projectiles.Series.Items.Sharpsand
 {
     internal class SharpsandBOOM : ModProjectile, ISharpsandProjectile
@@ -39,10 +40,12 @@ namespace OdeMod.Projectiles.Series.Items.Sharpsand
             if (Projectile.timeLeft % 3 == 0)
                 Projectile.frame++;
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            target.AddBuff(BuffID.OnFire, damage);
+            target.AddBuff(BuffID.OnFire, damageDone);
         }
+
         public override Color? GetAlpha(Color lightColor)
         {
             return new Color(255 - Projectile.alpha, 255 - Projectile.alpha, 255 - Projectile.alpha, 255 - Projectile.alpha);

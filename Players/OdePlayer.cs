@@ -104,19 +104,18 @@ namespace OdeMod.Players
             //}
         }
 
-        public override bool PreHurt(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource, ref int cooldownCounter)
+        public override void OnHurt(Player.HurtInfo info)
         {
+            base.OnHurt(info);
             if (HallowMode)
             {
-                damage = 25 + Player.statDefense / 2;
+                info.Damage = 25 + Player.statDefense / 2;
             }
-            return true;
         }
 
-        public override void PostHurt(bool pvp, bool quiet, double damage, int hitDirection, bool crit, int cooldownCounter)
+        public override void PostHurt(Player.HurtInfo info)
         {
-            base.PostHurt(pvp, quiet, damage, hitDirection, crit, cooldownCounter);
-
+            base.PostHurt(info);
             if (HallowMode)
             {
                 Player.immune = true;
@@ -169,38 +168,38 @@ namespace OdeMod.Players
             }
         }
 
-        public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+        public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref NPC.HitModifiers modifiers)
         {
+            base.ModifyHitNPCWithProj(proj, target, ref modifiers);
             if (HolyFlameCrown && proj.type != ModContent.ProjectileType<Projectiles.Misc.HolyFlame>() && Main.rand.NextBool(10))
             {
                 Vector2 vector2 = new(0, 0);
-                Projectile.NewProjectile(proj.GetSource_OnHit(target), target.position, vector2, ModContent.ProjectileType<Projectiles.Misc.HolyFlame>(), proj.damage / 2, 0, proj.whoAmI);
+                Projectile.NewProjectile(proj.GetSource_OnHit(target), target.position,
+                    vector2, ModContent.ProjectileType<Projectiles.Misc.HolyFlame>(), proj.damage / 2,
+                    0, proj.whoAmI);
             }
-            base.ModifyHitNPCWithProj(proj, target, ref damage, ref knockback, ref crit, ref hitDirection);
         }
 
-        public override void ModifyHitNPC(Item item, NPC target, ref int damage, ref float knockback, ref bool crit)
+        public override void ModifyHitNPCWithItem(Item item, NPC target, ref NPC.HitModifiers modifiers)
         {
+            base.ModifyHitNPCWithItem(item, target, ref modifiers);
+
             if (HolyFlameCrown && Main.rand.NextBool(10))
             {
                 Vector2 vector2 = new(0, 0);
-                Projectile.NewProjectile(item.GetSource_OnHit(target), target.position, vector2, ModContent.ProjectileType<Projectiles.Misc.HolyFlame>(), item.damage / 2, 0, item.whoAmI);
+                Projectile.NewProjectile(item.GetSource_OnHit(target), target.position,
+                    vector2, ModContent.ProjectileType<Projectiles.Misc.HolyFlame>(), item.damage / 2, 0,
+                    item.whoAmI);
             }
-            base.ModifyHitNPC(item, target, ref damage, ref knockback, ref crit);
         }
 
-        public override void ModifyHitByProjectile(Projectile proj, ref int damage, ref bool crit)
-        {
-            base.ModifyHitByProjectile(proj, ref damage, ref crit);
-        }
-
-        public override void OnHitByProjectile(Projectile proj, int damage, bool crit)
+        public override void OnHitByProjectile(Projectile proj, Player.HurtInfo hurtInfo)
         {
             if (MagicBoneShield)
             {
                 proj.friendly = true;
                 proj.hostile = false;
-                proj.damage = damage / 2;
+                proj.damage = hurtInfo.Damage / 2;
                 NPC target = null;
                 float dismax = 3200;
                 foreach (NPC npc in Main.npc)
@@ -222,8 +221,8 @@ namespace OdeMod.Players
                     targetVec *= 20f;
                     proj.velocity = targetVec;
                 }
-                base.OnHitByProjectile(proj, damage, crit);
             }
+            base.OnHitByProjectile(proj, hurtInfo);
         }
     }
 }

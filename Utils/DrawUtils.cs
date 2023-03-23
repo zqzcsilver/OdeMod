@@ -602,8 +602,7 @@ namespace OdeMod.Utils
             sb.End();
             sb.GraphicsDevice.SetRenderTarget(Main.screenTargetSwap);
             sb.GraphicsDevice.Clear(Color.Black);
-            sb.Begin(SpriteSortMode.Immediate, BlendState.Opaque);
-            effect.CurrentTechnique.Passes[0].Apply();
+            sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
             sb.Draw(Main.screenTarget, Vector2.Zero, Color.White);
             sb.End();
 
@@ -612,8 +611,7 @@ namespace OdeMod.Utils
             sb.Begin(SpriteSortMode.Immediate, null, null, null, null, effect);
             sb.Draw(Main.screenTargetSwap, Vector2.Zero, Color.White);
             sb.End();
-            sb.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.LinearClamp,
-                DepthStencilState.Default, RasterizerState.CullNone, null, Main.Transform);
+            sb.Begin();
         }
 
         public static void SetDrawToScreen(SpriteBatch sb, Action<SpriteBatch, RenderTarget2D> draw)

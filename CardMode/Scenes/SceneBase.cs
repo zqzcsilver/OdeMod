@@ -38,6 +38,10 @@ namespace OdeMod.CardMode.Scenes
             ChangeFinish = true;
         }
 
+        public virtual void Changing()
+        {
+        }
+
         public virtual void UnLoad()
         {
         }

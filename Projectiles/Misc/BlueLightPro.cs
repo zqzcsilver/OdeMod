@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -24,6 +25,7 @@ namespace OdeMod.Projectiles.Misc
             Projectile.scale = 1f;
             Main.projFrames[Projectile.type] = 2;
         }
+
         public override void AI()
         {
             if (Projectile.timeLeft % 5 == 0)
@@ -36,12 +38,15 @@ namespace OdeMod.Projectiles.Misc
             }
             Projectile.rotation += 0.25f;
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(ModContent.BuffType<Buffs.NaturalPower>(), 120);
-            base.OnHitNPC(target, damage, knockback, crit);
+            base.OnHitNPC(target, hit, damageDone);
         }
+
         private int hitnum = 0;//撞击次数
+
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
             if (++hitnum >= 3)
@@ -69,6 +74,7 @@ namespace OdeMod.Projectiles.Misc
             }
             return false;
         }
+
         public override bool PreDraw(ref Color lightColor)
         {
             float size1 = 1f;
@@ -85,8 +91,8 @@ namespace OdeMod.Projectiles.Misc
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
             return false;
-
         }
+
         public override void Kill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.Item96, Projectile.position);

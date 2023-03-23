@@ -7,20 +7,26 @@ namespace OdeMod.UI.OdeUISystem.UIElements
         private class InnerPanel : BaseElement
         {
             public override Rectangle HiddenOverflowRectangle => ParentElement.HiddenOverflowRectangle;
+
             public override Rectangle GetCanHitBox() => Rectangle.Intersect(ParentElement.GetCanHitBox(), ParentElement.Info.TotalHitBox);
+
             public InnerPanel()
             {
                 Info.Width.Percent = 1f;
                 Info.Height.Percent = 1f;
             }
         }
+
         private InnerPanel _innerPanel;
+        public UIVerticalScrollbar UIVerticalScrollbar => _verticalScrollbar;
         private UIVerticalScrollbar _verticalScrollbar;
+        public UIHorizontalScrollbar UIHorizontalScrollbar => _horizontalScrollbar;
         private UIHorizontalScrollbar _horizontalScrollbar;
         private float verticalWhellValue;
         private float horizontalWhellValue;
         private Vector2 innerPanelMinLocation;
         private Vector2 innerPanelMaxLocation;
+
         public UIContainerPanel()
         {
             Info.HiddenOverflow = true;
@@ -28,14 +34,18 @@ namespace OdeMod.UI.OdeUISystem.UIElements
             Info.Height.Percent = 1f;
             Info.SetMargin(4f);
         }
+
         public void SetVerticalScrollbar(UIVerticalScrollbar scrollbar) => _verticalScrollbar = scrollbar;
+
         public void SetHorizontalScrollbar(UIHorizontalScrollbar scrollbar) => _horizontalScrollbar = scrollbar;
+
         public override void OnInitialization()
         {
             base.OnInitialization();
             _innerPanel = new InnerPanel();
             Register(_innerPanel);
         }
+
         public override void Update(GameTime gt)
         {
             base.Update(gt);
@@ -59,6 +69,7 @@ namespace OdeMod.UI.OdeUISystem.UIElements
                 Calculation();
             }
         }
+
         public bool AddElement(BaseElement element)
         {
             bool flag = _innerPanel.Register(element);
@@ -66,6 +77,7 @@ namespace OdeMod.UI.OdeUISystem.UIElements
                 Calculation();
             return flag;
         }
+
         public bool RemoveElement(BaseElement element)
         {
             bool flag = _innerPanel.Remove(element);
@@ -73,11 +85,13 @@ namespace OdeMod.UI.OdeUISystem.UIElements
                 Calculation();
             return flag;
         }
+
         public void ClearAllElements()
         {
             _innerPanel.RemoveAll();
             Calculation();
         }
+
         private void CalculationInnerPanelSize()
         {
             innerPanelMinLocation = Vector2.Zero;
@@ -100,7 +114,10 @@ namespace OdeMod.UI.OdeUISystem.UIElements
                 if (innerPanelMaxLocation.Y < v.Y)
                     innerPanelMaxLocation.Y = v.Y;
             });
+            if (_verticalScrollbar != null)
+                _verticalScrollbar.WhellValueMult = MathHelper.Max(0f, _innerPanel.Info.TotalSize.Y / (innerPanelMaxLocation.Y - innerPanelMinLocation.Y) * 5f);
         }
+
         public override void Calculation()
         {
             base.Calculation();

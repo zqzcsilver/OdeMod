@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+
 namespace OdeMod.Projectiles.Series.Items.Frosted
 {
     internal class Icelight : ModProjectile, IFrostedProjectile
@@ -25,6 +26,7 @@ namespace OdeMod.Projectiles.Series.Items.Frosted
             ProjectileID.Sets.TrailingMode[base.Projectile.type] = 0;
             Projectile.extraUpdates = 1;
         }
+
         public override void AI()
         {
             int num = Dust.NewDust(Projectile.position, 26, 26, DustID.IceTorch, 0f, 0f, 0, Color.White, 1f);
@@ -51,13 +53,10 @@ namespace OdeMod.Projectiles.Series.Items.Frosted
                 {
                     if (npc.active && !npc.friendly)
                     {
-
                         float currentDistance = Vector2.Distance(npc.Center, Projectile.Center);
 
                         if (currentDistance < distanceMax)
                         {
-
-
                             distanceMax = currentDistance;
                             target = npc;
                         }
@@ -65,7 +64,6 @@ namespace OdeMod.Projectiles.Series.Items.Frosted
                 }
                 if (target != null)
                 {
-
                     Vector2 targetVec = target.Center - Projectile.Center;
                     targetVec.Normalize();
 
@@ -75,10 +73,12 @@ namespace OdeMod.Projectiles.Series.Items.Frosted
                 }
             }
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            target.AddBuff(44, damage);
+            target.AddBuff(44, damageDone);
         }
+
         public override void Kill(int timeLeft)
         {
             for (int i = 0; i < 40; i++)
@@ -88,7 +88,9 @@ namespace OdeMod.Projectiles.Series.Items.Frosted
                 Main.dust[num].noGravity = true;
             }
         }
-        Texture2D texture;
+
+        private Texture2D texture;
+
         public override bool PreDraw(ref Color lightColor)
         {
             texture = ModContent.Request<Texture2D>(Texture).Value;
@@ -101,6 +103,7 @@ namespace OdeMod.Projectiles.Series.Items.Frosted
             }
             return true;
         }
+
         public override Color? GetAlpha(Color lightColor)
         {
             return new Color(255 - Projectile.alpha, 255 - Projectile.alpha, 255 - Projectile.alpha, 255 - Projectile.alpha);

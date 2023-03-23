@@ -12,10 +12,12 @@ namespace OdeMod.Items.Series.Miracle
         {
             base.SetStaticDefaults();
         }
+
         public override bool CanUseItem(Player player)
         {
-            return !NPC.AnyNPCs(ModContent.NPCType<MiracleRecorder>()); 
+            return !NPC.AnyNPCs(ModContent.NPCType<MiracleRecorder>());
         }
+
         public override void SetDefaults()
         {
             Item.width = 28;
@@ -35,15 +37,14 @@ namespace OdeMod.Items.Series.Miracle
                 int type = ModContent.NPCType<MiracleRecorder>();
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    if (player.ZoneHallow && Main.dayTime) 
+                    if (player.ZoneHallow && Main.dayTime)
                     {
                         NPC.SpawnOnPlayer(player.whoAmI, type);//生成Boss
                     }
-                    
                 }
                 else
                 {
-                    NetMessage.SendData(MessageID.SpawnBoss, number: player.whoAmI, number2: type);//发包，用来联机同步
+                    NetMessage.SendData(MessageID.SyncNPC, number: player.whoAmI, number2: type);//发包，用来联机同步
                 }
             }
             return true;

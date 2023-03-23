@@ -15,10 +15,12 @@ namespace OdeMod.Tiles
         Growing,
         Grown
     }
+
     //这里的高度贴图事24的 超出默认的了 uy改改⑧
     internal class AyTsao : ModTile, IOdeTile
     {
         private const int FrameWidth = 18;
+
         public override void SetStaticDefaults()
         {
             Main.tileFrameImportant[Type] = true;
@@ -45,6 +47,7 @@ namespace OdeMod.Tiles
             HitSound = SoundID.Grass;
             DustType = DustID.Ambient_DarkBrown;
         }
+
         public override bool CanPlace(int i, int j)//看的EXM的范例  这个部分不太懂 幽银银烛求注释ORZ
         {
             Tile tile = Framing.GetTileSafely(i, j); // Safe way of getting a tile instance
@@ -85,6 +88,7 @@ namespace OdeMod.Tiles
             }
             return true;
         }
+
         public override void SetSpriteEffects(int i, int j, ref SpriteEffects spriteEffects)
         {
             if (i % 2 == 0)
@@ -92,11 +96,13 @@ namespace OdeMod.Tiles
                 spriteEffects = SpriteEffects.FlipHorizontally;
             }
         }
+
         public override void SetDrawPositions(int i, int j, ref int width, ref int offsetY, ref int height, ref short tileFrameX, ref short tileFrameY)
         {
             offsetY = -6;
         }
-        public override bool Drop(int i, int j)
+
+        public override bool CanDrop(int i, int j)
         {
             PlantStage stage = GetStage(i, j);
 
@@ -141,11 +147,13 @@ namespace OdeMod.Tiles
             // Custom drop code, so return false
             return false;
         }
+
         public override bool IsTileSpelunkable(int i, int j)
         {
             PlantStage stage = GetStage(i, j);
             return stage == PlantStage.Grown;
         }
+
         public override void RandomUpdate(int i, int j)
         {
             Tile tile = Framing.GetTileSafely(i, j);
@@ -161,6 +169,7 @@ namespace OdeMod.Tiles
                 }
             }
         }
+
         private static PlantStage GetStage(int i, int j)
         {
             Tile tile = Framing.GetTileSafely(i, j);

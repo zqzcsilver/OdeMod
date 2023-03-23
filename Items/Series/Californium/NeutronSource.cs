@@ -2,6 +2,8 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 
+using static Terraria.Player;
+
 namespace OdeMod.Items.Series.Californium
 {
     internal class NeutronSource : ModItem, ICalifornium
@@ -18,6 +20,7 @@ namespace OdeMod.Items.Series.Californium
                 "你的防御增加10%");
             */
         }
+
         public override void SetDefaults()
         {
             base.SetDefaults();
@@ -26,11 +29,13 @@ namespace OdeMod.Items.Series.Californium
             Item.rare = ItemRarityID.Cyan;
             Item.accessory = true;
         }
+
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.statDefense = (int)(player.statDefense * 1.1f);
+            player.statDefense += (int)(player.statDefense * 1.1f);
             player.AddBuff(BuffID.Spelunker, 1);
         }
+
         public override void AddRecipes()
         {
             base.AddRecipes();

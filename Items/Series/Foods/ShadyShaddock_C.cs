@@ -4,6 +4,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Terraria.Audio;
+
 namespace OdeMod.Items.Series.Foods
 {
     /// <summary>
@@ -14,8 +15,8 @@ namespace OdeMod.Items.Series.Foods
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            Tooltip.SetDefault("闻起来似乎有些腐烂\n你捏了捏 里面似乎有种糊状物质\n你有些害怕且兴奋");
         }
+
         public override void SetDefaults()
         {
             base.SetDefaults();
@@ -27,6 +28,7 @@ namespace OdeMod.Items.Series.Foods
             Item.consumable = true;
             Item.maxStack = 99;
         }
+
         public override bool? UseItem(Player player)
         {
             var pls = player.GetModPlayer<Players.OdeAddPlayer>();
@@ -37,13 +39,16 @@ namespace OdeMod.Items.Series.Foods
                 case 1:
                     CombatText.NewText(rectangle, Color.Red, "有股怪怪的味道...");
                     break;
+
                 case 2:
                     CombatText.NewText(rectangle, Color.Red, "我的肚子突然好疼...");
                     break;
+
                 case 3:
                     CombatText.NewText(rectangle, Color.Red, "啊！忍不住啦！");
 
                     break;
+
                 default:
                     SoundEngine.PlaySound(SoundID.Item16, player.Center);
                     pls.FoodPutrefaction -= 1;

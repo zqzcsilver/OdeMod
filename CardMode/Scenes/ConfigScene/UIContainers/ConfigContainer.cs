@@ -1,4 +1,6 @@
-﻿using Microsoft.CodeAnalysis.Differencing;
+﻿using System;
+using System.Collections.Generic;
+
 using Microsoft.Xna.Framework;
 
 using OdeMod.CardMode.Scenes.ChangeSceneStyles;
@@ -16,33 +18,35 @@ namespace OdeMod.CardMode.Scenes.ConfigScene.UIContainers
         {
             base.OnInitialization();
 
-            UIText title = new UIText("设置", CardSystem.ConfigManager.GetConfig<InterfaceConfig>().Font.GetFont(180f));
+            UIText title = new UIText("设置", CardSystem.ConfigManager.GetConfig<InterfaceConfig>().Font.GetFont(80f));
             title.Info.Left.SetValue(-title.Info.Width.Pixel / 2f, 0.5f);
+            title.Info.Top.SetValue(0f, 0.08f);
             Register(title);
 
             BaseElement configPanel = new BaseElement();
-            configPanel.Info.Width.SetValue(-40f, 0.7f);
-            configPanel.Info.Height.SetValue(-40f, 1f);
-            configPanel.Info.Height -= title.Info.Height;
+            configPanel.Info.Width.SetValue(0f, 0.7f);
+            configPanel.Info.Height.SetValue(-80f, 1f);
+            configPanel.Info.Height -= title.Info.Top + title.Info.Height;
             configPanel.Info.Left.SetValue(0f, 0.15f);
             configPanel.Info.Top = new PositionStyle(0f, 1f) - configPanel.Info.Height;
             Register(configPanel);
 
             configConatiner = new UIContainerPanel();
-            configConatiner.Info.Width.SetValue(-40f, 1f);
-            configConatiner.Info.Height.SetValue(-40f, 1f);
+            configConatiner.Info.Width.SetValue(0f, 1f);
+            configConatiner.Info.Height.SetValue(0f, 1f);
             configPanel.Register(configConatiner);
 
             UIVerticalScrollbar verticalScrollbar = new UIVerticalScrollbar();
             verticalScrollbar.Info.Width.SetValue(40f, 0f);
             verticalScrollbar.Info.Left.SetValue(-40f, 0.94f);
-            verticalScrollbar.Info.Height = configPanel.Info.Height;
+            verticalScrollbar.Info.Height = configPanel.Info.Height - new PositionStyle(40f, 0f);
             verticalScrollbar.Info.Top = configPanel.Info.Top;
             verticalScrollbar.AlwaysOnLight = true;
+            verticalScrollbar.UseScrollWheel = true;
             configConatiner.SetVerticalScrollbar(verticalScrollbar);
             Register(verticalScrollbar);
 
-            UIText back = new UIText("<-返回", CardSystem.ConfigManager.GetConfig<InterfaceConfig>().Font.GetFont(60f));
+            UIText back = new UIText("<-返回", CardSystem.ConfigManager.GetConfig<InterfaceConfig>().Font.GetFont(40f));
             back.Info.Left.SetValue(0f, 0.01f);
             back.Info.Top.SetValue(0f, 0.01f);
             back.Events.OnLeftClick += element =>
@@ -66,6 +70,27 @@ namespace OdeMod.CardMode.Scenes.ConfigScene.UIContainers
             configConatiner.ClearAllElements();
             PositionStyle top = PositionStyle.Empty;
             var configs = CardSystem.ConfigManager.GetAllConfigs();
+            var configOrder = new List<string>()
+            {
+                "InterfaceConfig",
+                "MusicConfig",
+                "KeyBindConfig"
+            };
+            if (!(configOrder == null || configOrder.Count == 0))
+            {
+                configs.Sort((f1, f2) =>
+                {
+                    int i1 = configOrder.IndexOf(f1.SaveName);
+                    int i2 = configOrder.IndexOf(f2.SaveName);
+                    if (i1 == -1 && i2 == i1)
+                        return 0;
+                    if (i1 == -1)
+                        return 1;
+                    if (i2 == -1)
+                        return -1;
+                    return i1 < i2 ? -1 : 1;
+                });
+            }
             BaseElement baseElement;
             foreach (var config in configs)
             {

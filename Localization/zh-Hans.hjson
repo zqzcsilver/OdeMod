@@ -61,7 +61,7 @@
 			HolySpiritBullet : 圣灵弹
 			Glory : 荣光
 
-			//充能系列
+			#充能系列
 			ElectrifiedBlasterCannon : 带电爆破炮
 			StarAngel : 星辰天使
 			Zapinator : 真红冲击波
@@ -75,13 +75,13 @@
 			HeavenFragment : 天堂配件
 			KingSwing : 帝王之翼
 
-			//Chaos-混沌系列
+			#Chaos-混沌系列
 			BlackPage : 黑暗书页
 			Brain : 大脑
 			CursedSoul : 被诅咒的灵魂
 			MagicTentacle : 魔化触手
 
-			//食物
+			#食物
 			Cola : 可乐
 			ShadyShaddock_B : 阴影柚
 			ShadyShaddock_C : 阴影柚
@@ -93,7 +93,7 @@
 			GuoKui : 锅盔
 			GlacierMineralWater : 冰川矿泉水
 
-			//杂项
+			#杂项
 			SuicideRevolver : 自尽左轮
 			Wan : Wan
 			WanGift : Wan的礼物
@@ -114,7 +114,7 @@
 			HolyFlameCrown : 圣火冠
 			LightningAmulet : 闪电护符
 			MagicBoneShield : 魔法骨盾
-			//杂项武器
+			#杂项武器
 			BrilliantDragon : 煌龙
 			BuleLight : 碧蓝之光
 			BigTorch :大火炬
@@ -135,7 +135,7 @@
 			SpecularWater : 镜水
 			StarLock : 星锁
 
-			//裂谷系列
+			#裂谷系列
 			DarkBlueMantraStone : 暗蓝咒石
 			DarkBlueSting : 暗蓝之刺
 			DisasterCurseSilverIngot : 灾咒银锭
@@ -169,6 +169,7 @@
 			FrostedSickle : 
 			FrostedThorn : 
 			BrightironBar : 
+			BrightironBreastplate:Kick
 			BrightironBroadsword : 
 			BrightironHeavyaxe : 
 			BrightironOre : 
@@ -254,20 +255,24 @@
 			LuminousReactor : 1
 			HeavenFragment : 1
 
-			//Chaos-混沌系列
+			#Chaos-混沌系列
 			BlackPage : 写满了符文
 			Brain : 可食用
 			CursedSoul : 他试图挣脱你的掌握
 			MagicTentacle : 1
 
-			//杂项
+			#杂项
 			SuicideRevolver : 军火商的箱子最底部的一把枪，看上去完全不像是能伤害到敌人的样子。
 			Wan : 
 			'''
 			奇怪的物品，你可以将它投出
 			它试图摆脱你的手掌
 			'''
-			WanGift : 可以开出奇奇怪怪的东西
+			WanGift : 
+			'''
+			可以开出奇奇怪怪的东西
+			{$CommonItemTooltip.RightClickToOpen}
+			'''
 			TwistedSteelBlade : 骷髅王掉落
 			SunLight : 
 			'''
@@ -304,7 +309,7 @@
 			BrilliantDragon : 煌龙
 			BuleLight : 一把最“自然”的刀
 
-			//裂谷系列
+			#裂谷系列
 			DarkBlueMantraStone : 咒术
 			DarkBlueSting : 待补充
 			DisasterCurseSilverIngot :你感觉银锭上覆盖着一层不详的气息
@@ -345,7 +350,7 @@
 			DescendingDark : 黑暗降临
 			DescendingDark_Two : 黑暗降临
 
-			//物品杂项弹幕
+			#物品杂项弹幕
 			BlueLightPro : 碧蓝之光
 			CrystalSentence : 光辉誓言
 			Accumulation : 光辉誓言
@@ -360,7 +365,7 @@
 		{
 		    ShadowSwing : 暗翼
 			Raider : 强袭者
-			//Chaos-混沌之日
+			#Chaos-混沌之日
 			ChaoticAurora : 混沌极光
 			ChaoticBite : 混沌噬咬
 			ChaoticLicker : 混沌舔食者
@@ -369,37 +374,50 @@
 			Rumia : 露米娅
 			SoftGlueDragon : 软胶龙
 
-			//Boss
+			#Boss
 			MiracleRecorder : 辉煌记录者
 		}
-		#状态名字
-		BuffName:
+		Buffs: 
 		{
-			//食物系列
-			Addiction : 上瘾
-			Happy : 快乐
-			Inappetence : 厌食
-
-			//杂项
-			NaturalPower : 自然力量
-			Vitality : 元气
-			HolySpiritCurse : 圣灵的诅咒
-		}
-		#状态介绍
-		BuffDescription:
-		{
-			//食物系列
-			Addiction : 
-			'''
-			攻击力提升30% 防御力减半
-			你疯狂得渴望某种物质
-			'''
-			Happy : 你兴奋的打了几个嗝
-			Inappetence : 你厌恶
-
-			//杂项
-			NaturalPower : 被自然所敌视
-			Vitality : 免疫寒冷，大大增加生命回复速度。
+			Addiction:
+			{
+				DisplayName: 上瘾
+				Description: 
+				'''
+				攻击力提升30% 防御力减半
+				你疯狂得渴望某种物质
+				'''
+			}
+			Happy:
+			{
+				DisplayName: 快乐
+				Description: 你兴奋的打了几个嗝
+			}
+			Inappetence:
+			{
+				DisplayName: 厌食
+				Description: 你厌恶
+			}
+			NaturalPower:
+			{
+				DisplayName: 自然力量
+				Description: 被自然所敌视
+			}
+			Vitality:
+			{
+				DisplayName: 元气
+				Description: 免疫寒冷，大大增加生命回复速度。
+			}
+			HolySpiritCurse:
+			{
+				DisplayName: 圣灵的诅咒
+				Description: 无
+			}
+			Locked:
+			{
+				DisplayName: 星锁
+				Description: 困
+			}
 		}
 		#附魔
 		Prefix:
@@ -408,10 +426,10 @@
 		#物块在地图上的名字
 		MapObject:
 		{
-			//杂项
+			#杂项
 			AyTsao : 艾草
 			LargePottedPlant : 大型盆栽
-			//裂谷
+			#裂谷
 			DarkBlueMantraStone : 暗蓝咒石
 			DisasterSilverBar : 灾咒银锭
 			DisasterSilverOre :灾咒银矿

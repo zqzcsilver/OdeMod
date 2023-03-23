@@ -20,6 +20,7 @@ namespace OdeMod.UI.OdeUISystem.UIElements
         private float waitToWheelValue = 0f;
         public bool UseScrollWheel = false;
         public bool AlwaysOnLight = false;
+        public float WhellValueMult = 1f;
 
         public float WheelValue
         {
@@ -102,7 +103,7 @@ namespace OdeMod.UI.OdeUISystem.UIElements
 
             if (UseScrollWheel && isMouseHover && whell != state.ScrollWheelValue)
             {
-                WheelValue -= (float)(state.ScrollWheelValue - whell) / 6f / height;
+                WheelValue -= (float)(state.ScrollWheelValue - whell) / 6f / height * WhellValueMult;
                 whell = state.ScrollWheelValue;
             }
             if (isMouseDown && mouseY != Main.mouseY)

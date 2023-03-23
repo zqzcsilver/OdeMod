@@ -4,10 +4,13 @@ using System.IO;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using OdeMod.CardMode.KeyBindSystem;
 using OdeMod.CardMode.PublicComponents.LogicComponents;
 using OdeMod.CardMode.Scenes;
 using OdeMod.CardMode.Scenes.ConfigScene.ConfigSystem;
-using OdeMod.CardMode.Scenes.MenuScene;
+using OdeMod.CardMode.Scenes.ConfigScene.ConfigSystem.Configs;
+using OdeMod.CardMode.ScreenEffectSystem;
+using OdeMod.CardMode.ScreenEffectSystem.ScreenEffects;
 using OdeMod.CardMode.UI;
 using OdeMod.CardMode.Utils;
 using OdeMod.Systems;
@@ -22,8 +25,12 @@ namespace OdeMod.CardMode
 {
     internal class CardSystem : ModSystem, ICardMode, IOdeSystem
     {
+        internal delegate void DrawHandle(SpriteBatch sb);
+
         public const string ENTITY_SOURCE_FROM_SYSTEM = "Ode Mod - Card System Mode";
         public static readonly string SavePath = Path.Combine(Main.SavePath, "OdeMod", "CardMode");
+
+        public event DrawHandle OnDraw;
 
         public bool CardModeVisible
         {
@@ -51,9 +58,26 @@ namespace OdeMod.CardMode
         public static ConfigManager ConfigManager => Instance._configManager;
         public CardModeUISystem CardModeUISystem { get; private set; }
         public PlayerManager PlayerManager { get; private set; }
-
         private SceneManager _sceneManager;
         public static SceneManager SceneManager { get => Instance._sceneManager; }
+        private ScreenEffectManager _screenEffectManager;
+        public static ScreenEffectManager ScreenEffectManager => Instance._screenEffectManager;
+        private AssetManager _assetManager;
+
+        public static AssetManager AssetManager
+        {
+            get
+            {
+                if (Instance._assetManager == null)
+                    Instance._assetManager = new AssetManager();
+                return Instance._assetManager;
+            }
+        }
+
+        private KeyBoardInputManager _keyBoardInputManager;
+        public static KeyBoardInputManager KeyBoardInputManager => Instance._keyBoardInputManager;
+        private KeyGroupManager _keyGroupManager;
+        public static KeyGroupManager KeyGroupManager => Instance._keyGroupManager;
 
         public CardSystem()
         {
@@ -65,28 +89,38 @@ namespace OdeMod.CardMode
             CardModeUISystem = new CardModeUISystem();
             PlayerManager = new PlayerManager();
             _sceneManager = new SceneManager();
+            _screenEffectManager = new ScreenEffectManager();
+            _keyBoardInputManager = new KeyBoardInputManager();
+            _keyGroupManager = new KeyGroupManager();
         }
 
         public override void Load()
         {
             base.Load();
-            Map.MapSize = new Point(200, 200);
-            Map.Build();
 
             _configManager.LoadConfigs();
             CardModeUISystem.Load();
             _sceneManager.Init();
 
+            Map.MapSize = new Point(200, 200);
+            Map.Build();
+
             var p = PlayerManager.CreatePlayer();
             Map.BindingMoveComponent = p.GetComponent<MoveComponent>();
             PlayerManager.AddPlayer(p);
+
+            ScreenEffectManager.RegisterFinallyScreenEffect("FadeScreenEffect", new FadeScreenEffect());
         }
 
         public void Draw(SpriteBatch sb)
         {
+            OnDraw?.Invoke(sb);
+
             PlayerManager.Draw(sb);
             _sceneManager.Draw(sb);
-            //Map.DrawBackground(sb);
+
+            ScreenEffectManager.ApplyScreenEffect(sb, Main.screenTarget, Main.screenTargetSwap);
+
             CardModeUISystem.Draw(sb);
 
             List<Triangle> triangles = new List<Triangle>()
@@ -108,6 +142,8 @@ namespace OdeMod.CardMode
                 0f,0f
             };
             DrawUtils.DrawTriangles(sb, triangles, colors, thicknesses, true);
+
+            ScreenEffectManager.ApplyFinallyScreenEffect(sb, Main.screenTarget, Main.screenTargetSwap);
         }
 
         public void Update(GameTime gt)
@@ -124,6 +160,9 @@ namespace OdeMod.CardMode
             //Main.newMusic = MusicID.Plantera;
 
             MouseInfo.Update(gt);
+            KeyBoardInputManager.Update(gt);
+            KeyGroupManager.Update(gt);
+
             Main.mouseX = (int)MouseInfo.MouseX;
             Main.mouseY = (int)MouseInfo.MouseY;
             Main.mouseLeft = MouseInfo.MouseLeftDown;
@@ -141,6 +180,11 @@ namespace OdeMod.CardMode
             PlayerManager.Update(gt);
         }
 
+        public static Texture2D GetCardTexture(string path)
+        {
+            return AssetManager.Request<Texture2D>($"OdeMod/Images/Card/{ConfigManager.GetConfig<InterfaceConfig>().TextureStyleName}/{path}");
+        }
+
         private void openCardMode()
         {
             Main.audioSystem.PauseAll();
@@ -150,8 +194,10 @@ namespace OdeMod.CardMode
 
         private void loadAsset()
         {
-            ModContent.Request<Texture2D>("OdeMod/Images/Effects/Night", ReLogic.Content.AssetRequestMode.ImmediateLoad);
-            ModContent.Request<Effect>("OdeMod/Effects/PixelShaders/BrightnessGradient", ReLogic.Content.AssetRequestMode.ImmediateLoad);
+            AssetManager.Request<Texture2D>("OdeMod/Images/Effects/Night");
+            GetCardTexture("Scene/MenuScene");
+            GetCardTexture("Scene/ConfigScene");
+            AssetManager.Request<Effect>("OdeMod/Effects/PixelShaders/BrightnessGradient");
         }
 
         private void closeCardMode()

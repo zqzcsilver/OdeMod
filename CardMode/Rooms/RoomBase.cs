@@ -29,8 +29,7 @@ namespace OdeMod.CardMode.Rooms
             (Map.BindingMoveComponent == null || GetNumberOfEntries(Map.BindingMoveComponent) > 0) ? Color.White * 0.6f :
             (CanTakeIn(Map.BindingMoveComponent) ? Color.Yellow : Color.White);
 
-        public virtual Texture2D Icon => ModContent.Request<Texture2D>("OdeMod/Images/Card/Original/Room/EyeballIcon",
-            ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+        public virtual Texture2D Icon => CardSystem.GetCardTexture("Room/EyeballIcon");
 
         public virtual Rectangle InMapHitBox
         {

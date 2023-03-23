@@ -5,7 +5,7 @@ using OdeMod.Buffs;
 
 namespace OdeMod.Items.Misc
 {
-    internal class TwistedSteelBlade : ModItem,IMiscItem
+    internal class TwistedSteelBlade : ModItem, IMiscItem
     {
         public override void SetDefaults()
         {
@@ -19,13 +19,14 @@ namespace OdeMod.Items.Misc
             Item.useAnimation = 15;
             Item.useTime = 15;
         }
-        public override void ModifyHitNPC(Player player, NPC target, ref int damage, ref float knockBack, ref bool crit)
+
+        public override void ModifyHitNPC(Player player, NPC target, ref NPC.HitModifiers modifiers)
         {
             if (Main.rand.NextBool(5))
             {
                 target.AddBuff(ModContent.BuffType<NaturalPower>(), 120);
             }
-            base.ModifyHitNPC(player, target, ref damage, ref knockBack, ref crit);
+            base.ModifyHitNPC(player, target, ref modifiers);
         }
     }
 }

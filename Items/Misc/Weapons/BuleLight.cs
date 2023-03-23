@@ -6,12 +6,13 @@ using Microsoft.Xna.Framework;
 
 namespace OdeMod.Items.Misc.Weapons
 {
-    internal class BuleLight : ModItem,IMiscItem
+    internal class BuleLight : ModItem, IMiscItem
     {
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
         }
+
         public override void SetDefaults()
         {
             base.SetDefaults();
@@ -26,18 +27,20 @@ namespace OdeMod.Items.Misc.Weapons
             Item.useAnimation = 10;
             Item.useTime = 10;
         }
-        public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)
+
+        public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(ModContent.BuffType<Buffs.NaturalPower>(), 120);
-            base.OnHitNPC(player, target, damage, knockBack, crit);
+            base.OnHitNPC(player, target, hit, damageDone);
         }
+
         public override void AddRecipes()
         {
             base.AddRecipes();
             CreateRecipe()
-                .AddIngredient(ItemID.JungleGrassSeeds,10)
-                .AddIngredient(ItemID.MushroomGrassSeeds,10)
-                .AddIngredient(ItemID.RedPressurePlate,15)
+                .AddIngredient(ItemID.JungleGrassSeeds, 10)
+                .AddIngredient(ItemID.MushroomGrassSeeds, 10)
+                .AddIngredient(ItemID.RedPressurePlate, 15)
                 .AddTile(TileID.CrystalBall)
                 .Register();
         }

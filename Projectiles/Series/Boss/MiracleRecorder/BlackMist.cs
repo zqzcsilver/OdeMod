@@ -6,11 +6,13 @@ using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+
 namespace OdeMod.Projectiles.Series.Boss.MiracleRecorder
 {
     internal class BlackMist : ModProjectile, IMiracleRecorderProj
     {
         private float m;
+
         public override void SetDefaults()
         {
             Projectile.width = 20;
@@ -28,10 +30,12 @@ namespace OdeMod.Projectiles.Series.Boss.MiracleRecorder
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 8;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
         }
-        float scale = 0f;
+
+        private float scale = 0f;
+
         public override void AI()
         {
-            if(Projectile.timeLeft>120)
+            if (Projectile.timeLeft > 120)
             {
                 scale += 0.025f;
             }
@@ -46,27 +50,27 @@ namespace OdeMod.Projectiles.Series.Boss.MiracleRecorder
             Main.dust[num].velocity.Y -= 4f;
             Main.dust[num].velocity.X *= 0.6f;
 
-
             Projectile.rotation = (float)
                    System.Math.Atan2((double)Projectile.velocity.Y,
                    (double)Projectile.velocity.X) - 1.57f;
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
-        {
-            target.AddBuff(BuffID.OnFire, damage);
-        }
-       // public override void Kill(int timeLeft)
-       // {
-       //     Player player = Main.player[Projectile.owner];
 
-            
-       //     for (int i = 0; i < 40; i++)
-       //     {
-       //         int num = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, ModContent.DustType<Dusts.Dream>(), 0f, 0f, 0, Color.White, 1.5f);
-       //         Main.dust[num].velocity = 5 * Main.rand.NextVector2Unit();
-       //         Main.dust[num].noGravity = true;
-       //     }
-       // }
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            target.AddBuff(BuffID.OnFire, damageDone);
+        }
+
+        // public override void Kill(int timeLeft)
+        // {
+        //     Player player = Main.player[Projectile.owner];
+
+        //     for (int i = 0; i < 40; i++)
+        //     {
+        //         int num = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, ModContent.DustType<Dusts.Dream>(), 0f, 0f, 0, Color.White, 1.5f);
+        //         Main.dust[num].velocity = 5 * Main.rand.NextVector2Unit();
+        //         Main.dust[num].noGravity = true;
+        //     }
+        // }
         public override Color? GetAlpha(Color lightColor)
         {
             return new Color(255 - Projectile.alpha, 255 - Projectile.alpha, 255 - Projectile.alpha, 255 - Projectile.alpha);

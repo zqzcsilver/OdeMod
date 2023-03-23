@@ -51,7 +51,7 @@ namespace OdeMod.CardMode.CardComponents.DrawComponents
             }, OdeMod.RenderTarget2DPool.PoolOther(size, "Card Illustration"), drawComponent.Render, drawComponent.RenderSwap);
 
             sb.End();
-            var effect = ModContent.Request<Effect>("OdeMod/Effects/PixelShaders/Mapping", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+            var effect = CardSystem.AssetManager.Request<Effect>("OdeMod/Effects/PixelShaders/Mapping");
             sb.GraphicsDevice.Textures[0] = Texture;
             sb.GraphicsDevice.Textures[1] = OdeMod.RenderTarget2DPool.PoolOther(size, "Card Illustration");
             sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointWrap,

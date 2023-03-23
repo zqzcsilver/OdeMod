@@ -33,17 +33,17 @@ namespace OdeMod.CardMode.Scenes.ConfigScene.UIElements
         {
             Selecteds = selecteds;
 
-            UIText text = new UIText(tip, CardSystem.ConfigManager.GetConfig<InterfaceConfig>().Font.GetFont(60f));
+            UIText text = new UIText(tip, CardSystem.ConfigManager.GetConfig<InterfaceConfig>().Font.GetFont(40f));
             text.CalculateSize = false;
             text.CenterX = new PositionStyle(-5f, 0.25f);
             text.CenterY = new PositionStyle(0f, 0.5f);
             text.Events.OnCalculation += (baseElement) =>
             {
-                ((UIText)baseElement).Font = CardSystem.ConfigManager.GetConfig<InterfaceConfig>().Font.GetFont(baseElement.Info.Size.Y);
+                ((UIText)baseElement).Font = CardSystem.ConfigManager.GetConfig<InterfaceConfig>().Font.GetFont(baseElement.ParentElement.Info.Size.Y);
             };
             Register(text);
 
-            text = new UIText("<", CardSystem.ConfigManager.GetConfig<InterfaceConfig>().Font.GetFont(60f));
+            text = new UIText("<", CardSystem.ConfigManager.GetConfig<InterfaceConfig>().Font.GetFont(40f));
             text.CalculateSize = false;
             text.Info.Left.SetValue(Info.Width / 2f);
             text.Info.Top.SetValue(Info.Height / 2f - text.Info.Height / 2f);
@@ -53,14 +53,14 @@ namespace OdeMod.CardMode.Scenes.ConfigScene.UIElements
             };
             text.Events.OnCalculation += (baseElement) =>
             {
-                ((UIText)baseElement).Font = CardSystem.ConfigManager.GetConfig<InterfaceConfig>().Font.GetFont(baseElement.Info.Size.Y);
+                ((UIText)baseElement).Font = CardSystem.ConfigManager.GetConfig<InterfaceConfig>().Font.GetFont(baseElement.ParentElement.Info.Size.Y);
                 baseElement.Info.Left.SetValue(Info.Width / 2f);
                 baseElement.Info.Top.SetValue(Info.Height / 2f - baseElement.Info.Height / 2f);
             };
 
             Register(text);
 
-            text = new UIText(string.Empty, CardSystem.ConfigManager.GetConfig<InterfaceConfig>().Font.GetFont(60f));
+            text = new UIText(string.Empty, CardSystem.ConfigManager.GetConfig<InterfaceConfig>().Font.GetFont(40f));
             text.CalculateSize = true;
             text.CenterX = new PositionStyle(0f, 0.75f);
             text.CenterY = new PositionStyle(0f, 0.5f);
@@ -74,7 +74,7 @@ namespace OdeMod.CardMode.Scenes.ConfigScene.UIElements
             };
             Register(text);
 
-            text = new UIText(">", CardSystem.ConfigManager.GetConfig<InterfaceConfig>().Font.GetFont(60f));
+            text = new UIText(">", CardSystem.ConfigManager.GetConfig<InterfaceConfig>().Font.GetFont(40f));
             text.CalculateSize = false;
             text.Info.Left.SetValue(Info.Width - text.Info.Width);
             text.Info.Top.SetValue(Info.Height / 2f - text.Info.Height / 2f);
@@ -84,7 +84,7 @@ namespace OdeMod.CardMode.Scenes.ConfigScene.UIElements
             };
             text.Events.OnCalculation += (baseElement) =>
             {
-                ((UIText)baseElement).Font = CardSystem.ConfigManager.GetConfig<InterfaceConfig>().Font.GetFont(baseElement.Info.Size.Y);
+                ((UIText)baseElement).Font = CardSystem.ConfigManager.GetConfig<InterfaceConfig>().Font.GetFont(baseElement.ParentElement.Info.Size.Y);
                 baseElement.Info.Left.SetValue(Info.Width - baseElement.Info.Width);
                 baseElement.Info.Top.SetValue(Info.Height / 2f - baseElement.Info.Height / 2f);
             };

@@ -1,5 +1,4 @@
-﻿using IL.Terraria;
-using Terraria.ModLoader;
+﻿using Terraria.ModLoader;
 
 namespace OdeMod.Globals.GlobalProjectiles
 {
@@ -8,6 +7,5 @@ namespace OdeMod.Globals.GlobalProjectiles
     /// </summary>
     internal class VelocityVerify : GlobalProjectile
     {
-
     }
 }

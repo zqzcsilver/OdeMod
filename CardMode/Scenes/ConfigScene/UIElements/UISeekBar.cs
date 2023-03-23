@@ -44,10 +44,92 @@ namespace OdeMod.CardMode.Scenes.ConfigScene.UIElements
         public event ValueChange OnValueChange;
 
         private bool dragging = false;
+        private string renderTarget2DName = string.Empty;
 
         public UISeekBar(float initialValue)
         {
             Value = initialValue;
+            CardSystem.Instance.OnDraw += Instance_OnDraw;
+        }
+
+        ~UISeekBar()
+        {
+            CardSystem.Instance.OnDraw -= Instance_OnDraw;
+            OdeMod.RenderTarget2DPool.DisportOther(Main.screenWidth, Main.screenHeight, renderTarget2DName);
+        }
+
+        private void Instance_OnDraw(SpriteBatch sb)
+        {
+            if (string.IsNullOrEmpty(renderTarget2DName))
+                renderTarget2DName = GetHashCode().ToString();
+
+            sb.End();
+            sb.GraphicsDevice.SetRenderTarget(Main.screenTargetSwap);
+            sb.GraphicsDevice.Clear(Color.Black);
+            sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp,
+                DepthStencilState.Default, RasterizerState.CullNone);
+            sb.Draw(Main.screenTarget, Vector2.Zero, Color.White);
+            sb.End();
+
+            sb.GraphicsDevice.SetRenderTarget(
+                OdeMod.RenderTarget2DPool.PoolOther(Main.screenWidth, Main.screenHeight, renderTarget2DName));
+            sb.GraphicsDevice.Clear(Color.Transparent);
+            sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp,
+                DepthStencilState.Default, RasterizerState.CullNone);
+
+            float usefulRange = Info.Size.X - LeftLineSize.X - RightTriangleSize.X - CursorOffset.X * 2f;
+            DrawUtils.DrawTriangles(sb, new List<Triangle>()
+                {
+                    //左竖线绘制
+                    new Triangle(new Vector2(0f, Info.Size.Y / 2f - LeftLineSize.Y / 2f),
+                    new Vector2(LeftLineSize.X, Info.Size.Y / 2f + LeftLineSize.Y / 2f),
+                    new Vector2(0, Info.Size.Y / 2f + LeftLineSize.Y / 2f)),
+
+                    new Triangle(new Vector2(0f, Info.Size.Y / 2f - LeftLineSize.Y / 2f),
+                    new Vector2(LeftLineSize.X, Info.Size.Y / 2f - LeftLineSize.Y / 2f),
+                    new Vector2(LeftLineSize.X, Info.Size.Y / 2f + LeftLineSize.Y / 2f)),
+
+                    //右三角绘制
+                    new Triangle(new Vector2(Info.Size.X - RightTriangleSize.X, 0f),
+                    new Vector2(Info.Size.X - RightTriangleSize.X, Info.Size.Y),
+                    new Vector2(Info.Size.X, Info.Size.Y / 2f)),
+                    //Bar绘制
+                    new Triangle(new Vector2(LeftLineSize.X, Info.Size.Y / 2f + BarHeight / 2f),
+                    new Vector2(Info.Size.X - RightTriangleSize.X, Info.Size.Y / 2f + BarHeight / 2f),
+                    new Vector2(Info.Size.X - RightTriangleSize.X, Info.Size.Y / 2f - BarHeight / 2f)),
+
+                    new Triangle(new Vector2(LeftLineSize.X, Info.Size.Y / 2f + BarHeight / 2f),
+                    new Vector2(LeftLineSize.X, Info.Size.Y / 2f - BarHeight / 2f),
+                    new Vector2(Info.Size.X - RightTriangleSize.X, Info.Size.Y / 2f - BarHeight / 2f)),
+
+                    //指针绘制
+                    new Triangle(new Vector2(LeftLineSize.X + usefulRange * Value + CursorOffset.X, Info.Size.Y / 2f - CursorHeight / 2f),
+                    new Vector2(LeftLineSize.X + usefulRange * Value + CursorOffset.X, Info.Size.Y / 2f + CursorHeight / 2f),
+                    new Vector2(LeftLineSize.X + usefulRange * Value + CursorOffset.X, Info.Size.Y / 2f) + CursorOffset),
+
+                    new Triangle(new Vector2(LeftLineSize.X + usefulRange * Value + CursorOffset.X, Info.Size.Y / 2f - CursorHeight / 2f),
+                    new Vector2(LeftLineSize.X + usefulRange * Value + CursorOffset.X, Info.Size.Y / 2f + CursorHeight / 2f),
+                    new Vector2(LeftLineSize.X + usefulRange * Value - CursorOffset.X + CursorOffset.X, Info.Size.Y / 2f + CursorOffset.Y)),
+                },
+                new List<Color>()
+                {
+                    LeftLineColor,LeftLineColor,RightTriangleColor,BarColor,BarColor,CursorColor,CursorColor
+                },
+                new List<float>()
+                {
+                    0f,0f,0f,0f,0f,0f,0f
+                }, true);
+            sb.End();
+
+            sb.GraphicsDevice.SetRenderTarget(Main.screenTarget);
+            sb.GraphicsDevice.Clear(Color.Black);
+            sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp,
+                DepthStencilState.Default, RasterizerState.CullNone);
+            sb.Draw(Main.screenTargetSwap, Vector2.Zero, Color.White);
+            sb.End();
+
+            sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp,
+                DepthStencilState.Default, RasterizerState.CullNone, null, Main.Transform);
         }
 
         public override void Calculation()
@@ -98,55 +180,9 @@ namespace OdeMod.CardMode.Scenes.ConfigScene.UIElements
 
         protected override void DrawSelf(SpriteBatch sb)
         {
-            base.DrawSelf(sb);
-
-            var x = DrawUtils.GetDrawRenderTarget(sb, (sb) =>
-            {
-                float usefulRange = Info.Size.X - LeftLineSize.X - RightTriangleSize.X - CursorOffset.X * 2f;
-                DrawUtils.DrawTriangles(sb, new List<Triangle>()
-                {
-                    //左竖线绘制
-                    new Triangle(new Vector2(0f, Info.Size.Y / 2f - LeftLineSize.Y / 2f),
-                    new Vector2(LeftLineSize.X, Info.Size.Y / 2f + LeftLineSize.Y / 2f),
-                    new Vector2(0, Info.Size.Y / 2f + LeftLineSize.Y / 2f)),
-
-                    new Triangle(new Vector2(0f, Info.Size.Y / 2f - LeftLineSize.Y / 2f),
-                    new Vector2(LeftLineSize.X, Info.Size.Y / 2f - LeftLineSize.Y / 2f),
-                    new Vector2(LeftLineSize.X, Info.Size.Y / 2f + LeftLineSize.Y / 2f)),
-
-                    //右三角绘制
-                    new Triangle(new Vector2(Info.Size.X - RightTriangleSize.X, 0f),
-                    new Vector2(Info.Size.X - RightTriangleSize.X, Info.Size.Y),
-                    new Vector2(Info.Size.X, Info.Size.Y / 2f)),
-                    //Bar绘制
-                    new Triangle(new Vector2(LeftLineSize.X, Info.Size.Y / 2f + BarHeight / 2f),
-                    new Vector2(Info.Size.X - RightTriangleSize.X, Info.Size.Y / 2f + BarHeight / 2f),
-                    new Vector2(Info.Size.X - RightTriangleSize.X, Info.Size.Y / 2f - BarHeight / 2f)),
-
-                    new Triangle(new Vector2(LeftLineSize.X, Info.Size.Y / 2f + BarHeight / 2f),
-                    new Vector2(LeftLineSize.X, Info.Size.Y / 2f - BarHeight / 2f),
-                    new Vector2(Info.Size.X - RightTriangleSize.X, Info.Size.Y / 2f - BarHeight / 2f)),
-
-                    //指针绘制
-                    new Triangle(new Vector2(LeftLineSize.X + usefulRange * Value + CursorOffset.X, Info.Size.Y / 2f - CursorHeight / 2f),
-                    new Vector2(LeftLineSize.X + usefulRange * Value + CursorOffset.X, Info.Size.Y / 2f + CursorHeight / 2f),
-                    new Vector2(LeftLineSize.X + usefulRange * Value + CursorOffset.X, Info.Size.Y / 2f) + CursorOffset),
-
-                    new Triangle(new Vector2(LeftLineSize.X + usefulRange * Value + CursorOffset.X, Info.Size.Y / 2f - CursorHeight / 2f),
-                    new Vector2(LeftLineSize.X + usefulRange * Value + CursorOffset.X, Info.Size.Y / 2f + CursorHeight / 2f),
-                    new Vector2(LeftLineSize.X + usefulRange * Value - CursorOffset.X + CursorOffset.X, Info.Size.Y / 2f + CursorOffset.Y)),
-                },
-                new List<Color>()
-                {
-                    LeftLineColor,LeftLineColor,RightTriangleColor,BarColor,BarColor,CursorColor,CursorColor
-                },
-                new List<float>()
-                {
-                    0f,0f,0f,0f,0f,0f,0f
-                }, true);
-            }, Main.screenWidth, Main.screenHeight);
-
-            sb.Draw(x, Info.Location, Color.White);
+            if (!string.IsNullOrEmpty(renderTarget2DName))
+                sb.Draw(OdeMod.RenderTarget2DPool.PoolOther(Main.screenWidth, Main.screenHeight, renderTarget2DName),
+                    Info.Location, Color.White);
         }
     }
 }

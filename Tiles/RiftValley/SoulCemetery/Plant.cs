@@ -1,5 +1,4 @@
-﻿
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using Terraria;
@@ -38,9 +37,9 @@ namespace OdeMod.Tiles.RiftValley.SoulCemetery
 
             TileObjectData.addTile(Type);
 
-            ModTranslation name = CreateMapEntryName();
-            name.SetDefault("Example Sapling");
-            AddMapEntry(new Color(200, 200, 200), name);
+            //ModTranslation name = CreateMapEntryName();
+            //name.SetDefault("Example Sapling");
+            //AddMapEntry(new Color(200, 200, 200), name);
 
             TileID.Sets.TreeSapling[Type] = true;
             TileID.Sets.CommonSapling[Type] = true;

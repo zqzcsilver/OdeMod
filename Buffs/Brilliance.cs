@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 
 namespace OdeMod.Buffs
 {
-    internal class Brilliance : ModBuff,IBuffs
+    internal class Brilliance : ModBuff, IBuffs
     {
         public override void SetStaticDefaults()
         {
@@ -14,9 +14,9 @@ namespace OdeMod.Buffs
             Main.pvpBuff[Type] = true;
             Main.buffNoSave[Type] = false;
         }
+
         public override void Update(NPC npc, ref int buffIndex)
         {
-            
             base.Update(npc, ref buffIndex);
         }
     }

@@ -17,6 +17,7 @@ namespace OdeMod.NPCs.Chaos
             Wander,
             Lick
         }
+
         public override void SetStaticDefaults()
         {
             Main.npcFrameCount[NPC.type] = 8;
@@ -39,12 +40,15 @@ namespace OdeMod.NPCs.Chaos
             NPC.noTileCollide = false;
             NPCID.Sets.TrailingMode[NPC.type] = 1;
         }
+
         public override void AI()
         {
             base.AI();
         }
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+
+        public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
+            base.OnHitPlayer(target, hurtInfo);
             var pls = target.GetModPlayer<EggPlayer>();
             pls.GG++;
             int time = pls.GG * 30;

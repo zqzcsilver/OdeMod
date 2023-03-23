@@ -36,11 +36,6 @@ namespace OdeMod.Projectiles.Series.Boss.MiracleRecorder
             Projectile.velocity *= 0;
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
-        {
-            base.OnHitPlayer(target, damage, crit);
-        }
-
         public override void PostDraw(Color lightColor)
         {
             List<CustomVertexInfo> bars = new();

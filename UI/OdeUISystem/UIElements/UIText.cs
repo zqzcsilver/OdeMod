@@ -58,6 +58,7 @@ namespace OdeMod.UI.OdeUISystem.UIElements
 
         public override void Calculation()
         {
+            base.Calculation();
             if (CalculateSize)
             {
                 Vector2 size = font.MeasureString(text);

@@ -2,6 +2,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+
 namespace OdeMod.Items.Series.Foods
 {
     internal class ShadyShaddock_B : ModItem, IFoods
@@ -9,8 +10,8 @@ namespace OdeMod.Items.Series.Foods
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            Tooltip.SetDefault("沾满鲜血的柚子\n散发出奇异的香甜");
         }
+
         public override void SetDefaults()
         {
             base.SetDefaults();
@@ -22,6 +23,7 @@ namespace OdeMod.Items.Series.Foods
             Item.consumable = true;
             Item.maxStack = 99;
         }
+
         public override bool CanUseItem(Player player)
         {
             return base.CanUseItem(player);

@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
+
 using System;
 using System.Collections.Generic;
+
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.GameContent.ItemDropRules;
@@ -9,7 +11,7 @@ using Terraria.ModLoader;
 
 namespace OdeMod.Globals.GlobalNPCs
 {
-    internal class GlobalNPC_O :GlobalNPC
+    internal class GlobalNPC_O : GlobalNPC
     {
         public override void GetChat(NPC npc, ref string chat)
         {
@@ -21,14 +23,14 @@ namespace OdeMod.Globals.GlobalNPCs
                     chat = "自尽左轮...其实只要不对着身子，把手拿到一边就可以射击后方的敌人了吧，不过还是很容易失误，我究竟是怎么设计出这鬼玩意的......";
                 }
             }
-            if(npc.type == NPCID.TravellingMerchant)
+            if (npc.type == NPCID.TravellingMerchant)
             {
                 if (player.HasItem(ModContent.ItemType<Items.Series.Foods.GlacierMineralWater>()) && Main.rand.NextBool(3))
                 {
                     chat = "冰川矿废水？你为什么会买这种东西？";
                 }
             }
-            if(npc.type == NPCID.Merchant)
+            if (npc.type == NPCID.Merchant)
             {
                 if (Main.rand.NextBool(4))
                 {
@@ -36,23 +38,25 @@ namespace OdeMod.Globals.GlobalNPCs
                 }
             }
         }
+
         public override bool PreChatButtonClicked(NPC npc, bool firstButton)
         {
             return base.PreChatButtonClicked(npc, firstButton);
         }
+
         public override void SetupShop(int type, Chest shop, ref int nextSlot)
         {
             base.SetupShop(type, shop, ref nextSlot);
             foreach (Player player in Main.player)
             {
-                if (player.talkNPC != -1 &&Main.npc[player.talkNPC].type ==  NPCID.GoblinTinkerer && type == NPCID.GoblinTinkerer && player.HasItem(ItemID.PulseBow))
+                if (player.talkNPC != -1 && Main.npc[player.talkNPC].type == NPCID.GoblinTinkerer && type == NPCID.GoblinTinkerer && player.HasItem(ItemID.PulseBow))
                 {
                     shop.item[nextSlot++].SetDefaults(ModContent.ItemType<Items.Misc.Weapons.FlickeringPhantom>());
                 }
             }
             if (type == NPCID.ArmsDealer)
             {
-                if (WorldGen.shadowOrbCount >= 1 || WorldGen.heartCount >= 1)
+                if (WorldGen.shadowOrbCount >= 1 || WorldGen.tileCounts[TileID.Heart] >= 1)
                 {
                     shop.item[nextSlot++].SetDefaults(ModContent.ItemType<Items.Misc.SuicideRevolver>());
                 }
@@ -63,13 +67,14 @@ namespace OdeMod.Globals.GlobalNPCs
                 //GlacierMineralSpringWater
             }
         }
+
         public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
         {
-            if(npc.type == NPCID.Vampire)
+            if (npc.type == NPCID.Vampire)
             {
                 npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Misc.Redmoon>(), 200, 1, 1));//赤红幼月
             }
-            if(npc.type == NPCID.Harpy||npc.type == NPCID.WyvernHead)//设定上是天空怪物，但是火星探测器也算，但...有点怪 所以没加
+            if (npc.type == NPCID.Harpy || npc.type == NPCID.WyvernHead)//设定上是天空怪物，但是火星探测器也算，但...有点怪 所以没加
             {
                 npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Misc.Weapons.ChillyMoonStaff>(), 20, 1, 1));//清月法杖
             }

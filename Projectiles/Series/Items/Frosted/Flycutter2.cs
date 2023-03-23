@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+
 namespace OdeMod.Projectiles.Series.Items.Frosted
 {
     internal class Flycutter2 : ModProjectile, IFrostedProjectile
@@ -25,10 +26,12 @@ namespace OdeMod.Projectiles.Series.Items.Frosted
             ProjectileID.Sets.TrailingMode[base.Projectile.type] = 0;
             Projectile.extraUpdates = 2;
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            target.AddBuff(44, damage);
+            target.AddBuff(44, damageDone);
         }
+
         public override void AI()
         {
             int num = Dust.NewDust(Projectile.Center - new Vector2(1f, 1f), 2, 2, DustID.IceTorch, 0f, 0f, 0, Color.White, 1.2f);
@@ -45,8 +48,8 @@ namespace OdeMod.Projectiles.Series.Items.Frosted
                 Projectile.alpha += 9;
                 Projectile.rotation += 0.4f;
             }
-
         }
+
         public override void Kill(int timeLeft)
         {
             for (int i = 0; i < 30; i++)
@@ -59,7 +62,9 @@ namespace OdeMod.Projectiles.Series.Items.Frosted
                 Main.dust[num2].noGravity = true;
             }
         }
-        Texture2D texture;
+
+        private Texture2D texture;
+
         public override bool PreDraw(ref Color lightColor)
         {
             texture = ModContent.Request<Texture2D>("OdeMod/Projectiles/Series/Items/Frosted/Flycutter3").Value;
@@ -72,6 +77,7 @@ namespace OdeMod.Projectiles.Series.Items.Frosted
             }
             return true;
         }
+
         public override Color? GetAlpha(Color lightColor)
         {
             return new Color(255 - Projectile.alpha, 255 - Projectile.alpha, 255 - Projectile.alpha, 255 - Projectile.alpha);

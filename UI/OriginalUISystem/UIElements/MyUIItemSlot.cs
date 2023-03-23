@@ -103,9 +103,8 @@ namespace OdeMod.UI.OriginalUISystem.UIElements
             base.Update(gameTime);
         }
 
-        public override void Click(UIMouseEvent evt)
+        public override void LeftClick(UIMouseEvent evt)
         {
-            base.Click(evt);
             //开启背包
             //Main.playerInventory = true;
 
@@ -197,6 +196,7 @@ namespace OdeMod.UI.OriginalUISystem.UIElements
 
             //调用委托
             PostExchangeItem?.Invoke(this);
+            base.LeftClick(evt);
         }
 
         protected override void DrawSelf(SpriteBatch sb)

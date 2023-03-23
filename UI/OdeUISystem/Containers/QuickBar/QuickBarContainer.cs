@@ -33,7 +33,8 @@ namespace OdeMod.UI.OdeUISystem.Containers.QuickBar
             quickBar.Info.Left.SetValue(0f, 0.15f);
             quickBar.Events.OnCalculation += element =>
             {
-                mainPanel.Info.Height.SetValue(element.Info.Size.Y, 0f);
+                mainPanel.Info.Height.SetValue(element.Info.Size.Y + mainPanel.Info.TopMargin.Pixel + mainPanel.Info.ButtomMargin.Pixel,
+                    0f + mainPanel.Info.TopMargin.Percent + mainPanel.Info.ButtomMargin.Percent);
             };
             mainPanel.Register(quickBar);
 

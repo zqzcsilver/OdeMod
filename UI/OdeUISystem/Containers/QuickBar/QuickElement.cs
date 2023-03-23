@@ -56,7 +56,26 @@ namespace OdeMod.UI.OdeUISystem.Containers.QuickBar
                 waitTime = 0;
 
             if (IsMoveing)
-                MoveTo(Main.MouseScreen);
+            {
+                var c = Main.MouseScreen;
+                if (c.X + Info.TotalSize.X / 2f > ParentElement.Info.Location.X + ParentElement.Info.Size.X)
+                {
+                    c.X = ParentElement.Info.Location.X + ParentElement.Info.Size.X - Info.TotalSize.X / 2f;
+                }
+                if (c.X - Info.TotalSize.X / 2f < ParentElement.Info.Location.X)
+                {
+                    c.X = ParentElement.Info.Location.X + Info.TotalSize.X / 2f;
+                }
+                if (c.Y + Info.TotalSize.Y / 2f > ParentElement.Info.Location.Y + ParentElement.Info.Size.Y)
+                {
+                    c.Y = ParentElement.Info.Location.Y + ParentElement.Info.Size.Y - Info.TotalSize.Y / 2f;
+                }
+                if (c.Y - Info.TotalSize.Y / 2f < ParentElement.Info.Location.Y)
+                {
+                    c.Y = ParentElement.Info.Location.Y + Info.TotalSize.Y / 2f;
+                }
+                MoveTo(c);
+            }
             else
                 MoveTo(Center);
         }

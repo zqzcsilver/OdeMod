@@ -5,6 +5,7 @@ using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+
 namespace OdeMod.Projectiles.Series.Items.Sharpsand
 {
     internal class Bomb : ModProjectile, ISharpsandProjectile
@@ -24,6 +25,7 @@ namespace OdeMod.Projectiles.Series.Items.Sharpsand
             Projectile.scale = 1f;
             Main.projFrames[Projectile.type] = 2;
         }
+
         public override void AI()
         {
             if (Projectile.timeLeft == 300)
@@ -40,15 +42,16 @@ namespace OdeMod.Projectiles.Series.Items.Sharpsand
                 if (Projectile.frame == 0)
                     Projectile.frame++;
                 else Projectile.frame = 0;
-
             }
 
             Projectile.rotation += 0.14f;
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            target.AddBuff(BuffID.OnFire, damage);
+            target.AddBuff(BuffID.OnFire, damageDone);
         }
+
         public override void Kill(int timeLeft)
         {
             Player player = Main.player[Projectile.owner];
@@ -60,6 +63,7 @@ namespace OdeMod.Projectiles.Series.Items.Sharpsand
                 Main.dust[num].noGravity = true;
             }
         }
+
         public override Color? GetAlpha(Color lightColor)
         {
             return new Color(255 - Projectile.alpha, 255 - Projectile.alpha, 255 - Projectile.alpha, 255 - Projectile.alpha);

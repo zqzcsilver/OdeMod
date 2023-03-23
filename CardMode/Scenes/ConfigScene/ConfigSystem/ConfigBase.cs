@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 
+using OdeMod.CardMode.KeyBindSystem;
 using OdeMod.CardMode.Scenes.ConfigScene.ConfigSystem.Attributes;
 using OdeMod.CardMode.Scenes.ConfigScene.ConfigSystem.Configs;
 using OdeMod.CardMode.Scenes.ConfigScene.UIElements;
@@ -27,6 +28,7 @@ namespace OdeMod.CardMode.Scenes.ConfigScene.ConfigSystem
         public abstract string Name { get; }
 
         public abstract string SaveName { get; }
+        public virtual List<string> ConfigOrder { get; }
 
         /// <summary>
         /// 设置的页面
@@ -36,14 +38,35 @@ namespace OdeMod.CardMode.Scenes.ConfigScene.ConfigSystem
         {
             var fields = Array.FindAll(GetType().GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance),
                         field => field.GetCustomAttribute<FieldConfigAttribute>() != null);
+            var configOrder = ConfigOrder;
+
+            if (fields.Length == 0)
+                return null;
+
+            if (!(configOrder == null || configOrder.Count == 0))
+            {
+                Array.Sort(fields, (f1, f2) =>
+                {
+                    int i1 = configOrder.IndexOf(f1.Name);
+                    int i2 = configOrder.IndexOf(f2.Name);
+                    if (i1 == -1 && i2 == i1)
+                        return 0;
+                    if (i1 == -1)
+                        return 1;
+                    if (i2 == -1)
+                        return -1;
+                    return i1 < i2 ? -1 : 1;
+                });
+            }
+
             BaseElement op = new BaseElement();
             op.Info.Width.SetValue(0f, 1f);
 
-            UIText title = new UIText(Name, CardSystem.ConfigManager.GetConfig<InterfaceConfig>().Font.GetFont(100f));
+            UIText title = new UIText(Name, CardSystem.ConfigManager.GetConfig<InterfaceConfig>().Font.GetFont(60f));
             title.Info.Left.SetValue(-title.Info.Width.Pixel / 2f, 0.5f);
             title.Info.Top.SetValue(0f, 0f);
             op.Register(title);
-            op.Info.Height = title.Info.Height + new BaseElement.PositionStyle(100f, 0f);
+            op.Info.Height = title.Info.Height + new BaseElement.PositionStyle(60f, 0f);
 
             List<BaseElement> elements = new List<BaseElement>();
             Array.ForEach(fields, field =>
@@ -179,6 +202,22 @@ namespace OdeMod.CardMode.Scenes.ConfigScene.ConfigSystem
                     baseElement = new UIUshortSeekBarConfig(info.Tip, info.Description, obj, fieldInfo, attribute.Max, attribute.Min);
                 }
             }
+            else if (t == typeof(bool))
+            {
+                var attribute = fieldInfo.GetCustomAttribute<ConfigBoolAttribute>();
+                if (attribute != null)
+                {
+                    baseElement = new UIBoolConfig(info.Tip, info.Description, obj, fieldInfo);
+                }
+            }
+            else if (t == typeof(KeyGroup))
+            {
+                var attribute = fieldInfo.GetCustomAttribute<ConfigKeyGroupAttribute>();
+                if (attribute != null)
+                {
+                    baseElement = new UIKeyGroupConfig(info.Tip, info.Description, obj, fieldInfo);
+                }
+            }
             else
             {
                 var o = fieldInfo.GetValue(obj);
@@ -205,7 +244,7 @@ namespace OdeMod.CardMode.Scenes.ConfigScene.ConfigSystem
             baseElement.Info.Width.SetValue(0f, 1f);
             if (baseElement.Info.Height.Pixel == 0 && baseElement.Info.Height.Percent == 0)
             {
-                baseElement.Info.Height.Pixel = 70f;
+                baseElement.Info.Height.Pixel = 40f;
             }
 
             return baseElement;

@@ -18,7 +18,6 @@ namespace OdeMod.Items.Series.Foods
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            Tooltip.SetDefault("别喝太多");
             Main.RegisterItemAnimation(Type, new DrawAnimationVertical(int.MaxValue, 3));
             ItemID.Sets.FoodParticleColors[Item.type] = new Color[3] {
                 new Color(248,248,255),
@@ -27,6 +26,7 @@ namespace OdeMod.Items.Series.Foods
             };
             ItemID.Sets.IsFood[Type] = true;
         }
+
         public override void SetDefaults()
         {
             base.SetDefaults();
@@ -38,6 +38,7 @@ namespace OdeMod.Items.Series.Foods
             Item.consumable = true;
             Item.maxStack = 99;
         }
+
         public override bool? UseItem(Player player)
         {
             player.GetModPlayer<OdeAddPlayer>().Food_Variety_Test(Item);

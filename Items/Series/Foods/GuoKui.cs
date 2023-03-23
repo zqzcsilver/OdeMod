@@ -14,7 +14,6 @@ namespace OdeMod.Items.Series.Foods
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            Tooltip.SetDefault("好吃");
             Main.RegisterItemAnimation(Type, new DrawAnimationVertical(int.MaxValue, 3));
             ItemID.Sets.DrinkParticleColors[Item.type] = new Color[2] {
                 Color.White,
@@ -22,7 +21,9 @@ namespace OdeMod.Items.Series.Foods
             };
             ItemID.Sets.IsFood[Type] = true;
         }
+
         public int Num = 0;
+
         public override void SetDefaults()
         {
             base.SetDefaults();
@@ -33,6 +34,7 @@ namespace OdeMod.Items.Series.Foods
             Item.useTime = 20;
             Item.maxStack = 1;
         }
+
         public override bool CanUseItem(Player player)
         {
             if (Num >= 2)
@@ -41,6 +43,7 @@ namespace OdeMod.Items.Series.Foods
             }
             return base.CanUseItem(player);
         }
+
         public override bool? UseItem(Player player)
         {
             Rectangle rectangle = new Rectangle((int)player.Center.X - 25, (int)player.Center.Y + 32, 50, 50);
@@ -57,4 +60,3 @@ namespace OdeMod.Items.Series.Foods
         }
     }
 }
-

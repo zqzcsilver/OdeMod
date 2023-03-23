@@ -52,6 +52,9 @@ namespace OdeMod.CardMode.Scenes
 
         public void ChangeScene(SceneBase scene, ChangeSceneStyleBase changeSceneStyle)
         {
+            if (!(ChangeSceneStyle == null || ChangeSceneStyle.Finish))
+                return;
+
             scene?.BeSelected();
             Scene?.ExitSelected();
 
@@ -59,7 +62,12 @@ namespace OdeMod.CardMode.Scenes
             Scene = scene;
             ChangeSceneStyle = changeSceneStyle;
             if (ChangeSceneStyle == null)
+            {
+                LastScene?.Changing();
+                scene?.ChangeBegin();
+                scene?.ChangeEnd();
                 return;
+            }
             ChangeSceneStyle.SetScene(LastScene, Scene);
             ChangeSceneStyle.OnBegin();
         }

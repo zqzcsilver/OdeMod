@@ -40,9 +40,9 @@ namespace OdeMod.Projectiles.Series.Items.Sharpsand
                (double)Projectile.velocity.X) + 0.785f;
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            target.AddBuff(BuffID.OnFire, damage);
+            target.AddBuff(BuffID.OnFire, damageDone);
         }
 
         public override void Kill(int timeLeft)

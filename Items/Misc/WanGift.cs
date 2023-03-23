@@ -10,9 +10,9 @@ namespace OdeMod.Items.Misc
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            Tooltip.SetDefault("{$CommonItemTooltip.RightClickToOpen}");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 3;
         }
+
         public override void SetDefaults()
         {
             base.SetDefaults();
@@ -22,10 +22,12 @@ namespace OdeMod.Items.Misc
             Item.rare = ItemRarityID.Expert;
             Item.shopCustomPrice = 100000;
         }
+
         public override bool CanRightClick()
         {
             return true;
         }
+
         public override void RightClick(Player player)
         {
             var entitySource = player.GetSource_OpenItem(Type);
@@ -33,4 +35,3 @@ namespace OdeMod.Items.Misc
         }
     }
 }
-

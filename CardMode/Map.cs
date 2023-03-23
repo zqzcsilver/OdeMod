@@ -453,7 +453,7 @@ namespace OdeMod.CardMode
 
         public void DrawBackground(SpriteBatch sb)
         {
-            Texture2D texture = ModContent.Request<Texture2D>("OdeMod/Images/Effects/Night").Value;
+            Texture2D texture = CardSystem.AssetManager.Request<Texture2D>("OdeMod/Images/Effects/Night");
             float scale = MathHelper.Max((float)Main.screenWidth / (float)texture.Width, (float)Main.screenHeight / (float)texture.Height);
             sb.Draw(texture, new Vector2(Main.screenWidth, Main.screenHeight) / 2f - texture.Size() / 2f * scale, null,
                 Color.White, 0f, Vector2.Zero, scale, 0, 0);

@@ -22,6 +22,7 @@ namespace OdeMod.Projectiles.Misc
             Projectile.penetrate = -1;
             Projectile.scale = 0.8f;
         }
+
         public override void AI()
         {
             Projectile.ai[1]++;
@@ -37,9 +38,10 @@ namespace OdeMod.Projectiles.Misc
                 Projectile.Kill();
             }
         }
-        public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
-            base.ModifyHitNPC(target, ref damage, ref knockback, ref crit, ref hitDirection);
+            base.ModifyHitNPC(target, ref modifiers);
             for (int i = 0; i < 30; i++)
             {
                 Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.GreenTorch, 0f, 0f, 100, default(Color), 2f);
@@ -47,6 +49,7 @@ namespace OdeMod.Projectiles.Misc
                 dust.velocity *= 2.5f;
             }
         }
+
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
             for (int i = 0; i < 30; i++)
@@ -54,10 +57,10 @@ namespace OdeMod.Projectiles.Misc
                 Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.GreenTorch, 0f, 0f, 100, default(Color), 2f);
                 dust.noGravity = true;
                 dust.velocity *= 2.5f;
-
             }
             return base.OnTileCollide(oldVelocity);
         }
+
         public override void Kill(int timeLeft)
         {
             for (int i = 0; i < 30; i++)

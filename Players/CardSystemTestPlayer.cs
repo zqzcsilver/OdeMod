@@ -27,13 +27,6 @@ namespace OdeMod.Players
             entity?.Update(Main.gameTimeCache);
         }
 
-        public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit)
-        {
-            base.OnHitNPC(item, target, damage, knockback, crit);
-            if (ModContent.GetInstance<CardSystemTestConfig>().EnableDrawTest)
-                CardSystem.Instance.CardModeVisible = true;
-        }
-
         public override void DrawEffects(PlayerDrawSet drawInfo, ref float r, ref float g, ref float b, ref float a, ref bool fullBright)
         {
             base.DrawEffects(drawInfo, ref r, ref g, ref b, ref a, ref fullBright);

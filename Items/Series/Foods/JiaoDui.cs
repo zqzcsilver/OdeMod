@@ -11,8 +11,6 @@ namespace OdeMod.Items.Series.Foods
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("糖油果子");
-            Tooltip.SetDefault("再来一串！");
             Main.RegisterItemAnimation(Type, new DrawAnimationVertical(int.MaxValue, 3));
             ItemID.Sets.FoodParticleColors[Item.type] = new Color[3] {
                 new Color(248,248,255),
@@ -21,6 +19,7 @@ namespace OdeMod.Items.Series.Foods
             };
             ItemID.Sets.IsFood[Type] = true;
         }
+
         public override void SetDefaults()
         {
             base.SetDefaults();
@@ -32,18 +31,18 @@ namespace OdeMod.Items.Series.Foods
             Item.consumable = true;
             Item.maxStack = 99;
         }
+
         public override bool CanUseItem(Player player)
         {
             return base.CanUseItem(player);
         }
     }
+
     internal class JiaoDui : ModItem, IFoods
     {
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("焦䭔");
-            Tooltip.SetDefault("看起来十分像糖油果子，但是上面的外壳看起来硬邦邦的\n上面仿佛还带着一些沙土...这东西真的能吃吗？");
             Main.RegisterItemAnimation(Type, new DrawAnimationVertical(int.MaxValue, 3));
             ItemID.Sets.FoodParticleColors[Item.type] = new Color[3] {
                 new Color(248,248,255),
@@ -52,6 +51,7 @@ namespace OdeMod.Items.Series.Foods
             };
             ItemID.Sets.IsFood[Type] = true;
         }
+
         public override void SetDefaults()
         {
             base.SetDefaults();
@@ -63,6 +63,7 @@ namespace OdeMod.Items.Series.Foods
             Item.consumable = true;
             Item.maxStack = 99;
         }
+
         public override bool? UseItem(Player player)
         {
             return base.UseItem(player);
