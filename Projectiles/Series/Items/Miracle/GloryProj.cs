@@ -45,11 +45,20 @@ namespace OdeMod.Projectiles.Series.Items.Miracle
             }
             if (Projectile.timeLeft == 22)
             {
-                Projectile.NewProjectile(Projectile.GetSource_FromAI(), player.Center, Vector2.Normalize(Main.MouseWorld - player.Center) * 5f, ModContent.ProjectileType<Projectiles.Series.Items.Miracle.GloryLight>(), Projectile.damage, Projectile.knockBack, player.whoAmI);
+                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), player.Center, Vector2.Normalize(Main.MouseWorld - player.Center) * 5f, ModContent.ProjectileType<Projectiles.Series.Items.Miracle.GloryLight>(), Projectile.damage, Projectile.knockBack, player.whoAmI);
             }
             if (Projectile.timeLeft <= 22)
             {
                 rad += direc * (float)Math.Sin(Projectile.timeLeft / 22f * 3.1416f) * 0.2f;
+                int num2 = Dust.NewDust(Projectile.Center + new Vector2((float)Math.Cos(rad), (float)Math.Sin(rad)) * 72, Projectile.width, Projectile.height, DustID.PinkTorch, 0f, 0f, 0, Color.White, 1.5f);
+                Main.dust[num2].noGravity = true;
+
+                Main.dust[num2].velocity = new Vector2(-(float)Math.Sin(rad), (float)Math.Cos(rad)) * 4f * direc;
+                int num3 = Dust.NewDust(Projectile.Center + new Vector2((float)Math.Cos(rad), (float)Math.Sin(rad)) * 48, Projectile.width, Projectile.height, DustID.MagicMirror, 0f, 0f, 0, Color.White, 1.5f);
+                Main.dust[num3].noGravity = true;
+
+                Main.dust[num3].velocity = new Vector2(-(float)Math.Sin(rad), (float)Math.Cos(rad)) * 3f * direc;
+
             }
             Projectile.Center = player.Center + new Vector2((float)Math.Cos(rad), (float)Math.Sin(rad)) * 44f;
             if (direc == -1)
@@ -60,6 +69,13 @@ namespace OdeMod.Projectiles.Series.Items.Miracle
         public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
         {
             overPlayers.Add(index);
+        }
+        public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
+        {
+            Player player = Main.player[Projectile.owner];
+            float point = 0f;
+            return Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), Projectile.Center,
+                Projectile.Center + 72 * new Vector2((float)Math.Cos(rad), (float)Math.Sin(rad)), 40, ref point);
         }
         public override void PostDraw(Color lightColor)
         {
@@ -82,9 +98,9 @@ namespace OdeMod.Projectiles.Series.Items.Miracle
                 Vector2 drawPos = Projectile.oldPos[k] - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
                 Color color = Projectile.GetAlpha(lightColor) * ((float)(Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length) * 0.8f;
                 if (player.direction == 1)
-                    Main.spriteBatch.Draw(texture, drawPos, null, color, Projectile.oldRot[k], drawOrigin, Projectile.scale * size , SpriteEffects.None, 0f);
+                    Main.spriteBatch.Draw(texture, drawPos, null, color, Projectile.oldRot[k], drawOrigin, Projectile.scale * size, SpriteEffects.None, 0f);
                 else
-                    Main.spriteBatch.Draw(texture, drawPos, null, color, Projectile.oldRot[k], drawOrigin, Projectile.scale * size , SpriteEffects.FlipHorizontally, 0f);
+                    Main.spriteBatch.Draw(texture, drawPos, null, color, Projectile.oldRot[k], drawOrigin, Projectile.scale * size, SpriteEffects.FlipHorizontally, 0f);
             }
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
