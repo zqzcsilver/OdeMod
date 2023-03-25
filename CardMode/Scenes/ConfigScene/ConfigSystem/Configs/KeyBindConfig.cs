@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Reflection;
 
 using Microsoft.Xna.Framework.Input;
@@ -51,6 +52,31 @@ namespace OdeMod.CardMode.Scenes.ConfigScene.ConfigSystem.Configs
                     CardSystem.KeyGroupManager.RegisterKeyGroup(kg);
                 }
             });
+        }
+
+        protected override void FieldSave(BinaryWriter binaryWriter, object o, FieldInfo field)
+        {
+            if (o is KeyGroup)
+            {
+                binaryWriter.Write(field.Name);
+                var kg = (KeyGroup)o;
+                kg.Save(binaryWriter);
+                return;
+            }
+            base.FieldSave(binaryWriter, o, field);
+        }
+
+        protected override object FieldLoad(BinaryReader binaryReader, out string name)
+        {
+            name = binaryReader.ReadString();
+            var field = GetType().GetField(name, BindingFlags.Public | BindingFlags.Instance);
+            if (field.FieldType == typeof(KeyGroup))
+            {
+                var kg = (KeyGroup)field.GetValue(this);
+                kg.Read(binaryReader);
+                return kg;
+            }
+            return OdeMod.BinaryProcessed.SafeLoad(binaryReader);
         }
     }
 }

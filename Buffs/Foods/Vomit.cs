@@ -10,14 +10,15 @@ namespace OdeMod.Buffs.Foods
     internal class Vomit : ModBuff
     {
         public override string Texture => "OdeMod/Buffs/Foods/Inappetence";
+
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("呕吐");
             Main.debuff[Type] = true;
             Main.pvpBuff[Type] = true;
             Main.buffNoSave[Type] = false;
         }
+
         public override void Update(Player player, ref int buffIndex)
         {
             base.Update(player, ref buffIndex);

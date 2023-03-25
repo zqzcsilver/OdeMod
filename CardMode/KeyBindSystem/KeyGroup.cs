@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Text;
 
 using Microsoft.Xna.Framework;
@@ -23,6 +24,7 @@ namespace OdeMod.CardMode.KeyBindSystem
         public bool IsDoubleClick = false;
         public bool IsDown = false;
         public bool IsUp = false;
+
         public bool NeedResetKey
         {
             get => _needResetKey;
@@ -38,15 +40,18 @@ namespace OdeMod.CardMode.KeyBindSystem
                 }
             }
         }
+
         private bool _needResetKey = false;
         public bool NeedBindMouse = false;
         public bool NeedBindKeys = true;
+
         public KeyGroup()
         {
             Name = string.Empty;
             _keys = new List<Keys>();
             _keyCoolDown = new KeyCooldown(() => IsPressed);
         }
+
         public KeyGroup(string name)
         {
             Name = name;
@@ -182,6 +187,47 @@ namespace OdeMod.CardMode.KeyBindSystem
             if (stringBuilder.Length > 1)
                 stringBuilder.Remove(stringBuilder.Length - 1, 1);
             return stringBuilder.ToString();
+        }
+
+        public void Save(BinaryWriter binaryWriter)
+        {
+            binaryWriter.Write(NeedBindMouse);
+            if (NeedBindMouse)
+            {
+                binaryWriter.Write(_bindMouseLeft);
+                binaryWriter.Write(_bindMouseMiddle);
+                binaryWriter.Write(_bindMouseRight);
+            }
+            binaryWriter.Write(NeedBindKeys);
+            if (NeedBindKeys)
+            {
+                binaryWriter.Write(_keys.Count);
+                foreach (var k in _keys)
+                {
+                    binaryWriter.Write((int)k);
+                }
+            }
+        }
+
+        public void Read(BinaryReader binaryReader)
+        {
+            NeedBindMouse = binaryReader.ReadBoolean();
+            if (NeedBindMouse)
+            {
+                _bindMouseLeft = binaryReader.ReadBoolean();
+                _bindMouseMiddle = binaryReader.ReadBoolean();
+                _bindMouseRight = binaryReader.ReadBoolean();
+            }
+            NeedBindKeys = binaryReader.ReadBoolean();
+            if (NeedBindKeys)
+            {
+                _keys.Clear();
+                int length = binaryReader.ReadInt32();
+                for (int i = 0; i < length; i++)
+                {
+                    _keys.Add((Keys)binaryReader.ReadInt32());
+                }
+            }
         }
     }
 }

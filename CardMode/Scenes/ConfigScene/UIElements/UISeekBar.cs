@@ -128,7 +128,7 @@ namespace OdeMod.CardMode.Scenes.ConfigScene.UIElements
             sb.Draw(Main.screenTargetSwap, Vector2.Zero, Color.White);
             sb.End();
 
-            sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp,
+            sb.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.LinearClamp,
                 DepthStencilState.Default, RasterizerState.CullNone, null, Main.Transform);
         }
 

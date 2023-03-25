@@ -22,10 +22,9 @@ namespace OdeMod.CardMode.ScreenEffectSystem.ScreenEffects
         {
             base.Draw(sb, screenTarget, screenTargetSwap);
 
-            Effect effect = CardSystem.AssetManager.Request<Effect>("OdeMod/Effects/PixelShaders/BrightnessGradient");
-            effect.Parameters["uAlpha"].SetValue(Alpha);
-            effect.Parameters["uMaxDistance"].SetValue(Distance);
-            DrawUtils.SetEffectToScreen(sb, effect);
+            Effect.Parameters["uAlpha"].SetValue(Alpha);
+            Effect.Parameters["uMaxDistance"].SetValue(Distance);
+            DrawUtils.SetEffectToScreen(sb, Effect);
         }
     }
 }

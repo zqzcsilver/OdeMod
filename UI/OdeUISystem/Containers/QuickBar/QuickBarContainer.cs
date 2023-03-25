@@ -15,6 +15,7 @@ namespace OdeMod.UI.OdeUISystem.Containers.QuickBar
         private UIPanel mainPanel;
         private bool open = true;
         private KeyCooldown cardModeVisibleCoolDown = new KeyCooldown(() => true, 14);
+
         public override void OnInitialization()
         {
             base.OnInitialization();
@@ -69,18 +70,23 @@ namespace OdeMod.UI.OdeUISystem.Containers.QuickBar
             };
             quickBar.Register(quickElement);
 
-            UIText text = new UIText("<", OdeMod.DefaultFontSystem.GetFont(30f));
-            text.Info.Left.SetValue(0f, 1f);
-            text.Info.Top.SetValue(-text.Info.Height.Pixel / 2f, 0.5f);
-            text.Events.OnUpdate += (element, gt) =>
+            UIImage image = new UIImage(
+                ModContent.Request<Texture2D>("OdeMod/UI/OdeUISystem/Containers/QuickBar/Images/array",
+                ReLogic.Content.AssetRequestMode.ImmediateLoad).Value, Color.White);
+            image.Info.Left.SetValue(2f, 1f);
+            image.Info.Top.SetValue(-image.Info.Height.Pixel / 2f, 0.5f);
+            image.Events.OnUpdate += (element, gt) =>
             {
-                ((UIText)element).Text = open ? "<" : ">";
+                if (mainPanel.Info.TotalLocation.X - mainPanel.Info.TotalSize.X < 4f)
+                    ((UIImage)element).SpriteEffects = SpriteEffects.FlipHorizontally;
+                if (mainPanel.Info.TotalLocation.X < 2f && mainPanel.Info.TotalLocation.X > -2f)
+                    ((UIImage)element).SpriteEffects = SpriteEffects.None;
             };
-            text.Events.OnLeftClick += element =>
+            image.Events.OnLeftClick += element =>
             {
                 open = !open;
             };
-            mainPanel.Register(text);
+            mainPanel.Register(image);
         }
 
         public override void PreUpdate(GameTime gt)
