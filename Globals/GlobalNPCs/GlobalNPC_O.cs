@@ -44,35 +44,38 @@ namespace OdeMod.Globals.GlobalNPCs
             return base.PreChatButtonClicked(npc, firstButton);
         }
 
-        public override void SetupShop(int type, Chest shop, ref int nextSlot)
+        public override void ModifyShop(NPCShop shop)
         {
-            base.SetupShop(type, shop, ref nextSlot);
-            foreach (Player player in Main.player)//我原本想的是只有玩家背包里才会在购买页面出现 多人联机有的那个人能够买 但是这里好像写成了任意玩家有就出现
+            base.ModifyShop(shop);
+            if (shop.NpcType == NPCID.GoblinTinkerer)
             {
-                if (player.talkNPC != -1 && Main.npc[player.talkNPC].type == NPCID.GoblinTinkerer && type == NPCID.GoblinTinkerer && player.HasItem(ItemID.PulseBow))
-                {
-                    shop.item[nextSlot++].SetDefaults(ModContent.ItemType<Items.Misc.Weapons.FlickeringPhantom>());
-                }
+                shop.Add<Items.Misc.Weapons.FlickeringPhantom>(
+                    new Condition("Mods.OdeMod.ShopCondition.PlayerHasPulseBow",
+                    () => Main.LocalPlayer.HasItem(ItemID.PulseBow)));
             }
-            if (type == NPCID.ArmsDealer)
+            if (shop.NpcType == NPCID.ArmsDealer)
             {
-                if (WorldGen.shadowOrbCount >= 1 || WorldGen.tileCounts[TileID.Heart] >= 1)
-                {
-                    shop.item[nextSlot++].SetDefaults(ModContent.ItemType<Items.Misc.SuicideRevolver>());
-                }
+                shop.Add<Items.Misc.SuicideRevolver>(
+                    new Condition("Mods.OdeMod.ShopCondition.WorldHasShadowOrbOrHeart",
+                    () => WorldGen.shadowOrbCount >= 1 || WorldGen.tileCounts[TileID.Heart] >= 1));
             }
-            if (type == NPCID.TravellingMerchant)
+            if (shop.NpcType == NPCID.TravellingMerchant)
             {
-                shop.item[nextSlot++].SetDefaults(ModContent.ItemType<Items.Series.Foods.GlacierMineralWater>());
-                //GlacierMineralSpringWater
+                shop.Add<Items.Series.Foods.GlacierMineralWater>(
+                    new Condition("Mods.OdeMod.ShopCondition.None",
+                    () => true));
             }
-            if(type == NPCID.SkeletonMerchant)
+            if (shop.NpcType == NPCID.SkeletonMerchant)
             {
-                shop.item[nextSlot++].SetDefaults(ModContent.ItemType<Items.Series.Foods.JiaoDui>());
+                shop.Add<Items.Series.Foods.JiaoDui>(
+                    new Condition("Mods.OdeMod.ShopCondition.None",
+                    () => true));
             }
-            if(type == NPCID.Merchant)
+            if (shop.NpcType == NPCID.Merchant)
             {
-                shop.item[nextSlot++].SetDefaults(ModContent.ItemType<Items.Series.Foods.CandiedFruit>());
+                shop.Add<Items.Series.Foods.CandiedFruit>(
+                    new Condition("Mods.OdeMod.ShopCondition.None",
+                    () => true));
             }
         }
 

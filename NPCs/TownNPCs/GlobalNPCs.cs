@@ -33,7 +33,7 @@ namespace OdeMod.NPCs.TownNPCs
 
         public override bool PreChatButtonClicked(NPC npc, bool firstButton)
         {
-            if(npc.type == NPCID.Nurse)
+            if (npc.type == NPCID.Nurse)
             {
                 Player player = Main.player[npc.FindClosestPlayer()];
                 return !(player.statLife >= player.statLifeMax);
@@ -41,12 +41,12 @@ namespace OdeMod.NPCs.TownNPCs
             return base.PreChatButtonClicked(npc, firstButton);
         }
 
-        public override void SetupShop(int type, Chest shop, ref int nextSlot)
+        public override void ModifyShop(NPCShop shop)
         {
-            base.SetupShop(type, shop, ref nextSlot);
-            if (type == NPCID.PartyGirl)
+            base.ModifyShop(shop);
+            if (shop.NpcType == NPCID.PartyGirl)
             {
-                shop.item[nextSlot++].SetDefaults(ModContent.ItemType<Items.Misc.WanGift>());
+                shop.Add<Items.Misc.WanGift>(new Condition("Mods.OdeMod.ShopCondition.None", () => true));
             }
         }
     }

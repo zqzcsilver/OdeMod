@@ -463,5 +463,11 @@
 			Foods : 食物系列
 			Miracle : 辉煌系列
 		}
+		ShopCondition:
+		{
+			None : 无
+			WorldHasShadowOrbOrHeart : 世界内拥有一个以上的暗影珠或心脏
+			PlayerHasPulseBow : 玩家拥有脉冲弓
+		}
 	}
 }
