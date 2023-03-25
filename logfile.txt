@@ -62,3 +62,6 @@ Message at 2023/3/20 18:59:35: Compiling Trail.xnb
 Message at 2023/3/20 18:59:35: Importing TriangleDraw.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
 Message at 2023/3/20 18:59:35: Processing TriangleDraw.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
 Message at 2023/3/20 18:59:35: Compiling TriangleDraw.xnb
+Message at 2023/3/25 22:30:00: Importing BrightnessGradient.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2023/3/25 22:30:00: Processing BrightnessGradient.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2023/3/25 22:30:01: Compiling BrightnessGradient.xnb

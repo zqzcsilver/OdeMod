@@ -11,15 +11,15 @@ namespace OdeMod.Items.Series.Miracle
     {
         public override void SetDefaults()
         {
-            Item.width = 56;
+            Item.width = 76;
             Item.height = 54;
             Item.DamageType = DamageClass.Melee;
             Item.useStyle = ItemUseStyleID.Swing;
             Item.damage = 80;
             Item.crit = 4;
             Item.knockBack = 1.5f;
-            Item.useTime = 30;
-            Item.useAnimation = 30;
+            Item.useTime = 32;
+            Item.useAnimation = 32;
             Item.shoot = ModContent.ProjectileType<Projectiles.Misc.Accumulation>();
             Item.shootSpeed = 4;
             Item.noUseGraphic = true;
