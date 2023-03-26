@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
+using OdeMod.CardMode.Scenes.ChangeSceneStyles;
 using OdeMod.CardMode.Scenes.ConfigScene.ConfigSystem.Configs;
 using OdeMod.CardMode.UI;
 using OdeMod.UI.OdeUISystem.UIElements;
@@ -40,6 +41,11 @@ namespace OdeMod.CardMode.Scenes.GameInfoScene.UIContainer
             {
                 singlePlayIcon.ChangeColor(Color.White * 0.8f);
                 singlePlayTitle.Color = Color.White * 0.8f;
+            };
+            singlePlay.Events.OnLeftClick += element =>
+            {
+                CardSystem.SceneManager.ChangeScene(
+                    "OdeMod.CardMode.Scenes.CharacterSelectionScene.CharacterSelectionScene", new FadeStyle());
             };
 
             UIPanel multiplay = new UIPanel();

@@ -2,10 +2,14 @@
 {
 	OdeMod:
 	{
-		#物品名字
-		ItemName:
+		#物品名字与介绍
+		Items:
 		{
-			LightMushroom : 光明蘑菇
+			LightMushroom : 
+			{
+				DisplayName : 光明蘑菇
+				Tooltip : 在白天吸收阳光，在夜晚放出阳光...
+			}
 			LightMushroomClaw : 明菇爪套
 			LightMushroomHammeraxe : 明菇斧锤
 			LightMushroomHolybow : 明菇弓矢
@@ -157,10 +161,8 @@
 			SoulCongealingSoil : 凝魂土
 			WhiteSoulStone : 白魄石
 		}
-		#物品介绍
 		ItemTooltip:
 		{
-			LightMushroom : 在白天吸收阳光，在夜晚放出阳光...
 			LightMushroomClaw : 发出令人安心的太阳光芒
 			LightMushroomHammeraxe :  软绵绵的手感，但是会发亮
 			LightMushroomHolybow : 朝着敌人发出光明的一击
