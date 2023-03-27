@@ -1,5 +1,5 @@
 displayName = 颂歌
 author = Ode Team
 version = 0.0.0.4
-buildIgnore = bin/*,obj/*,Documents/*,*.md,*.txt,*.bat,*.exe,*.cache
+buildIgnore = bin/*,obj/*,Documentation/*,*.md,*.txt,*.bat,*.exe,*.cache
 dllReferences = FontStashSharp.FNA,FontStashSharp.Base,StbImageSharp,FontStashSharp.Rasterizers.StbTrueTypeSharp,System.Numerics.Vectors,Cyotek.Drawing.BitmapFont,StbTrueTypeSharp

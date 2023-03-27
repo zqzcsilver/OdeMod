@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<topic id="73da3221-b42c-4d1a-bcfb-c020d277db47" revisionNumber="1">
+	<developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
+		<introduction>
+			<para>这里是有关开源模组 Ode Mod 的 API文档。</para>
+		</introduction>
+
+		<section>
+			<title>概述</title>
+			<content>
+				<para>
+					Ode Mod 是基于游戏 Terraria 的模组加载器 tModLoader 的，由 Ode Team 开发的 Mod。Ode Mod 目前已于 GitHub 平台之上开放了全部源代码，
+					你可以通过访问 <fictitiousUri>https://github.com/zqzcsilver/OdeMod</fictitiousUri> 来查看它们，其遵循
+					<legacyBold>MIT开源协议</legacyBold>。本文档仅包含非 tModLoader 部分代码的 API文档 。
+				</para>
+			</content>
+		</section>
+
+		<section>
+			<title>制作成员</title>
+			<content>
+				<para>
+					目前 Ode Team 包括以下制作成员(不分先后)：
+				</para>
+				<list class="bullet">
+					<listItem>
+						<para>
+							<legacyBold>幽银(Uin,白银)</legacyBold>
+						</para>
+					</listItem>
+					<listItem>
+						<para>
+							<legacyBold>银烛</legacyBold>
+						</para>
+					</listItem>
+					<listItem>
+						<para>
+							<legacyBold>永耀</legacyBold>
+						</para>
+					</listItem>
+					<listItem>
+						<para>
+							<legacyBold>Wan</legacyBold>
+						</para>
+					</listItem>
+					<listItem>
+						<para>
+							<legacyBold>暮光</legacyBold>
+						</para>
+					</listItem>
+				</list>
+				<para>
+					同时特别感谢以下成员对于 Ode Mod 的贡献(不分先后)：
+				</para>
+				<list class="bullet">
+					<listItem>
+						<para>
+							<legacyBold>lnture(幽银的蝶)</legacyBold>
+						</para>
+					</listItem>
+					<listItem>
+						<para>
+							<legacyBold>夜谷紫幽</legacyBold>
+						</para>
+					</listItem>
+					<listItem>
+						<para>
+							<legacyBold>RZIN</legacyBold>
+						</para>
+					</listItem>
+				</list>
+			</content>
+		</section>
+
+		<relatedTopics>
+			<link xlink:href="5c83026e-9e76-4585-84d2-29cef01adb69" />
+		</relatedTopics>
+	</developerConceptualDocument>
+</topic>
