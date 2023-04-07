@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 
-namespace OdeMod.Utils.Expends
+namespace OdeMod.Utils.Expands
 {
-    internal static class ListExpends
+    internal static class ListExpands
     {
         public static bool Contains<T>(this List<T> me, List<T> list)
         {
@@ -13,6 +13,7 @@ namespace OdeMod.Utils.Expends
             }
             return true;
         }
+
         public static bool Intersect<T>(this List<T> me, List<T> list)
         {
             if (list == null || list.Count == 0) return false;

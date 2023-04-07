@@ -31,6 +31,9 @@
     <EditorConfigFiles Remove="C:\Users\Silver\Documents\My Games\Terraria\tModLoader\ModSources\OdeMod\.editorconfig" />
   </ItemGroup>
   <ItemGroup>
+    <None Remove="Localization\en-US.hjson" />
+  </ItemGroup>
+  <ItemGroup>
     <None Include="C:\Users\Silver\Documents\My Games\Terraria\tModLoader\ModSources\OdeMod\.editorconfig" />
   </ItemGroup>
   <ItemGroup>

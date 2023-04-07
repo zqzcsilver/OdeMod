@@ -1,0 +1,98 @@
+﻿{
+    "InterfaceConfig":
+    {
+        "Title": "页面设置",
+        "FontName":
+        {
+            "Name": "字体",
+            "Description": "单击\"<\"和\">\"可以切换不同字体",
+            "Options":
+            {
+                "SourceHanSansHWSC_VF": "思源黑体"
+            }
+        },
+        "Laguage":
+        {
+            "Name": "语言",
+            "Description": "单击\"<\"和\">\"可以切换不同语言",
+            "Options":
+            {
+                "Chinese(Simplified)": "中文(简体)",
+                "Chinese(Traditional)": "中文(繁体)[中文(繁體)]",
+                "English": "英语[English]"
+            }
+        },
+        "AnimationSpeed":
+        {
+            "Name": "动画速度",
+            "Description": "通过调整拖动条可以加快或减缓动画速度"
+        },
+        "TextureStyle":
+        {
+            "Name": "材质风格",
+            "Description": "单击\"<\"和\">\"可以切换已解锁的风格",
+            "Options":
+            {
+                "Original": "原版"
+            }
+        }
+    },
+    "KeyBindConfig":
+    {
+        "Title": "按键设置",
+        "OpenMenu":
+        {
+            "Name": "打开菜单",
+            "Description": "左键单击该选项以设置打开菜单快捷键"
+        },
+        "OpenMap":
+        {
+            "Name": "打开地图",
+            "Description": "左键单击该选项以设置打开地图快捷键"
+        },
+        "OpenCardDeck":
+        {
+            "Name": "打开卡组",
+            "Description": "左键单击该选项以设置打开卡组快捷键"
+        },
+        "OpenCardPile":
+        {
+            "Name": "打开牌库",
+            "Description": "左键单击该选项以设置打开牌库快捷键"
+        },
+        "OpenCardGraveyard":
+        {
+            "Name": "打开墓地",
+            "Description": "左键单击该选项以设置打开墓地快捷键"
+        }
+    },
+    "MusicConfig":
+    {
+        "Title": "音乐设置",
+        "EnableMusic":
+        {
+            "Name": "开启音乐",
+            "Description": "调整这个设置以开启或关闭游戏音乐"
+        },
+        "EnableSound":
+        {
+            "Name": "开启音效",
+            "Description": "调整这个设置以开启或关闭游戏音效"
+        },
+        "MainVolume":
+        {
+            "Name": "主音量",
+            "Description": "调整这个设置会改变你的主音量大小"
+        },
+        "MusicVolume":
+        {
+            "Name": "音乐音量",
+            "Description": "调整这个设置会改变你的音乐音量大小"
+        },
+        "SoundVolume":
+        {
+            "Name": "音效音量",
+            "Description": "调整这个设置会改变你的音效音量大小"
+        }
+    }
+}

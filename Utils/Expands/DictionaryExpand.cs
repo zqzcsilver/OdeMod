@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 
-namespace OdeMod.Utils.Expends
+namespace OdeMod.Utils.Expands
 {
-    internal static class DictionaryExpend
+    internal static class DictionaryExpand
     {
         public static bool ContainsKeys<TKey, TValue>(this Dictionary<TKey, TValue> dictionary, IEnumerable<TKey> keys)
         {

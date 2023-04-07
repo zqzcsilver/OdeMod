@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
+using OdeMod.CardMode.Scenes.AboutScene.UIContainer;
 using OdeMod.CardMode.Scenes.ChangeSceneStyles;
 using OdeMod.CardMode.Scenes.ConfigScene.ConfigSystem.Configs;
 using OdeMod.CardMode.UI;
@@ -7,8 +8,10 @@ using OdeMod.UI.OdeUISystem.UIElements;
 
 namespace OdeMod.CardMode.Scenes.GameInfoScene.UIContainer
 {
-    internal class SingleplayerOrMultiplayerContainer : CardUIContainerElement
+    internal class NetModeContainer : CardUIContainerElement
     {
+        public static readonly string ContainerFullName = typeof(NetModeContainer).FullName;
+
         public override void OnInitialization()
         {
             base.OnInitialization();
@@ -27,7 +30,7 @@ namespace OdeMod.CardMode.Scenes.GameInfoScene.UIContainer
             singlePlayIcon.Info.Top.SetValue(new PositionStyle(0f, 0.4f) - singlePlayIcon.Info.Height / 2f);
             singlePlay.Register(singlePlayIcon);
 
-            UIText singlePlayTitle = new UIText("单人模式", fs.GetFont(60f), Color.White * 0.8f);
+            UIText singlePlayTitle = new UIText("$Scenes.NetModeScene.UI.SinglePlay", fs.GetFont(60f), Color.White * 0.8f);
             singlePlayTitle.Info.Left.SetValue(new PositionStyle(0f, 0.5f) - singlePlayTitle.Info.Width / 2f);
             singlePlayTitle.Info.Top.SetValue(new PositionStyle(0f, 0.6f) - singlePlayTitle.Info.Height / 2f);
             singlePlay.Register(singlePlayTitle);
@@ -44,6 +47,7 @@ namespace OdeMod.CardMode.Scenes.GameInfoScene.UIContainer
             };
             singlePlay.Events.OnLeftClick += element =>
             {
+                CardSystem.GameInfo.NetMode = GameInfos.NetMode.Singleplayer;
                 CardSystem.SceneManager.ChangeScene(
                     "OdeMod.CardMode.Scenes.CharacterSelectionScene.CharacterSelectionScene", new FadeStyle());
             };
@@ -66,7 +70,7 @@ namespace OdeMod.CardMode.Scenes.GameInfoScene.UIContainer
             multiplayIcon1.Info.Top.SetValue(new PositionStyle(0f, 0.4f) - multiplayIcon1.Info.Height / 2f);
             multiplay.Register(multiplayIcon1);
 
-            UIText multiplayTitle = new UIText("多人模式", fs.GetFont(60f), Color.White * 0.8f);
+            UIText multiplayTitle = new UIText("$Scenes.NetModeScene.UI.Multiplay", fs.GetFont(60f), Color.White * 0.8f);
             multiplayTitle.Info.Left.SetValue(new PositionStyle(0f, 0.5f) - multiplayTitle.Info.Width / 2f);
             multiplayTitle.Info.Top.SetValue(new PositionStyle(0f, 0.6f) - multiplayTitle.Info.Height / 2f);
             multiplay.Register(multiplayTitle);
@@ -82,6 +86,12 @@ namespace OdeMod.CardMode.Scenes.GameInfoScene.UIContainer
                 multiplayIcon.ChangeColor(Color.White * 0.8f);
                 multiplayIcon1.ChangeColor(Color.White * 0.8f);
                 multiplayTitle.Color = Color.White * 0.8f;
+            };
+            multiplay.Events.OnLeftClick += element =>
+            {
+                CardSystem.GameInfo.NetMode = GameInfos.NetMode.Multiplayer;
+                CardSystem.SceneManager.ChangeScene(
+                    "OdeMod.CardMode.Scenes.CharacterSelectionScene.CharacterSelectionScene", new FadeStyle());
             };
         }
     }

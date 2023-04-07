@@ -1,910 +1,944 @@
-﻿Mods:
-{
-	OdeMod:
-	{
-		#物品名字与介绍
-		Items:
-		{
-			LightMushroom : 
-			{
-				DisplayName : 光明蘑菇
-				Tooltip : 在白天吸收阳光，在夜晚放出阳光...
-			}
-			
-			LightMushroomClaw : 
- 			{
-				DisplayName : 明菇爪套
-				Tooltip : 发出令人安心的太阳光芒
-			} 
-			LightMushroomHammeraxe : 
- 			{
-				DisplayName : 明菇斧锤
-				Tooltip : 软绵绵的手感，但是会发亮
-			} 
-			LightMushroomHolybow : 
- 			{
-				DisplayName : 明菇弓矢
-				Tooltip : 朝着敌人发出光明的一击
-			} 
-			LightMushroomHolyknife : 
- 			{
-				DisplayName : 明菇狂热者
-				Tooltip : 真是搞不懂为什么会有人用蘑菇作为剑的材料
-			} 
-			LightMushroomStaff : 
- 			{
-				DisplayName : 明菇魔杖
-				Tooltip : 魔力刺激明菇，明菇放出它储存的阳光
-			} 
-			FrostedFlyingcutter : 
- 			{
-				DisplayName : 凝霜飞刀
-				Tooltip : 待补充
-			} 
-			FrostedSickle : 
- 			{
-				DisplayName : 凝霜镰刀
-				Tooltip : 待补充
-			} 
-			FrostedThorn : 
- 			{
-				DisplayName : 凝霜荆棘
-				Tooltip : 待补充
-			} 
-			BrightironBar : 
- 			{
-				DisplayName : 熙铁锭
-				Tooltip : 待补充
-			} 
-			BrightironBroadsword : 
- 			{
-				DisplayName : 熙铁阔剑
-				Tooltip : 待补充
-			} 
-			BrightironHeavyaxe : 
- 			{
-				DisplayName : 熙铁重斧
-				Tooltip : 待补充
-			} 
-			BrightironOre : 
- 			{
-				DisplayName : 熙铁矿
-				Tooltip : 待补充
-			} 
-			BrightironPickaxe : 
- 			{
-				DisplayName : 熙铁镐
-				Tooltip : 待补充
-			} 
-			BrightironShortbow : 
- 			{
-				DisplayName : 熙铁短弓
-				Tooltip : 待补充
-			} 
-			BrightironStaff : 
- 			{
-				DisplayName : 熙铁法杖
-				Tooltip : 待补充
-			} 
-			BrightironBreastplate : 
- 			{
-				DisplayName : 熙铁胸甲
-				Tooltip : 待补充
-			}
-			BrightironHelmet : 
- 			{
-				DisplayName : 熙铁头盔
-				Tooltip : 待补充
-			} 
-			BrightironLeggings : 
- 			{
-				DisplayName : 熙铁护腿
-				Tooltip : 待补充
-			} 
-			SpiritPieces : 
- 			{
-				DisplayName : 异灵体
-				Tooltip : 克鲁苏之眼后，猩红地/腐地
-			} 
-			CaliforniumBar : 
- 			{
-				DisplayName : 锎锭
-				Tooltip : 月总后海盗事件
-			} 
-			GammaDisembower : 
- 			{
-				DisplayName : 伽马开膛者
-				Tooltip : 待补充
-			} 
-			HallowRadianter : 
- 			{
-				DisplayName : 神圣放射者
-				Tooltip : 待补充
-			} 
-			NeutronSource : 
- 			{
-				DisplayName : 中子源
-				Tooltip : 
-				'''
-				你可以看到宝藏和矿石的位置
-				你的防御增加10%
-				'''
-			} 
-			Plaguebatter : 
- 			{
-				DisplayName : 瘟疫打击者
-				Tooltip : 待补充
-			} 
-			Raydason : 
- 			{
-				DisplayName : 瑞达森
-				Tooltip : 待补充
-			} 
-			Mosscobble : 
- 			{
-				DisplayName : 苔石
-				Tooltip : 待补充
-			} 
-			MosscobbleAxe : 
- 			{
-				DisplayName : 苔石斧
-				Tooltip : 待补充
-			} 
-			MosscobbleKnife : 
- 			{
-				DisplayName : 苔石刀
-				Tooltip : 待补充
-			} 
-			MosscobblePickaxe : 
- 			{
-				DisplayName : 苔石稿
-				Tooltip : 待补充
-			} 
-			SharpsandBow : 
- 			{
-				DisplayName : 纯砂弓
-				Tooltip : 待补充
-			} 
-			SharpsandGiantblade : 
- 			{
-				DisplayName : 纯砂巨剑
-				Tooltip : 待补充
-			} 
-			SharpsandStaff : 
- 			{
-				DisplayName : 纯砂法杖
-				Tooltip : 待补充
-			} 
-			Redmoon : 
- 			{
-				DisplayName : 赤红幼月
-				Tooltip : 这次一定会中！
-			} 
-			LightPromise : 
- 			{
-				DisplayName : 光辉誓言
-				Tooltip : 待补充
-			} 
-			HallownestSeal : 
- 			{
-				DisplayName : 圣巢印章
-				Tooltip : 
-				'''
-				*长按左键开关圣巢模式*
-				这是一个用于模仿空洞骑士手感和设定的娱乐模式，不适合开荒使用
-				玩家魔力值与生命值将不再自动恢复
-				玩家的速度，水平加速度和跳跃高度得到提升
-				玩家的上述三项属性不再受到药水和饰品的影响
-				玩家的运动惯性大幅减小
-				玩家不再受到摔落伤害
-				玩家受伤固定受到25伤害（不受护甲等因素影响）
-				玩家免疫几乎所有伤害性负面buff
-				玩家受伤后拥有更长时间的无敌帧
-			
 
-				    高等生灵啊，这些话只说给你听。
-				走过这里你就会进入国王和造物主的领土。
-				    跨过这道门槛，遵从我们的法律。
-				 见证这最后和唯一的文明，永恒的国度。
-				                    圣巢
-				'''
-			} 
-			AbyssShriek : 
- 			{
-				DisplayName : 深渊尖啸
-				Tooltip : 用嚎叫的灵魂和暗影轰击敌人。
-			} 
-			DescendingDark : 
- 			{
-				DisplayName : 黑暗降临
-				Tooltip : 集中灵魂和暗影的力量打击地面。
-			} 
-			DesolateDive : 
- 			{
-				DisplayName : 荒芜俯冲
-				Tooltip : 集中灵魂力量打击地面。
-			} 
-			Focus : 
- 			{
-				DisplayName : 聚集
-				Tooltip : 消耗50点法力值，回复50点生命。
-			} 
-			HowlingWraiths : 
- 			{
-				DisplayName : 嚎叫幽灵
-				Tooltip : 用嚎叫的灵魂轰击敌人。
-			} 
-			MothwingCloak : 
- 			{
-				DisplayName : 蛾翼披风
-				Tooltip :
-				'''
-				[将该物品标记为收藏后双击左右键使用]
-				蛾翅线编制的披风。让穿着者可在地面或空中向前冲刺。
-				'''
-			} 
-			OldNail : 
- 			{
-				DisplayName : 旧骨钉
-				Tooltip : 圣巢的传统武器。它的刀刃因老化和磨损变钝了。
-			} 
-			ShadeCloak : 
- 			{
-				DisplayName : 暗影披风
-				Tooltip : 
-				'''
-				[将该物品标记为收藏后双击左右键使用]
-				由深渊的物质形成的披风。允许穿戴者冲刺时穿过敌人和他们的攻击而不受到伤害。
-				'''
-			} 
-			ShadeSoul : 
- 			{
-				DisplayName : 暗影之魂
-				Tooltip : 召唤一个向前飞行的阴影，燃烧路径上的敌人。
-			} 
-			VengefulSpirit : 
- 			{
-				DisplayName : 复仇之魂
-				Tooltip : 召唤一个向前飞行的灵魂，燃烧路径上的敌人。
-			} 
-			MiracleRecorderBossBag : 
- 			{
-				DisplayName : 辉煌宝藏袋
-				Tooltip : 待补充
-			} 
-			BrilliantPearl : 
- 			{
-				DisplayName : 辉煌宝珠
-				Tooltip : 聚焦圣地的光辉，以唤醒昔日的守护者
+Mods: {
+	OdeMod: {
+		Buffs: {
+			Brilliance: {
+				// DisplayName: Brilliance
+				// Description: Mods.OdeMod.Buffs.Brilliance.Description
 			}
-			CrystalSpur : 
- 			{
-				DisplayName : 晶刺
-				Tooltip : 待补充
-			}
-			HolyElement : 
- 			{
-				DisplayName : 圣洁元素
-				Tooltip : 待补充
-			} 
-			HolySpiritCurse : 
- 			{
-				DisplayName : 圣灵的诅咒
-				Tooltip : 待补充
-			}
-			HolySpiritArrow : 
- 			{
-				DisplayName : 圣灵箭
-				Tooltip : 待补充
-			}
-			ShiningSpirit : 
- 			{
-				DisplayName : 耀灵
-				Tooltip : 待补充
-			} 
-			HolySpiritBullet : 
- 			{
-				DisplayName : 圣灵弹
-				Tooltip : 待补充
-			} 
-			Glory : 
- 			{
-				DisplayName : 荣光之牙
-				Tooltip : 待补充
-			} 
-			PulseofThunder : 
- 			{
-				DisplayName : 脉冲雷霆
-				Tooltip : 待补充
-			} 
 
-			#充能系列
-			ElectrifiedBlasterCannon : 
- 			{
-				DisplayName : 带电爆破炮
-				Tooltip : 过载！
-			} 
-			StarAngel : 
- 			{
-				DisplayName : 星辰天使
-				Tooltip : 它的任务仅仅是带你去见天使
-			} 
-			Zapinator : 
- 			{
-				DisplayName : 真红冲击波
-				Tooltip : 尘封许久的武器
-			} 
-			Thomas_Zero : 
- 			{
-				DisplayName : 托马斯·零式
-				Tooltip : WARNING ，由果冻设计绘制
-			} 
-			PrismRevolver : 
- 			{
-				DisplayName : 光棱左轮
-				Tooltip : 光棱武器
-			} 
-			LaserGun : 
- 			{
-				DisplayName : 激光枪
-				Tooltip : 熟悉的触感
-			} 
-			TwilightGatling : 
- 			{
-				DisplayName : 暮光加特林
-				Tooltip : 见证群星
-			} 
-			PhotonicComponent : 
- 			{
-				DisplayName : 光子组件
-				Tooltip : 光子
-			} 
-			MarsBattery : 
- 			{
-				DisplayName : 火星电池
-				Tooltip : 来自荧惑
-			} 
-			LuminousReactor : 
- 			{
-				DisplayName : 夜光加速炉
-				Tooltip : 待补充
-			} 
-			HeavenFragment : 
- 			{
-				DisplayName : 天堂配件
-				Tooltip : 待补充
-			} 
-			KingSwing : 
- 			{
-				DisplayName : 帝王之翼
-				Tooltip : 待补充
-			} 
-
-			#Chaos-混沌系列
-			BlackPage : 
- 			{
-				DisplayName : 黑暗书页
-				Tooltip : 写满了符文
-			} 
-			Brain : 
- 			{
-				DisplayName : 大脑
-				Tooltip : 可食用？
-			} 
-			CursedSoul : 
- 			{
-				DisplayName : 被诅咒的灵魂
-				Tooltip : 他试图挣脱你的掌握
-			} 
-			MagicTentacle : 
- 			{
-				DisplayName : 魔化触手
-				Tooltip : 待补充
-			} 
-
-			#食物
-			Cola : 
- 			{
-				DisplayName : 可乐
-				Tooltip : 待补充
-			} 
-			ShadyShaddock_B : 
- 			{
-				DisplayName : 阴影柚
-				Tooltip : 待补充
-			} 
-			ShadyShaddock_C : 
- 			{
-				DisplayName : 阴影柚
-				Tooltip : 待补充
-			} 
-			StarLollipop : 
- 			{
-				DisplayName : 星辰棒棒糖
-				Tooltip : 待补充
-			} 
-			SteamedStuffedBun : 
- 			{
-				DisplayName : 包子
-				Tooltip : 待补充
-			} 
-			SteamedBreadOfCorn : 
- 			{
-				DisplayName : 窝窝头
-				Tooltip : 待补充
-			} 
-			RiceNoodles : 
- 			{
-				DisplayName : 米粉
-				Tooltip : 待补充
-			} 
-			Kabob : 
- 			{
-				DisplayName : 烤肉串
-				Tooltip : 待补充
-			} 
-			GuoKui : 
- 			{
-				DisplayName : 锅盔
-				Tooltip : 待补充
-			} 
-			GlacierMineralWater : 
- 			{
-				DisplayName : 冰川矿泉水
-				Tooltip : 待补充
-			} 
-
-			#杂项
-			SuicideRevolver : 
- 			{
-				DisplayName : 自尽左轮
-				Tooltip : 军火商的箱子最底部的一把枪，看上去完全不像是能伤害到敌人的样子。
-			} 
-			Wan : 
- 			{
-				DisplayName : Wan
-				Tooltip : 
-				'''
-				奇怪的物品，你可以将它投出
-				它试图摆脱你的手掌
-				'''
-			} 
-			WanGift : 
- 			{
-				DisplayName : Wan的礼物
-				Tooltip : 
-				'''
-				可以开出奇奇怪怪的东西
-				{$CommonItemTooltip.RightClickToOpen}
-				'''
-			} 
-			TwistedSteelBlade : 
- 			{
-				DisplayName : 精铁弯刀
-				Tooltip : 骷髅王掉落
-			} 
-			SunLight : 
- 			{
-				DisplayName : 日曜
-				Tooltip : 
-				'''
-				奇奇怪怪,射出魔能弹,穿透怪物会提升魔能弹的威力
-				增加乱七八糟的奇怪能力
-				似乎并不属于这个世界?
-				'''
-			} 
-			StrangeDoorplate : 
- 			{
-				DisplayName : 奇异门牌
-				Tooltip : 将你传送至地狱
-			} 
-			SimpleSteelCannon : 
- 			{
-				DisplayName : 简陋钢炮
-				Tooltip : 肉山掉落
-			} 
-			Paradise : 
- 			{
-				DisplayName : 天界
-				Tooltip : 未完成
-			} 
-			LightPromise : 
- 			{
-				DisplayName : 光辉誓言
-				Tooltip : 握紧它，你感到一股奇怪的力量
-			} 
-			BrilliantPearl : 
- 			{
-				DisplayName : 辉煌宝珠
-				Tooltip : 待补充
-			} 
-			LargePottedPlant : 
- 			{
-				DisplayName : 大型盆栽
-				Tooltip : 富有生机
-			} 
-			ChenAi : 
- 			{
-				DisplayName : 陈艾
-				Tooltip : 
-				'''
-				用于制作艾叶护符和艾汁酒
-				流通在泰拉大陆通常都只有三年陈艾
-				'''
-			} 
-			AyTsao : 
- 			{
-				DisplayName : 艾草
-				Tooltip : 用途极多
-			} 
-			DarkMoonSoul : 
- 			{
-				DisplayName : 暗月之魂
-				Tooltip : 
-				'''
-				现于暗月
-				月后夜晚天空、混沌之蚀掉落
-				'''
-			} 
-			GreenSoul : 
- 			{
-				DisplayName : 碧绿之魂
-				Tooltip : 翠绿
-			} 
-			RelicSpiritStone : 
- 			{
-				DisplayName : 遗迹灵石
-				Tooltip : 花后神庙怪物掉落
-			} 
-			HolyFlameCrown : 
- 			{
-				DisplayName : 圣火冠
-				Tooltip :
-				'''
-				圣火洗礼
-				你的每一次攻击都有几率会附加一次圣火爆炸
-				'''
-			} 
-			LightningAmulet : 
- 			{
-				DisplayName : 闪电护符
-				Tooltip : 闪电护佑着你
-			} 
-			MagicBoneShield : 
- 			{
-				DisplayName : 魔法骨盾
-				Tooltip : 化敌为友
-			} 
-			#杂项武器
-			BrilliantDragon : 
- 			{
-				DisplayName : 煌龙
-				Tooltip : 煌龙
-			} 
-			BuleLight : 
- 			{
-				DisplayName : 碧蓝之光
-				Tooltip :  一把最“自然”的刀
-			} 
-			BigTorch : 
- 			{
-				DisplayName : 大火炬
-				Tooltip : 待补充
-			}
-			ChaosBow : 
- 			{
-				DisplayName : 混乱之弓
-				Tooltip : 待补充
-			}
-			ChillyMoonStaff : 
- 			{
-				DisplayName : 清月法杖
-				Tooltip : 待补充
-			}
-			Dusk : 
- 			{
-				DisplayName : 昏暮
-				Tooltip : 待补充
-			} 
-			EnchantingStaff : 
- 			{
-				DisplayName : 附魔杖
-				Tooltip : 待补充
-			}
-			FantasyNightSky : 
- 			{
-				DisplayName : 幻想夜空
-				Tooltip : 待补充
-			} 
-			FineRed : 
- 			{
-				DisplayName : 精红
-				Tooltip : 待补充
-			} 
-			FlickeringPhantom : 
- 			{
-				DisplayName : 闪烁幻影
-				Tooltip : 待补充
-			}
-			HolyFireOfHeaven : 
- 			{
-				DisplayName : 天堂圣火
-				Tooltip : 待补充
-			} 
-			MuddyWater : 
- 			{
-				DisplayName : 浑水
-				Tooltip : 待补充
-			} 
-			NaturalGift : 
- 			{
-				DisplayName : 自然的馈赠
-				Tooltip : 待补充
-			}
-			PhantomTorch : 
- 			{
-				DisplayName : 幻影火炬
-				Tooltip : 待补充
-			} 
-			PurpleSteelStaff : 
- 			{
-				DisplayName : 紫钢法杖
-				Tooltip : 待补充
-			} 
-			Silk : 
- 			{
-				DisplayName : 蚕丝
-				Tooltip : 待补充
-			} 
-			SilkWand : 
- 			{
-				DisplayName : 蚕丝魔杖
-				Tooltip : 待补充
-			} 
-			SpecularWater : 
- 			{
-				DisplayName : 镜水
-				Tooltip : 待补充
-			} 
-			StarLock : 
- 			{
-				DisplayName : 星锁
-				Tooltip : 待补充
-			} 
-
-			#裂谷系列
-			DarkBlueMantraStone : 
- 			{
-				DisplayName : 暗蓝咒石
-				Tooltip : 咒术
-			} 
-			DarkBlueSting : 
- 			{
-				DisplayName : 暗蓝之刺
-				Tooltip : 待补充
-			} 
-			DisasterCurseSilverIngot : 
- 			{
-				DisplayName : 灾咒银锭
-				Tooltip : 你感觉银锭上覆盖着一层不详的气息
-			} 
-			DisasterSilverOre : 
- 			{
-				DisplayName : 灾咒银矿石
-				Tooltip : 灾祸
-			} 
-			EmeraldLeaf : 
- 			{
-				DisplayName : 翠叶
-				Tooltip : 待补充
-			} 
-			FantasyStone : 
- 			{
-				DisplayName : 幻想石
-				Tooltip : 现在是 幻想时刻！
-			} 
-			Flamehappy : 
- 			{
-				DisplayName : 火之高兴
-				Tooltip : 待补充
-			} 
-			FlowFireGold : 
- 			{
-				DisplayName : 流火金块
-				Tooltip : 待补充
-			} 
-			FlowFireGoldBrick : 
- 			{
-				DisplayName : 流火金砖
-				Tooltip : 待补充
-			} 
-			HolyLightRotatingBlade : 
- 			{
-				DisplayName : 圣光旋刃
-				Tooltip : 待补充
-			} 
-			HolySpiritCutter : 
- 			{
-				DisplayName : 圣灵切割器
-				Tooltip : 待补充
-			} 
-			RosewoodCrystalStaff : 
- 			{
-				DisplayName : 红木晶杖
-				Tooltip : 待补充
-			} 
-			RottenMeatcs : 
- 			{
-				DisplayName : 破碎血肉块
-				Tooltip : 血肉
-			} 
-			SoulHaystack : 
- 			{
-				DisplayName : 灵魂草堆
-				Tooltip : 哀嚎
-			} 
-			SpiritualPowerRosewood : 
- 			{
-				DisplayName : 灵力红木
-				Tooltip : 待补充
-			} 
-			BlueIronOre : 
- 			{
-				DisplayName : 蓝铁矿
-				Tooltip : 蓝色铁
-			} 
-			BoneOak : 
- 			{
-				DisplayName : 骨橡木
-				Tooltip : 阴森
-			} 
-			SoulCongealingSoil : 
- 			{
-				DisplayName : 凝魂土
-				Tooltip : 哀嚎
-			} 
-			WhiteSoulStone : 
- 			{
-				DisplayName : 白魄石
-				Tooltip : 白色的石头
-			} 
-		}
-		#弹幕名字
-		ProjectileName:
-		{
-		    flycutter1.DisplayName : 凝霜飞刀
-			flycutter2.DisplayName : 凝霜飞刀
-			AbyssShriek.DisplayName : 深渊尖啸
-			BeFall.DisplayName : 降临
-			VengefulSpirit.DisplayName : 复仇之魂
-			KnifeLight.DisplayName : 旧骨钉
-			KnifeLight01.DisplayName : 旧骨钉
-			KnifeLight2.DisplayName : 旧骨钉
-			KnifeLight3.DisplayName : 旧骨钉
-			SmashRange.DisplayName : 1
-			ShadeSoul.DisplayName : 暗影之魂
-			HowlingWraiths.DisplayName : 嚎叫幽灵
-			Focus.DisplayName : 聚集
-			DesolateDive.DisplayName : 荒芜俯冲
-			DescendingDark.DisplayName : 黑暗降临
-			DescendingDark_Two.DisplayName : 黑暗降临
-
-			#物品杂项弹幕
-			BlueLightPro.DisplayName : 碧蓝之光
-			CrystalSentence.DisplayName : 光辉誓言
-			Accumulation.DisplayName : 光辉誓言
-			HolyFlame.DisplayName : 圣火
-			Light.DisplayName : 赤红幼月
-			Redarrow.DisplayName : 赤红幼月
-			Suicide.DisplayName : 自尽左轮
-			Yao.DisplayName : 曜
-		}
-		#生物名字
-		NPCName:
-		{
-		    ShadowSwing.DisplayName : 暗翼
-			Raider.DisplayName : 强袭者
-			#Chaos-混沌之日
-			ChaoticAurora.DisplayName : 混沌极光
-			ChaoticBite.DisplayName : 混沌噬咬
-			ChaoticLicker.DisplayName : 混沌舔食者
-			ChaoticMite.DisplayName : 混沌螨
-			Mist.DisplayName : 无名之雾
-			Rumia.DisplayName : 露米娅
-			SoftGlueDragon.DisplayName : 软胶龙
-			#Boss
-			MiracleRecorder.DisplayName : 辉煌记录者
-		}
-		Buffs: 
-		{
-			Addiction:
-			{
+			Addiction: {
 				DisplayName: 上瘾
-				Description: 
-				'''
-				攻击力提升30% 防御力减半
-				你疯狂得渴望某种物质
-				'''
+				Description:
+					'''
+					攻击力提升30% 防御力减半
+					你疯狂得渴望某种物质
+					'''
 			}
-			Happy:
-			{
+
+			Happy: {
 				DisplayName: 快乐
 				Description: 你兴奋的打了几个嗝
 			}
-			Inappetence:
-			{
+
+			Inappetence: {
 				DisplayName: 厌食
 				Description: 你厌恶
 			}
-			NaturalPower:
-			{
-				DisplayName: 自然力量
-				Description: 被自然所敌视
+
+			Vomit: {
+				// DisplayName: Vomit
+				// Description: Mods.OdeMod.Buffs.Vomit.Description
 			}
-			Vitality:
-			{
-				DisplayName: 元气
-				Description: 免疫寒冷，大大增加生命回复速度。
-			}
-			HolySpiritCurse:
-			{
+
+			HolySpiritCurse: {
 				DisplayName: 圣灵的诅咒
 				Description: 无
 			}
-			Locked:
-			{
+
+			Locked: {
 				DisplayName: 星锁
 				Description: 困
 			}
+
+			NaturalPower: {
+				DisplayName: 自然力量
+				Description: 被自然所敌视
+			}
+
+			Vitality: {
+				DisplayName: 元气
+				Description: 免疫寒冷，大大增加生命回复速度。
+			}
 		}
-		#附魔
-		Prefix:
-		{
+
+		Items: {
+			HolyFlameCrown: {
+				DisplayName: 圣火冠
+				Tooltip:
+					'''
+					圣火洗礼
+					你的每一次攻击都有几率会附加一次圣火爆炸
+					'''
+			}
+
+			MagicBoneShield: {
+				DisplayName: 魔法骨盾
+				Tooltip: 化敌为友
+			}
+
+			AyTsao: {
+				DisplayName: 艾草
+				Tooltip: 用途极多
+			}
+
+			AyTsaoSeed: {
+				// DisplayName: Ay Tsao Seed
+				// Tooltip: ""
+			}
+
+			ChenAi: {
+				DisplayName: 陈艾
+				Tooltip:
+					'''
+					用于制作艾叶护符和艾汁酒
+					流通在泰拉大陆通常都只有三年陈艾
+					'''
+			}
+
+			LargePottedPlant: {
+				DisplayName: 大型盆栽
+				Tooltip: 富有生机
+			}
+
+			LightPromise: {
+				DisplayName: 光辉誓言
+				Tooltip: 握紧它，你感到一股奇怪的力量
+			}
+
+			MagicPowerFallingStar: {
+				// DisplayName: Magic Power Falling Star
+				// Tooltip: ""
+			}
+
+			DarkMoonSoul: {
+				DisplayName: 暗月之魂
+				Tooltip:
+					'''
+					现于暗月
+					月后夜晚天空、混沌之蚀掉落
+					'''
+			}
+
+			GreenSoul: {
+				DisplayName: 碧绿之魂
+				Tooltip: 翠绿
+			}
+
+			RelicSpiritStone: {
+				DisplayName: 遗迹灵石
+				Tooltip: 花后神庙怪物掉落
+			}
+
+			Silk: {
+				DisplayName: 蚕丝
+				Tooltip: 待补充
+			}
+
+			Paradise: {
+				DisplayName: 天界
+				Tooltip: 未完成
+			}
+
+			Redmoon: {
+				DisplayName: 赤红幼月
+				Tooltip: 这次一定会中！
+			}
+
+			SimpleSteelCannon: {
+				DisplayName: 简陋钢炮
+				Tooltip: 肉山掉落
+			}
+
+			StrangeDoorplate: {
+				DisplayName: 奇异门牌
+				Tooltip: 将你传送至地狱
+			}
+
+			SuicideRevolver: {
+				DisplayName: 自尽左轮
+				Tooltip: 军火商的箱子最底部的一把枪，看上去完全不像是能伤害到敌人的样子。
+			}
+
+			SunLight: {
+				DisplayName: 日曜
+				Tooltip:
+					'''
+					奇奇怪怪,射出魔能弹,穿透怪物会提升魔能弹的威力
+					增加乱七八糟的奇怪能力
+					似乎并不属于这个世界?
+					'''
+			}
+
+			TwistedSteelBlade: {
+				DisplayName: 精铁弯刀
+				Tooltip: 骷髅王掉落
+			}
+
+			Wan: {
+				DisplayName: Wan
+				Tooltip:
+					'''
+					奇怪的物品，你可以将它投出
+					它试图摆脱你的手掌
+					'''
+			}
+
+			WanGift: {
+				DisplayName: Wan的礼物
+				Tooltip:
+					'''
+					可以开出奇奇怪怪的东西
+					{$CommonItemTooltip.RightClickToOpen}
+					'''
+			}
+
+			BigTorch: {
+				DisplayName: 大火炬
+				Tooltip: 待补充
+			}
+
+			BrilliantDragon: {
+				DisplayName: 煌龙
+				Tooltip: 煌龙
+			}
+
+			BuleLight: {
+				DisplayName: 碧蓝之光
+				Tooltip: 一把最“自然”的刀
+			}
+
+			ChaosBow: {
+				DisplayName: 混乱之弓
+				Tooltip: 待补充
+			}
+
+			ChillyMoonStaff: {
+				DisplayName: 清月法杖
+				Tooltip: 待补充
+			}
+
+			Dusk: {
+				DisplayName: 昏暮
+				Tooltip: 待补充
+			}
+
+			EnchantingStaff: {
+				DisplayName: 附魔杖
+				Tooltip: 待补充
+			}
+
+			FantasyNightSky: {
+				DisplayName: 幻想夜空
+				Tooltip: 待补充
+			}
+
+			FineRed: {
+				DisplayName: 精红
+				Tooltip: 待补充
+			}
+
+			FlickeringPhantom: {
+				DisplayName: 闪烁幻影
+				Tooltip: 待补充
+			}
+
+			HolyFireOfHeaven: {
+				DisplayName: 天堂圣火
+				Tooltip: 待补充
+			}
+
+			MuddyWater: {
+				DisplayName: 浑水
+				Tooltip: 待补充
+			}
+
+			NaturalGift: {
+				DisplayName: 自然的馈赠
+				Tooltip: 待补充
+			}
+
+			PhantomTorch: {
+				DisplayName: 幻影火炬
+				Tooltip: 待补充
+			}
+
+			PulseofThunder: {
+				DisplayName: 脉冲雷霆
+				Tooltip: 待补充
+			}
+
+			PurpleSteelStaff: {
+				DisplayName: 紫钢法杖
+				Tooltip: 待补充
+			}
+
+			SilkWand: {
+				DisplayName: 蚕丝魔杖
+				Tooltip: 待补充
+			}
+
+			SpecularWater: {
+				DisplayName: 镜水
+				Tooltip: 待补充
+			}
+
+			StarLock: {
+				DisplayName: 星锁
+				Tooltip: 待补充
+			}
+
+			BrightironBar: {
+				DisplayName: 熙铁锭
+				Tooltip: 待补充
+			}
+
+			BrightironBreastplate: {
+				DisplayName: 熙铁胸甲
+				Tooltip: 待补充
+			}
+
+			BrightironBroadsword: {
+				DisplayName: 熙铁阔剑
+				Tooltip: 待补充
+			}
+
+			BrightironHeavyaxe: {
+				DisplayName: 熙铁重斧
+				Tooltip: 待补充
+			}
+
+			BrightironHelmet: {
+				DisplayName: 熙铁头盔
+				Tooltip: 待补充
+			}
+
+			BrightironLeggings: {
+				DisplayName: 熙铁护腿
+				Tooltip: 待补充
+			}
+
+			BrightironOre: {
+				DisplayName: 熙铁矿
+				Tooltip: 待补充
+			}
+
+			BrightironPickaxe: {
+				DisplayName: 熙铁镐
+				Tooltip: 待补充
+			}
+
+			BrightironShortbow: {
+				DisplayName: 熙铁短弓
+				Tooltip: 待补充
+			}
+
+			BrightironStaff: {
+				DisplayName: 熙铁法杖
+				Tooltip: 待补充
+			}
+
+			SpiritPieces: {
+				DisplayName: 异灵体
+				Tooltip: 克鲁苏之眼后，猩红地/腐地
+			}
+
+			CaliforniumBar: {
+				DisplayName: 锎锭
+				Tooltip: 月总后海盗事件
+			}
+
+			GammaDisembower: {
+				DisplayName: 伽马开膛者
+				Tooltip: 待补充
+			}
+
+			HallowRadianter: {
+				DisplayName: 神圣放射者
+				Tooltip: 待补充
+			}
+
+			NeutronSource: {
+				DisplayName: 中子源
+				Tooltip:
+					'''
+					你可以看到宝藏和矿石的位置
+					你的防御增加10%
+					'''
+			}
+
+			Plaguebatter: {
+				DisplayName: 瘟疫打击者
+				Tooltip: 待补充
+			}
+
+			Raydason: {
+				DisplayName: 瑞达森
+				Tooltip: 待补充
+			}
+
+			BlackPage: {
+				DisplayName: 黑暗书页
+				Tooltip: 写满了符文
+			}
+
+			Brain: {
+				DisplayName: 大脑
+				Tooltip: 可食用？
+			}
+
+			CursedSoul: {
+				DisplayName: 被诅咒的灵魂
+				Tooltip: 他试图挣脱你的掌握
+			}
+
+			MagicTentacle: {
+				DisplayName: 魔化触手
+				Tooltip: 待补充
+			}
+
+			CandiedFruit: {
+				// DisplayName: Candied Fruit
+				// Tooltip: ""
+			}
+
+			Cola: {
+				DisplayName: 可乐
+				Tooltip: 待补充
+			}
+
+			Dumpling: {
+				// DisplayName: Dumpling
+				// Tooltip: ""
+			}
+
+			GlacierMineralSpringWater: {
+				// DisplayName: Glacier Mineral Spring Water
+				// Tooltip: ""
+			}
+
+			GlacierMineralWater: {
+				DisplayName: 冰川矿泉水
+				Tooltip: 待补充
+			}
+
+			GlacierWater: {
+				// DisplayName: Glacier Water
+				// Tooltip: ""
+			}
+
+			GuoKui: {
+				DisplayName: 锅盔
+				Tooltip: 待补充
+			}
+
+			JiaoDui: {
+				// DisplayName: Jiao Dui
+				// Tooltip: ""
+			}
+
+			Kabob: {
+				DisplayName: 烤肉串
+				Tooltip: 待补充
+			}
+
+			RiceNoodles: {
+				DisplayName: 米粉
+				Tooltip: 待补充
+			}
+
+			ShadyShaddock_B: {
+				DisplayName: 阴影柚
+				Tooltip: 待补充
+			}
+
+			ShadyShaddock_C: {
+				DisplayName: 阴影柚
+				Tooltip: 待补充
+			}
+
+			StarLollipop: {
+				DisplayName: 星辰棒棒糖
+				Tooltip: 待补充
+			}
+
+			SteamedBreadOfCorn: {
+				DisplayName: 窝窝头
+				Tooltip: 待补充
+			}
+
+			SteamedStuffedBun: {
+				DisplayName: 包子
+				Tooltip: 待补充
+			}
+
+			FrostedFlyingcutter: {
+				DisplayName: 凝霜飞刀
+				Tooltip: 待补充
+			}
+
+			FrostedSickle: {
+				DisplayName: 凝霜镰刀
+				Tooltip: 待补充
+			}
+
+			FrostedThorn: {
+				DisplayName: 凝霜荆棘
+				Tooltip: 待补充
+			}
+
+			AbyssShriek: {
+				DisplayName: 深渊尖啸
+				Tooltip: 用嚎叫的灵魂和暗影轰击敌人。
+			}
+
+			DescendingDark: {
+				DisplayName: 黑暗降临
+				Tooltip: 集中灵魂和暗影的力量打击地面。
+			}
+
+			DesolateDive: {
+				DisplayName: 荒芜俯冲
+				Tooltip: 集中灵魂力量打击地面。
+			}
+
+			Focus: {
+				DisplayName: 聚集
+				Tooltip: 消耗50点法力值，回复50点生命。
+			}
+
+			HallownestSeal: {
+				DisplayName: 圣巢印章
+				Tooltip:
+					'''
+					*长按左键开关圣巢模式*
+					这是一个用于模仿空洞骑士手感和设定的娱乐模式，不适合开荒使用
+					玩家魔力值与生命值将不再自动恢复
+					玩家的速度，水平加速度和跳跃高度得到提升
+					玩家的上述三项属性不再受到药水和饰品的影响
+					玩家的运动惯性大幅减小
+					玩家不再受到摔落伤害
+					玩家受伤固定受到25伤害（不受护甲等因素影响）
+					玩家免疫几乎所有伤害性负面buff
+					玩家受伤后拥有更长时间的无敌帧
+
+
+					    高等生灵啊，这些话只说给你听。
+					走过这里你就会进入国王和造物主的领土。
+					    跨过这道门槛，遵从我们的法律。
+					 见证这最后和唯一的文明，永恒的国度。
+					                    圣巢
+					'''
+			}
+
+			HowlingWraiths: {
+				DisplayName: 嚎叫幽灵
+				Tooltip: 用嚎叫的灵魂轰击敌人。
+			}
+
+			KingSwing: {
+				DisplayName: 帝王之翼
+				Tooltip: 待补充
+			}
+
+			MothwingCloak: {
+				DisplayName: 蛾翼披风
+				Tooltip:
+					'''
+					[将该物品标记为收藏后双击左右键使用]
+					蛾翅线编制的披风。让穿着者可在地面或空中向前冲刺。
+					'''
+			}
+
+			OldNail: {
+				DisplayName: 旧骨钉
+				Tooltip: 圣巢的传统武器。它的刀刃因老化和磨损变钝了。
+			}
+
+			ShadeCloak: {
+				DisplayName: 暗影披风
+				Tooltip:
+					'''
+					[将该物品标记为收藏后双击左右键使用]
+					由深渊的物质形成的披风。允许穿戴者冲刺时穿过敌人和他们的攻击而不受到伤害。
+					'''
+			}
+
+			ShadeSoul: {
+				DisplayName: 暗影之魂
+				Tooltip: 召唤一个向前飞行的阴影，燃烧路径上的敌人。
+			}
+
+			VengefulSpirit: {
+				DisplayName: 复仇之魂
+				Tooltip: 召唤一个向前飞行的灵魂，燃烧路径上的敌人。
+			}
+
+			LightMushroom: {
+				DisplayName: 光明蘑菇
+				Tooltip: 在白天吸收阳光，在夜晚放出阳光...
+			}
+
+			LightMushroomClaw: {
+				DisplayName: 明菇爪套
+				Tooltip: 发出令人安心的太阳光芒
+			}
+
+			LightMushroomHammeraxe: {
+				DisplayName: 明菇斧锤
+				Tooltip: 软绵绵的手感，但是会发亮
+			}
+
+			LightMushroomHolybow: {
+				DisplayName: 明菇弓矢
+				Tooltip: 朝着敌人发出光明的一击
+			}
+
+			LightMushroomHolyknife: {
+				DisplayName: 明菇狂热者
+				Tooltip: 真是搞不懂为什么会有人用蘑菇作为剑的材料
+			}
+
+			LightMushroomStaff: {
+				DisplayName: 明菇魔杖
+				Tooltip: 魔力刺激明菇，明菇放出它储存的阳光
+			}
+
+			BrilliantPearl: {
+				DisplayName: 辉煌宝珠
+				Tooltip: 待补充
+			}
+
+			CrystalSpur: {
+				DisplayName: 晶刺
+				Tooltip: 待补充
+			}
+
+			Glory: {
+				DisplayName: 荣光之牙
+				Tooltip: 待补充
+			}
+
+			HolyElement: {
+				DisplayName: 圣洁元素
+				Tooltip: 待补充
+			}
+
+			HolySpiritArrow: {
+				DisplayName: 圣灵箭
+				Tooltip: 待补充
+			}
+
+			HolySpiritBullet: {
+				DisplayName: 圣灵弹
+				Tooltip: 待补充
+			}
+
+			HolySpiritCurse: {
+				DisplayName: 圣灵的诅咒
+				Tooltip: 待补充
+			}
+
+			MiracleRecorderBossBag: {
+				DisplayName: 辉煌宝藏袋
+				Tooltip: 待补充
+			}
+
+			ShiningSpirit: {
+				DisplayName: 耀灵
+				Tooltip: 待补充
+			}
+
+			Mosscobble: {
+				DisplayName: 苔石
+				Tooltip: 待补充
+			}
+
+			MosscobbleAxe: {
+				DisplayName: 苔石斧
+				Tooltip: 待补充
+			}
+
+			MosscobbleKnife: {
+				DisplayName: 苔石刀
+				Tooltip: 待补充
+			}
+
+			MosscobblePickaxe: {
+				DisplayName: 苔石稿
+				Tooltip: 待补充
+			}
+
+			ElectrifiedBlasterCannon: {
+				DisplayName: 带电爆破炮
+				Tooltip: 过载！
+			}
+
+			HeavenFragment: {
+				DisplayName: 天堂配件
+				Tooltip: 待补充
+			}
+
+			LaserGun: {
+				DisplayName: 激光枪
+				Tooltip: 熟悉的触感
+			}
+
+			LuminousReactor: {
+				DisplayName: 夜光加速炉
+				Tooltip: 待补充
+			}
+
+			MarsBattery: {
+				DisplayName: 火星电池
+				Tooltip: 来自荧惑
+			}
+
+			PhotonicComponent: {
+				DisplayName: 光子组件
+				Tooltip: 光子
+			}
+
+			PrismRevolver: {
+				DisplayName: 光棱左轮
+				Tooltip: 光棱武器
+			}
+
+			StarAngel: {
+				DisplayName: 星辰天使
+				Tooltip: 它的任务仅仅是带你去见天使
+			}
+
+			Thomas_Zero: {
+				DisplayName: 托马斯·零式
+				Tooltip: WARNING ，由果冻设计绘制
+			}
+
+			TwilightGatling: {
+				DisplayName: 暮光加特林
+				Tooltip: 见证群星
+			}
+
+			Zapinator: {
+				DisplayName: 真红冲击波
+				Tooltip: 尘封许久的武器
+			}
+
+			AncientSword: {
+				// DisplayName: Ancient Sword
+				// Tooltip: ""
+			}
+
+			DarkBlueMantraStone: {
+				DisplayName: 暗蓝咒石
+				Tooltip: 咒术
+			}
+
+			DarkBlueSting: {
+				DisplayName: 暗蓝之刺
+				Tooltip: 待补充
+			}
+
+			DisasterCurseSilverIngot: {
+				DisplayName: 灾咒银锭
+				Tooltip: 你感觉银锭上覆盖着一层不详的气息
+			}
+
+			DisasterSilverOre: {
+				DisplayName: 灾咒银矿石
+				Tooltip: 灾祸
+			}
+
+			EmeraldLeaf: {
+				DisplayName: 翠叶
+				Tooltip: 待补充
+			}
+
+			FantasyStone: {
+				DisplayName: 幻想石
+				Tooltip: 现在是 幻想时刻！
+			}
+
+			Flamehappy: {
+				DisplayName: 火之高兴
+				Tooltip: 待补充
+			}
+
+			FlowFireGold: {
+				DisplayName: 流火金块
+				Tooltip: 待补充
+			}
+
+			FlowFireGoldBrick: {
+				DisplayName: 流火金砖
+				Tooltip: 待补充
+			}
+
+			HolyLightRotatingBlade: {
+				DisplayName: 圣光旋刃
+				Tooltip: 待补充
+			}
+
+			HolySpiritCutter: {
+				DisplayName: 圣灵切割器
+				Tooltip: 待补充
+			}
+
+			RosewoodCrystalStaff: {
+				DisplayName: 红木晶杖
+				Tooltip: 待补充
+			}
+
+			RottenMeatcs: {
+				DisplayName: 破碎血肉块
+				Tooltip: 血肉
+			}
+
+			SoulHaystack: {
+				DisplayName: 灵魂草堆
+				Tooltip: 哀嚎
+			}
+
+			SpiritualPowerRosewood: {
+				DisplayName: 灵力红木
+				Tooltip: 待补充
+			}
+
+			Test: {
+				// DisplayName: Test
+				// Tooltip: ""
+			}
+
+			SharpsandBow: {
+				DisplayName: 纯砂弓
+				Tooltip: 待补充
+			}
+
+			SharpsandGiantblade: {
+				DisplayName: 纯砂巨剑
+				Tooltip: 待补充
+			}
+
+			SharpsandStaff: {
+				DisplayName: 纯砂法杖
+				Tooltip: 待补充
+			}
+
+			BlueIronOre: {
+				DisplayName: 蓝铁矿
+				Tooltip: 蓝色铁
+			}
+
+			BoneOak: {
+				DisplayName: 骨橡木
+				Tooltip: 阴森
+			}
+
+			SoulCongealingSoil: {
+				DisplayName: 凝魂土
+				Tooltip: 哀嚎
+			}
+
+			WhiteSoulStone: {
+				DisplayName: 白魄石
+				Tooltip: 白色的石头
+			}
+
+			SpookyStone: {
+				// DisplayName: Spooky Stone
+				// Tooltip: ""
+			}
+
+			FallingStar: {
+				// DisplayName: Falling Star
+				// Tooltip: ""
+			}
 		}
-		#物块在地图上的名字
-		Tiles: 
-		{
-			#杂项
-			AyTsao.MapEntry: 艾草
-			LargePottedPlant.MapEntry: 大型盆栽
-			#裂谷
-			DarkBlueMantraStone.MapEntry: 暗蓝咒石
-			DisasterSilverBar.MapEntry: 灾咒银锭
-			DisasterSilverOre.MapEntry:灾咒银矿
-			FantasyStone.MapEntry: 幻想石
-			FlowFireGold.MapEntry: 流火金块
-			FlowFireGoldBrick.MapEntry: 流火金砖
-			RottenMeatcs.MapEntry: 腐烂肉块
-			ShineBlock.MapEntry: 光芒方块
-			SoulHaystack.MapEntry: 灵魂草堆
-			WhiteSoulStone.MapEntry: 白魄石
-			SoulCongealingSoil.MapEntry: 凝魂土
-			BlueIronOre.MapEntry: 蓝铁矿
-			BoneOak.MapEntry: 骨橡树
+
+		NPCs: {
+			// WildSilkworm.DisplayName: Wild Silkworm
+			// DargonDemo.DisplayName: Dargon Demo
+			// DStar.DisplayName: D Star
+			// GalaxyDemo.DisplayName: Galaxy Demo
+			// MiracleRecorder.DisplayName: Miracle Recorder
+			// ChaoticAurora.DisplayName: Chaotic Aurora
+			// ChaoticBite.DisplayName: Chaotic Bite
+			// ChaoticLicker.DisplayName: Chaotic Licker
+			// ChaoticMite.DisplayName: Chaotic Mite
+			// Mist.DisplayName: Mist
+			// Rumia.DisplayName: Rumia
+			// SoftGlueDragon.DisplayName: Soft Glue Dragon
+			// Raider.DisplayName: Raider
+			// ShadowSwing.DisplayName: Shadow Swing
 		}
-		#系列名字
-		SeriesName:
-		{
-			NoneSeries:无系列
-			Brightiron:熙铁系列
-			Californium:锎系列
-			Frosted:凝霜系列
-			HollowKnight:空洞骑士系列
-			LightMushroom:光明蘑菇系列
-			Mosscobble:苔石系列
-			RechargeableWeapon:充能系列
-			Sharpsand:纯砂系列
-			Chaos : 混沌系列
-			SoulCemetery : 灵魂墓园系列
-			RiftValley : 裂谷系列
-			Foods : 食物系列
-			Miracle : 辉煌系列
+
+		Projectiles: {
+			// Accumulation.DisplayName: Accumulation
+			// BigTouchPro.DisplayName: Big Touch Pro
+			// BlueLightPro.DisplayName: Blue Light Pro
+			// CannonBase.DisplayName: Cannon Base
+			// CrystalSentence.DisplayName: Crystal Sentence
+			// EnchantingPro.DisplayName: Enchanting Pro
+			// FriendlyStar.DisplayName: Friendly Star
+			// HolyFlame.DisplayName: Holy Flame
+			// Light.DisplayName: Light
+			// PurpleSteel.DisplayName: Purple Steel
+			// Redarrow.DisplayName: Redarrow
+			// StarLock.DisplayName: Star Lock
+			// Star.DisplayName: Star
+			// Suicide.DisplayName: Suicide
+			// Wan.DisplayName: Wan
+			// Yao.DisplayName: Yao
+			// BlackMist.DisplayName: Black Mist
+			// Circle0.DisplayName: Circle0
+			// Circle1.DisplayName: Circle1
+			// Circle2.DisplayName: Circle2
+			// Circle3.DisplayName: Circle3
+			// DamageCircle.DisplayName: Damage Circle
+			// DamageCircle2.DisplayName: Damage Circle2
+			// DamageCircle3.DisplayName: Damage Circle3
+			// GoldCircle1.DisplayName: Gold Circle1
+			// GoldCircle2.DisplayName: Gold Circle2
+			// GoldDamageCircle0.DisplayName: Gold Damage Circle0
+			// Holyproj.DisplayName: Holyproj
+			// Laser01.DisplayName: Laser01
+			// Laser02.DisplayName: Laser02
+			// Laser03.DisplayName: Laser03
+			// LightDot.DisplayName: Light Dot
+			// Pin.DisplayName: Pin
+			// Servants.DisplayName: Servants
+			// Space.DisplayName: Space
+			// Spark.DisplayName: Spark
+			// Sparkle.DisplayName: Sparkle
+			// Star2.DisplayName: Star2
+			// Flycutter1.DisplayName: Flycutter1
+			// Flycutter2.DisplayName: Flycutter2
+			// Icelight.DisplayName: Icelight
+			// ProFrostedThorn.DisplayName: Pro Frosted Thorn
+			// AbyssShriek.DisplayName: Abyss Shriek
+			// BeFall.DisplayName: Be Fall
+			// DescendingDark.DisplayName: Descending Dark
+			// DescendingDark_Two.DisplayName: Descending Dark_ Two
+			// DesolateDive.DisplayName: Desolate Dive
+			// Focus.DisplayName: Focus
+			// HowlingWraiths.DisplayName: Howling Wraiths
+			// KnifeLight.DisplayName: Knife Light
+			// KnifeLight01.DisplayName: Knife Light01
+			// KnifeLight2.DisplayName: Knife Light2
+			// ShadeSoul.DisplayName: Shade Soul
+			// SmashRange.DisplayName: Smash Range
+			// Swing.DisplayName: Swing
+			// VengefulSpirit.DisplayName: Vengeful Spirit
+			// GloryLight.DisplayName: Glory Light
+			// GloryProj.DisplayName: Glory Proj
+			// Angel.DisplayName: Angel
+			// LaserGun.DisplayName: Laser Gun
+			// Prism.DisplayName: Prism
+			// Thomas.DisplayName: Thomas
+			// Zapinator.DisplayName: Zapinator
+			// RosewoodCrystal.DisplayName: Rosewood Crystal
+			// RosewoodCrystal2.DisplayName: Rosewood Crystal2
+			// RosewoodCrystal3.DisplayName: Rosewood Crystal3
+			// Bomb.DisplayName: Bomb
+			// SharpsandBOOM.DisplayName: Sharpsand B O O M
+			// SharpsandFire.DisplayName: Sharpsand Fire
+			// SharpsandSwordgas.DisplayName: Sharpsand Swordgas
 		}
-		ShopCondition:
-		{
-			None : 无
-			WorldHasShadowOrbOrHeart : 世界内拥有一个以上的暗影珠或心脏
-			PlayerHasPulseBow : 玩家拥有脉冲弓
+
+		ShopCondition: {
+			None: 无
+			WorldHasShadowOrbOrHeart: 世界内拥有一个以上的暗影珠或心脏
+			PlayerHasPulseBow: 玩家拥有脉冲弓
 		}
 	}
 }

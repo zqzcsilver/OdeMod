@@ -70,7 +70,7 @@ namespace OdeMod.CardMode.UI
             foreach (var c in containers)
             {
                 element = (CardUIContainerElement)Activator.CreateInstance(c);
-                if (element.AutoLoad)
+                if (element.AutoLoadInCardMode)
                     Register(element);
             }
         }

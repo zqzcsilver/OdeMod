@@ -1,8 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace OdeMod.Utils.Expends
+namespace OdeMod.Utils.Expands
 {
-    internal static class PointExpend
+    internal static class PointExpand
     {
         public static Point Multiply(this Point p, int num)
         {

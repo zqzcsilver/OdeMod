@@ -2,17 +2,19 @@
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
+using OdeMod.CardMode.Scenes.ConfigScene.UIContainers;
 
 namespace OdeMod.CardMode.Scenes.ConfigScene
 {
     internal class ConfigScene : SceneBase
     {
+        public static readonly string SceneFullName = typeof(ConfigScene).FullName;
         private float time = 0f, timeMax = 240f;
 
         public override void ChangeBegin()
         {
             base.ChangeBegin();
-            CardSystem.Instance.CardModeUISystem.Elements["OdeMod.CardMode.Scenes.ConfigScene.UIContainers.ConfigContainer"].Show();
+            CardSystem.Instance.CardModeUISystem.Elements[ConfigContainer.ContainerFullName].Show();
         }
 
         public override void BeSelected()
@@ -30,7 +32,7 @@ namespace OdeMod.CardMode.Scenes.ConfigScene
         public override void Changing()
         {
             base.Changing();
-            CardSystem.Instance.CardModeUISystem.Elements["OdeMod.CardMode.Scenes.ConfigScene.UIContainers.ConfigContainer"].Info.IsVisible = false;
+            CardSystem.Instance.CardModeUISystem.Elements[ConfigContainer.ContainerFullName].Close();
         }
 
         public override void Update(GameTime gt)
@@ -48,7 +50,7 @@ namespace OdeMod.CardMode.Scenes.ConfigScene
             sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp,
                 DepthStencilState.Default, RasterizerState.CullNone, null);
 
-            Texture2D texture = CardSystem.GetCardTexture("Scene/ConfigScene");
+            Texture2D texture = CardSystem.GetCardTexture("Scene/ConfigScene/SceneBackground");
 
             Effect effect = CardSystem.AssetManager.Request<Effect>("OdeMod/Effects/PixelShaders/BrightnessGradient");
             effect.Parameters["uAlpha"].SetValue(1f);

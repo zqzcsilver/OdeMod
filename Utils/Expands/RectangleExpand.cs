@@ -1,8 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace OdeMod.Utils.Expends
+namespace OdeMod.Utils.Expands
 {
-    internal static class RectangleExpend
+    internal static class RectangleExpand
     {
         public static Point GetIntPosition(this Rectangle rectangle) => new Point(rectangle.X, rectangle.Y);
 

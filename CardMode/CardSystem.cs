@@ -4,7 +4,9 @@ using System.IO;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using OdeMod.CardMode.GameInfos;
 using OdeMod.CardMode.KeyBindSystem;
+using OdeMod.CardMode.LocalizationSystem.Languages;
 using OdeMod.CardMode.PublicComponents.LogicComponents;
 using OdeMod.CardMode.Scenes;
 using OdeMod.CardMode.Scenes.ConfigScene.ConfigSystem;
@@ -44,6 +46,10 @@ namespace OdeMod.CardMode
                     else
                         closeCardMode();
                     _cardModeVisible = value;
+                    if (value)
+                        postOpenCardMode();
+                    else
+                        postCloseCardMode();
                 }
             }
         }
@@ -78,14 +84,26 @@ namespace OdeMod.CardMode
         public static KeyBoardInputManager KeyBoardInputManager => Instance._keyBoardInputManager;
         private KeyGroupManager _keyGroupManager;
         public static KeyGroupManager KeyGroupManager => Instance._keyGroupManager;
+        private GameInfo _gameInfo;
+
+        public static GameInfo GameInfo
+        {
+            get => Instance._gameInfo;
+            set => Instance._gameInfo = value;
+        }
+
+        private LocalizationSystem.LocalizationSystem _localizationSystem;
+        public static LocalizationSystem.LocalizationSystem LocalizationSystem => Instance._localizationSystem;
 
         public CardSystem()
         {
             Instance = this;
 
+            _gameInfo = new GameInfo();
             Map = new Map();
             MouseInfo = new MouseInfo();
             _configManager = new ConfigManager();
+            _localizationSystem = new LocalizationSystem.LocalizationSystem();
             CardModeUISystem = new CardModeUISystem();
             PlayerManager = new PlayerManager();
             _sceneManager = new SceneManager();
@@ -99,7 +117,7 @@ namespace OdeMod.CardMode
             base.Load();
 
             _configManager.LoadConfigs();
-            CardModeUISystem.Load();
+            _localizationSystem.Load();
             _sceneManager.Init();
 
             Map.MapSize = new Point(200, 200);
@@ -189,20 +207,59 @@ namespace OdeMod.CardMode
         {
             Main.audioSystem.PauseAll();
             loadAsset();
-            SceneManager.ChangeScene("OdeMod.CardMode.Scenes.MenuScene.MenuScene");
         }
 
         private void loadAsset()
         {
             AssetManager.Request<Texture2D>("OdeMod/Images/Effects/Night");
-            GetCardTexture("Scene/MenuScene");
-            GetCardTexture("Scene/ConfigScene");
+            GetCardTexture("Scene/MenuScene/SceneBackground");
+            GetCardTexture("Scene/ConfigScene/SceneBackground");
+            GetCardTexture("Scene/CharacterSelectionScene/UI/CharacterSelectionButtom");
             AssetManager.Request<Effect>("OdeMod/Effects/PixelShaders/BrightnessGradient");
+
+            loadLocalization();
+        }
+
+        private void loadLocalization()
+        {
+            List<string> paths = OdeMod.Instance.GetFileNames().FindAll(x => x.StartsWith("CardMode/Localization"));
+            foreach (var path in paths)
+            {
+                var fileNames = Path.GetFileName(path).Split('.');
+                if (fileNames.Length == 3)
+                {
+                    if (path.EndsWith(".json"))
+                        LocalizationSystem.LoadLocalizationFromJson(fileNames[0],
+                            AssetManager.GetFileStream(path), LanguageBase.FromAbbreviatedName(fileNames[1]));
+                    else if (path.EndsWith(".xml"))
+                        LocalizationSystem.LoadLocalizationFromXML(fileNames[0],
+                            AssetManager.GetFileStream(path), LanguageBase.FromAbbreviatedName(fileNames[1]));
+                }
+                else
+                {
+                    if (path.EndsWith(".json"))
+                        LocalizationSystem.LoadLocalizationFromJson(fileNames[0],
+                            AssetManager.GetFileStream(path), 0);
+                    else if (path.EndsWith(".xml"))
+                        LocalizationSystem.LoadLocalizationFromXML(fileNames[0],
+                            AssetManager.GetFileStream(path), 0);
+                }
+            }
+        }
+
+        private void postOpenCardMode()
+        {
+            CardModeUISystem.Load();
+            SceneManager.ChangeScene("OdeMod.CardMode.Scenes.MenuScene.MenuScene");
         }
 
         private void closeCardMode()
         {
             SceneManager.ChangeScene((SceneBase)null);
+        }
+
+        private void postCloseCardMode()
+        {
         }
     }
 }

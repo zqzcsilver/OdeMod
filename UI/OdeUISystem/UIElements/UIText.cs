@@ -3,6 +3,8 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using OdeMod.Utils;
+
 namespace OdeMod.UI.OdeUISystem.UIElements
 {
     internal class UIText : BaseElement
@@ -19,6 +21,8 @@ namespace OdeMod.UI.OdeUISystem.UIElements
             }
         }
 
+        public string DisplayText => LanguageHelper.GetPrefixTextValue(text);
+
         private DynamicSpriteFont font;
         public DynamicSpriteFont Font { get => font; set => font = value; }
         public Color Color;
@@ -34,7 +38,7 @@ namespace OdeMod.UI.OdeUISystem.UIElements
             font = spriteFont;
             Color = Color.White;
 
-            Vector2 size = font.MeasureString(text);
+            Vector2 size = font.MeasureString(DisplayText);
             Info.Width.Pixel = size.X;
             Info.Height.Pixel = size.Y;
         }
@@ -45,7 +49,7 @@ namespace OdeMod.UI.OdeUISystem.UIElements
             font = spriteFont;
             Color = textColor;
 
-            Vector2 size = font.MeasureString(text);
+            Vector2 size = font.MeasureString(DisplayText);
             Info.Width.Pixel = size.X;
             Info.Height.Pixel = size.Y;
         }
@@ -61,7 +65,7 @@ namespace OdeMod.UI.OdeUISystem.UIElements
             base.Calculation();
             if (CalculateSize)
             {
-                Vector2 size = font.MeasureString(text);
+                Vector2 size = font.MeasureString(DisplayText);
                 Info.Width.Pixel = size.X;
                 Info.Height.Pixel = size.Y;
                 Info.Width.Percent = 0f;
@@ -82,7 +86,8 @@ namespace OdeMod.UI.OdeUISystem.UIElements
         protected override void DrawSelf(SpriteBatch sb)
         {
             base.DrawSelf(sb);
-            sb.DrawString(font, text, Info.Location, Color);
+            sb.DrawString(font, DisplayText,
+                Info.Location, Color);
         }
     }
 }

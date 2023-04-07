@@ -1,0 +1,47 @@
+﻿{
+    "MenuScene":
+    {
+        "UI":
+        {
+            "Logo": "卡牌模式",
+            "Logo1": "颂歌",
+            "Start": "开始",
+            "Collect": "收集",
+            "Achievement": "成就",
+            "Config": "设置",
+            "About": "关于",
+            "Exit": "退出"
+        }
+    },
+    "NetModeScene":
+    {
+        "UI":
+        {
+            "SinglePlay": "单人模式",
+            "Multiplay": "多人模式"
+        }
+    },
+    "ConfigScene":
+    {
+        "UI":
+        {
+            "Title": "设置",
+            "Back": "<-返回"
+        }
+    },
+    "AboutScene":
+    {
+        "UI":
+        {
+            "Title": "关于",
+            "Back": "返回"
+        }
+    },
+    "CharacterSelectionScene":
+    {
+        "UI":
+        {
+            "RecordingTitle": "游戏记录"
+        }
+    }
+}

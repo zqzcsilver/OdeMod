@@ -2,23 +2,27 @@
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
+using Microsoft.Xna.Framework.Input;
+using OdeMod.CardMode.Scenes.ChangeSceneStyles;
+using OdeMod.CardMode.Scenes.GameInfoScene.UIContainer;
 
 namespace OdeMod.CardMode.Scenes.GameInfoScene
 {
-    internal class SingleplayerOrMultiplayerScene : SceneBase
+    internal class NetModeScene : SceneBase
     {
+        public static readonly string SceneFullName = typeof(NetModeScene).FullName;
         private float time = 0f, timeMax = 240f;
 
         public override void ChangeBegin()
         {
             base.ChangeBegin();
-            CardSystem.Instance.CardModeUISystem.Elements["OdeMod.CardMode.Scenes.GameInfoScene.UIContainer.SingleplayerOrMultiplayerContainer"].Show();
+            CardSystem.Instance.CardModeUISystem.Elements[NetModeContainer.ContainerFullName].Show();
         }
 
         public override void Changing()
         {
             base.Changing();
-            CardSystem.Instance.CardModeUISystem.Elements["OdeMod.CardMode.Scenes.GameInfoScene.UIContainer.SingleplayerOrMultiplayerContainer"].Info.IsVisible = false;
+            CardSystem.Instance.CardModeUISystem.Elements[NetModeContainer.ContainerFullName].Close();
         }
 
         public override void Update(GameTime gt)
@@ -27,6 +31,9 @@ namespace OdeMod.CardMode.Scenes.GameInfoScene
             time++;
             if (time >= timeMax)
                 time = 0f;
+
+            if (CardSystem.KeyBoardInputManager.IsKeyClick(Keys.Escape))
+                CardSystem.SceneManager.BackLastScene(new FadeStyle());
         }
 
         public override void Draw(SpriteBatch sb)
@@ -36,7 +43,7 @@ namespace OdeMod.CardMode.Scenes.GameInfoScene
             sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp,
                 DepthStencilState.Default, RasterizerState.CullNone, null);
 
-            Texture2D texture = CardSystem.GetCardTexture("Scene/MenuScene");
+            Texture2D texture = CardSystem.GetCardTexture("Scene/MenuScene/SceneBackground");
 
             Effect effect = CardSystem.AssetManager.Request<Effect>("OdeMod/Effects/PixelShaders/BrightnessGradient");
             effect.Parameters["uAlpha"].SetValue(1f);

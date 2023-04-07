@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 
 using OdeMod.CardMode;
+using OdeMod.UI.OdeUISystem.Containers.Recharge;
 using OdeMod.UI.OdeUISystem.UIElements;
 using OdeMod.Utils;
 
@@ -12,6 +13,7 @@ namespace OdeMod.UI.OdeUISystem.Containers.QuickBar
 {
     internal class QuickBarContainer : UIContainerElement
     {
+        public static readonly string ContainerFullName = typeof(QuickBarContainer).FullName;
         private UIPanel mainPanel;
         private bool open = true;
         private KeyCooldown cardModeVisibleCoolDown = new KeyCooldown(() => true, 14);
@@ -44,12 +46,12 @@ namespace OdeMod.UI.OdeUISystem.Containers.QuickBar
                     ReLogic.Content.AssetRequestMode.ImmediateLoad).Value, Color.White);
             quickElement.Events.OnUpdate += (element, gt) =>
             {
-                var e = OdeMod.OdeUISystem.Elements["OdeMod.UI.OdeUISystem.Containers.Recharge.RechargeContainer"];
+                var e = OdeMod.OdeUISystem.Elements[RechargeContainer.ContainerFullName];
                 ((UIImage)element).ChangeColor(Color.White * (e.Info.IsVisible ? 1f : 0.6f));
             };
             quickElement.OnTigger += element =>
             {
-                var e = OdeMod.OdeUISystem.Elements["OdeMod.UI.OdeUISystem.Containers.Recharge.RechargeContainer"];
+                var e = OdeMod.OdeUISystem.Elements[RechargeContainer.ContainerFullName];
                 if (!e.Info.IsVisible)
                     e.Show();
                 else

@@ -12,27 +12,28 @@ namespace OdeMod.CardMode.Scenes.ConfigScene.ConfigSystem.Configs
 {
     internal class KeyBindConfig : ConfigBase
     {
-        public override string Name => "按键设置";
+        private const string LOCALIZATION_BASE_PATH = "$Configs.KeyBindConfig";
+        public override string Name => $"{LOCALIZATION_BASE_PATH}.Title";
 
         public override string SaveName => "KeyBindConfig";
 
-        [FieldConfig("打开菜单", "")]
+        [FieldConfig($"{LOCALIZATION_BASE_PATH}.OpenMenu.Name", $"{LOCALIZATION_BASE_PATH}.OpenMenu.Description")]
         [ConfigKeyGroup]
         public KeyGroup OpenMenu = new KeyGroup("CardMode-OpenOpenMenu", new List<Keys> { Keys.Escape });
 
-        [FieldConfig("打开背包", "")]
+        [FieldConfig($"{LOCALIZATION_BASE_PATH}.OpenMap.Name", $"{LOCALIZATION_BASE_PATH}.OpenMap.Description")]
         [ConfigKeyGroup]
         public KeyGroup OpenMap = new KeyGroup("CardMode-OpenMap", new List<Keys> { Keys.M });
 
-        [FieldConfig("打开卡组", "")]
+        [FieldConfig($"{LOCALIZATION_BASE_PATH}.OpenCardDeck.Name", $"{LOCALIZATION_BASE_PATH}.OpenCardDeck.Description")]
         [ConfigKeyGroup]
         public KeyGroup OpenCardDeck = new KeyGroup("CardMode-OpenCardDeck", new List<Keys> { Keys.P });
 
-        [FieldConfig("打开牌库", "")]
+        [FieldConfig($"{LOCALIZATION_BASE_PATH}.OpenCardPile.Name", $"{LOCALIZATION_BASE_PATH}.OpenCardPile.Description")]
         [ConfigKeyGroup]
         public KeyGroup OpenCardPile = new KeyGroup("CardMode-OpenCardPile", new List<Keys> { Keys.C });
 
-        [FieldConfig("打开墓地", "")]
+        [FieldConfig($"{LOCALIZATION_BASE_PATH}.OpenCardGraveyard.Name", $"{LOCALIZATION_BASE_PATH}.OpenCardGraveyard.Description")]
         [ConfigKeyGroup]
         public KeyGroup OpenCardGraveyard = new KeyGroup("CardMode-OpenCardGraveyard", new List<Keys> { Keys.Z });
 

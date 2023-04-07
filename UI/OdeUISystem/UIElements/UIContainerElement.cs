@@ -1,7 +1,4 @@
-﻿using OdeMod.CardMode;
-using OdeMod.Systems;
-
-namespace OdeMod.UI.OdeUISystem.UIElements
+﻿namespace OdeMod.UI.OdeUISystem.UIElements
 {
     internal abstract class UIContainerElement : BaseElement
     {
@@ -24,19 +21,15 @@ namespace OdeMod.UI.OdeUISystem.UIElements
         public virtual void Show(params object[] args)
         {
             Info.IsVisible = true;
-            if (CardSystem.Instance.CardModeVisible)
-            {
-                foreach (var i in CardSystem.Instance.CardModeUISystem.Elements)
-                    if (i.Value == this)
-                        CardSystem.Instance.CardModeUISystem.SetContainerTop(i.Key);
-            }
-            else
-            {
-                foreach (var i in OdeMod.OdeUISystem.Elements)
-                    if (i.Value == this)
-                        OdeMod.OdeUISystem.SetContainerTop(i.Key);
-            }
+            foreach (var i in OdeMod.OdeUISystem.Elements)
+                if (i.Value == this)
+                    OdeMod.OdeUISystem.SetContainerTop(i.Key);
             Calculation();
+        }
+
+        public virtual void Close(params object[] args)
+        {
+            Info.IsVisible = false;
         }
     }
 }
