@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework;
 
 namespace OdeMod.Projectiles.Misc
 {
-    internal class BigTouchPro : ModProjectile, IMiscProjectile
+    internal class PhantomTorch : ModProjectile, IMiscProjectile
     {
         public override void SetDefaults()
         {
@@ -18,7 +18,7 @@ namespace OdeMod.Projectiles.Misc
             Projectile.aiStyle = -1;
             Projectile.alpha = 0;
             Projectile.penetrate = 1;
-            Projectile.timeLeft = 120;
+            Projectile.timeLeft = 180;
         }
         public override void AI()
         {

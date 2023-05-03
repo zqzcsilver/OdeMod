@@ -20,12 +20,12 @@ namespace OdeMod.Items.Misc.Weapons
             Item.height = 40;
             Item.DamageType = DamageClass.Magic;
             Item.useStyle = ItemUseStyleID.Shoot;
-            Item.damage = 22;
+            Item.damage = 18;
             Item.crit = 4;
             Item.shoot = ModContent.ProjectileType<Projectiles.Misc.StarLock>();
             Item.shootSpeed = 10f;
-            Item.useAnimation = 40;
-            Item.useTime = 40;
+            Item.useAnimation = 30;
+            Item.useTime = 30;
             Item.rare = 3;
             Item.mana = 25;
             Item.value = Item.sellPrice(0, 0, 50, 0);
@@ -55,6 +55,20 @@ namespace OdeMod.Items.Misc.Weapons
             //    Projectile.NewProjectile(source, pVEC, tShoot, ModContent.ProjectileType<Projectiles.Series.Items.Sharpsand.SharpsandFire>(), damage, knockback, player.whoAmI);
             //}
             return false;
+        }
+        public override void AddRecipes()
+        {
+            base.AddRecipes();
+            CreateRecipe()
+                .AddIngredient(ItemID.DemoniteBar, 10)
+                .AddIngredient(ItemID.ManaCrystal, 3)
+                .AddTile(TileID.Anvils)
+                .Register();
+            CreateRecipe()
+                .AddIngredient(ItemID.CrimtaneBar, 10)
+                .AddIngredient(ItemID.ManaCrystal, 3)
+                .AddTile(TileID.Anvils)
+                .Register();
         }
     }
 }
