@@ -23,5 +23,15 @@ namespace OdeMod.Items.Misc.Weapons
             Item.useTime = 15;
             Item.value = Item.sellPrice(0, 0, 50, 0);
         }
+        public override void AddRecipes()
+        {
+            base.AddRecipes();
+            CreateRecipe()
+                .AddIngredient(ItemID.LunarBar, 20)
+                .AddIngredient(ItemID.HallowedBar, 15)
+                .AddIngredient(ItemID.Ectoplasm,20)
+                .AddTile(TileID.LunarCraftingStation)
+                .Register();
+        }
     }
 }

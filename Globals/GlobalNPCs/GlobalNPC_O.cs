@@ -89,6 +89,10 @@ namespace OdeMod.Globals.GlobalNPCs
             {
                 npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Misc.Weapons.ChillyMoonStaff>(), 20, 1, 1));//清月法杖
             }
+            if (npc.type == NPCID.SkeletronHead)
+            {
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Misc.TwistedSteelBlade>(), 3, 1, 1));//精铁弯刀
+            }
             base.ModifyNPCLoot(npc, npcLoot);
         }
     }

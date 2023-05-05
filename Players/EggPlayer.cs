@@ -17,8 +17,6 @@ namespace OdeMod.Players
         public override void SaveData(TagCompound tag)
         {
             base.SaveData(tag);
-            tag.Add("WanAngery", WanAngery);
-            tag.Add("Wan", Wan);
             tag.Add("BrainNum", BrainNum);
             tag.Add("Allotriophagy", Allotriophagy);
         }
@@ -26,8 +24,6 @@ namespace OdeMod.Players
         public override void LoadData(TagCompound tag)
         {
             base.LoadData(tag);
-            WanAngery = tag.Get<bool>("WanAngery");
-            Wan = tag.Get<int>("Wan");
             BrainNum = tag.Get<int>("BrainNum");
             Allotriophagy = tag.Get<bool>("Allotriophagy");
         }

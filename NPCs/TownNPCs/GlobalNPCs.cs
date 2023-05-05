@@ -10,8 +10,8 @@ namespace OdeMod.NPCs.TownNPCs
     {
         public override bool? CanChat(NPC npc)
         {
-            if (npc.type == NPCID.Zombie)
-                return true;
+            //if (npc.type == NPCID.Zombie)
+            //    return true;
             return base.CanChat(npc);
         }
 
@@ -20,10 +20,10 @@ namespace OdeMod.NPCs.TownNPCs
             if (npc.type == NPCID.Nurse)
             {
                 Player player = Main.player[npc.FindClosestPlayer()];
-                if (player.statLife >= player.statLifeMax || Main.rand.NextBool(5))
-                {
-                    chat = "我唯一能给的建议就是打个胶先";
-                }
+                //if (player.statLife >= player.statLifeMax || Main.rand.NextBool(5))
+                //{
+                //    chat = "我唯一能给的建议就是打个胶先";
+                //}
                 if (player.GetModPlayer<EggPlayer>().GG >= 1)
                 {
                     chat = player.name + "，你的脑浆都流出来了";

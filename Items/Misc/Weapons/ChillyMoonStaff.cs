@@ -22,6 +22,7 @@ namespace OdeMod.Items.Misc.Weapons
             Item.useAnimation = 15;
             Item.useTime = 15;
             Item.value = Item.sellPrice(0, 0, 50, 0);
+            Item.staff[Item.type] = true;
         }
     }
 }
