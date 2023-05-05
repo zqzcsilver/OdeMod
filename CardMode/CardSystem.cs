@@ -29,7 +29,6 @@ namespace OdeMod.CardMode
     {
         internal delegate void DrawHandle(SpriteBatch sb);
 
-        public const string ENTITY_SOURCE_FROM_SYSTEM = "Ode Mod - Card System Mode";
         public static readonly string SavePath = Path.Combine(Main.SavePath, "OdeMod", "CardMode");
 
         public event DrawHandle OnDraw;

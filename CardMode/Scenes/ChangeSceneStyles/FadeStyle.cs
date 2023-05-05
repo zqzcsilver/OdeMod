@@ -3,10 +3,8 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using OdeMod.CardMode.Scenes.ConfigScene.ConfigSystem.Configs;
 using OdeMod.CardMode.ScreenEffectSystem.ScreenEffects;
-using OdeMod.Utils;
-
-using Terraria.ModLoader;
 
 namespace OdeMod.CardMode.Scenes.ChangeSceneStyles
 {
@@ -18,8 +16,9 @@ namespace OdeMod.CardMode.Scenes.ChangeSceneStyles
 
         public FadeStyle(float lastSceneChange = 120f, float nextSceneChange = 120f, float lastSceneLight = 2f, float nextSceneLight = 2f)
         {
-            lastTimerMax = lastSceneChange;
-            nextTimerMax = nextSceneChange;
+            var ic = CardSystem.ConfigManager.GetConfig<InterfaceConfig>();
+            lastTimerMax = lastSceneChange * ic.AnimationSpeed;
+            nextTimerMax = nextSceneChange * ic.AnimationSpeed;
             lastLight = lastSceneLight;
             nextLight = nextSceneLight;
         }
