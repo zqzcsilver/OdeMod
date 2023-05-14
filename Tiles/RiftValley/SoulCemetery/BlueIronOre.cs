@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Collections.Generic;
+
+using Microsoft.Xna.Framework;
 
 using Terraria;
 using Terraria.ID;
@@ -21,10 +23,18 @@ namespace OdeMod.Tiles.RiftValley.SoulCemetery
             AddMapEntry(new Color(152, 171, 198));
 
             DustType = 84;
-            ItemDrop = ModContent.ItemType<Items.Series.SoulCemetery.BlueIronOre>();
             HitSound = SoundID.Tink;
             MineResist = 10f;
             MinPick = 114514;
+        }
+
+        public override IEnumerable<Item> GetItemDrops(int i, int j)
+        {
+            List<Item> list = new List<Item>();
+            Item item = new Item();
+            item.SetDefaults(ModContent.ItemType<Items.Series.SoulCemetery.BlueIronOre>());
+            list.Add(item);
+            return list;
         }
     }
 }

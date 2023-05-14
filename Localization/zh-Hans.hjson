@@ -932,6 +932,7 @@ Mods: {
 			// SharpsandBOOM.DisplayName: Sharpsand B O O M
 			// SharpsandFire.DisplayName: Sharpsand Fire
 			// SharpsandSwordgas.DisplayName: Sharpsand Swordgas
+			// PhantomTorch.DisplayName: Phantom Torch
 		}
 
 		ShopCondition: {

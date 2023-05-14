@@ -20,6 +20,10 @@
     <Optimize>True</Optimize>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="QuickAssetReference.TModLoader" Version="1.0.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="System.Resources.ResourceManager" Version="4.3.0" />
     <PackageReference Include="tModLoader.CodeAssist" Version="0.1.*" />
   </ItemGroup>
@@ -40,6 +44,8 @@
     <Reference Include="FontStashSharp.FNA">
       <HintPath>lib\FontStashSharp.FNA.dll</HintPath>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
   </ItemGroup>
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
     <Exec Command="call &quot;$(ProjectDir)PreBuild.bat&quot;" />
