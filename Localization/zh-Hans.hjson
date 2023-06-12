@@ -940,5 +940,16 @@ Mods: {
 			WorldHasShadowOrbOrHeart: 世界内拥有一个以上的暗影珠或心脏
 			PlayerHasPulseBow: 玩家拥有脉冲弓
 		}
+
+		Configs: {
+			CardSystemTestConfig: {
+				// DisplayName: 卡牌模式测试设置
+
+				EnableDrawTest: {
+					// Label: 绘制测试
+					// Tooltip: 启用此项以开始绘制测试
+				}
+			}
+		}
 	}
 }

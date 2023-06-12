@@ -1389,6 +1389,21 @@ public static class ModAssets_Hjson
                 public static string PlayerHasPulseBow = "Mods.OdeMod.ShopCondition.PlayerHasPulseBow";
             }
 
+            public static class Configs
+            {
+                public static class CardSystemTestConfig
+                {
+                    public static string DisplayName = "Mods.OdeMod.Configs.CardSystemTestConfig.DisplayName";
+                    public static class EnableDrawTest
+                    {
+                        public static string Label = "Mods.OdeMod.Configs.CardSystemTestConfig.EnableDrawTest.Label";
+                        public static string Tooltip = "Mods.OdeMod.Configs.CardSystemTestConfig.EnableDrawTest.Tooltip";
+                    }
+
+                }
+
+            }
+
         }
 
     }

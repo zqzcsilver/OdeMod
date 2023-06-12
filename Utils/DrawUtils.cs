@@ -353,6 +353,7 @@ namespace OdeMod.Utils
         /// <param name="sb">画布</param>
         /// <param name="startPoint">起点</param>
         /// <param name="endPoint">终点</param>
+        /// <param name="thickness"></param>
         /// <param name="size">线条大小</param>
         /// <param name="color">线条颜色</param>
         public static void DrawLine(SpriteBatch sb, Vector2 startPoint, Vector2 endPoint, float thickness, Color color)

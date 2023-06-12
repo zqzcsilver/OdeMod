@@ -20,7 +20,7 @@
     <Optimize>True</Optimize>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="QuickAssetReference.TModLoader" Version="1.0.1">
+    <PackageReference Include="QuickAssetReference.TModLoader" Version="1.0.2">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>

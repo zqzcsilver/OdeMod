@@ -45,6 +45,9 @@ public static class ModAssets_Texture2D
         {
             public static class Help
             {
+                public static Asset<Texture2D> imageAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(imagePath);
+                public static Asset<Texture2D> imageImmediateAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(imagePath, AssetRequestMode.ImmediateLoad);
+                public static string imagePath = "Documentation/OdeModDocumentation/Help/image";
                 public static class icons
                 {
                     public static Asset<Texture2D> iconAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(iconPath);
