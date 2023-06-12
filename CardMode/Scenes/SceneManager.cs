@@ -5,7 +5,6 @@ using System.Reflection;
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input.Touch;
 
 namespace OdeMod.CardMode.Scenes
 {
@@ -29,11 +28,17 @@ namespace OdeMod.CardMode.Scenes
         public ChangeSceneStyleBase ChangeSceneStyle { get; private set; }
         public SceneBase this[string name] { get => _scenes[name]; }
 
+        /// <summary>
+        /// 场景访问顺序
+        /// </summary>
+        private List<SceneBase> _sceneChangeOrder = new List<SceneBase>();
+
         public void Load()
         {
             ClearAllScene();
             SceneBase scene;
-            foreach (Type type in Assembly.GetExecutingAssembly().GetTypes().OrderBy((Type t) => t.FullName, StringComparer.InvariantCulture))
+            foreach (Type type in Assembly.GetExecutingAssembly().GetTypes().OrderBy(
+                (Type t) => t.FullName, StringComparer.InvariantCulture))
             {
                 if (!type.IsAbstract && type.IsSubclassOf(typeof(SceneBase)))
                 {
@@ -51,6 +56,12 @@ namespace OdeMod.CardMode.Scenes
         }
 
         public void ChangeScene(SceneBase scene, ChangeSceneStyleBase changeSceneStyle)
+        {
+            _sceneChangeOrder.Add(scene);
+            changeScene(scene, changeSceneStyle);
+        }
+
+        private void changeScene(SceneBase scene, ChangeSceneStyleBase changeSceneStyle)
         {
             if (!(ChangeSceneStyle == null || ChangeSceneStyle.Finish))
                 return;
@@ -85,6 +96,17 @@ namespace OdeMod.CardMode.Scenes
         public void ChangeScene(string sceneName)
         {
             ChangeScene(this[sceneName], null);
+        }
+
+        /// <summary>
+        /// 返回至上个场景
+        /// </summary>
+        public void BackLastScene(ChangeSceneStyleBase changeSceneStyle)
+        {
+            if (_sceneChangeOrder.Count <= 1 || !(ChangeSceneStyle == null || ChangeSceneStyle.Finish))
+                return;
+            _sceneChangeOrder.RemoveAt(_sceneChangeOrder.Count - 1);
+            changeScene(_sceneChangeOrder.Last(), changeSceneStyle);
         }
 
         public void Draw(SpriteBatch sb)

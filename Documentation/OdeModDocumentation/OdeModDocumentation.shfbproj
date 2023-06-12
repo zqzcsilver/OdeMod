@@ -1,0 +1,169 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!-- Import the common properties to support NuGet restore -->
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <!-- A target framework version is required by Visual Studio.  It can be any version with a targeting pack installed. -->
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <!-- The configuration and platform will be used to determine which assemblies to include from solution and
+				 project documentation sources -->
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>c7781577-9228-43aa-b8ab-25ac644dee47</ProjectGuid>
+    <SHFBSchemaVersion>2017.9.26.0</SHFBSchemaVersion>
+    <!-- AssemblyName, Name, and RootNamespace are not used by SHFB but Visual Studio adds them anyway -->
+    <AssemblyName>OdeModDocumentation</AssemblyName>
+    <RootNamespace>OdeModDocumentation</RootNamespace>
+    <Name>OdeModDocumentation</Name>
+    <!-- SHFB properties -->
+    <FrameworkVersion>.NET Core/.NET Standard/.NET 5.0+</FrameworkVersion>
+    <OutputPath>.\Help\</OutputPath>
+    <HtmlHelpName>OdeModDocumentation</HtmlHelpName>
+    <Language>en-US</Language>
+    <TransformComponentArguments>
+      <Argument Key="RobotsMetadata" Value="" />
+      <Argument Key="BibliographyDataFile" Value="" />
+      <Argument Key="RootBreadcrumbTitleText" Value="Docs" />
+      <Argument Key="CollapsibleSections" Value="True" />
+      <Argument Key="LogoFile" Value="icon.png" />
+      <Argument Key="LogoHeight" Value="" />
+      <Argument Key="LogoWidth" Value="" />
+      <Argument Key="LogoAltText" Value="" />
+      <Argument Key="LogoPlacement" Value="left" />
+      <Argument Key="LogoAlignment" Value="left" />
+      <Argument Key="LogoUrl" Value="https://github.com/zqzcsilver/OdeMod" />
+      <Argument Key="MaxVersionParts" Value="" />
+      <Argument Key="DefaultLanguage" Value="cs" />
+      <Argument Key="IncludeEnumValues" Value="True" />
+      <Argument Key="EnumMemberSortOrder" Value="Value" />
+      <Argument Key="FlagsEnumValueFormat" Value="IntegerValue" />
+      <Argument Key="FlagsEnumSeparatorSize" Value="0" />
+      <Argument Key="BaseSourceCodeUrl" Value="" />
+      <Argument Key="RequestExampleUrl" Value="" />
+    </TransformComponentArguments>
+    <DocumentationSources>
+      <DocumentationSource sourceFile="C:\Users\Silver\Documents\My Games\Terraria\tModLoader\ModSources\OdeMod\OdeMod.csproj" xmlns="" />
+    </DocumentationSources>
+    <HelpFileFormat>Website</HelpFileFormat>
+    <SyntaxFilters>C#</SyntaxFilters>
+    <PresentationStyle>Default2022</PresentationStyle>
+    <CleanIntermediates>True</CleanIntermediates>
+    <KeepLogFile>True</KeepLogFile>
+    <DisableCodeBlockComponent>False</DisableCodeBlockComponent>
+    <IndentHtml>False</IndentHtml>
+    <BuildAssemblerVerbosity>OnlyWarningsAndErrors</BuildAssemblerVerbosity>
+    <SaveComponentCacheCapacity>100</SaveComponentCacheCapacity>
+    <VisibleItems>Attributes, ExplicitInterfaceImplementations, InheritedMembers, InheritedFrameworkMembers, InheritedFrameworkInternalMembers, InheritedFrameworkPrivateMembers, Internals, Privates, PrivateFields, Protected, ProtectedInternalAsProtected, NonBrowsable</VisibleItems>
+    <ApiFilter>
+      <Filter entryType="Namespace" fullName="" isExposed="False" xmlns="" />
+      <Filter entryType="Namespace" fullName="OdeMod.Buffs" isExposed="False" xmlns="" />
+      <Filter entryType="Namespace" fullName="OdeMod.Buffs.Foods" isExposed="False" xmlns="" />
+      <Filter entryType="Namespace" fullName="OdeMod.Dusts" isExposed="False" xmlns="" />
+      <Filter entryType="Namespace" fullName="OdeMod.Items" isExposed="False" xmlns="" />
+      <Filter entryType="Namespace" fullName="OdeMod.Items.Misc" isExposed="False" xmlns="" />
+      <Filter entryType="Namespace" fullName="OdeMod.Items.Misc.Accessories" isExposed="False" xmlns="" />
+      <Filter entryType="Namespace" fullName="OdeMod.Items.Misc.Materials" isExposed="False" xmlns="" />
+      <Filter entryType="Namespace" fullName="OdeMod.Items.Misc.Weapons" isExposed="False" xmlns="" />
+      <Filter entryType="Namespace" fullName="OdeMod.Items.Series" isExposed="False" xmlns="" />
+      <Filter entryType="Namespace" fullName="OdeMod.Items.Series.Brightiron" isExposed="False" xmlns="" />
+      <Filter entryType="Namespace" fullName="OdeMod.Items.Series.Californium" isExposed="False" xmlns="" />
+      <Filter entryType="Namespace" fullName="OdeMod.Items.Series.Chaos" isExposed="False" xmlns="" />
+      <Filter entryType="Namespace" fullName="OdeMod.Items.Series.Foods" isExposed="False" xmlns="" />
+      <Filter entryType="Namespace" fullName="OdeMod.Items.Series.Frosted" isExposed="False" xmlns="" />
+      <Filter entryType="Namespace" fullName="OdeMod.Items.Series.HollowKnight" isExposed="False" xmlns="" />
+      <Filter entryType="Namespace" fullName="OdeMod.Items.Series.LightMushroom" isExposed="False" xmlns="" />
+      <Filter entryType="Namespace" fullName="OdeMod.Items.Series.Miracle" isExposed="False" xmlns="" />
+      <Filter entryType="Namespace" fullName="OdeMod.Items.Series.Mosscobble" isExposed="False" xmlns="" />
+      <Filter entryType="Namespace" fullName="OdeMod.Items.Series.Recharge" isExposed="False" xmlns="" />
+      <Filter entryType="Namespace" fullName="OdeMod.Items.Series.RiftValley" isExposed="False" xmlns="" />
+      <Filter entryType="Namespace" fullName="OdeMod.Items.Series.Sharpsand" isExposed="False" xmlns="" />
+      <Filter entryType="Namespace" fullName="OdeMod.Items.Series.SoulCemetery" isExposed="False" xmlns="" />
+      <Filter entryType="Namespace" fullName="OdeMod.Items.Series.Spooky" isExposed="False" xmlns="" />
+      <Filter entryType="Namespace" fullName="OdeMod.NPCs" isExposed="False" xmlns="" />
+      <Filter entryType="Namespace" fullName="OdeMod.NPCs.Boss" isExposed="False" xmlns="" />
+      <Filter entryType="Namespace" fullName="OdeMod.NPCs.Boss.MiracleRecorder" isExposed="False" xmlns="" />
+      <Filter entryType="Namespace" fullName="OdeMod.NPCs.Chaos" isExposed="False" xmlns="" />
+      <Filter entryType="Namespace" fullName="OdeMod.NPCs.Enemies" isExposed="False" xmlns="" />
+      <Filter entryType="Namespace" fullName="OdeMod.NPCs.TownNPCs" isExposed="False" xmlns="" />
+      <Filter entryType="Namespace" fullName="OdeMod.Players" isExposed="False" xmlns="" />
+      <Filter entryType="Namespace" fullName="OdeMod.Prefixs" isExposed="False" xmlns="" />
+      <Filter entryType="Namespace" fullName="OdeMod.Projectiles" isExposed="False" xmlns="" />
+      <Filter entryType="Namespace" fullName="OdeMod.Projectiles.Misc" isExposed="False" xmlns="" />
+      <Filter entryType="Namespace" fullName="OdeMod.Projectiles.Series" isExposed="False" xmlns="" />
+      <Filter entryType="Namespace" fullName="OdeMod.Projectiles.Series.Boss" isExposed="False" xmlns="" />
+      <Filter entryType="Namespace" fullName="OdeMod.Projectiles.Series.Boss.MiracleRecorder" isExposed="False" xmlns="" />
+      <Filter entryType="Namespace" fullName="OdeMod.Projectiles.Series.Chaos" isExposed="False" xmlns="" />
+      <Filter entryType="Namespace" fullName="OdeMod.Projectiles.Series.Item.LightMushroom" isExposed="False" xmlns="" />
+      <Filter entryType="Namespace" fullName="OdeMod.Projectiles.Series.Items" isExposed="False" xmlns="" />
+      <Filter entryType="Namespace" fullName="OdeMod.Projectiles.Series.Items.Frosted" isExposed="False" xmlns="" />
+      <Filter entryType="Namespace" fullName="OdeMod.Projectiles.Series.Items.HollowKnight" isExposed="False" xmlns="" />
+      <Filter entryType="Namespace" fullName="OdeMod.Projectiles.Series.Items.ReCharge" isExposed="False" xmlns="" />
+      <Filter entryType="Namespace" fullName="OdeMod.Projectiles.Series.Items.RiftValley" isExposed="False" xmlns="" />
+      <Filter entryType="Namespace" fullName="OdeMod.Projectiles.Series.Items.Sharpsand" isExposed="False" xmlns="" />
+      <Filter entryType="Namespace" fullName="OdeMod.Tiles" isExposed="False" xmlns="" />
+      <Filter entryType="Namespace" fullName="OdeMod.Tiles.RiftValley" isExposed="False" xmlns="" />
+      <Filter entryType="Namespace" fullName="OdeMod.Tiles.RiftValley.SoulCemetery" isExposed="False" xmlns="" />
+    </ApiFilter>
+    <HelpTitle>Ode Mod API Documentation</HelpTitle>
+    <HelpFileVersion>1.0.0.0</HelpFileVersion>
+    <NamingMethod>Guid</NamingMethod>
+    <ContentPlacement>AboveNamespaces</ContentPlacement>
+    <RootNamespaceContainer>False</RootNamespaceContainer>
+    <NamespaceGrouping>False</NamespaceGrouping>
+    <MaximumGroupParts>2</MaximumGroupParts>
+    <Preliminary>False</Preliminary>
+    <SdkLinkTarget>Blank</SdkLinkTarget>
+  </PropertyGroup>
+  <!-- There are no properties for these groups.  AnyCPU needs to appear in order for Visual Studio to perform
+			 the build.  The others are optional common platform types that may appear. -->
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x64' ">
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x64' ">
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|Win32' ">
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|Win32' ">
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="Content" />
+    <Folder Include="Content\VersionHistory" />
+    <Folder Include="icons" />
+    <Folder Include="media" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Content\VersionHistory\v1.0.0.0.aml" />
+    <None Include="Content\VersionHistory\VersionHistory.aml" />
+    <None Include="Content\Welcome.aml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ContentLayout Include="ContentLayout.content" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="icons\icon.png">
+      <ImageId>icon</ImageId>
+      <AlternateText>icon</AlternateText>
+    </Content>
+  </ItemGroup>
+  <!-- Import the common build targets during NuGet restore because before the packages are being installed, $(SHFBROOT) is not set yet -->
+  <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" Condition="'$(MSBuildRestoreSessionId)' != ''" />
+  <!-- Import the SHFB build targets during build -->
+  <Import Project="$(SHFBROOT)\SandcastleHelpFileBuilder.targets" Condition="'$(MSBuildRestoreSessionId)' == ''" />
+  <!-- The pre-build and post-build event properties must appear *after* the targets file import in order to be
+			 evaluated correctly. -->
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+  </PropertyGroup>
+</Project>

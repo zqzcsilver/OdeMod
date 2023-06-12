@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Collections.Generic;
+
+using Microsoft.Xna.Framework;
 
 using Terraria;
 using Terraria.ModLoader;
@@ -12,12 +14,21 @@ namespace OdeMod.Tiles.RiftValley.SoulCemetery
             Main.tileSolid[Type] = true;
             Main.tileMergeDirt[Type] = true;
             Main.tileBlockLight[Type] = true;
-            ItemDrop = ModContent.ItemType<Items.Series.SoulCemetery.WhiteSoulStone>();
             AddMapEntry(new Color(0, 0, 0));
         }
+
         public override void NumDust(int i, int j, bool fail, ref int num)
         {
             num = fail ? 1 : 3;
+        }
+
+        public override IEnumerable<Item> GetItemDrops(int i, int j)
+        {
+            List<Item> list = new List<Item>();
+            Item item = new Item();
+            item.SetDefaults(ModContent.ItemType<Items.Series.SoulCemetery.WhiteSoulStone>());
+            list.Add(item);
+            return list;
         }
     }
 }

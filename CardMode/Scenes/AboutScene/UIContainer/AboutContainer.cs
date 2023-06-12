@@ -9,13 +9,14 @@ namespace OdeMod.CardMode.Scenes.AboutScene.UIContainer
 {
     internal class AboutContainer : CardUIContainerElement
     {
+        public static readonly string ContainerFullName = typeof(AboutContainer).FullName;
         private UIContainerPanel aboutContainer;
         private bool autoMove = true;
 
         public override void OnInitialization()
         {
             base.OnInitialization();
-            UIText title = new UIText("关于", CardSystem.ConfigManager.GetConfig<InterfaceConfig>().Font.GetFont(80f));
+            UIText title = new UIText(t: "$Scenes.AboutScene.UI.Title", CardSystem.ConfigManager.GetConfig<InterfaceConfig>().Font.GetFont(80f));
             title.Info.Top.SetValue(0f, 0.08f);
             title.Info.Left.SetValue(-title.Info.Width.Pixel / 2f, 0.5f);
             Register(title);
@@ -47,12 +48,12 @@ namespace OdeMod.CardMode.Scenes.AboutScene.UIContainer
             aboutContainer.SetVerticalScrollbar(verticalScrollbar);
             Register(verticalScrollbar);
 
-            UIText back = new UIText("<-返回", CardSystem.ConfigManager.GetConfig<InterfaceConfig>().Font.GetFont(40f));
+            UIText back = new UIText("$Scenes.AboutScene.UI.Back", CardSystem.ConfigManager.GetConfig<InterfaceConfig>().Font.GetFont(40f));
             back.Info.Left.SetValue(0f, 0.01f);
             back.Info.Top.SetValue(0f, 0.01f);
             back.Events.OnLeftClick += element =>
             {
-                CardSystem.SceneManager.ChangeScene(CardSystem.SceneManager.LastScene, new FadeStyle());
+                CardSystem.SceneManager.BackLastScene(new FadeStyle());
             };
             back.Events.OnMouseOver += element =>
             {

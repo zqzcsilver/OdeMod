@@ -1,3 +1,6 @@
+using System;
+using System.Reflection;
+
 using FontStashSharp;
 
 using Microsoft.Xna.Framework;
@@ -8,6 +11,10 @@ using OdeMod.ShaderDatas.ScreenShaderDatas;
 using OdeMod.UI.OdeUISystem;
 using OdeMod.Utils;
 
+using rail;
+
+using Steamworks;
+
 using Terraria;
 using Terraria.Graphics.Effects;
 using Terraria.ID;
@@ -15,6 +22,9 @@ using Terraria.ModLoader;
 
 namespace OdeMod
 {
+    /// <summary>
+    /// 模组主类
+    /// </summary>
     public class OdeMod : Mod, IOde
     {
         /// <summary>
@@ -103,10 +113,24 @@ namespace OdeMod
 
         private BinaryProcessed _binaryProcessed;
 
+        /// <summary>
+        /// 默认字体大小
+        /// </summary>
         public const float DEFAULT_FONT_SIZE = 40f;
-        public static FontSystem DefaultFontSystem => FontManager["Fonts/SourceHanSansHWSC-VF.ttf"];
+
+        /// <summary>
+        /// 默认字体系统
+        /// </summary>
+        public static FontSystem DefaultFontSystem => FontManager["Fonts/SourceHanSansHWSC_VF.ttf"];
+
+        /// <summary>
+        /// 默认字体
+        /// </summary>
         public static DynamicSpriteFont DefaultFont = DefaultFontSystem.GetFont(DEFAULT_FONT_SIZE);
 
+        /// <summary>
+        /// 加载
+        /// </summary>
         public override void Load()
         {
             base.Load();
@@ -118,20 +142,18 @@ namespace OdeMod
                 LanguageType.LoadCulture();
 
                 //添加Hook
-                //MonoModHooks.RequestNativeAccess();
-                //MonoMod.RuntimeDetour.IDetour detour = new MonoMod.RuntimeDetour.Hook(
-                //    typeof(ModDust).GetMethod("Draw", BindingFlags.Instance | BindingFlags.NonPublic),
-                //   new Action<Action<ModDust, Dust, Color, float>, ModDust, Dust, Color, float>(
-                //       (orig, self, dust, alpha, scale) =>
-                //   {
-                //       if (self is Dusts.IOdeDusts dusts && dusts.UseMyDraw)
-                //       {
-                //           dusts.Draw(self, dust, alpha, scale, Main.spriteBatch);
-                //       }
-                //       else
-                //           orig(self, dust, alpha, scale);
-                //   }));
-                //detour.Apply();
+                MonoMod.RuntimeDetour.Hook hook = new MonoMod.RuntimeDetour.Hook(typeof(ModDust).GetMethod("Draw", BindingFlags.Instance | BindingFlags.NonPublic),
+                   new Action<Action<ModDust, Dust, Color, float>, ModDust, Dust, Color, float>(
+                       (orig, self, dust, alpha, scale) =>
+                   {
+                       if (self is Dusts.IOdeDusts dusts && dusts.UseMyDraw)
+                       {
+                           dusts.Draw(self, dust, alpha, scale, Main.spriteBatch);
+                       }
+                       else
+                           orig(self, dust, alpha, scale);
+                   }));
+                hook.Apply();
 
                 On_Main.Draw += On_Main_Draw;
                 On_Main.Update += On_Main_Update;

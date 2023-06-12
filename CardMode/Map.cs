@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Graphics.PackedVector;
 using OdeMod.CardMode.PublicComponents.LogicComponents;
 using OdeMod.CardMode.Rooms;
 using OdeMod.Utils;
-using OdeMod.Utils.Expends;
+using OdeMod.Utils.Expands;
 
 using Terraria;
 using Terraria.ModLoader;

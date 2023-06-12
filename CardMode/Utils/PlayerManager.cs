@@ -20,7 +20,7 @@ namespace OdeMod.CardMode.Utils
 
         public static Entity CreatePlayer()
         {
-            Entity entity = new Entity(CardSystem.ENTITY_SOURCE_FROM_SYSTEM);
+            Entity entity = new Entity(CommonSources.ENTITY_SOURCE_FROM_SYSTEM);
             entity.AddComponent<PlayerComponent>();
             entity.AddComponent<PlayerInfoComponent>();
             entity.AddComponent(CardSystem.Instance.Map.CreateMoveComponent());

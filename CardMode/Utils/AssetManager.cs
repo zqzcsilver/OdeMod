@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 
+using OdeMod.Utils.Expands;
+
 using Terraria.ModLoader;
 
 namespace OdeMod.CardMode.Utils
@@ -9,7 +11,6 @@ namespace OdeMod.CardMode.Utils
     public class AssetManager
     {
         public static AssetManager Instance { get; private set; }
-        private Dictionary<string, Stream> _assetsStream;
         private Dictionary<string, object> _assetsInstance;
         private Dictionary<Type, Func<string, Stream, object>> _processingMethods;
 
@@ -17,7 +18,6 @@ namespace OdeMod.CardMode.Utils
         {
             Instance = this;
             _assetsInstance = new Dictionary<string, object>();
-            _assetsStream = new Dictionary<string, Stream>();
             _processingMethods = new Dictionary<Type, Func<string, Stream, object>>();
         }
 
@@ -26,9 +26,7 @@ namespace OdeMod.CardMode.Utils
             path = path.Replace('\\', '/');
             if (path.StartsWith("OdeMod/"))
                 path = path.Substring(7, path.Length);
-            if (!_assetsStream.ContainsKey(path))
-                _assetsStream.Add(path, OdeMod.Instance.GetFileStream(path));
-            return _assetsStream[path];
+            return OdeMod.Instance.GetFileStream(path);
         }
 
         public void AddProcessingMethod<T>(Func<string, Stream, object> func)

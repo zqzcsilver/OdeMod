@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using OdeMod.CardMode.Scenes.AboutScene.UIContainer;
 using OdeMod.Items.Series.Recharge;
 using OdeMod.UI.OdeUISystem.UIElements;
 using OdeMod.UI.OriginalUISystem;
@@ -18,6 +19,7 @@ namespace OdeMod.UI.OdeUISystem.Containers.Recharge
 {
     internal class RechargeContainer : UIContainerElement, IOriginalUIState
     {
+        public static readonly string ContainerFullName = typeof(RechargeContainer).FullName;
         public RechargeItem[] RechargeItems;
 
         public RechargeContainer()

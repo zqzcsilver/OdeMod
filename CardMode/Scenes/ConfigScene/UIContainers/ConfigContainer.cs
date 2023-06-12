@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 using Microsoft.Xna.Framework;
 
+using OdeMod.CardMode.Scenes.AboutScene.UIContainer;
 using OdeMod.CardMode.Scenes.ChangeSceneStyles;
 using OdeMod.CardMode.Scenes.ConfigScene.ConfigSystem.Configs;
 using OdeMod.CardMode.UI;
@@ -12,13 +13,14 @@ namespace OdeMod.CardMode.Scenes.ConfigScene.UIContainers
 {
     internal class ConfigContainer : CardUIContainerElement
     {
+        public static readonly string ContainerFullName = typeof(ConfigContainer).FullName;
         private UIContainerPanel configConatiner;
 
         public override void OnInitialization()
         {
             base.OnInitialization();
 
-            UIText title = new UIText("设置", CardSystem.ConfigManager.GetConfig<InterfaceConfig>().Font.GetFont(80f));
+            UIText title = new UIText("$Scenes.ConfigScene.UI.Title", CardSystem.ConfigManager.GetConfig<InterfaceConfig>().Font.GetFont(80f));
             title.Info.Left.SetValue(-title.Info.Width.Pixel / 2f, 0.5f);
             title.Info.Top.SetValue(0f, 0.08f);
             Register(title);
@@ -46,12 +48,12 @@ namespace OdeMod.CardMode.Scenes.ConfigScene.UIContainers
             configConatiner.SetVerticalScrollbar(verticalScrollbar);
             Register(verticalScrollbar);
 
-            UIText back = new UIText("<-返回", CardSystem.ConfigManager.GetConfig<InterfaceConfig>().Font.GetFont(40f));
+            UIText back = new UIText("$Scenes.ConfigScene.UI.Back", CardSystem.ConfigManager.GetConfig<InterfaceConfig>().Font.GetFont(40f));
             back.Info.Left.SetValue(0f, 0.01f);
             back.Info.Top.SetValue(0f, 0.01f);
             back.Events.OnLeftClick += element =>
             {
-                CardSystem.SceneManager.ChangeScene(CardSystem.SceneManager.LastScene, new FadeStyle());
+                CardSystem.SceneManager.BackLastScene(new FadeStyle());
             };
             back.Events.OnMouseOver += element =>
             {

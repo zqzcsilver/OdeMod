@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Collections.Generic;
+
+using Microsoft.Xna.Framework;
 
 using Terraria;
 using Terraria.DataStructures;
@@ -20,7 +22,6 @@ namespace OdeMod.Tiles
             MinPick = 10;
 
             DustType = DustID.GreenMoss;
-            ItemDrop = ModContent.ItemType<Items.Misc.LargePottedPlant>();
             //5x5
             TileObjectData.newTile.CopyFrom(TileObjectData.StyleDye);
             TileObjectData.newTile.Width = 5;
@@ -38,6 +39,15 @@ namespace OdeMod.Tiles
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
             Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 32, ModContent.ItemType<Items.Misc.LargePottedPlant>());
+        }
+
+        public override IEnumerable<Item> GetItemDrops(int i, int j)
+        {
+            List<Item> list = new List<Item>();
+            Item item = new Item();
+            item.SetDefaults(ModContent.ItemType<Items.Misc.LargePottedPlant>());
+            list.Add(item);
+            return list;
         }
     }
 }

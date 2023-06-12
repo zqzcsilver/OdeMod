@@ -86,5 +86,16 @@ namespace OdeMod.Items.Misc.Weapons
             }
             return true;
         }
+        public override void AddRecipes()
+        {
+            base.AddRecipes();
+            CreateRecipe()
+                .AddIngredient(ItemID.PulseBow, 1)
+                .AddIngredient(ItemID.IronBar, 25)
+                .AddIngredient(ModContent.ItemType<Materials.DarkMoonSoul>(), 25)
+                .AddIngredient(ItemID.Wire, 100)
+                .AddTile(TileID.MythrilAnvil)
+                .Register();
+        }
     }
 }

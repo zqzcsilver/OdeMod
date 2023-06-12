@@ -166,12 +166,12 @@ namespace OdeMod.CardMode.Scenes.ConfigScene.UIElements
                     (Info.Size.X - LeftLineSize.X - RightTriangleSize.X - CursorOffset.X * 2f);
                 if (_waitToValue != v)
                 {
-                    OnValueChange?.Invoke(this, v);
                     _waitToValue = v;
                     if (_waitToValue < 0f)
                         _waitToValue = 0f;
                     if (_waitToValue > 1f)
                         _waitToValue = 1f;
+                    OnValueChange?.Invoke(this, _waitToValue);
                 }
             }
             if (_value != _waitToValue)

@@ -4,24 +4,27 @@ using Microsoft.Xna.Framework;
 
 using Microsoft.Xna.Framework.Graphics;
 
+using OdeMod.CardMode.Scenes.MenuScene.UIContainer;
+
 using Terraria;
 
 namespace OdeMod.CardMode.Scenes.MenuScene
 {
     internal class MenuScene : SceneBase
     {
+        public static readonly string SceneFullName = typeof(MenuScene).FullName;
         private float time = 0f, timeMax = 240f;
 
         public override void ChangeBegin()
         {
             base.ChangeBegin();
-            CardSystem.Instance.CardModeUISystem.Elements["OdeMod.CardMode.Scenes.MenuScene.UIContainer.MenuContainer"].Show();
+            CardSystem.Instance.CardModeUISystem.Elements[MenuContainer.ContainerFullName].Show();
         }
 
         public override void Changing()
         {
             base.Changing();
-            CardSystem.Instance.CardModeUISystem.Elements["OdeMod.CardMode.Scenes.MenuScene.UIContainer.MenuContainer"].Info.IsVisible = false;
+            CardSystem.Instance.CardModeUISystem.Elements[MenuContainer.ContainerFullName].Close();
         }
 
         public override void Update(GameTime gt)
@@ -39,7 +42,7 @@ namespace OdeMod.CardMode.Scenes.MenuScene
             sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp,
                 DepthStencilState.Default, RasterizerState.CullNone, null);
 
-            Texture2D texture = CardSystem.GetCardTexture("Scene/MenuScene");
+            Texture2D texture = CardSystem.GetCardTexture("Scene/MenuScene/SceneBackground");
 
             Effect effect = CardSystem.AssetManager.Request<Effect>("OdeMod/Effects/PixelShaders/BrightnessGradient");
             effect.Parameters["uAlpha"].SetValue(1f);

@@ -250,6 +250,195 @@ namespace OdeMod.CardMode.Scenes.ConfigScene.ConfigSystem
             return baseElement;
         }
 
+        protected virtual object ReadParameterAdjustment(FieldInfo fieldInfo, object obj)
+        {
+            var t = fieldInfo.FieldType;
+            var info = fieldInfo.GetCustomAttribute<FieldConfigAttribute>();
+            if (info == null)
+                return null;
+            if (t == typeof(byte))
+            {
+                var attribute = fieldInfo.GetCustomAttribute<ConfigByteRangeAttribute>();
+                if (attribute != null)
+                {
+                    if (obj is byte objByte)
+                    {
+                        if (objByte < attribute.Min)
+                            return attribute.Min;
+                        if (objByte > attribute.Max)
+                            return attribute.Max;
+                    }
+                }
+            }
+            else if (t == typeof(char))
+            {
+                var attribute = fieldInfo.GetCustomAttribute<ConfigCharRangeAttribute>();
+                if (attribute != null)
+                {
+                    if (obj is char objChar)
+                    {
+                        if (objChar < attribute.Min)
+                            return attribute.Min;
+                        if (objChar > attribute.Max)
+                            return attribute.Max;
+                    }
+                }
+            }
+            else if (t == typeof(decimal))
+            {
+                var attribute = fieldInfo.GetCustomAttribute<ConfigDecimalRangeAttribute>();
+                if (attribute != null)
+                {
+                    if (obj is decimal objDecimal)
+                    {
+                        if (objDecimal < attribute.Min)
+                            return attribute.Min;
+                        if (objDecimal > attribute.Max)
+                            return attribute.Max;
+                    }
+                }
+            }
+            else if (t == typeof(double))
+            {
+                var attribute = fieldInfo.GetCustomAttribute<ConfigDoubleRangeAttribute>();
+                if (attribute != null)
+                {
+                    if (obj is double objDouble)
+                    {
+                        if (objDouble < attribute.Min)
+                            return attribute.Min;
+                        if (objDouble > attribute.Max)
+                            return attribute.Max;
+                    }
+                }
+            }
+            else if (t == typeof(float))
+            {
+                var attribute = fieldInfo.GetCustomAttribute<ConfigFloatRangeAttribute>();
+                if (attribute != null)
+                {
+                    if (obj is float objFloat)
+                    {
+                        if (objFloat < attribute.Min)
+                            return attribute.Min;
+                        if (objFloat > attribute.Max)
+                            return attribute.Max;
+                    }
+                }
+            }
+            else if (t == typeof(int))
+            {
+                var attribute = fieldInfo.GetCustomAttribute<ConfigIntRangeAttribute>();
+                if (attribute != null)
+                {
+                    if (obj is char objInt)
+                    {
+                        if (objInt < attribute.Min)
+                            return attribute.Min;
+                        if (objInt > attribute.Max)
+                            return attribute.Max;
+                    }
+                }
+            }
+            else if (t == typeof(long))
+            {
+                var attribute = fieldInfo.GetCustomAttribute<ConfigLongRangeAttribute>();
+                if (attribute != null)
+                {
+                    if (obj is long objLong)
+                    {
+                        if (objLong < attribute.Min)
+                            return attribute.Min;
+                        if (objLong > attribute.Max)
+                            return attribute.Max;
+                    }
+                }
+            }
+            else if (t == typeof(sbyte))
+            {
+                var attribute = fieldInfo.GetCustomAttribute<ConfigSbyteRangeAttribute>();
+                if (attribute != null)
+                {
+                    if (obj is sbyte objSByte)
+                    {
+                        if (objSByte < attribute.Min)
+                            return attribute.Min;
+                        if (objSByte > attribute.Max)
+                            return attribute.Max;
+                    }
+                }
+            }
+            else if (t == typeof(short))
+            {
+                var attribute = fieldInfo.GetCustomAttribute<ConfigShortRangeAttribute>();
+                if (attribute != null)
+                {
+                    if (obj is short objShort)
+                    {
+                        if (objShort < attribute.Min)
+                            return attribute.Min;
+                        if (objShort > attribute.Max)
+                            return attribute.Max;
+                    }
+                }
+            }
+            else if (t == typeof(string))
+            {
+                var attribute = fieldInfo.GetCustomAttribute<ConfigStringRangeAttribute>();
+                if (attribute != null)
+                {
+                    if (obj is string objString && attribute.Strings.Length > 0)
+                    {
+                        if (string.IsNullOrEmpty(Array.Find(attribute.Strings, x => x == objString)))
+                            return attribute.Strings[0];
+                    }
+                }
+            }
+            else if (t == typeof(uint))
+            {
+                var attribute = fieldInfo.GetCustomAttribute<ConfigUintRangeAttribute>();
+                if (attribute != null)
+                {
+                    if (obj is uint objUInt)
+                    {
+                        if (objUInt < attribute.Min)
+                            return attribute.Min;
+                        if (objUInt > attribute.Max)
+                            return attribute.Max;
+                    }
+                }
+            }
+            else if (t == typeof(ulong))
+            {
+                var attribute = fieldInfo.GetCustomAttribute<ConfigUlongRangeAttribute>();
+                if (attribute != null)
+                {
+                    if (obj is ulong objULong)
+                    {
+                        if (objULong < attribute.Min)
+                            return attribute.Min;
+                        if (objULong > attribute.Max)
+                            return attribute.Max;
+                    }
+                }
+            }
+            else if (t == typeof(ushort))
+            {
+                var attribute = fieldInfo.GetCustomAttribute<ConfigUshortRangeAttribute>();
+                if (attribute != null)
+                {
+                    if (obj is ushort objUShort)
+                    {
+                        if (objUShort < attribute.Min)
+                            return attribute.Min;
+                        if (objUShort > attribute.Max)
+                            return attribute.Max;
+                    }
+                }
+            }
+            return obj;
+        }
+
         public virtual void Init()
         {
         }
@@ -283,28 +472,35 @@ namespace OdeMod.CardMode.Scenes.ConfigScene.ConfigSystem
             if (!File.Exists(SavePath))
                 return;
 
-            using (var stream = new FileStream(SavePath, FileMode.Open))
+            try
             {
-                using (BinaryReader binaryReader = new BinaryReader(stream))
+                using (var stream = new FileStream(SavePath, FileMode.Open))
                 {
-                    int length = (int)OdeMod.BinaryProcessed.Load(binaryReader);
-                    Dictionary<string, object> loaders = new Dictionary<string, object>();
-                    object o;
-                    for (int i = 0; i < length; i++)
+                    using (BinaryReader binaryReader = new BinaryReader(stream))
                     {
-                        o = FieldLoad(binaryReader, out string name);
-                        loaders.Add(name, o);
-                    }
-
-                    var fields = GetType().GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
-                    foreach (var field in fields)
-                    {
-                        if (field.GetCustomAttribute<FieldConfigAttribute>() != null && loaders.ContainsKey(field.Name))
+                        int length = (int)OdeMod.BinaryProcessed.Load(binaryReader);
+                        Dictionary<string, object> loaders = new Dictionary<string, object>();
+                        object o;
+                        for (int i = 0; i < length; i++)
                         {
-                            field.SetValue(this, loaders[field.Name]);
+                            o = FieldLoad(binaryReader, out string name);
+                            loaders.Add(name, o);
+                        }
+
+                        var fields = GetType().GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+                        foreach (var field in fields)
+                        {
+                            if (field.GetCustomAttribute<FieldConfigAttribute>() != null && loaders.ContainsKey(field.Name))
+                            {
+                                field.SetValue(this, ReadParameterAdjustment(field, loaders[field.Name]));
+                            }
                         }
                     }
                 }
+            }
+            catch
+            {
+                File.Delete(SavePath);
             }
         }
 

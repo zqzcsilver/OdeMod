@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 using OdeMod.CardMode.CardComponents.BaseComponents;
 using OdeMod.CardMode.PublicComponents;
-using OdeMod.Utils.Expends;
+using OdeMod.Utils.Expands;
 
 namespace OdeMod.CardMode.CardComponents.DrawComponents
 {

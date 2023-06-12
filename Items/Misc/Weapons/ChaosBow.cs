@@ -13,7 +13,7 @@ namespace OdeMod.Items.Misc.Weapons
             Item.width = 36;
             Item.height = 40;
             Item.DamageType = DamageClass.Magic;
-            Item.useStyle = ItemUseStyleID.Swing;
+            Item.useStyle = ItemUseStyleID.Shoot;
             Item.damage = 15;
             Item.crit = 4;
             Item.shoot = ModContent.ProjectileType<Projectiles.Misc.BigTouchPro>();

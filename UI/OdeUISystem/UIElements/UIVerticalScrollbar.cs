@@ -21,7 +21,8 @@ namespace OdeMod.UI.OdeUISystem.UIElements
         public bool UseScrollWheel = false;
         public bool AlwaysOnLight = false;
         public float WhellValueMult = 1f;
-
+        public float Alpha = 1f;
+        public float LightSpeed = 0.04f;
         public float WheelValue
         {
             get { return wheelValue; }
@@ -89,12 +90,12 @@ namespace OdeMod.UI.OdeUISystem.UIElements
             else
             {
                 if ((isMouseHover || isMouseDown) && alpha < 1f)
-                    alpha += 0.01f;
+                    alpha += LightSpeed;
                 if ((!(isMouseHover || isMouseDown)) && alpha > 0f)
-                    alpha -= 0.01f;
+                    alpha -= LightSpeed;
             }
 
-            inner.ChangeColor(Color.White * alpha);
+            inner.ChangeColor(Color.White * alpha * Alpha);
 
             MouseState state = Mouse.GetState();
             float height = Info.Size.Y - 26f;
@@ -123,15 +124,15 @@ namespace OdeMod.UI.OdeUISystem.UIElements
         {
             sb.Draw(uiScrollbarTexture, new Rectangle(Info.HitBox.X + (Info.HitBox.Width - uiScrollbarTexture.Width) / 2,
                 Info.HitBox.Y - 12, uiScrollbarTexture.Width, 12),
-                new Rectangle(0, 0, uiScrollbarTexture.Width, 12), Color.White * alpha);
+                new Rectangle(0, 0, uiScrollbarTexture.Width, 12), Color.White * Alpha * alpha);
 
             sb.Draw(uiScrollbarTexture, new Rectangle(Info.HitBox.X + (Info.HitBox.Width - uiScrollbarTexture.Width) / 2,
                 Info.HitBox.Y, uiScrollbarTexture.Width, Info.HitBox.Height),
-                new Rectangle(0, 12, uiScrollbarTexture.Width, uiScrollbarTexture.Height - 24), Color.White * alpha);
+                new Rectangle(0, 12, uiScrollbarTexture.Width, uiScrollbarTexture.Height - 24), Color.White * Alpha * alpha);
 
             sb.Draw(uiScrollbarTexture, new Rectangle(Info.HitBox.X + (Info.HitBox.Width - uiScrollbarTexture.Width) / 2,
                 Info.HitBox.Y + Info.HitBox.Height, uiScrollbarTexture.Width, 12),
-                new Rectangle(0, uiScrollbarTexture.Height - 12, uiScrollbarTexture.Width, 12), Color.White * alpha);
+                new Rectangle(0, uiScrollbarTexture.Height - 12, uiScrollbarTexture.Width, 12), Color.White * Alpha * alpha);
         }
     }
 }

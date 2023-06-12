@@ -158,7 +158,7 @@ namespace OdeMod.NPCs.Boss.MiracleRecorder
             NPC.noTileCollide = true;
             NPCID.Sets.TrailingMode[NPC.type] = 0;
             NPCID.Sets.TrailCacheLength[NPC.type] = 8;
-            Music = MusicLoader.GetMusicSlot(Mod, "Sounds/Music/Boss/Glorious Carol");
+            Music = MusicLoader.GetMusicSlot(Mod, "Sounds/Music/Boss/Apocalypse");
 
             _npcLogic = new Dictionary<NPCState, Action<Player>>
             {
@@ -284,7 +284,7 @@ namespace OdeMod.NPCs.Boss.MiracleRecorder
                         ModContent.ProjectileType<Projectiles.Series.Boss.MiracleRecorder.Circle0>(), 0, 0, player.whoAmI);
                 battlecry += battlecryMinus;
                 battlecryMinus -= 2;
-                ModContent.Request<SoundEffect>("OdeMod/Sounds/SoundEffects/Test", AssetRequestMode.ImmediateLoad).Value.Play();
+                //ModContent.Request<SoundEffect>("OdeMod/Sounds/SoundEffects/Test", AssetRequestMode.ImmediateLoad).Value.Play();
             }
             if (timer == 1)
             {
@@ -2086,7 +2086,7 @@ namespace OdeMod.NPCs.Boss.MiracleRecorder
                 Vector2 drawPos = NPC.Center - Main.screenPosition;
                 Vector2 drawOrigin = new Vector2(130, 130);
                 Color color3 = new Color(255, 102, 237, 255);
-                Color color4=  new Color(255, 255, 255, 255);
+                Color color4 = new Color(255, 255, 255, 255);
                 Color color5 = Color.Lerp(color3, color4, 0.5f * (screenTimer / 120f) + 0.5f);
 
                 float alpha = 0f;

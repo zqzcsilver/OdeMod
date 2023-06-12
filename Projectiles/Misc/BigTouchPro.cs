@@ -22,6 +22,9 @@ namespace OdeMod.Projectiles.Misc
         }
         public override void AI()
         {
+            int num = Dust.NewDust(Projectile.position, 6, 6, DustID.PurpleCrystalShard, 0f, 0f, 0, Color.White, 0.8f);
+            Main.dust[num].velocity = Projectile.velocity;
+            Main.dust[num].noGravity = true;
             base.AI();
         }
     }
