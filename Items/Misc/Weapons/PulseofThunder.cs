@@ -30,6 +30,11 @@ namespace OdeMod.Items.Misc.Weapons
         {
             return true;
         }
+        public override Vector2? HoldoutOffset()
+        {
+            // 横坐标往左移动10像素，纵坐标向上移动5像素
+            return new Vector2(-8, 0);
+        }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             if (player.altFunctionUse == 0)

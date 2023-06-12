@@ -21,12 +21,12 @@ namespace OdeMod.Items.Series.Miracle
             Item.useAnimation = 20;
             Item.mana = 10;
             Item.autoReuse = true;
-            //Item.shoot = ModContent.ProjectileType<Projectiles.Series.>();
-            //Item.shootSpeed = 15f;
+            Item.shoot = ModContent.ProjectileType<Projectiles.Series.>();
+            Item.shootSpeed = 15f;
             Item.rare = ItemRarityID.LightPurple;
             Item.value = Item.sellPrice(0, 2, 0, 0);
             Item.noMelee = true;
-            Item.staff[Item.type] = true;//不知道这算不算法杖？
+            Item.staff[Item.type] = true;
             base.SetDefaults();
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
