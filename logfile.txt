@@ -65,3 +65,64 @@ Message at 2023/3/20 18:59:35: Compiling TriangleDraw.xnb
 Message at 2023/3/25 22:30:00: Importing BrightnessGradient.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
 Message at 2023/3/25 22:30:00: Processing BrightnessGradient.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
 Message at 2023/3/25 22:30:01: Compiling BrightnessGradient.xnb
+Message at 2023/6/16 20:47:35: Importing BrightnessGradient.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2023/6/16 20:47:35: Processing BrightnessGradient.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2023/6/16 20:47:35: Compiling BrightnessGradient.xnb
+Message at 2023/6/16 20:47:35: Importing GaussianBlur.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2023/6/16 20:47:35: Processing GaussianBlur.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2023/6/16 20:47:36: Compiling GaussianBlur.xnb
+Message at 2023/6/16 20:47:36: Importing HighlightExtraction.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2023/6/16 20:47:36: Processing HighlightExtraction.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2023/6/16 20:47:36: Compiling HighlightExtraction.xnb
+Message at 2023/6/16 20:47:36: Importing Mapping.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2023/6/16 20:47:36: Processing Mapping.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2023/6/16 20:47:36: Compiling Mapping.xnb
+Message at 2023/6/16 20:47:36: Importing Starry.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2023/6/16 20:47:36: Processing Starry.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2023/6/16 20:47:36: Compiling Starry.xnb
+Message at 2023/6/16 20:47:36: Rebuilding all content because build settings have changed
+Message at 2023/6/16 20:47:36: Importing SSD1.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2023/6/16 20:47:36: Processing SSD1.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2023/6/16 20:47:36: Compiling SSD1.xnb
+Message at 2023/6/16 20:47:36: Rebuilding all content because build settings have changed
+Message at 2023/6/16 20:47:36: Importing DrawInTriangle.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2023/6/16 20:47:36: Processing DrawInTriangle.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2023/6/16 20:47:36: Compiling DrawInTriangle.xnb
+Message at 2023/6/16 20:47:36: Importing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2023/6/16 20:47:36: Processing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2023/6/16 20:47:36: Compiling Trail.xnb
+Message at 2023/6/16 20:47:36: Importing TriangleDraw.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2023/6/16 20:47:36: Processing TriangleDraw.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2023/6/16 20:47:36: Compiling TriangleDraw.xnb
+Message at 2023/6/19 22:07:20: Importing BrightnessGradient.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2023/6/19 22:07:20: Processing BrightnessGradient.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2023/6/19 22:07:20: Compiling BrightnessGradient.xnb
+Message at 2023/6/19 22:07:20: Importing GaussianBlur.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2023/6/19 22:07:20: Processing GaussianBlur.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2023/6/19 22:07:20: Compiling GaussianBlur.xnb
+Message at 2023/6/19 22:07:20: Importing HighlightExtraction.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2023/6/19 22:07:20: Processing HighlightExtraction.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2023/6/19 22:07:20: Compiling HighlightExtraction.xnb
+Message at 2023/6/19 22:07:20: Importing Mapping.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2023/6/19 22:07:20: Processing Mapping.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2023/6/19 22:07:20: Compiling Mapping.xnb
+Message at 2023/6/19 22:07:20: Importing Starry.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2023/6/19 22:07:20: Processing Starry.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2023/6/19 22:07:20: Compiling Starry.xnb
+Message at 2023/6/19 22:07:20: Rebuilding all content because build settings have changed
+Message at 2023/6/19 22:07:20: Importing SSD1.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2023/6/19 22:07:20: Processing SSD1.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2023/6/19 22:07:20: Compiling SSD1.xnb
+Message at 2023/6/19 22:07:20: Rebuilding all content because build settings have changed
+Message at 2023/6/19 22:07:20: Importing DrawInTriangle.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2023/6/19 22:07:20: Processing DrawInTriangle.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2023/6/19 22:07:20: Compiling DrawInTriangle.xnb
+Message at 2023/6/19 22:07:20: Importing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2023/6/19 22:07:20: Processing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2023/6/19 22:07:20: Compiling Trail.xnb
+Message at 2023/6/19 22:07:20: Importing TriangleDraw.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2023/6/19 22:07:20: Processing TriangleDraw.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2023/6/19 22:07:20: Compiling TriangleDraw.xnb
+Message at 2023/7/15 21:17:43: Importing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.EffectImporter
+Message at 2023/7/15 21:17:43: Processing Trail.fx with Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor
+Message at 2023/7/15 21:17:43: Compiling Trail.xnb

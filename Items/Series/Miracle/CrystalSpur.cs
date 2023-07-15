@@ -21,7 +21,7 @@ namespace OdeMod.Items.Series.Miracle
             Item.useAnimation = 20;
             Item.mana = 10;
             Item.autoReuse = true;
-            Item.shoot = ModContent.ProjectileType<Projectiles.Series.>();
+            //Item.shoot = ModContent.ProjectileType<Projectiles.Series.>();
             Item.shootSpeed = 15f;
             Item.rare = ItemRarityID.LightPurple;
             Item.value = Item.sellPrice(0, 2, 0, 0);

@@ -842,6 +842,21 @@ Mods: {
 				// DisplayName: Falling Star
 				// Tooltip: ""
 			}
+
+			ShadowGhost: {
+				// DisplayName: Shadow Ghost
+				// Tooltip: ""
+			}
+
+			BaseDrawer: {
+				// DisplayName: Base Drawer
+				// Tooltip: ""
+			}
+
+			Snowave: {
+				// DisplayName: Snowave
+				// Tooltip: ""
+			}
 		}
 
 		NPCs: {
@@ -933,6 +948,7 @@ Mods: {
 			// SharpsandFire.DisplayName: Sharpsand Fire
 			// SharpsandSwordgas.DisplayName: Sharpsand Swordgas
 			// PhantomTorch.DisplayName: Phantom Torch
+			// StickyGhost.DisplayName: Sticky Ghost
 		}
 
 		ShopCondition: {

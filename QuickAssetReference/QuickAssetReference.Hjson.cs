@@ -947,6 +947,24 @@ public static class ModAssets_Hjson
                     public static string Tooltip = "Mods.OdeMod.Items.FallingStar.Tooltip";
                 }
 
+                public static class ShadowGhost
+                {
+                    public static string DisplayName = "Mods.OdeMod.Items.ShadowGhost.DisplayName";
+                    public static string Tooltip = "Mods.OdeMod.Items.ShadowGhost.Tooltip";
+                }
+
+                public static class BaseDrawer
+                {
+                    public static string DisplayName = "Mods.OdeMod.Items.BaseDrawer.DisplayName";
+                    public static string Tooltip = "Mods.OdeMod.Items.BaseDrawer.Tooltip";
+                }
+
+                public static class Snowave
+                {
+                    public static string DisplayName = "Mods.OdeMod.Items.Snowave.DisplayName";
+                    public static string Tooltip = "Mods.OdeMod.Items.Snowave.Tooltip";
+                }
+
             }
 
             public static class NPCs
@@ -1378,6 +1396,11 @@ public static class ModAssets_Hjson
                 public static class PhantomTorch
                 {
                     public static string DisplayName = "Mods.OdeMod.Projectiles.PhantomTorch.DisplayName";
+                }
+
+                public static class StickyGhost
+                {
+                    public static string DisplayName = "Mods.OdeMod.Projectiles.StickyGhost.DisplayName";
                 }
 
             }
