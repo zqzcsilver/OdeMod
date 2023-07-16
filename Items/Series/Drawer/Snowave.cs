@@ -15,8 +15,8 @@ namespace OdeMod.Items.Series.Drawer
         public override void SetDefaults()
         {
             BaseDamage = 20;
-            DrawerWidth = 3;
-            DrawerHeight = 3;
+            DrawerWidth = 5;
+            DrawerHeight = 5;
 
             base.SetDefaults();
             Item.width = 34;

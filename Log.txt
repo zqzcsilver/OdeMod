@@ -1,0 +1,14 @@
+Source:Hjson
+Message:System.ArgumentException: Found a punctuator character '125' when expecting a quoteless string (check your syntax). At line 130, column 3
+   在 Hjson.HjsonReader.readTfnns(Int32 c)
+   在 Hjson.HjsonReader.ReadCore(Boolean objectWithoutBraces)
+   在 Hjson.HjsonReader.ReadCore(Boolean objectWithoutBraces)
+   在 Hjson.HjsonReader.ReadCore(Boolean objectWithoutBraces)
+   在 Hjson.HjsonReader.ReadCore(Boolean objectWithoutBraces)
+   在 Hjson.HjsonReader.ReadCore(Boolean objectWithoutBraces)
+   在 Hjson.HjsonReader.ReadCore(Boolean objectWithoutBraces)
+   在 Hjson.HjsonReader.Read()
+   在 Hjson.HjsonValue.Parse(String hjsonString)
+   在 QuickAssetReference.TModLoader.CreateHjson.<>c__DisplayClass8_0.<Execute>b__1(ITaskItem file)
+   在 System.Array.ForEach[T](T[] array, Action`1 action)
+   在 QuickAssetReference.TModLoader.CreateHjson.<Execute>b__8_0()

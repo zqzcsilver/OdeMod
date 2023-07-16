@@ -830,6 +830,12 @@ public static class ModAssets_Texture2D
                 public static Asset<Texture2D> HolySpiritCutterAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(HolySpiritCutterPath);
                 public static Asset<Texture2D> HolySpiritCutterImmediateAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(HolySpiritCutterPath, AssetRequestMode.ImmediateLoad);
                 public const string HolySpiritCutterPath = "Items/Series/RiftValley/HolySpiritCutter";
+                public static Asset<Texture2D> LifeShieldAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(LifeShieldPath);
+                public static Asset<Texture2D> LifeShieldImmediateAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(LifeShieldPath, AssetRequestMode.ImmediateLoad);
+                public const string LifeShieldPath = "Items/Series/RiftValley/LifeShield";
+                public static Asset<Texture2D> LifeStarAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(LifeStarPath);
+                public static Asset<Texture2D> LifeStarImmediateAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(LifeStarPath, AssetRequestMode.ImmediateLoad);
+                public const string LifeStarPath = "Items/Series/RiftValley/LifeStar";
                 public static Asset<Texture2D> PredatorSoulAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(PredatorSoulPath);
                 public static Asset<Texture2D> PredatorSoulImmediateAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(PredatorSoulPath, AssetRequestMode.ImmediateLoad);
                 public const string PredatorSoulPath = "Items/Series/RiftValley/PredatorSoul";
@@ -848,12 +854,6 @@ public static class ModAssets_Texture2D
                 public static Asset<Texture2D> TestAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(TestPath);
                 public static Asset<Texture2D> TestImmediateAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(TestPath, AssetRequestMode.ImmediateLoad);
                 public const string TestPath = "Items/Series/RiftValley/Test";
-                public static Asset<Texture2D> ____Asset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(____Path);
-                public static Asset<Texture2D> ____ImmediateAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(____Path, AssetRequestMode.ImmediateLoad);
-                public const string ____Path = "Items/Series/RiftValley/生命星星";
-                public static Asset<Texture2D> ____Asset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(____Path);
-                public static Asset<Texture2D> ____ImmediateAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(____Path, AssetRequestMode.ImmediateLoad);
-                public const string ____Path = "Items/Series/RiftValley/生命甲壳";
             }
 
             public static class Sharpsand
@@ -880,27 +880,27 @@ public static class ModAssets_Texture2D
                 public static Asset<Texture2D> BoneOakAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(BoneOakPath);
                 public static Asset<Texture2D> BoneOakImmediateAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(BoneOakPath, AssetRequestMode.ImmediateLoad);
                 public const string BoneOakPath = "Items/Series/SoulCemetery/BoneOak";
+                public static Asset<Texture2D> DelivererAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(DelivererPath);
+                public static Asset<Texture2D> DelivererImmediateAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(DelivererPath, AssetRequestMode.ImmediateLoad);
+                public const string DelivererPath = "Items/Series/SoulCemetery/Deliverer";
+                public static Asset<Texture2D> EvilSoulJudgmentAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(EvilSoulJudgmentPath);
+                public static Asset<Texture2D> EvilSoulJudgmentImmediateAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(EvilSoulJudgmentPath, AssetRequestMode.ImmediateLoad);
+                public const string EvilSoulJudgmentPath = "Items/Series/SoulCemetery/EvilSoulJudgment";
+                public static Asset<Texture2D> JinxedAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(JinxedPath);
+                public static Asset<Texture2D> JinxedImmediateAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(JinxedPath, AssetRequestMode.ImmediateLoad);
+                public const string JinxedPath = "Items/Series/SoulCemetery/Jinxed";
+                public static Asset<Texture2D> PhantomBacteriaAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(PhantomBacteriaPath);
+                public static Asset<Texture2D> PhantomBacteriaImmediateAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(PhantomBacteriaPath, AssetRequestMode.ImmediateLoad);
+                public const string PhantomBacteriaPath = "Items/Series/SoulCemetery/PhantomBacteria";
                 public static Asset<Texture2D> SoulCongealingSoilAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(SoulCongealingSoilPath);
                 public static Asset<Texture2D> SoulCongealingSoilImmediateAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(SoulCongealingSoilPath, AssetRequestMode.ImmediateLoad);
                 public const string SoulCongealingSoilPath = "Items/Series/SoulCemetery/SoulCongealingSoil";
+                public static Asset<Texture2D> SpiritOfDefilementAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(SpiritOfDefilementPath);
+                public static Asset<Texture2D> SpiritOfDefilementImmediateAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(SpiritOfDefilementPath, AssetRequestMode.ImmediateLoad);
+                public const string SpiritOfDefilementPath = "Items/Series/SoulCemetery/SpiritOfDefilement";
                 public static Asset<Texture2D> WhiteSoulStoneAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(WhiteSoulStonePath);
                 public static Asset<Texture2D> WhiteSoulStoneImmediateAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(WhiteSoulStonePath, AssetRequestMode.ImmediateLoad);
                 public const string WhiteSoulStonePath = "Items/Series/SoulCemetery/WhiteSoulStone";
-                public static Asset<Texture2D> ___Asset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(___Path);
-                public static Asset<Texture2D> ___ImmediateAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(___Path, AssetRequestMode.ImmediateLoad);
-                public const string ___Path = "Items/Series/SoulCemetery/厄运星";
-                public static Asset<Texture2D> ___Asset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(___Path);
-                public static Asset<Texture2D> ___ImmediateAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(___Path, AssetRequestMode.ImmediateLoad);
-                public const string ___Path = "Items/Series/SoulCemetery/幽灵菌";
-                public static Asset<Texture2D> ___Asset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(___Path);
-                public static Asset<Texture2D> ___ImmediateAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(___Path, AssetRequestMode.ImmediateLoad);
-                public const string ___Path = "Items/Series/SoulCemetery/引渡人";
-                public static Asset<Texture2D> ____Asset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(____Path);
-                public static Asset<Texture2D> ____ImmediateAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(____Path, AssetRequestMode.ImmediateLoad);
-                public const string ____Path = "Items/Series/SoulCemetery/恶魂审判";
-                public static Asset<Texture2D> ____Asset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(____Path);
-                public static Asset<Texture2D> ____ImmediateAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(____Path, AssetRequestMode.ImmediateLoad);
-                public const string ____Path = "Items/Series/SoulCemetery/玷污之灵";
             }
 
             public static class StarlightDargon
@@ -1301,6 +1301,15 @@ public static class ModAssets_Texture2D
                     public static Asset<Texture2D> AngelBoomAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(AngelBoomPath);
                     public static Asset<Texture2D> AngelBoomImmediateAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(AngelBoomPath, AssetRequestMode.ImmediateLoad);
                     public const string AngelBoomPath = "Projectiles/Series/Items/ReCharge/AngelBoom";
+                    public static Asset<Texture2D> Laser1Asset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(Laser1Path);
+                    public static Asset<Texture2D> Laser1ImmediateAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(Laser1Path, AssetRequestMode.ImmediateLoad);
+                    public const string Laser1Path = "Projectiles/Series/Items/ReCharge/Laser1";
+                    public static Asset<Texture2D> Laser2Asset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(Laser2Path);
+                    public static Asset<Texture2D> Laser2ImmediateAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(Laser2Path, AssetRequestMode.ImmediateLoad);
+                    public const string Laser2Path = "Projectiles/Series/Items/ReCharge/Laser2";
+                    public static Asset<Texture2D> Laser3Asset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(Laser3Path);
+                    public static Asset<Texture2D> Laser3ImmediateAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(Laser3Path, AssetRequestMode.ImmediateLoad);
+                    public const string Laser3Path = "Projectiles/Series/Items/ReCharge/Laser3";
                     public static Asset<Texture2D> LaserGunAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(LaserGunPath);
                     public static Asset<Texture2D> LaserGunImmediateAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(LaserGunPath, AssetRequestMode.ImmediateLoad);
                     public const string LaserGunPath = "Projectiles/Series/Items/ReCharge/LaserGun";
@@ -1325,15 +1334,6 @@ public static class ModAssets_Texture2D
                     public static Asset<Texture2D> ZapinatorAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(ZapinatorPath);
                     public static Asset<Texture2D> ZapinatorImmediateAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(ZapinatorPath, AssetRequestMode.ImmediateLoad);
                     public const string ZapinatorPath = "Projectiles/Series/Items/ReCharge/Zapinator";
-                    public static Asset<Texture2D> ___Asset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(___Path);
-                    public static Asset<Texture2D> ___ImmediateAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(___Path, AssetRequestMode.ImmediateLoad);
-                    public const string ___Path = "Projectiles/Series/Items/ReCharge/激光头";
-                    public static Asset<Texture2D> ___Asset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(___Path);
-                    public static Asset<Texture2D> ___ImmediateAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(___Path, AssetRequestMode.ImmediateLoad);
-                    public const string ___Path = "Projectiles/Series/Items/ReCharge/激光尾";
-                    public static Asset<Texture2D> ___Asset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(___Path);
-                    public static Asset<Texture2D> ___ImmediateAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(___Path, AssetRequestMode.ImmediateLoad);
-                    public const string ___Path = "Projectiles/Series/Items/ReCharge/激光身";
                 }
 
                 public static class RiftValley
@@ -1390,6 +1390,9 @@ public static class ModAssets_Texture2D
         public const string MagicPowerFallingStarPath = "Tiles/MagicPowerFallingStar";
         public static class RiftValley
         {
+            public static Asset<Texture2D> AncientPlantBlocktileAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(AncientPlantBlocktilePath);
+            public static Asset<Texture2D> AncientPlantBlocktileImmediateAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(AncientPlantBlocktilePath, AssetRequestMode.ImmediateLoad);
+            public const string AncientPlantBlocktilePath = "Tiles/RiftValley/AncientPlantBlocktile";
             public static Asset<Texture2D> DarkBlueMantraStoneAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(DarkBlueMantraStonePath);
             public static Asset<Texture2D> DarkBlueMantraStoneImmediateAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(DarkBlueMantraStonePath, AssetRequestMode.ImmediateLoad);
             public const string DarkBlueMantraStonePath = "Tiles/RiftValley/DarkBlueMantraStone";
@@ -1399,6 +1402,15 @@ public static class ModAssets_Texture2D
             public static Asset<Texture2D> DisasterSilverOreAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(DisasterSilverOrePath);
             public static Asset<Texture2D> DisasterSilverOreImmediateAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(DisasterSilverOrePath, AssetRequestMode.ImmediateLoad);
             public const string DisasterSilverOrePath = "Tiles/RiftValley/DisasterSilverOre";
+            public static Asset<Texture2D> DreamMosstileAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(DreamMosstilePath);
+            public static Asset<Texture2D> DreamMosstileImmediateAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(DreamMosstilePath, AssetRequestMode.ImmediateLoad);
+            public const string DreamMosstilePath = "Tiles/RiftValley/DreamMosstile";
+            public static Asset<Texture2D> DreamTurftileAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(DreamTurftilePath);
+            public static Asset<Texture2D> DreamTurftileImmediateAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(DreamTurftilePath, AssetRequestMode.ImmediateLoad);
+            public const string DreamTurftilePath = "Tiles/RiftValley/DreamTurftile";
+            public static Asset<Texture2D> ExoticFlowerBlocktileAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(ExoticFlowerBlocktilePath);
+            public static Asset<Texture2D> ExoticFlowerBlocktileImmediateAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(ExoticFlowerBlocktilePath, AssetRequestMode.ImmediateLoad);
+            public const string ExoticFlowerBlocktilePath = "Tiles/RiftValley/ExoticFlowerBlocktile";
             public static Asset<Texture2D> FantasyStoneAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(FantasyStonePath);
             public static Asset<Texture2D> FantasyStoneImmediateAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(FantasyStonePath, AssetRequestMode.ImmediateLoad);
             public const string FantasyStonePath = "Tiles/RiftValley/FantasyStone";
@@ -1408,51 +1420,39 @@ public static class ModAssets_Texture2D
             public static Asset<Texture2D> FlowFireGoldBrickAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(FlowFireGoldBrickPath);
             public static Asset<Texture2D> FlowFireGoldBrickImmediateAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(FlowFireGoldBrickPath, AssetRequestMode.ImmediateLoad);
             public const string FlowFireGoldBrickPath = "Tiles/RiftValley/FlowFireGoldBrick";
+            public static Asset<Texture2D> LifeMosstileAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(LifeMosstilePath);
+            public static Asset<Texture2D> LifeMosstileImmediateAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(LifeMosstilePath, AssetRequestMode.ImmediateLoad);
+            public const string LifeMosstilePath = "Tiles/RiftValley/LifeMosstile";
+            public static Asset<Texture2D> LifeStartileAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(LifeStartilePath);
+            public static Asset<Texture2D> LifeStartileImmediateAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(LifeStartilePath, AssetRequestMode.ImmediateLoad);
+            public const string LifeStartilePath = "Tiles/RiftValley/LifeStartile";
+            public static Asset<Texture2D> LifeTurftileAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(LifeTurftilePath);
+            public static Asset<Texture2D> LifeTurftileImmediateAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(LifeTurftilePath, AssetRequestMode.ImmediateLoad);
+            public const string LifeTurftilePath = "Tiles/RiftValley/LifeTurftile";
+            public static Asset<Texture2D> LossLeaftileAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(LossLeaftilePath);
+            public static Asset<Texture2D> LossLeaftileImmediateAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(LossLeaftilePath, AssetRequestMode.ImmediateLoad);
+            public const string LossLeaftilePath = "Tiles/RiftValley/LossLeaftile";
+            public static Asset<Texture2D> MossSkintileAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(MossSkintilePath);
+            public static Asset<Texture2D> MossSkintileImmediateAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(MossSkintilePath, AssetRequestMode.ImmediateLoad);
+            public const string MossSkintilePath = "Tiles/RiftValley/MossSkintile";
+            public static Asset<Texture2D> PhantomMosstileAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(PhantomMosstilePath);
+            public static Asset<Texture2D> PhantomMosstileImmediateAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(PhantomMosstilePath, AssetRequestMode.ImmediateLoad);
+            public const string PhantomMosstilePath = "Tiles/RiftValley/PhantomMosstile";
+            public static Asset<Texture2D> PhantomTurftileAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(PhantomTurftilePath);
+            public static Asset<Texture2D> PhantomTurftileImmediateAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(PhantomTurftilePath, AssetRequestMode.ImmediateLoad);
+            public const string PhantomTurftilePath = "Tiles/RiftValley/PhantomTurftile";
             public static Asset<Texture2D> RottenMeatcsAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(RottenMeatcsPath);
             public static Asset<Texture2D> RottenMeatcsImmediateAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(RottenMeatcsPath, AssetRequestMode.ImmediateLoad);
             public const string RottenMeatcsPath = "Tiles/RiftValley/RottenMeatcs";
+            public static Asset<Texture2D> SacredLeaftileAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(SacredLeaftilePath);
+            public static Asset<Texture2D> SacredLeaftileImmediateAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(SacredLeaftilePath, AssetRequestMode.ImmediateLoad);
+            public const string SacredLeaftilePath = "Tiles/RiftValley/SacredLeaftile";
             public static Asset<Texture2D> ShineBlockAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(ShineBlockPath);
             public static Asset<Texture2D> ShineBlockImmediateAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(ShineBlockPath, AssetRequestMode.ImmediateLoad);
             public const string ShineBlockPath = "Tiles/RiftValley/ShineBlock";
             public static Asset<Texture2D> SoulHaystackAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(SoulHaystackPath);
             public static Asset<Texture2D> SoulHaystackImmediateAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(SoulHaystackPath, AssetRequestMode.ImmediateLoad);
             public const string SoulHaystackPath = "Tiles/RiftValley/SoulHaystack";
-            public static Asset<Texture2D> _____tileAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(_____tilePath);
-            public static Asset<Texture2D> _____tileImmediateAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(_____tilePath, AssetRequestMode.ImmediateLoad);
-            public const string _____tilePath = "Tiles/RiftValley/古代植物块tile";
-            public static Asset<Texture2D> ____tileAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(____tilePath);
-            public static Asset<Texture2D> ____tileImmediateAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(____tilePath, AssetRequestMode.ImmediateLoad);
-            public const string ____tilePath = "Tiles/RiftValley/幻影苔藓tile";
-            public static Asset<Texture2D> ____tileAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(____tilePath);
-            public static Asset<Texture2D> ____tileImmediateAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(____tilePath, AssetRequestMode.ImmediateLoad);
-            public const string ____tilePath = "Tiles/RiftValley/幻影草皮tile";
-            public static Asset<Texture2D> _____tileAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(_____tilePath);
-            public static Asset<Texture2D> _____tileImmediateAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(_____tilePath, AssetRequestMode.ImmediateLoad);
-            public const string _____tilePath = "Tiles/RiftValley/异界鲜花块tile";
-            public static Asset<Texture2D> ____tileAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(____tilePath);
-            public static Asset<Texture2D> ____tileImmediateAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(____tilePath, AssetRequestMode.ImmediateLoad);
-            public const string ____tilePath = "Tiles/RiftValley/梦境苔藓tile";
-            public static Asset<Texture2D> ____tileAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(____tilePath);
-            public static Asset<Texture2D> ____tileImmediateAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(____tilePath, AssetRequestMode.ImmediateLoad);
-            public const string ____tilePath = "Tiles/RiftValley/梦境草皮tile";
-            public static Asset<Texture2D> ____tileAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(____tilePath);
-            public static Asset<Texture2D> ____tileImmediateAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(____tilePath, AssetRequestMode.ImmediateLoad);
-            public const string ____tilePath = "Tiles/RiftValley/生命星星tile";
-            public static Asset<Texture2D> ____tileAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(____tilePath);
-            public static Asset<Texture2D> ____tileImmediateAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(____tilePath, AssetRequestMode.ImmediateLoad);
-            public const string ____tilePath = "Tiles/RiftValley/生命苔藓tile";
-            public static Asset<Texture2D> ____tileAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(____tilePath);
-            public static Asset<Texture2D> ____tileImmediateAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(____tilePath, AssetRequestMode.ImmediateLoad);
-            public const string ____tilePath = "Tiles/RiftValley/生命草皮tile";
-            public static Asset<Texture2D> _____tileAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(_____tilePath);
-            public static Asset<Texture2D> _____tileImmediateAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(_____tilePath, AssetRequestMode.ImmediateLoad);
-            public const string _____tilePath = "Tiles/RiftValley/神圣树叶块tile";
-            public static Asset<Texture2D> ___tileAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(___tilePath);
-            public static Asset<Texture2D> ___tileImmediateAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(___tilePath, AssetRequestMode.ImmediateLoad);
-            public const string ___tilePath = "Tiles/RiftValley/苔藓皮tile";
-            public static Asset<Texture2D> _____tileAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(_____tilePath);
-            public static Asset<Texture2D> _____tileImmediateAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(_____tilePath, AssetRequestMode.ImmediateLoad);
-            public const string _____tilePath = "Tiles/RiftValley/迷幻树叶块tile";
             public static class SoulCemetery
             {
                 public static Asset<Texture2D> BlueIronOreAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(BlueIronOrePath);
@@ -1521,12 +1521,21 @@ public static class ModAssets_Texture2D
                         public static Asset<Texture2D> ItemSlotAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(ItemSlotPath);
                         public static Asset<Texture2D> ItemSlotImmediateAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(ItemSlotPath, AssetRequestMode.ImmediateLoad);
                         public const string ItemSlotPath = "UI/OdeUISystem/Containers/Recharge/Images/ItemSlot";
+                        public static Asset<Texture2D> PaintAreaAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(PaintAreaPath);
+                        public static Asset<Texture2D> PaintAreaImmediateAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(PaintAreaPath, AssetRequestMode.ImmediateLoad);
+                        public const string PaintAreaPath = "UI/OdeUISystem/Containers/Recharge/Images/PaintArea";
                         public static Asset<Texture2D> PanelAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(PanelPath);
                         public static Asset<Texture2D> PanelImmediateAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(PanelPath, AssetRequestMode.ImmediateLoad);
                         public const string PanelPath = "UI/OdeUISystem/Containers/Recharge/Images/Panel";
                         public static Asset<Texture2D> SnowavePaperAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(SnowavePaperPath);
                         public static Asset<Texture2D> SnowavePaperImmediateAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(SnowavePaperPath, AssetRequestMode.ImmediateLoad);
                         public const string SnowavePaperPath = "UI/OdeUISystem/Containers/Recharge/Images/SnowavePaper";
+                        public static Asset<Texture2D> XButtonDownAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(XButtonDownPath);
+                        public static Asset<Texture2D> XButtonDownImmediateAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(XButtonDownPath, AssetRequestMode.ImmediateLoad);
+                        public const string XButtonDownPath = "UI/OdeUISystem/Containers/Recharge/Images/XButtonDown";
+                        public static Asset<Texture2D> XButtonUpAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(XButtonUpPath);
+                        public static Asset<Texture2D> XButtonUpImmediateAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(XButtonUpPath, AssetRequestMode.ImmediateLoad);
+                        public const string XButtonUpPath = "UI/OdeUISystem/Containers/Recharge/Images/XButtonUp";
                     }
 
                 }
