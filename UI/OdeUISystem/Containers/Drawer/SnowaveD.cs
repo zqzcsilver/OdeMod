@@ -59,7 +59,7 @@ namespace OdeMod.UI.OdeUISystem.Containers.Drawer
                     chart[i, j].Info.Height.SetValue(64f, 0f);
                     chart[i, j].Info.Left.SetValue(80f + j * 70f, 0f);
                     chart[i, j].Info.Top.SetValue(35f + i * 70f, 0f);
-                    chart[i, j].Events.OnMouseOver += element =>
+                    chart[i, j].Events.OnUpdate += element =>
                     {
                         if(Main.mouseLeft)
                         {
