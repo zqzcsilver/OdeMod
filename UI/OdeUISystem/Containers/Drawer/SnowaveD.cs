@@ -13,12 +13,16 @@ using System.Linq;
 
 using Terraria;
 using Terraria.ModLoader;
+using OdeMod.Utils;
+using System.Reflection;
 
 namespace OdeMod.UI.OdeUISystem.Containers.Drawer
 {
     internal class SnowaveD : UIContainerElement, IOriginalUIState
     {
+        MasterPiece instance = new MasterPiece();
         private UIImage[,] chart = new UIImage[5, 5];
+        private int[,] draw = new int[5, 5];
         public override void OnInitialization()
         {
             base.OnInitialization();
@@ -57,9 +61,9 @@ namespace OdeMod.UI.OdeUISystem.Containers.Drawer
                 AssetRequestMode.ImmediateLoad).Value, new Color(0, 0, 0, 0.1f));
                     chart[i, j].Info.Width.SetValue(64f, 0f);
                     chart[i, j].Info.Height.SetValue(64f, 0f);
-                    chart[i, j].Info.Left.SetValue(80f + j * 70f, 0f);
-                    chart[i, j].Info.Top.SetValue(35f + i * 70f, 0f);
-                    chart[i, j].Events.OnUpdate += element =>
+                    chart[i, j].Info.Left.SetValue(80f + j * 64f, 0f);
+                    chart[i, j].Info.Top.SetValue(35f + i * 64f, 0f);
+                    chart[i, j].Events.OnMouseHover += element =>
                     {
                         if(Main.mouseLeft)
                         {
@@ -79,12 +83,74 @@ namespace OdeMod.UI.OdeUISystem.Containers.Drawer
             }
         }
 
-        public override void PreUpdate(GameTime gt)
+        private static bool AreArraysEqual<T>(T[,] array1, T[,] array2)
         {
-            base.PreUpdate(gt);
-            var player = Main.LocalPlayer;
-            
+            if (array1 == null || array2 == null)
+            {
+                return false;
+            }
 
+            if (array1.GetLength(0) != array2.GetLength(0) || array1.GetLength(1) != array2.GetLength(1))
+            {
+                return false;
+            }
+
+            for (int i = 0; i < array1.GetLength(0); i++)
+            {
+                for (int j = 0; j < array1.GetLength(1); j++)
+                {
+                    if (!EqualityComparer<T>.Default.Equals(array1[i, j], array2[i, j]))
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+        }
+
+        public override void Update(GameTime gt)
+        {
+            
+            for (int i = 0; i < 5; i++)
+            {
+                for (int j = 0; j < 5; j++)
+                {
+                    var color = chart[i, j].GetColor();
+
+                    if (color.A == 255) 
+                    {
+                        draw[i, j] = 1;
+                    }
+                    else
+                    {
+                        draw[i, j] = 0;
+                    }
+                    
+                }
+               
+            }
+            
+            Type myClassType = typeof(MasterPiece);
+            FieldInfo[] fields = myClassType.GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+            foreach (FieldInfo field in fields)
+            {
+                if (field.FieldType.IsArray && field.FieldType.GetArrayRank() == 2)
+                {
+                    // 获取字段名称
+                    string fieldName = field.Name;
+
+                    // 将字段的值转换为二维数组
+                    int[,] array = (int[,])field.GetValue(instance);
+
+                    // 在这里对二维数组进行处理
+                    if (AreArraysEqual(draw, array))
+                    {
+                        Main.NewText(fieldName);
+                        break;
+                    }
+                }
+            }
         }
     }
 }

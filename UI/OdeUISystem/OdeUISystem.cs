@@ -128,7 +128,7 @@ namespace OdeMod.UI.OdeUISystem
                 if (!interact.Contains(ce))
                     ce.Events.MouseOut(ce);
             interactContainerElementsBuffer = interact;
-
+            interact.ForEach(x => x.Events.MouseHover(x));
             if (mouseLeftDown != Main.mouseLeft)
             {
                 if (Main.mouseLeft)

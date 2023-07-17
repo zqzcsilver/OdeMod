@@ -14,7 +14,6 @@ namespace OdeMod.Items.Series.Drawer
 
         public override void SetDefaults()
         {
-            BaseDamage = 20;
             DrawerWidth = 5;
             DrawerHeight = 5;
 
@@ -37,7 +36,6 @@ namespace OdeMod.Items.Series.Drawer
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             OdeMod.OdeUISystem.Elements["OdeMod.UI.OdeUISystem.Containers.Drawer.SnowaveD"].Info.IsVisible = true;
-            Main.NewText(1);
             return false;
         }
     }

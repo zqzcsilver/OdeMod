@@ -12,7 +12,6 @@ namespace OdeMod.Items.Series.Drawer
 {
     internal abstract class BaseDrawer : ModItem, IDrawer
     {
-        internal int BaseDamage = 0;
         internal int DrawerWidth = 0;
         internal int DrawerHeight = 0;
 
@@ -33,8 +32,6 @@ namespace OdeMod.Items.Series.Drawer
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
             base.ModifyTooltips(tooltips);
-            string tooltipText = $"{BaseDamage} 画师基准伤害";
-            tooltips.Add(new TooltipLine(base.Mod, "BaseDamage", tooltipText));
             string tooltipText2 = $"画布尺寸: {DrawerWidth}*{DrawerHeight} ";
             tooltips.Add(new TooltipLine(base.Mod, "BaseSize", tooltipText2));
         }
