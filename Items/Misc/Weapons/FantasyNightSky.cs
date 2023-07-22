@@ -12,8 +12,8 @@ namespace OdeMod.Items.Misc.Weapons
             base.SetDefaults();
             Item.width = 36;
             Item.height = 46;
-            Item.DamageType = DamageClass.Magic;
-            Item.useStyle = ItemUseStyleID.Shoot;
+            Item.DamageType = DamageClass.Melee;
+            Item.useStyle = ItemUseStyleID.Swing;
             Item.damage = 94;
             Item.crit = 1;
             Item.shoot = ModContent.ProjectileType<Projectiles.Misc.EnchantingPro>();
