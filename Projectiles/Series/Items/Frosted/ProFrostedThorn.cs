@@ -11,6 +11,7 @@ namespace OdeMod.Projectiles.Series.Items.Frosted
         protected int LastThorn = -1;
         internal float Longer = 0;
         internal Vector2 startCenter;
+
         public override void SetDefaults()
         {
             Projectile.width = 22;
@@ -26,6 +27,7 @@ namespace OdeMod.Projectiles.Series.Items.Frosted
             Projectile.scale = 1f;
             Projectile.extraUpdates = 1;
         }
+
         public override void AI()
         {
             base.AI();
@@ -34,11 +36,12 @@ namespace OdeMod.Projectiles.Series.Items.Frosted
             Vector2 unit = Vector2.Normalize(Projectile.velocity);
             Terraria.Utils.PlotTileLine(Projectile.Center, Projectile.Center + unit * Longer, (Projectile.width + 16) * Projectile.scale, DelegateMethods.CutTiles);
         }
+
         internal void PutNextPro()
         {
             if (Longer == 0)
             {
-                Kill(Projectile.timeLeft);
+                OnKill(Projectile.timeLeft);
                 return;
             }
             Vector2 unit = Vector2.Normalize(Projectile.velocity);
@@ -76,6 +79,7 @@ namespace OdeMod.Projectiles.Series.Items.Frosted
             proj.Longer = ml - Longer;
             proj.PutNextPro();
         }
+
         public override bool PreDraw(ref Color lightColor)
         {
             Texture2D texture = ModContent.Request<Texture2D>(Texture).Value;

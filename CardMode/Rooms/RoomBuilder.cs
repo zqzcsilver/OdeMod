@@ -100,7 +100,7 @@ namespace OdeMod.CardMode.Rooms
 
         public void RemoveRoomInBuildList(RoomBase room)
         {
-            if (buildRoomPool.Contains(room))
+            if (!buildRoomPool.Contains(room))
                 return;
             buildRoomPool.Remove(room);
         }

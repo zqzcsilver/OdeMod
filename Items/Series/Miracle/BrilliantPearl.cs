@@ -3,6 +3,7 @@ using Terraria.ID;
 using Terraria.GameContent.Creative;
 using Terraria.ModLoader;
 using OdeMod.NPCs.Boss.MiracleRecorder;
+using System.Collections.Concurrent;
 
 namespace OdeMod.Items.Series.Miracle
 {
