@@ -13,8 +13,9 @@ namespace OdeMod.Items.Misc.Weapons
         {
             Item.width = 32;
             Item.height = 38;
-            Item.DamageType = DamageClass.Ranged;
+            Item.DamageType = DamageClass.Magic;
             Item.useStyle = ItemUseStyleID.Shoot;
+            Item.mana = 10;
             Item.damage = 10;
             Item.crit = 1;
             Item.shoot = ModContent.ProjectileType<Projectiles.Misc.PurpleSteel>();
@@ -22,6 +23,11 @@ namespace OdeMod.Items.Misc.Weapons
             Item.useAnimation = 20;
             Item.useTime = 20;
             base.SetDefaults();
+            Item.staff[Item.type] = true;
+        }
+        public override Vector2? HoldoutOffset()
+        {
+            return new Vector2(-8f, -8f);
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {

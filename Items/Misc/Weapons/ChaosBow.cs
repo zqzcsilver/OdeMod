@@ -12,7 +12,7 @@ namespace OdeMod.Items.Misc.Weapons
             base.SetDefaults();
             Item.width = 36;
             Item.height = 40;
-            Item.DamageType = DamageClass.Magic;
+            Item.DamageType = DamageClass.Ranged;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.damage = 15;
             Item.crit = 4;
@@ -21,7 +21,11 @@ namespace OdeMod.Items.Misc.Weapons
             Item.useAnimation = 15;
             Item.useTime = 15;
             Item.value = Item.sellPrice(0, 0, 50, 0);
-            Item.staff[Item.type] = true;
+            Item.autoReuse = true;
+        }
+        public override Vector2? HoldoutOffset()
+        {
+            return new Vector2(-8f, 0f);
         }
         public override void AddRecipes()
         {

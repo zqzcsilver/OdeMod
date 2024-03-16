@@ -275,7 +275,7 @@ namespace OdeMod.CardMode.UI
         {
             foreach (var c in CallOrder)
             {
-                Elements[c].Info.IsVisible = false;
+                Elements[c].Close();
             }
         }
     }

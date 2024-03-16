@@ -19,6 +19,7 @@ namespace OdeMod.UI.OdeUISystem.Containers.Recharge
 {
     internal class RechargeContainer : UIContainerElement, IOriginalUIState
     {
+        public static RechargeContainer Instance => (RechargeContainer)OdeMod.OdeUISystem.Elements[ContainerFullName];
         public static readonly string ContainerFullName = typeof(RechargeContainer).FullName;
         public RechargeItem[] RechargeItems;
 

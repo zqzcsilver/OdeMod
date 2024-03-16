@@ -50,4 +50,22 @@
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
     <Exec Command="call &quot;$(ProjectDir)PreBuild.bat&quot;" />
   </Target>
+  <ItemGroup>
+    <ModFile Remove="UI\OdeUISystem\Containers\Drawer\UIElements\UICanvas.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ModFile Remove="Professions\Painter\MasterpieceCurator.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ModFile Remove="Professions\Painter\MasterpieceCreator.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ModFile Remove="Utils\Expands\ArrayExpands.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ModFile Remove="Images\Masterpieces\Xabc.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ImageFile Remove="Images\Masterpieces\Xabc.png" />
+  </ItemGroup>
 </Project>

@@ -235,6 +235,13 @@ public static class ModAssets_Texture2D
             public const string SpPath = "Images/Effects/Sp";
         }
 
+        public static class Masterpieces
+        {
+            public static Asset<Texture2D> __________Asset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(__________Path);
+            public static Asset<Texture2D> __________ImmediateAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(__________Path, AssetRequestMode.ImmediateLoad);
+            public const string __________Path = "Images/Masterpieces/攻击速度冲刺一级画法";
+        }
+
         public static class Misc
         {
             public static Asset<Texture2D> NikoAsset => ModAssets_Utils.Mod.Assets.Request<Texture2D>(NikoPath);

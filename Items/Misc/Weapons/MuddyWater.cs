@@ -11,7 +11,7 @@ namespace OdeMod.Items.Misc.Weapons
             base.SetDefaults();
             Item.width = 36;
             Item.height = 40;
-            Item.DamageType = DamageClass.Magic;
+            Item.DamageType = DamageClass.Melee;
             Item.useStyle = ItemUseStyleID.Swing;
             Item.damage = 15;
             Item.crit = 4;

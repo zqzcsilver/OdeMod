@@ -1,7 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 
 using OdeMod.Players;
+using OdeMod.UI.OdeUISystem.Containers.Drawer;
+
 using System.Collections.Generic;
+
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -11,7 +14,6 @@ namespace OdeMod.Items.Series.Drawer
 {
     internal class Snowave : BaseDrawer, IDrawer
     {
-
         public override void SetDefaults()
         {
             DrawerWidth = 5;
@@ -33,9 +35,10 @@ namespace OdeMod.Items.Series.Drawer
             Item.shoot = ModContent.ProjectileType<Projectiles.Series.Items.Frosted.Flycutter1>();
             Item.shootSpeed = 11;
         }
+
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            OdeMod.OdeUISystem.Elements["OdeMod.UI.OdeUISystem.Containers.Drawer.SnowaveD"].Info.IsVisible = true;
+            SnowaveD.Instance.Show();
             return false;
         }
     }

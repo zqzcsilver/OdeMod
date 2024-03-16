@@ -51,33 +51,36 @@ namespace OdeMod.NPCs.Boss.DargonDemo
             Run
         }
         private Dictionary<DemoState, Action<Player>> _npcLogic;
+        public override void SetStaticDefaults()
+        {
+            Main.npcFrameCount[NPC.type] = 1;
+        }
         public override void SetDefaults()
         {
-            NPC.lifeMax = 100;
-            NPC.damage = 35;
+            NPC.lifeMax = Life();
+            NPC.damage = Damage();
             NPC.defense = 10;
             NPC.knockBackResist = 0f;
             NPC.width = 24;
             NPC.height = 24;
-            NPC.aiStyle = -1;
+            NPC.aiStyle = 14;
             NPC.boss = true;
-            NPC.alpha = 255;
             NPC.noGravity = true;
             NPC.noTileCollide = true;
             NPCID.Sets.TrailingMode[NPC.type] = 0;
             NPCID.Sets.TrailCacheLength[NPC.type] = 8;
-
         }
-        public int BaseChange(int basestyle)
+       public int Life()
         {
-            int baselife = 0;
-            int basedamage = 0;
-            int basedefense = 0;
-            switch (Main.moonPhase)
-            {
-                case 0: return 1;
-            }
-            return 0;
+            if (Main.masterMode) return 2000;
+            else if (Main.expertMode) return 2500;
+            else return 3500;
+        }
+        public int Damage()
+        {
+            if (Main.masterMode) return 12;
+            else if (Main.expertMode) return 15;
+            else return 20;
         }
         public override void FindFrame(int frameHeight)
         {
@@ -85,30 +88,54 @@ namespace OdeMod.NPCs.Boss.DargonDemo
         }
         public override void AI()
         {
+            Player player = Main.player[NPC.target];
+            NPC.ai[0]++;
+            if (NPC.ai[0] % 60 == 0)
+            {
+                TeleportationAttack(player);
+            }
             base.AI();
         }
-        private void WeightCharge(DemoState state)
-        {
-        }
-        //行为 按阶段排序
         private int Tpnum = 0;
+        Vector2[] TP = new Vector2[5];
         /// <summary>
-        /// 传送点设置&&清除
+        /// 传送点设置 清除
         /// </summary>
         private void TeleportantionPostion()
         {
-            if(Tpnum >= 5)
+            if (Tpnum >= 5)
             {
-
+                NPC.position = TP[Main.rand.Next(5)];
+                Tpnum = 0;
             }
             else
             {
+                TP[Tpnum] = NPC.position;
+                Main.NewText(Tpnum);
                 Tpnum++;
             }
         }
-        private void TeleportationAttack(DemoState state, AddStatus addstate)
+        public override void ModifyHitByProjectile(Projectile projectile, ref NPC.HitModifiers modifiers)
         {
-            float telinterval = (float)(Main.rand.Next(1, 6) * 0.2);
+            base.ModifyHitByProjectile(projectile, ref modifiers);
+        }
+        int telnum =-3;
+        private void TeleportationAttack(/*DemoState state, AddStatus addstate,*/ Player player)
+        {
+            Vector2 hittarget = player.position;
+            if (telnum % 2 == 0)
+            {
+                NPC.position = hittarget + new Vector2(telnum + 1000, 0);
+                NPC.velocity = new Vector2(-20, 0);
+            }
+            else
+            {
+                NPC.position = hittarget + new Vector2(telnum - 1000, 0);
+                NPC.velocity = new Vector2(20, 0);
+            }
+            telnum++;
+            if (telnum >= 4)
+                telnum = 0;
         }
         /// <summary>
         /// 根据月相进行一些攻击的权重调整及额外延展判定
@@ -121,33 +148,20 @@ namespace OdeMod.NPCs.Boss.DargonDemo
             //GB 设定上没说幼龙来自那颗星球 月亮也是星星（ 所以就越接近满月提供的加成越少了
             //我对宇宙相关知识少得可怜淦
             //2.6 我是傻逼 我设计个这干嘛
+            //5.5我本来想所有月相都设计一套 是不是很大胆（x 认清现实 满月新月单独做一个 剩下的正常AI就好
             switch (type)
             {
                 case 0: //满月
                     multchance -= 0.3f;
                     break;
-                case 1:
-                    multchance -= 0.3f;
+                case 4://新月
                     break;
-                case 2:
-                    multchance += 0.1f;
-                    break;
-                case 3:
-
-                    break;
-                case 4:
-
-                    break;
-                case 5:
-                    break;
-                case 6:
-                    break;
-                case 7:
+                default:
                     break;
             }
             return true;
         }
-        public override string Texture => "OdeMod/Items/Misc/Wan";
+        //public override string Texture => "OdeMod/Items/Misc/Wan";
         public bool TempItemChange(Player target, int BaseChance)
         {
             

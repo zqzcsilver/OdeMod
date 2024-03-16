@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using OdeMod.CardMode;
+using OdeMod.Professions.Painter;
 using OdeMod.ShaderDatas.ScreenShaderDatas;
 using OdeMod.UI.OdeUISystem;
 using OdeMod.Utils;
@@ -134,7 +135,9 @@ namespace OdeMod
         public override void Load()
         {
             base.Load();
-
+            ContentInstance.Register(new object());
+            MasterpieceCurator masterpieceCurator = new MasterpieceCurator();
+            masterpieceCurator.Load();
             if (Main.netMode == NetmodeID.SinglePlayer)
             {
                 //On.Terraria.Main.DrawPlayer += Main_DrawPlayer;

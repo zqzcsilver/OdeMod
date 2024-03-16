@@ -46,12 +46,11 @@ namespace OdeMod.UI.OdeUISystem.Containers.QuickBar
                     ReLogic.Content.AssetRequestMode.ImmediateLoad).Value, Color.White);
             quickElement.Events.OnUpdate += (element, gt) =>
             {
-                var e = OdeMod.OdeUISystem.Elements[RechargeContainer.ContainerFullName];
-                ((UIImage)element).ChangeColor(Color.White * (e.Info.IsVisible ? 1f : 0.6f));
+                ((UIImage)element).ChangeColor(Color.White * (RechargeContainer.Instance.Info.IsVisible ? 1f : 0.6f));
             };
             quickElement.OnTigger += element =>
             {
-                var e = OdeMod.OdeUISystem.Elements[RechargeContainer.ContainerFullName];
+                var e = RechargeContainer.Instance;
                 if (!e.Info.IsVisible)
                     e.Show();
                 else
@@ -73,7 +72,7 @@ namespace OdeMod.UI.OdeUISystem.Containers.QuickBar
             quickBar.Register(quickElement);
 
             UIImage image = new UIImage(
-                ModContent.Request<Texture2D>("OdeMod/UI/OdeUISystem/Containers/QuickBar/Images/array",
+                ModContent.Request<Texture2D>("OdeMod/UI/OdeUISystem/Containers/QuickBar/Images/Array",
                 ReLogic.Content.AssetRequestMode.ImmediateLoad).Value, Color.White);
             image.Info.Left.SetValue(2f, 1f);
             image.Info.Top.SetValue(-image.Info.Height.Pixel / 2f, 0.5f);

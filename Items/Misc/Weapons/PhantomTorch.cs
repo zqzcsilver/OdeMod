@@ -13,8 +13,8 @@ namespace OdeMod.Items.Misc.Weapons
             base.SetDefaults();
             Item.width = 54;
             Item.height = 72;
-            Item.DamageType = DamageClass.Melee;
-            Item.useStyle = ItemUseStyleID.Swing;
+            Item.DamageType = DamageClass.Magic;
+            Item.useStyle = ItemUseStyleID.Shoot;
             Item.damage = 111;
             Item.crit = 5;
             Item.shoot = ModContent.ProjectileType<Projectiles.Misc.PhantomTorch>();
@@ -22,6 +22,11 @@ namespace OdeMod.Items.Misc.Weapons
             Item.useAnimation = 30;
             Item.useTime = 15;
             Item.value = Item.sellPrice(0, 5, 0, 0);
+            Item.staff[Item.type] = true;
+        }
+        public override Vector2? HoldoutOffset()
+        {
+            return new Vector2(-3f, -3f);
         }
         int num = 1;
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
