@@ -77,7 +77,7 @@ namespace OdeMod.Items.Series.HollowKnight
                     }
                     if (timer > 9 && timer <= 16)
                     {
-                        player.velocity.Y = -6f;
+                        player.velocity.Y = -8f;
                     }
                     if (timer > 16)
                     {

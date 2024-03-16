@@ -24,7 +24,6 @@ namespace OdeMod.Items.Series.Drawer
             Item.useStyle = ItemUseStyleID.None;
             Item.noUseGraphic = true;
             
-            Item.value = Item.sellPrice(0, 6, 50, 0);
             Item.autoReuse = true;
             Item.shoot = ModContent.ProjectileType<Projectiles.Series.Items.Frosted.Flycutter1>();
             Item.shootSpeed = 1;

@@ -93,12 +93,6 @@ namespace OdeMod.Projectiles.Misc
             return false;
         }
 
-        public override void Kill(int timeLeft)
-        {
-            SoundEngine.PlaySound(SoundID.Item96, Projectile.position);
-            SoundEngine.TryGetActiveSound(SoundEngine.PlaySound(SoundID.Item96, Projectile.position), out ActiveSound active);
-            active.Volume = 0.6f;
-            base.Kill(timeLeft);
-        }
+
     }
 }

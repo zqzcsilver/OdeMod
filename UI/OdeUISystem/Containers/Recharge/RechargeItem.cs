@@ -40,6 +40,8 @@ namespace OdeMod.UI.OdeUISystem.Containers.Recharge
             UIItemSlots[1].Info.Left.Percent = 0.75f;
             UIItemSlots[1].Info.Top.Pixel = 7f;
             Register(UIItemSlots[1]);
+
+
             base.OnInitialization();
         }
 

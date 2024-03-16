@@ -36,11 +36,6 @@ namespace OdeMod.Projectiles.Series.Items.Frosted
         }
         internal void PutNextPro()
         {
-            if (Longer == 0)
-            {
-                Kill(Projectile.timeLeft);
-                return;
-            }
             Vector2 unit = Vector2.Normalize(Projectile.velocity);
             float l = Longer, ml = Longer;
             float width = (Projectile.width + 16) * Projectile.scale;

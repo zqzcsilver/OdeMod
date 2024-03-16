@@ -548,7 +548,7 @@ Mods: {
 				DisplayName: 暗影披风
 				Tooltip:
 					'''
-					[将该物品标记为收藏后双击左右键使用]
+					[将该物品标记为收藏后双击方向键使用]
 					由深渊的物质形成的披风。允许穿戴者冲刺时穿过敌人和他们的攻击而不受到伤害。
 					'''
 			}
@@ -855,6 +855,11 @@ Mods: {
 
 			Snowave: {
 				// DisplayName: Snowave
+				// Tooltip: ""
+			}
+
+			CopperPen: {
+				// DisplayName: Copper Pen
 				// Tooltip: ""
 			}
 		}

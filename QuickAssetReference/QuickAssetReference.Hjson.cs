@@ -965,6 +965,12 @@ public static class ModAssets_Hjson
                     public const string Tooltip = "Mods.OdeMod.Items.Snowave.Tooltip";
                 }
 
+                public static class CopperPen
+                {
+                    public const string DisplayName = "Mods.OdeMod.Items.CopperPen.DisplayName";
+                    public const string Tooltip = "Mods.OdeMod.Items.CopperPen.Tooltip";
+                }
+
             }
 
             public static class NPCs

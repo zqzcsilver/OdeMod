@@ -15,12 +15,16 @@ using Terraria;
 using Terraria.ModLoader;
 using OdeMod.Utils;
 using System.Reflection;
+using OdeMod.Items.Series.Drawer;
+using OdeMod.Items.Series.Drawer.Pens;
+using Terraria.ID;
 
 namespace OdeMod.UI.OdeUISystem.Containers.Drawer
 {
     internal class SnowaveD : UIContainerElement, IOriginalUIState
     {
         MasterPiece instance = new MasterPiece();
+        UIItemSlot UIItemSlots = new UIItemSlot();
         private UIImage[,] chart = new UIImage[5, 5];
         private int[,] draw = new int[5, 5];
         public override void OnInitialization()
@@ -53,6 +57,19 @@ namespace OdeMod.UI.OdeUISystem.Containers.Drawer
             closeButton.Events.OnLeftClick += element => Info.IsVisible = false;
             panel.Register(closeButton);
 
+            UIText pen = new UIText("画笔", OdeMod.DefaultFont,new Color(0,0,0));
+            pen.Info.Top.Percent = 0.4f;
+            pen.Info.Left.Percent = 0.8f;
+            panel.Register(pen);
+
+            UIItemSlots = new UIItemSlot(ModContent.Request<Texture2D>("OdeMod/UI/OdeUISystem/Containers/Recharge/Images/ItemSlot",
+                AssetRequestMode.ImmediateLoad).Value);
+            UIItemSlots.Info.Width.Pixel = 64f;
+            UIItemSlots.Info.Height.Pixel = 64f;
+            UIItemSlots.Info.Left.Percent = 0.8f;
+            UIItemSlots.Info.Top.Percent = 0.5f;
+            panel.Register(UIItemSlots);
+
             for (int i = 0; i < 5; i++) 
             {
                 for (int j = 0; j < 5; j++) 
@@ -65,24 +82,25 @@ namespace OdeMod.UI.OdeUISystem.Containers.Drawer
                     chart[i, j].Info.Top.SetValue(35f + i * 64f, 0f);
                     chart[i, j].Events.OnMouseHover += element =>
                     {
-                        if(Main.mouseLeft)
+                        if (Main.mouseLeft && UIItemSlots.ContainedItem != null && UIItemSlots.ContainedItem.type != ItemID.None)
                         {
                             ((UIImage)element).ChangeColor(new Color(0, 0, 0, 1f));
                         }
-                        if(Main.mouseRight)
+                        if(Main.mouseRight && UIItemSlots.ContainedItem != null && UIItemSlots.ContainedItem.type != ItemID.None)
                         {
                             ((UIImage)element).ChangeColor(new Color(0, 0, 0, 0.1f));
                         }
                     };
-                    //chart[i, j].Events.OnLeftClick += element =>
-                    //    ((UIImage)element).ChangeColor(new Color(0, 0, 0, 1f));
-                    //chart[i, j].Events.OnRightClick += element =>
-                    //    ((UIImage)element).ChangeColor(new Color(0, 0, 0, 0.1f));
                     panel.Register(chart[i, j]);
                 }
             }
         }
-
+        public override void LoadEvents()
+        {
+            base.LoadEvents();
+            UIItemSlots.CanPutInSlot = item => item.ModItem != null && item.ModItem is BasePen;
+            
+        }
         private static bool AreArraysEqual<T>(T[,] array1, T[,] array2)
         {
             if (array1 == null || array2 == null)
@@ -111,7 +129,12 @@ namespace OdeMod.UI.OdeUISystem.Containers.Drawer
 
         public override void Update(GameTime gt)
         {
-            
+            Player player = Main.LocalPlayer;
+            if (player.HeldItem.type != ModContent.ItemType<Snowave>() && !Main.playerInventory)
+            {
+                Info.IsVisible = false;
+            }
+            UIItemSlots.CanPutInSlot = item => item.ModItem != null && item.ModItem is BasePen;
             for (int i = 0; i < 5; i++)
             {
                 for (int j = 0; j < 5; j++)

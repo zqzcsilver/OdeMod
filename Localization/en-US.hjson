@@ -797,6 +797,11 @@ Mods: {
 				DisplayName: Snowave
 				Tooltip: ""
 			}
+
+			CopperPen: {
+				DisplayName: Copper Pen
+				Tooltip: ""
+			}
 		}
 
 		NPCs: {
